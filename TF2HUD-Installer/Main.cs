@@ -3,7 +3,6 @@ using SharpRaven.Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -143,66 +142,43 @@ namespace FlawHUD_Installer
             // GENERAL
             cbHUDVersion.SelectedIndex = 0;
             cbAspectRatio.SelectedIndex = 0;
-            cbResolution.SelectedIndex = 4;
             cbScoreboard.SelectedIndex = 0;
-            cbMenuSounds.Checked = false;
-            cbMinCTFDisplay.Checked = false;
-            cbAlternateFont.Checked = false;
+
+            rbUberAnimation1.Checked = false;
+            rbUberAnimation2.Checked = true;
+            rbUberAnimation3.Checked = false;
+            btnUberBarColor.BackColor = System.Drawing.Color.White;
+            btnUberFullColor.BackColor = System.Drawing.Color.White;
+            btnUberFlashColor1.BackColor = System.Drawing.Color.White;
+            btnUberFlashColor2.BackColor = System.Drawing.Color.White;
+
+            rbChatBoxTop.Checked = false;
+            rbChatBoxBottom.Checked = true;
+            rbTeamSelectLeft.Checked = true;
+            rbTeamSelectCenter.Checked = false;
             cbDisguiseImage.Checked = false;
             cbDefaultMenuBG.Checked = false;
 
             // CROSSHAIR
             cbCrosshair.Checked = false;
             cbXHairOutline.Checked = false;
-            txtXHairAxisY.Text = "10";
-            txtXHairAxisX.Text = "10";
-            cbXHairSize.SelectedIndex = 0;
+            txtXHairHeight.Text = "0";
+            txtXHairWidth.Text = "0";
             btnXHairColor.BackColor = System.Drawing.Color.White;
             cbXHairPulse.Checked = false;
             btnXHairPulse.BackColor = System.Drawing.Color.White;
 
             // HEALTH
-            btnDamageDone.BackColor = System.Drawing.Color.White;
             btnHealingDone.BackColor = System.Drawing.Color.White;
-            cbHealthCross.Checked = false;
-            cbHealthPickup.Checked = false;
             btnNumColor.BackColor = System.Drawing.Color.White;
             btnBuffNumColor.BackColor = System.Drawing.Color.White;
             btnLowNumColor.BackColor = System.Drawing.Color.White;
 
             // AMMO
-            rbLowAmmoEffect1.Checked = false;
-            rbLowAmmoEffect2.Checked = false;
-            rbLowAmmoEffect3.Checked = true;
             btnAmmoClip.BackColor = System.Drawing.Color.White;
             btnAmmoReserve.BackColor = System.Drawing.Color.White;
             btnLowAmmoClip.BackColor = System.Drawing.Color.White;
             btnLowAmmoReserve.BackColor = System.Drawing.Color.White;
-            btnAmmoClipBlink.BackColor = System.Drawing.Color.White;
-            btnAmmoReserveBlink.BackColor = System.Drawing.Color.White;
-
-            // DAMAGE
-            cbDamageOutline.Checked = false;
-            rbDamageSizeSmall.Checked = true;
-            rbDamageSizeMedium.Checked = false;
-            rbDamageSizeLarge.Checked = false;
-            btnDamageColor.BackColor = System.Drawing.Color.White;
-            rbLastDamage1.Checked = false;
-            rbLastDamage2.Checked = false;
-            rbLastDamage3.Checked = true;
-            btnLastDamageColor.BackColor = System.Drawing.Color.White;
-
-            // MISC
-            rbUberAnimation1.Checked = false;
-            rbUberAnimation2.Checked = true;
-            rbUberAnimation3.Checked = false;
-            btnUberBarColor.BackColor = System.Drawing.Color.White;
-            btnUberFullColor.BackColor = System.Drawing.Color.White;
-            btnUberFlashColor.BackColor = System.Drawing.Color.White;
-            rbChatBoxTop.Checked = false;
-            rbChatBoxBottom.Checked = true;
-            rbTeamSelectLeft.Checked = false;
-            rbTeamSelectCenter.Checked = true;
         }
 
         private void btnInstall_Click(object sender, EventArgs e)
@@ -262,6 +238,10 @@ namespace FlawHUD_Installer
             }
         }
 
+        private void btnSaveChanges_Click(object sender, EventArgs e)
+        {
+        }
+
         private void btnPlayTF2_Click(object sender, EventArgs e)
         {
             Process.Start("steam://rungameid/440");
@@ -295,16 +275,28 @@ namespace FlawHUD_Installer
             colorPicker.ShowDialog();
             switch (((Button)sender).Name)
             {
+                case "btnUberBarColor":
+                    btnUberBarColor.BackColor = colorPicker.Color;
+                    break;
+
+                case "btnUberFullColor":
+                    btnUberFullColor.BackColor = colorPicker.Color;
+                    break;
+
+                case "btnUberFlashColor1":
+                    btnUberFlashColor1.BackColor = colorPicker.Color;
+                    break;
+
+                case "btnUberFlashColor2":
+                    btnUberFlashColor2.BackColor = colorPicker.Color;
+                    break;
+
                 case "btnXHairColor":
                     btnXHairColor.BackColor = colorPicker.Color;
                     break;
 
                 case "btnXHairPulse":
                     btnXHairPulse.BackColor = colorPicker.Color;
-                    break;
-
-                case "btnDamageDone":
-                    btnDamageDone.BackColor = colorPicker.Color;
                     break;
 
                 case "btnHealingDone":
@@ -338,112 +330,195 @@ namespace FlawHUD_Installer
                 case "btnLowAmmoReserve":
                     btnLowAmmoReserve.BackColor = colorPicker.Color;
                     break;
-
-                case "btnAmmoClipBlink":
-                    btnAmmoClipBlink.BackColor = colorPicker.Color;
-                    break;
-
-                case "btnAmmoReserveBlink":
-                    btnAmmoReserveBlink.BackColor = colorPicker.Color;
-                    break;
-
-                case "btnDamageColor":
-                    btnDamageColor.BackColor = colorPicker.Color;
-                    break;
-
-                case "btnLastDamageColor":
-                    btnLastDamageColor.BackColor = colorPicker.Color;
-                    break;
-
-                case "btnUberBarColor":
-                    btnUberBarColor.BackColor = colorPicker.Color;
-                    break;
-
-                case "btnUberFullColor":
-                    btnUberFullColor.BackColor = colorPicker.Color;
-                    break;
-
-                case "btnUberFlashColor":
-                    btnUberFlashColor.BackColor = colorPicker.Color;
-                    break;
-            }
-        }
-
-        private void cbAspectRatio_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cbResolution.Items.Clear();
-            if (cbAspectRatio.SelectedIndex == 0)
-            {
-                cbResolution.Items.Add("1280x720");
-                cbResolution.Items.Add("1360x768");
-                cbResolution.Items.Add("1366x768");
-                cbResolution.Items.Add("1600x900");
-                cbResolution.Items.Add("1920x1080");
-            }
-            else
-            {
-                cbResolution.Items.Add("640x480");
-                cbResolution.Items.Add("520x576");
-                cbResolution.Items.Add("800x600");
-                cbResolution.Items.Add("1024x768");
-                cbResolution.Items.Add("1152x864");
-                cbResolution.Items.Add("1024x768");
-                cbResolution.Items.Add("1280x960");
-                cbResolution.Items.Add("1280x1024");
             }
         }
 
         private void lbXHairStyles_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            // Read scripts/hudlayout.res for the selected crosshair settings
+            // Update the controls: cbCrosshair, cbXHairOutline, txtXHairAxisY, txtXHairAxisX, cbXHairSize, btnXHairColor, cbXHairPulse, btnXHairPulse
+            // Update preview image
             switch (lbXHairStyles.SelectedItem)
             {
                 case "BasicCross":
                     pbPreview2.ImageLocation = "https://i.imgur.com/9FMR0oN.jpg";
                     break;
+
                 case "BasicCrossLarge":
                     pbPreview2.ImageLocation = "https://i.imgur.com/dUtMMpz.jpg";
                     break;
+
                 case "BasicCrossSmall":
                     pbPreview2.ImageLocation = "https://i.imgur.com/x9M3tZA.jpg";
                     break;
+
                 case "BasicDot":
                     pbPreview2.ImageLocation = "https://i.imgur.com/cM4B3Yq.jpg";
                     break;
+
                 case "CircleDot":
                     pbPreview2.ImageLocation = "https://i.imgur.com/yUDWwOU.jpg";
                     break;
+
                 case "KonrWings":
                     pbPreview2.ImageLocation = "https://i.imgur.com/ym1WUsP.jpg";
                     break;
+
                 case "OpenCross":
                     pbPreview2.ImageLocation = "https://i.imgur.com/Yc5H81Q.jpg";
                     break;
+
                 case "OpenCrossDot":
                     pbPreview2.ImageLocation = "https://i.imgur.com/YNLmuze.jpg";
                     break;
+
                 case "ScatterSpread":
                     pbPreview2.ImageLocation = "https://i.imgur.com/S7yWqL8.jpg";
                     break;
+
                 case "ThinCircle":
                     pbPreview2.ImageLocation = "https://i.imgur.com/T8ovez4.jpg";
                     break;
+
                 case "ThinCross":
                     pbPreview2.ImageLocation = "https://i.imgur.com/SzZkbaB.jpg";
                     break;
+
                 case "Wings":
                     pbPreview2.ImageLocation = "https://i.imgur.com/pOltRKf.jpg";
                     break;
+
                 case "WingsPlus":
                     pbPreview2.ImageLocation = "https://i.imgur.com/uonkSki.jpg";
                     break;
+
                 case "WingsSmall":
                     pbPreview2.ImageLocation = "https://i.imgur.com/eGqDvF0.jpg";
                     break;
+
                 case "xHairCircle":
                     pbPreview2.ImageLocation = "https://i.imgur.com/vO6Q3KL.jpg";
                     break;
             }
+        }
+
+        public void Write()
+        {
+            var scripts = $"{TF2Directory}\\rayshud\\scripts";
+            var resource = $"{TF2Directory}\\rayshud\\resource";
+            var scheme = $"{TF2Directory}\\rayshud\\resource\\scheme";
+            var ui = $"{TF2Directory}\\rayshud\\resource\\ui";
+
+            // Control: cbHUDVersion
+            // Location: customizations / Classic Main Menu
+            // Task: Copy folder contents into root
+
+            // Control: cbAspectRatio
+            // Location: customizations / 4; 3 Ratio
+            // Task: Copy folder contents into root
+
+            // Control: cbScoreboard
+            // Location: customizations / Scoreboard 6s or HL
+            // Task: Copy folder contents into root
+
+            // Control: cbDisguiseImage
+            // Location: scripts / hudanimations_custom.txt
+            // Task: Uncomment lines 87 - 89 and 94 - 96 if enabled
+
+            // Control: cbDefaultMenuBG
+            // Location: materials
+            // Task: Rename folder to material_unused if enabled
+
+            // Control: rbUberAnimation1 - 3
+            // Location: scripts / hudanimations_custom.txt
+            // Task: Uncomment lines 104 - 106 based on selection
+
+            // Control: btnUberBarColor
+            // Location: resource\scheme\clientscheme_colors.res
+            // Task: Update line 32
+
+            // Control: btnUberFullColor
+            // Location: resource\scheme\clientscheme_colors.res
+            // Task: Update line 35
+
+            // Control: btnUberFlashColor1 - 2
+            // Location: resource\scheme\clientscheme_colors.res
+            // Task: Update line 37 - 38
+
+            // Control: rbChatBoxTop - Bottom
+            // Location: resource\ui\basechat.res
+            // Task: Update line 10
+
+            // Control: rbTeamSelectLeft - Center
+            // Location: resource\ui
+            // Task: Add or remove center to classselection and teammenu
+            ////---------------------------------------------------------------------------------
+
+            // Control: cbCrosshair
+            // Location: scripts\hudlayout.res
+            // Task: Update lines 3 - 4 in node
+
+            // Control: cbXHairOutline
+            // Location: scripts\hudlayout.res
+            // Task: Add or remove Outline to the font name
+
+            // Control: txtXHairHeight
+            // Location: scripts\hudlayout.res
+            // Task: Update line 8 in node
+
+            // Control: txtXHairWidth
+            // Location: scripts\hudlayout.res
+            // Task: Update line 9 in node
+
+            // Control: btnXHairColor
+            // Location: resource\scheme\clientscheme_colors.res
+            // Task: Update line 45
+
+            // Control: cbXHairPulse
+            // Location: scripts\hudanimations_custom.txt
+            // Task: Comment out lines 80 - 81, based on selection
+
+            // Control: btnXHairPulse
+            // Location: resource\scheme\clientscheme_colors.res
+            // Task: Update line 46
+            ////---------------------------------------------------------------------------------
+
+            // Control: cbPlayerHealth
+            // Location: resource\ui
+            // Task: Add or remove tags from HudPlayerHealth
+
+            // Control: btnHealingDone
+            // Location: resource\scheme\clientscheme_colors.res
+            // Task: Update line 41
+
+            // Control: btnNumColor
+            // Location: resource\scheme\clientscheme_colors.res
+            // Task: Update line 23
+
+            // Control: btnBuffNumColor
+            // Location: resource\scheme\clientscheme_colors.res
+            // Task: Update line 24
+
+            // Control: btnLowNumColor
+            // Location: resource\scheme\clientscheme_colors.res
+            // Task: Update line 25
+            ////---------------------------------------------------------------------------------
+
+            // Control: btnAmmoClip
+            // Location: resource\scheme\clientscheme_colors.res
+            // Task: Update line 7
+
+            // Control: btnAmmoReserve
+            // Location: resource\scheme\clientscheme_colors.res
+            // Task: Update line 8
+
+            // Control: btnLowAmmoClip
+            // Location: resource\scheme\clientscheme_colors.res
+            // Task: Update line 9
+
+            // Control: btnLowAmmoReserve
+            // Location: resource\scheme\clientscheme_colors.res
+            // Task: Update line 10
         }
     }
 }
