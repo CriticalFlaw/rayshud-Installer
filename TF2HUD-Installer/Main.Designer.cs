@@ -196,6 +196,7 @@
             // rbTeamSelectLeft
             // 
             this.rbTeamSelectLeft.AutoSize = true;
+            this.rbTeamSelectLeft.Checked = true;
             this.rbTeamSelectLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbTeamSelectLeft.Location = new System.Drawing.Point(9, 14);
             this.rbTeamSelectLeft.Name = "rbTeamSelectLeft";
@@ -234,6 +235,7 @@
             // rbChatBoxTop
             // 
             this.rbChatBoxTop.AutoSize = true;
+            this.rbChatBoxTop.Checked = true;
             this.rbChatBoxTop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbChatBoxTop.Location = new System.Drawing.Point(8, 14);
             this.rbChatBoxTop.Name = "rbChatBoxTop";
@@ -321,6 +323,7 @@
             // rbUberAnimation1
             // 
             this.rbUberAnimation1.AutoSize = true;
+            this.rbUberAnimation1.Checked = true;
             this.rbUberAnimation1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbUberAnimation1.Location = new System.Drawing.Point(9, 37);
             this.rbUberAnimation1.Name = "rbUberAnimation1";
@@ -558,6 +561,11 @@
             this.txtXHairWidth.Name = "txtXHairWidth";
             this.txtXHairWidth.Size = new System.Drawing.Size(80, 22);
             this.txtXHairWidth.TabIndex = 14;
+            this.txtXHairWidth.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
             // 
             // txtXHairHeight
             // 
@@ -570,6 +578,11 @@
             this.txtXHairHeight.Name = "txtXHairHeight";
             this.txtXHairHeight.Size = new System.Drawing.Size(80, 22);
             this.txtXHairHeight.TabIndex = 13;
+            this.txtXHairHeight.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
             // 
             // btnXHairColor
             // 
@@ -594,6 +607,8 @@
             // cbXHairPulse
             // 
             this.cbXHairPulse.AutoSize = true;
+            this.cbXHairPulse.Checked = true;
+            this.cbXHairPulse.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbXHairPulse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbXHairPulse.Location = new System.Drawing.Point(161, 73);
             this.cbXHairPulse.Name = "cbXHairPulse";
@@ -1043,7 +1058,7 @@
             this.txtInstalledVersion.Size = new System.Drawing.Size(0, 17);
             this.txtInstalledVersion.TabIndex = 31;
             // 
-            // frmMain
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1065,7 +1080,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.MaximizeBox = false;
-            this.Name = "frmMain";
+            this.Name = "Main";
             this.Text = "rayshud Installer";
             this.tabEditor.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
