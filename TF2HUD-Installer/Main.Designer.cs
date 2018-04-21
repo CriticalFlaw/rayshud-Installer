@@ -1,6 +1,6 @@
 ﻿namespace FlawHUD_Installer
 {
-    partial class frmMain
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tabEditor = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
             this.gbInformation = new System.Windows.Forms.GroupBox();
@@ -73,35 +73,34 @@
             this.lblXHairPulse = new System.Windows.Forms.Label();
             this.lblXHairColor = new System.Windows.Forms.Label();
             this.cbXHairOutline = new System.Windows.Forms.CheckBox();
-            this.cbCrosshair = new System.Windows.Forms.CheckBox();
+            this.cbXHairEnabled = new System.Windows.Forms.CheckBox();
             this.lblXHairHeight = new System.Windows.Forms.Label();
             this.lblXHairWidth = new System.Windows.Forms.Label();
             this.tabHealthAmmo = new System.Windows.Forms.TabPage();
             this.gbProperties4 = new System.Windows.Forms.GroupBox();
-            this.btnLowAmmoReserve = new System.Windows.Forms.Button();
+            this.btnAmmoReserveLow = new System.Windows.Forms.Button();
             this.btnAmmoReserve = new System.Windows.Forms.Button();
-            this.btnLowAmmoClip = new System.Windows.Forms.Button();
+            this.btnAmmoClipLow = new System.Windows.Forms.Button();
             this.btnAmmoClip = new System.Windows.Forms.Button();
-            this.lblLowAmmoReserve = new System.Windows.Forms.Label();
-            this.lblLowAmmoClip = new System.Windows.Forms.Label();
+            this.lblAmmoReserveLow = new System.Windows.Forms.Label();
+            this.lblAmmoClipLow = new System.Windows.Forms.Label();
             this.lblAmmoReserve = new System.Windows.Forms.Label();
             this.lblAmmoClip = new System.Windows.Forms.Label();
             this.gbPreview3 = new System.Windows.Forms.GroupBox();
             this.pbPreview3 = new System.Windows.Forms.PictureBox();
             this.gbProperties3 = new System.Windows.Forms.GroupBox();
-            this.lbPlayerHealth = new System.Windows.Forms.ListBox();
-            this.lblPlayerHealth = new System.Windows.Forms.Label();
+            this.lbHealthStyle = new System.Windows.Forms.ListBox();
+            this.lblHealthStyle = new System.Windows.Forms.Label();
             this.btnHealingDone = new System.Windows.Forms.Button();
-            this.btnNumColor = new System.Windows.Forms.Button();
-            this.btnBuffNumColor = new System.Windows.Forms.Button();
-            this.btnLowNumColor = new System.Windows.Forms.Button();
-            this.lblLowNumColor = new System.Windows.Forms.Label();
-            this.lblBuffNumColor = new System.Windows.Forms.Label();
-            this.lblNumColor = new System.Windows.Forms.Label();
+            this.btnHealthNormal = new System.Windows.Forms.Button();
+            this.btnHealthBuff = new System.Windows.Forms.Button();
+            this.btnHealthLow = new System.Windows.Forms.Button();
+            this.lblHealthLow = new System.Windows.Forms.Label();
+            this.lblHealthBuff = new System.Windows.Forms.Label();
+            this.lblHealthNormal = new System.Windows.Forms.Label();
             this.lblHealingDone = new System.Windows.Forms.Label();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.lblStatus = new System.Windows.Forms.Label();
             this.btnInstall = new System.Windows.Forms.Button();
             this.btnUninstall = new System.Windows.Forms.Button();
             this.btnPlayTF2 = new System.Windows.Forms.Button();
@@ -184,9 +183,10 @@
             // rbTeamSelectCenter
             // 
             this.rbTeamSelectCenter.AutoSize = true;
+            this.rbTeamSelectCenter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbTeamSelectCenter.Location = new System.Drawing.Point(64, 14);
             this.rbTeamSelectCenter.Name = "rbTeamSelectCenter";
-            this.rbTeamSelectCenter.Size = new System.Drawing.Size(65, 20);
+            this.rbTeamSelectCenter.Size = new System.Drawing.Size(64, 20);
             this.rbTeamSelectCenter.TabIndex = 11;
             this.rbTeamSelectCenter.TabStop = true;
             this.rbTeamSelectCenter.Text = "Center";
@@ -196,9 +196,10 @@
             // rbTeamSelectLeft
             // 
             this.rbTeamSelectLeft.AutoSize = true;
+            this.rbTeamSelectLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbTeamSelectLeft.Location = new System.Drawing.Point(9, 14);
             this.rbTeamSelectLeft.Name = "rbTeamSelectLeft";
-            this.rbTeamSelectLeft.Size = new System.Drawing.Size(49, 20);
+            this.rbTeamSelectLeft.Size = new System.Drawing.Size(48, 20);
             this.rbTeamSelectLeft.TabIndex = 10;
             this.rbTeamSelectLeft.TabStop = true;
             this.rbTeamSelectLeft.Text = "Left";
@@ -220,9 +221,10 @@
             // rbChatBoxBottom
             // 
             this.rbChatBoxBottom.AutoSize = true;
+            this.rbChatBoxBottom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbChatBoxBottom.Location = new System.Drawing.Point(90, 14);
             this.rbChatBoxBottom.Name = "rbChatBoxBottom";
-            this.rbChatBoxBottom.Size = new System.Drawing.Size(96, 20);
+            this.rbChatBoxBottom.Size = new System.Drawing.Size(95, 20);
             this.rbChatBoxBottom.TabIndex = 11;
             this.rbChatBoxBottom.TabStop = true;
             this.rbChatBoxBottom.Text = "Bottom Left";
@@ -232,9 +234,10 @@
             // rbChatBoxTop
             // 
             this.rbChatBoxTop.AutoSize = true;
+            this.rbChatBoxTop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbChatBoxTop.Location = new System.Drawing.Point(8, 14);
             this.rbChatBoxTop.Name = "rbChatBoxTop";
-            this.rbChatBoxTop.Size = new System.Drawing.Size(75, 20);
+            this.rbChatBoxTop.Size = new System.Drawing.Size(74, 20);
             this.rbChatBoxTop.TabIndex = 10;
             this.rbChatBoxTop.TabStop = true;
             this.rbChatBoxTop.Text = "Top Left";
@@ -292,9 +295,10 @@
             // rbUberAnimation3
             // 
             this.rbUberAnimation3.AutoSize = true;
+            this.rbUberAnimation3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbUberAnimation3.Location = new System.Drawing.Point(221, 36);
             this.rbUberAnimation3.Name = "rbUberAnimation3";
-            this.rbUberAnimation3.Size = new System.Drawing.Size(76, 20);
+            this.rbUberAnimation3.Size = new System.Drawing.Size(75, 20);
             this.rbUberAnimation3.TabIndex = 10;
             this.rbUberAnimation3.TabStop = true;
             this.rbUberAnimation3.Text = "Rainbow";
@@ -304,9 +308,10 @@
             // rbUberAnimation2
             // 
             this.rbUberAnimation2.AutoSize = true;
+            this.rbUberAnimation2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbUberAnimation2.Location = new System.Drawing.Point(130, 36);
             this.rbUberAnimation2.Name = "rbUberAnimation2";
-            this.rbUberAnimation2.Size = new System.Drawing.Size(85, 20);
+            this.rbUberAnimation2.Size = new System.Drawing.Size(84, 20);
             this.rbUberAnimation2.TabIndex = 9;
             this.rbUberAnimation2.TabStop = true;
             this.rbUberAnimation2.Text = "Solid Color";
@@ -316,9 +321,10 @@
             // rbUberAnimation1
             // 
             this.rbUberAnimation1.AutoSize = true;
+            this.rbUberAnimation1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbUberAnimation1.Location = new System.Drawing.Point(9, 37);
             this.rbUberAnimation1.Name = "rbUberAnimation1";
-            this.rbUberAnimation1.Size = new System.Drawing.Size(115, 20);
+            this.rbUberAnimation1.Size = new System.Drawing.Size(114, 20);
             this.rbUberAnimation1.TabIndex = 8;
             this.rbUberAnimation1.TabStop = true;
             this.rbUberAnimation1.Text = "Two Color Flash";
@@ -389,9 +395,10 @@
             // cbDisguiseImage
             // 
             this.cbDisguiseImage.AutoSize = true;
+            this.cbDisguiseImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbDisguiseImage.Location = new System.Drawing.Point(6, 73);
             this.cbDisguiseImage.Name = "cbDisguiseImage";
-            this.cbDisguiseImage.Size = new System.Drawing.Size(137, 20);
+            this.cbDisguiseImage.Size = new System.Drawing.Size(134, 20);
             this.cbDisguiseImage.TabIndex = 15;
             this.cbDisguiseImage.Text = "Spy Disguise Image";
             this.cbDisguiseImage.UseVisualStyleBackColor = true;
@@ -409,9 +416,10 @@
             // cbDefaultMenuBG
             // 
             this.cbDefaultMenuBG.AutoSize = true;
+            this.cbDefaultMenuBG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbDefaultMenuBG.Location = new System.Drawing.Point(146, 73);
             this.cbDefaultMenuBG.Name = "cbDefaultMenuBG";
-            this.cbDefaultMenuBG.Size = new System.Drawing.Size(182, 20);
+            this.cbDefaultMenuBG.Size = new System.Drawing.Size(179, 20);
             this.cbDefaultMenuBG.TabIndex = 9;
             this.cbDefaultMenuBG.Text = "Default Menu Background";
             this.cbDefaultMenuBG.UseVisualStyleBackColor = true;
@@ -420,6 +428,7 @@
             // cbScoreboard
             // 
             this.cbScoreboard.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbScoreboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbScoreboard.FormattingEnabled = true;
             this.cbScoreboard.Items.AddRange(new object[] {
             "Standard",
@@ -442,6 +451,7 @@
             // cbHUDVersion
             // 
             this.cbHUDVersion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbHUDVersion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbHUDVersion.FormattingEnabled = true;
             this.cbHUDVersion.Items.AddRange(new object[] {
             "Modern",
@@ -454,13 +464,15 @@
             // 
             // btnBrowse
             // 
+            this.btnBrowse.BackColor = System.Drawing.Color.LightGray;
+            this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrowse.ForeColor = System.Drawing.Color.Black;
-            this.btnBrowse.Location = new System.Drawing.Point(603, 9);
+            this.btnBrowse.Location = new System.Drawing.Point(603, 6);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(75, 22);
+            this.btnBrowse.Size = new System.Drawing.Size(75, 33);
             this.btnBrowse.TabIndex = 2;
             this.btnBrowse.Text = "Browse";
-            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.UseVisualStyleBackColor = false;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
             // txtDirectory
@@ -524,7 +536,7 @@
             this.gbProperties2.Controls.Add(this.lblXHairPulse);
             this.gbProperties2.Controls.Add(this.lblXHairColor);
             this.gbProperties2.Controls.Add(this.cbXHairOutline);
-            this.gbProperties2.Controls.Add(this.cbCrosshair);
+            this.gbProperties2.Controls.Add(this.cbXHairEnabled);
             this.gbProperties2.Controls.Add(this.lblXHairHeight);
             this.gbProperties2.Controls.Add(this.lblXHairWidth);
             this.gbProperties2.ForeColor = System.Drawing.Color.White;
@@ -582,9 +594,10 @@
             // cbXHairPulse
             // 
             this.cbXHairPulse.AutoSize = true;
+            this.cbXHairPulse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbXHairPulse.Location = new System.Drawing.Point(161, 73);
             this.cbXHairPulse.Name = "cbXHairPulse";
-            this.cbXHairPulse.Size = new System.Drawing.Size(129, 20);
+            this.cbXHairPulse.Size = new System.Drawing.Size(126, 20);
             this.cbXHairPulse.TabIndex = 9;
             this.cbXHairPulse.Text = "Pulse on Damage";
             this.cbXHairPulse.UseVisualStyleBackColor = true;
@@ -638,28 +651,30 @@
             // 
             this.cbXHairOutline.AutoSize = true;
             this.cbXHairOutline.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cbXHairOutline.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbXHairOutline.Location = new System.Drawing.Point(161, 47);
             this.cbXHairOutline.Name = "cbXHairOutline";
             this.cbXHairOutline.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cbXHairOutline.Size = new System.Drawing.Size(156, 20);
+            this.cbXHairOutline.Size = new System.Drawing.Size(153, 20);
             this.cbXHairOutline.TabIndex = 0;
             this.cbXHairOutline.Text = "Outline Enable/Disable";
             this.cbXHairOutline.UseVisualStyleBackColor = true;
             this.cbXHairOutline.CheckedChanged += new System.EventHandler(this.cbXHairOutline_CheckedChanged);
             // 
-            // cbCrosshair
+            // cbXHairEnabled
             // 
-            this.cbCrosshair.AutoSize = true;
-            this.cbCrosshair.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cbCrosshair.ForeColor = System.Drawing.Color.White;
-            this.cbCrosshair.Location = new System.Drawing.Point(161, 21);
-            this.cbCrosshair.Name = "cbCrosshair";
-            this.cbCrosshair.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cbCrosshair.Size = new System.Drawing.Size(166, 20);
-            this.cbCrosshair.TabIndex = 0;
-            this.cbCrosshair.Text = "Crosshair Enable/Disable";
-            this.cbCrosshair.UseVisualStyleBackColor = true;
-            this.cbCrosshair.CheckedChanged += new System.EventHandler(this.cbCrosshair_CheckedChanged);
+            this.cbXHairEnabled.AutoSize = true;
+            this.cbXHairEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cbXHairEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbXHairEnabled.ForeColor = System.Drawing.Color.White;
+            this.cbXHairEnabled.Location = new System.Drawing.Point(161, 21);
+            this.cbXHairEnabled.Name = "cbXHairEnabled";
+            this.cbXHairEnabled.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cbXHairEnabled.Size = new System.Drawing.Size(163, 20);
+            this.cbXHairEnabled.TabIndex = 0;
+            this.cbXHairEnabled.Text = "Crosshair Enable/Disable";
+            this.cbXHairEnabled.UseVisualStyleBackColor = true;
+            this.cbXHairEnabled.CheckedChanged += new System.EventHandler(this.cbXHairEnabled_CheckedChanged);
             // 
             // lblXHairHeight
             // 
@@ -693,12 +708,12 @@
             // 
             // gbProperties4
             // 
-            this.gbProperties4.Controls.Add(this.btnLowAmmoReserve);
+            this.gbProperties4.Controls.Add(this.btnAmmoReserveLow);
             this.gbProperties4.Controls.Add(this.btnAmmoReserve);
-            this.gbProperties4.Controls.Add(this.btnLowAmmoClip);
+            this.gbProperties4.Controls.Add(this.btnAmmoClipLow);
             this.gbProperties4.Controls.Add(this.btnAmmoClip);
-            this.gbProperties4.Controls.Add(this.lblLowAmmoReserve);
-            this.gbProperties4.Controls.Add(this.lblLowAmmoClip);
+            this.gbProperties4.Controls.Add(this.lblAmmoReserveLow);
+            this.gbProperties4.Controls.Add(this.lblAmmoClipLow);
             this.gbProperties4.Controls.Add(this.lblAmmoReserve);
             this.gbProperties4.Controls.Add(this.lblAmmoClip);
             this.gbProperties4.ForeColor = System.Drawing.Color.White;
@@ -709,14 +724,14 @@
             this.gbProperties4.TabStop = false;
             this.gbProperties4.Text = "Ammo";
             // 
-            // btnLowAmmoReserve
+            // btnAmmoReserveLow
             // 
-            this.btnLowAmmoReserve.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnLowAmmoReserve.Location = new System.Drawing.Point(146, 81);
-            this.btnLowAmmoReserve.Name = "btnLowAmmoReserve";
-            this.btnLowAmmoReserve.Size = new System.Drawing.Size(120, 22);
-            this.btnLowAmmoReserve.TabIndex = 20;
-            this.btnLowAmmoReserve.UseVisualStyleBackColor = false;
+            this.btnAmmoReserveLow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
+            this.btnAmmoReserveLow.Location = new System.Drawing.Point(146, 81);
+            this.btnAmmoReserveLow.Name = "btnAmmoReserveLow";
+            this.btnAmmoReserveLow.Size = new System.Drawing.Size(120, 22);
+            this.btnAmmoReserveLow.TabIndex = 20;
+            this.btnAmmoReserveLow.UseVisualStyleBackColor = false;
             // 
             // btnAmmoReserve
             // 
@@ -727,14 +742,14 @@
             this.btnAmmoReserve.TabIndex = 19;
             this.btnAmmoReserve.UseVisualStyleBackColor = false;
             // 
-            // btnLowAmmoClip
+            // btnAmmoClipLow
             // 
-            this.btnLowAmmoClip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnLowAmmoClip.Location = new System.Drawing.Point(6, 81);
-            this.btnLowAmmoClip.Name = "btnLowAmmoClip";
-            this.btnLowAmmoClip.Size = new System.Drawing.Size(120, 22);
-            this.btnLowAmmoClip.TabIndex = 17;
-            this.btnLowAmmoClip.UseVisualStyleBackColor = false;
+            this.btnAmmoClipLow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
+            this.btnAmmoClipLow.Location = new System.Drawing.Point(6, 81);
+            this.btnAmmoClipLow.Name = "btnAmmoClipLow";
+            this.btnAmmoClipLow.Size = new System.Drawing.Size(120, 22);
+            this.btnAmmoClipLow.TabIndex = 17;
+            this.btnAmmoClipLow.UseVisualStyleBackColor = false;
             // 
             // btnAmmoClip
             // 
@@ -745,23 +760,23 @@
             this.btnAmmoClip.TabIndex = 16;
             this.btnAmmoClip.UseVisualStyleBackColor = false;
             // 
-            // lblLowAmmoReserve
+            // lblAmmoReserveLow
             // 
-            this.lblLowAmmoReserve.AutoSize = true;
-            this.lblLowAmmoReserve.Location = new System.Drawing.Point(146, 62);
-            this.lblLowAmmoReserve.Name = "lblLowAmmoReserve";
-            this.lblLowAmmoReserve.Size = new System.Drawing.Size(137, 16);
-            this.lblLowAmmoReserve.TabIndex = 13;
-            this.lblLowAmmoReserve.Text = "Low Ammo In Reserve:";
+            this.lblAmmoReserveLow.AutoSize = true;
+            this.lblAmmoReserveLow.Location = new System.Drawing.Point(146, 62);
+            this.lblAmmoReserveLow.Name = "lblAmmoReserveLow";
+            this.lblAmmoReserveLow.Size = new System.Drawing.Size(137, 16);
+            this.lblAmmoReserveLow.TabIndex = 13;
+            this.lblAmmoReserveLow.Text = "Low Ammo In Reserve:";
             // 
-            // lblLowAmmoClip
+            // lblAmmoClipLow
             // 
-            this.lblLowAmmoClip.AutoSize = true;
-            this.lblLowAmmoClip.Location = new System.Drawing.Point(6, 62);
-            this.lblLowAmmoClip.Name = "lblLowAmmoClip";
-            this.lblLowAmmoClip.Size = new System.Drawing.Size(113, 16);
-            this.lblLowAmmoClip.TabIndex = 9;
-            this.lblLowAmmoClip.Text = "Low Ammo In Clip:";
+            this.lblAmmoClipLow.AutoSize = true;
+            this.lblAmmoClipLow.Location = new System.Drawing.Point(6, 62);
+            this.lblAmmoClipLow.Name = "lblAmmoClipLow";
+            this.lblAmmoClipLow.Size = new System.Drawing.Size(113, 16);
+            this.lblAmmoClipLow.TabIndex = 9;
+            this.lblAmmoClipLow.Text = "Low Ammo In Clip:";
             // 
             // lblAmmoReserve
             // 
@@ -802,15 +817,15 @@
             // 
             // gbProperties3
             // 
-            this.gbProperties3.Controls.Add(this.lbPlayerHealth);
-            this.gbProperties3.Controls.Add(this.lblPlayerHealth);
+            this.gbProperties3.Controls.Add(this.lbHealthStyle);
+            this.gbProperties3.Controls.Add(this.lblHealthStyle);
             this.gbProperties3.Controls.Add(this.btnHealingDone);
-            this.gbProperties3.Controls.Add(this.btnNumColor);
-            this.gbProperties3.Controls.Add(this.btnBuffNumColor);
-            this.gbProperties3.Controls.Add(this.btnLowNumColor);
-            this.gbProperties3.Controls.Add(this.lblLowNumColor);
-            this.gbProperties3.Controls.Add(this.lblBuffNumColor);
-            this.gbProperties3.Controls.Add(this.lblNumColor);
+            this.gbProperties3.Controls.Add(this.btnHealthNormal);
+            this.gbProperties3.Controls.Add(this.btnHealthBuff);
+            this.gbProperties3.Controls.Add(this.btnHealthLow);
+            this.gbProperties3.Controls.Add(this.lblHealthLow);
+            this.gbProperties3.Controls.Add(this.lblHealthBuff);
+            this.gbProperties3.Controls.Add(this.lblHealthNormal);
             this.gbProperties3.Controls.Add(this.lblHealingDone);
             this.gbProperties3.ForeColor = System.Drawing.Color.White;
             this.gbProperties3.Location = new System.Drawing.Point(3, 148);
@@ -820,29 +835,29 @@
             this.gbProperties3.TabStop = false;
             this.gbProperties3.Text = "Health";
             // 
-            // lbPlayerHealth
+            // lbHealthStyle
             // 
-            this.lbPlayerHealth.FormattingEnabled = true;
-            this.lbPlayerHealth.ItemHeight = 15;
-            this.lbPlayerHealth.Items.AddRange(new object[] {
+            this.lbHealthStyle.FormattingEnabled = true;
+            this.lbHealthStyle.ItemHeight = 15;
+            this.lbHealthStyle.Items.AddRange(new object[] {
             "Default",
             "Team Bar",
             "Cross",
             "BroeselCross"});
-            this.lbPlayerHealth.Location = new System.Drawing.Point(9, 37);
-            this.lbPlayerHealth.Name = "lbPlayerHealth";
-            this.lbPlayerHealth.Size = new System.Drawing.Size(105, 64);
-            this.lbPlayerHealth.TabIndex = 19;
-            this.lbPlayerHealth.SelectedIndexChanged += new System.EventHandler(this.lbPlayerHealth_SelectedIndexChanged);
+            this.lbHealthStyle.Location = new System.Drawing.Point(9, 37);
+            this.lbHealthStyle.Name = "lbHealthStyle";
+            this.lbHealthStyle.Size = new System.Drawing.Size(105, 64);
+            this.lbHealthStyle.TabIndex = 19;
+            this.lbHealthStyle.SelectedIndexChanged += new System.EventHandler(this.lbPlayerHealth_SelectedIndexChanged);
             // 
-            // lblPlayerHealth
+            // lblHealthStyle
             // 
-            this.lblPlayerHealth.AutoSize = true;
-            this.lblPlayerHealth.Location = new System.Drawing.Point(6, 18);
-            this.lblPlayerHealth.Name = "lblPlayerHealth";
-            this.lblPlayerHealth.Size = new System.Drawing.Size(92, 16);
-            this.lblPlayerHealth.TabIndex = 17;
-            this.lblPlayerHealth.Text = "Player Health:";
+            this.lblHealthStyle.AutoSize = true;
+            this.lblHealthStyle.Location = new System.Drawing.Point(6, 18);
+            this.lblHealthStyle.Name = "lblHealthStyle";
+            this.lblHealthStyle.Size = new System.Drawing.Size(92, 16);
+            this.lblHealthStyle.TabIndex = 17;
+            this.lblHealthStyle.Text = "Player Health:";
             // 
             // btnHealingDone
             // 
@@ -854,62 +869,62 @@
             this.btnHealingDone.UseVisualStyleBackColor = false;
             this.btnHealingDone.Click += new System.EventHandler(this.btnColorPicker_Click);
             // 
-            // btnNumColor
+            // btnHealthNormal
             // 
-            this.btnNumColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnNumColor.Location = new System.Drawing.Point(260, 37);
-            this.btnNumColor.Name = "btnNumColor";
-            this.btnNumColor.Size = new System.Drawing.Size(120, 22);
-            this.btnNumColor.TabIndex = 14;
-            this.btnNumColor.UseVisualStyleBackColor = false;
-            this.btnNumColor.Click += new System.EventHandler(this.btnColorPicker_Click);
+            this.btnHealthNormal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
+            this.btnHealthNormal.Location = new System.Drawing.Point(260, 37);
+            this.btnHealthNormal.Name = "btnHealthNormal";
+            this.btnHealthNormal.Size = new System.Drawing.Size(120, 22);
+            this.btnHealthNormal.TabIndex = 14;
+            this.btnHealthNormal.UseVisualStyleBackColor = false;
+            this.btnHealthNormal.Click += new System.EventHandler(this.btnColorPicker_Click);
             // 
-            // btnBuffNumColor
+            // btnHealthBuff
             // 
-            this.btnBuffNumColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnBuffNumColor.Location = new System.Drawing.Point(120, 81);
-            this.btnBuffNumColor.Name = "btnBuffNumColor";
-            this.btnBuffNumColor.Size = new System.Drawing.Size(120, 22);
-            this.btnBuffNumColor.TabIndex = 13;
-            this.btnBuffNumColor.UseVisualStyleBackColor = false;
-            this.btnBuffNumColor.Click += new System.EventHandler(this.btnColorPicker_Click);
+            this.btnHealthBuff.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
+            this.btnHealthBuff.Location = new System.Drawing.Point(120, 81);
+            this.btnHealthBuff.Name = "btnHealthBuff";
+            this.btnHealthBuff.Size = new System.Drawing.Size(120, 22);
+            this.btnHealthBuff.TabIndex = 13;
+            this.btnHealthBuff.UseVisualStyleBackColor = false;
+            this.btnHealthBuff.Click += new System.EventHandler(this.btnColorPicker_Click);
             // 
-            // btnLowNumColor
+            // btnHealthLow
             // 
-            this.btnLowNumColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnLowNumColor.Location = new System.Drawing.Point(260, 81);
-            this.btnLowNumColor.Name = "btnLowNumColor";
-            this.btnLowNumColor.Size = new System.Drawing.Size(120, 22);
-            this.btnLowNumColor.TabIndex = 12;
-            this.btnLowNumColor.UseVisualStyleBackColor = false;
-            this.btnLowNumColor.Click += new System.EventHandler(this.btnColorPicker_Click);
+            this.btnHealthLow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
+            this.btnHealthLow.Location = new System.Drawing.Point(260, 81);
+            this.btnHealthLow.Name = "btnHealthLow";
+            this.btnHealthLow.Size = new System.Drawing.Size(120, 22);
+            this.btnHealthLow.TabIndex = 12;
+            this.btnHealthLow.UseVisualStyleBackColor = false;
+            this.btnHealthLow.Click += new System.EventHandler(this.btnColorPicker_Click);
             // 
-            // lblLowNumColor
+            // lblHealthLow
             // 
-            this.lblLowNumColor.AutoSize = true;
-            this.lblLowNumColor.Location = new System.Drawing.Point(260, 62);
-            this.lblLowNumColor.Name = "lblLowNumColor";
-            this.lblLowNumColor.Size = new System.Drawing.Size(119, 16);
-            this.lblLowNumColor.TabIndex = 9;
-            this.lblLowNumColor.Text = "Low Number Color:";
+            this.lblHealthLow.AutoSize = true;
+            this.lblHealthLow.Location = new System.Drawing.Point(260, 62);
+            this.lblHealthLow.Name = "lblHealthLow";
+            this.lblHealthLow.Size = new System.Drawing.Size(111, 16);
+            this.lblHealthLow.TabIndex = 9;
+            this.lblHealthLow.Text = "Low Health Color:";
             // 
-            // lblBuffNumColor
+            // lblHealthBuff
             // 
-            this.lblBuffNumColor.AutoSize = true;
-            this.lblBuffNumColor.Location = new System.Drawing.Point(120, 62);
-            this.lblBuffNumColor.Name = "lblBuffNumColor";
-            this.lblBuffNumColor.Size = new System.Drawing.Size(134, 16);
-            this.lblBuffNumColor.TabIndex = 8;
-            this.lblBuffNumColor.Text = "Buffed Number Color:";
+            this.lblHealthBuff.AutoSize = true;
+            this.lblHealthBuff.Location = new System.Drawing.Point(120, 62);
+            this.lblHealthBuff.Name = "lblHealthBuff";
+            this.lblHealthBuff.Size = new System.Drawing.Size(126, 16);
+            this.lblHealthBuff.TabIndex = 8;
+            this.lblHealthBuff.Text = "Buffed Health Color:";
             // 
-            // lblNumColor
+            // lblHealthNormal
             // 
-            this.lblNumColor.AutoSize = true;
-            this.lblNumColor.Location = new System.Drawing.Point(260, 18);
-            this.lblNumColor.Name = "lblNumColor";
-            this.lblNumColor.Size = new System.Drawing.Size(91, 16);
-            this.lblNumColor.TabIndex = 7;
-            this.lblNumColor.Text = "Number Color:";
+            this.lblHealthNormal.AutoSize = true;
+            this.lblHealthNormal.Location = new System.Drawing.Point(260, 18);
+            this.lblHealthNormal.Name = "lblHealthNormal";
+            this.lblHealthNormal.Size = new System.Drawing.Size(96, 16);
+            this.lblHealthNormal.TabIndex = 7;
+            this.lblHealthNormal.Text = "Health Normal:";
             // 
             // lblHealingDone
             // 
@@ -926,97 +941,95 @@
             this.lblTitle.Font = new System.Drawing.Font("Berlin Sans FB Demi", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(10, 10);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(277, 24);
+            this.lblTitle.Size = new System.Drawing.Size(223, 24);
             this.lblTitle.TabIndex = 3;
-            this.lblTitle.Text = "Team Fortress 2 HUD Installer";
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Font = new System.Drawing.Font("Berlin Sans FB", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(648, 338);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(57, 18);
-            this.lblStatus.TabIndex = 4;
-            this.lblStatus.Text = "[status]";
-            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblTitle.Text = "rayshud Installer [beta]";
             // 
             // btnInstall
             // 
-            this.btnInstall.Font = new System.Drawing.Font("TF2 Secondary", 12F);
+            this.btnInstall.BackColor = System.Drawing.Color.LightGray;
+            this.btnInstall.Enabled = false;
+            this.btnInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInstall.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInstall.ForeColor = System.Drawing.Color.Black;
             this.btnInstall.Location = new System.Drawing.Point(13, 334);
             this.btnInstall.Name = "btnInstall";
             this.btnInstall.Size = new System.Drawing.Size(100, 27);
             this.btnInstall.TabIndex = 5;
             this.btnInstall.Text = "Install";
-            this.btnInstall.UseVisualStyleBackColor = true;
+            this.btnInstall.UseVisualStyleBackColor = false;
             this.btnInstall.Click += new System.EventHandler(this.btnInstall_Click);
             // 
             // btnUninstall
             // 
+            this.btnUninstall.BackColor = System.Drawing.Color.LightGray;
             this.btnUninstall.Enabled = false;
-            this.btnUninstall.Font = new System.Drawing.Font("TF2 Secondary", 12F);
+            this.btnUninstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUninstall.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUninstall.ForeColor = System.Drawing.Color.Black;
             this.btnUninstall.Location = new System.Drawing.Point(119, 333);
             this.btnUninstall.Name = "btnUninstall";
             this.btnUninstall.Size = new System.Drawing.Size(100, 28);
             this.btnUninstall.TabIndex = 10;
             this.btnUninstall.Text = "Uninstall";
-            this.btnUninstall.UseVisualStyleBackColor = true;
+            this.btnUninstall.UseVisualStyleBackColor = false;
             this.btnUninstall.Click += new System.EventHandler(this.btnUninstall_Click);
             // 
             // btnPlayTF2
             // 
+            this.btnPlayTF2.BackColor = System.Drawing.Color.LightGray;
             this.btnPlayTF2.Enabled = false;
-            this.btnPlayTF2.Font = new System.Drawing.Font("TF2 Secondary", 12F);
+            this.btnPlayTF2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlayTF2.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlayTF2.ForeColor = System.Drawing.Color.Black;
-            this.btnPlayTF2.Location = new System.Drawing.Point(363, 333);
+            this.btnPlayTF2.Location = new System.Drawing.Point(361, 333);
             this.btnPlayTF2.Name = "btnPlayTF2";
             this.btnPlayTF2.Size = new System.Drawing.Size(179, 27);
             this.btnPlayTF2.TabIndex = 24;
             this.btnPlayTF2.Text = "Play Team Fortress 2";
-            this.btnPlayTF2.UseVisualStyleBackColor = true;
+            this.btnPlayTF2.UseVisualStyleBackColor = false;
             this.btnPlayTF2.Click += new System.EventHandler(this.btnPlayTF2_Click);
             // 
             // lblLiveVersion
             // 
             this.lblLiveVersion.AutoSize = true;
-            this.lblLiveVersion.Font = new System.Drawing.Font("TF2 Secondary", 10F, System.Drawing.FontStyle.Bold);
-            this.lblLiveVersion.Location = new System.Drawing.Point(313, 15);
+            this.lblLiveVersion.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLiveVersion.Location = new System.Drawing.Point(288, 15);
             this.lblLiveVersion.Name = "lblLiveVersion";
-            this.lblLiveVersion.Size = new System.Drawing.Size(105, 17);
+            this.lblLiveVersion.Size = new System.Drawing.Size(97, 17);
             this.lblLiveVersion.TabIndex = 25;
-            this.lblLiveVersion.Text = "Live Version:";
+            this.lblLiveVersion.Text = "Latest Version:";
             // 
             // lblInstalledVersion
             // 
             this.lblInstalledVersion.AutoSize = true;
-            this.lblInstalledVersion.Font = new System.Drawing.Font("TF2 Secondary", 10F, System.Drawing.FontStyle.Bold);
+            this.lblInstalledVersion.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInstalledVersion.Location = new System.Drawing.Point(498, 15);
             this.lblInstalledVersion.Name = "lblInstalledVersion";
-            this.lblInstalledVersion.Size = new System.Drawing.Size(135, 17);
+            this.lblInstalledVersion.Size = new System.Drawing.Size(109, 17);
             this.lblInstalledVersion.TabIndex = 27;
             this.lblInstalledVersion.Text = "Installed Version:";
             // 
             // btnSaveChanges
             // 
+            this.btnSaveChanges.BackColor = System.Drawing.Color.LightGray;
             this.btnSaveChanges.Enabled = false;
-            this.btnSaveChanges.Font = new System.Drawing.Font("TF2 Secondary", 12F);
+            this.btnSaveChanges.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveChanges.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSaveChanges.ForeColor = System.Drawing.Color.Black;
             this.btnSaveChanges.Location = new System.Drawing.Point(223, 333);
             this.btnSaveChanges.Name = "btnSaveChanges";
             this.btnSaveChanges.Size = new System.Drawing.Size(134, 28);
             this.btnSaveChanges.TabIndex = 29;
             this.btnSaveChanges.Text = "Apply Changes";
-            this.btnSaveChanges.UseVisualStyleBackColor = true;
+            this.btnSaveChanges.UseVisualStyleBackColor = false;
             this.btnSaveChanges.Click += new System.EventHandler(this.btnSaveChanges_Click);
             // 
             // txtLiveVersion
             // 
             this.txtLiveVersion.AutoSize = true;
-            this.txtLiveVersion.Font = new System.Drawing.Font("TF2 Secondary", 10F, System.Drawing.FontStyle.Bold);
-            this.txtLiveVersion.Location = new System.Drawing.Point(415, 14);
+            this.txtLiveVersion.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLiveVersion.Location = new System.Drawing.Point(391, 16);
             this.txtLiveVersion.Name = "txtLiveVersion";
             this.txtLiveVersion.Size = new System.Drawing.Size(0, 17);
             this.txtLiveVersion.TabIndex = 30;
@@ -1024,8 +1037,8 @@
             // txtInstalledVersion
             // 
             this.txtInstalledVersion.AutoSize = true;
-            this.txtInstalledVersion.Font = new System.Drawing.Font("TF2 Secondary", 10F, System.Drawing.FontStyle.Bold);
-            this.txtInstalledVersion.Location = new System.Drawing.Point(630, 14);
+            this.txtInstalledVersion.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtInstalledVersion.Location = new System.Drawing.Point(613, 15);
             this.txtInstalledVersion.Name = "txtInstalledVersion";
             this.txtInstalledVersion.Size = new System.Drawing.Size(0, 17);
             this.txtInstalledVersion.TabIndex = 31;
@@ -1044,7 +1057,6 @@
             this.Controls.Add(this.btnPlayTF2);
             this.Controls.Add(this.btnUninstall);
             this.Controls.Add(this.btnInstall);
-            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.tabEditor);
             this.Font = new System.Drawing.Font("Berlin Sans FB", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1054,7 +1066,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.MaximizeBox = false;
             this.Name = "frmMain";
-            this.Text = "TF2HUD Editor";
+            this.Text = "rayshud Installer";
             this.tabEditor.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
             this.tabGeneral.PerformLayout();
@@ -1090,7 +1102,7 @@
         private System.Windows.Forms.TabPage tabGeneral;
         private System.Windows.Forms.Label lblXHairWidth;
         private System.Windows.Forms.CheckBox cbXHairOutline;
-        private System.Windows.Forms.CheckBox cbCrosshair;
+        private System.Windows.Forms.CheckBox cbXHairEnabled;
         private System.Windows.Forms.Label lblXHairHeight;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.TabPage tabHealthAmmo;
@@ -1110,11 +1122,10 @@
         private System.Windows.Forms.CheckBox cbXHairPulse;
         private System.Windows.Forms.GroupBox gbPreview3;
         private System.Windows.Forms.PictureBox pbPreview3;
-        private System.Windows.Forms.Label lblLowNumColor;
-        private System.Windows.Forms.Label lblBuffNumColor;
-        private System.Windows.Forms.Label lblNumColor;
+        private System.Windows.Forms.Label lblHealthLow;
+        private System.Windows.Forms.Label lblHealthBuff;
+        private System.Windows.Forms.Label lblHealthNormal;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnInstall;
         private System.Windows.Forms.Button btnUninstall;
         private System.Windows.Forms.Button btnPlayTF2;
@@ -1128,9 +1139,9 @@
         private System.Windows.Forms.Button btnXHairColor;
         private System.Windows.Forms.Button btnXHairPulseColor;
         private System.Windows.Forms.Button btnHealingDone;
-        private System.Windows.Forms.Button btnNumColor;
-        private System.Windows.Forms.Button btnBuffNumColor;
-        private System.Windows.Forms.Button btnLowNumColor;
+        private System.Windows.Forms.Button btnHealthNormal;
+        private System.Windows.Forms.Button btnHealthBuff;
+        private System.Windows.Forms.Button btnHealthLow;
         private System.Windows.Forms.Button btnSaveChanges;
         private System.Windows.Forms.Label txtLiveVersion;
         private System.Windows.Forms.Label txtInstalledVersion;
@@ -1152,18 +1163,18 @@
         private System.Windows.Forms.Label lblUberFlashColor;
         private System.Windows.Forms.Label lblUberFullColor;
         private System.Windows.Forms.Button btnUberFlashColor2;
-        private System.Windows.Forms.Label lblPlayerHealth;
+        private System.Windows.Forms.Label lblHealthStyle;
         private System.Windows.Forms.GroupBox gbProperties4;
-        private System.Windows.Forms.Button btnLowAmmoReserve;
+        private System.Windows.Forms.Button btnAmmoReserveLow;
         private System.Windows.Forms.Button btnAmmoReserve;
-        private System.Windows.Forms.Button btnLowAmmoClip;
+        private System.Windows.Forms.Button btnAmmoClipLow;
         private System.Windows.Forms.Button btnAmmoClip;
-        private System.Windows.Forms.Label lblLowAmmoReserve;
-        private System.Windows.Forms.Label lblLowAmmoClip;
+        private System.Windows.Forms.Label lblAmmoReserveLow;
+        private System.Windows.Forms.Label lblAmmoClipLow;
         private System.Windows.Forms.Label lblAmmoReserve;
         private System.Windows.Forms.Label lblAmmoClip;
         private System.Windows.Forms.GroupBox gbInformation;
-        private System.Windows.Forms.ListBox lbPlayerHealth;
+        private System.Windows.Forms.ListBox lbHealthStyle;
         private System.Windows.Forms.NumericUpDown txtXHairWidth;
         private System.Windows.Forms.NumericUpDown txtXHairHeight;
     }
