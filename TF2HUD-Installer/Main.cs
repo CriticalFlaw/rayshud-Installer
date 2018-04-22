@@ -346,13 +346,23 @@ namespace FlawHUD_Installer
 
             if (settings.HUDVersion)
             {
-                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\materials\\console\\background_upward.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward.vtf", true);
-                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\materials\\console\\background_upward_widescreen.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward_widescreen.vtf", true);
+                if (Directory.Exists($"{TF2Directory}\\rayshud\\materials\\console"))
+                {
+                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\materials\\console\\background_upward.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward.vtf", true);
+                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\materials\\console\\background_upward_widescreen.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward_widescreen.vtf", true);
+                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\resource\\ui\\mainmenuoverride.res", $"{TF2Directory}\\rayshud\\resource\\ui\\mainmenuoverride.res", true);
+                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\resource\\gamemenu.res", $"{TF2Directory}\\rayshud\\resource\\gamemenu.res", true);
+                }
             }
             else
             {
-                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\materials\\console\\background_upward.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward.vtf", true);
-                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\materials\\console\\background_upward_widescreen.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward_widescreen.vtf", true);
+                if (Directory.Exists($"{TF2Directory}\\rayshud\\materials\\console"))
+                {
+                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\materials\\console\\background_upward.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward.vtf", true);
+                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\materials\\console\\background_upward_widescreen.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward_widescreen.vtf", true);
+                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\resource\\ui\\mainmenuoverride.res", $"{TF2Directory}\\rayshud\\resource\\ui\\mainmenuoverride.res", true);
+                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\resource\\gamemenu.res", $"{TF2Directory}\\rayshud\\resource\\gamemenu.res", true);
+                }
             }
 
             if (settings.Scoreboard)
@@ -362,34 +372,40 @@ namespace FlawHUD_Installer
 
             if (settings.DefaultMenuBG)
             {
-                Directory.Move($"{TF2Directory}\\rayshud\\material\\console", $"{TF2Directory}\\rayshud\\material\\console_off");
-                File.Move($"{TF2Directory}\\rayshud\\material\\chapterbackgrounds.txt", $"{TF2Directory}\\rayshud\\material\\chapterbackgrounds_off.txt");
+                if (Directory.Exists($"{TF2Directory}\\rayshud\\materials\\console"))
+                {
+                    Directory.Move($"{TF2Directory}\\rayshud\\materials\\console", $"{TF2Directory}\\rayshud\\materials\\console_off");
+                    File.Move($"{TF2Directory}\\rayshud\\scripts\\chapterbackgrounds.txt", $"{TF2Directory}\\rayshud\\scripts\\chapterbackgrounds_off.txt");
+                }
             }
             else
             {
-                Directory.Move($"{TF2Directory}\\rayshud\\material\\console_off", $"{TF2Directory}\\rayshud\\material\\console");
-                File.Move($"{TF2Directory}\\rayshud\\material\\chapterbackgrounds_off.txt", $"{TF2Directory}\\rayshud\\material\\chapterbackgrounds.txt");
+                if ((Directory.Exists($"{TF2Directory}\\rayshud\\materials\\console_off")) && (File.Exists($"{TF2Directory}\\rayshud\\materials\\chapterbackgrounds_off.txt")))
+                {
+                    Directory.Move($"{TF2Directory}\\rayshud\\materials\\console_off", $"{TF2Directory}\\rayshud\\materials\\console");
+                    File.Move($"{TF2Directory}\\rayshud\\scripts\\chapterbackgrounds_off.txt", $"{TF2Directory}\\rayshud\\scripts\\chapterbackgrounds.txt");
+                }
             }
 
             if (settings.TeamSelect)
             {
-                File.Move($"{TF2Directory}\\rayshud\\customizations\\Team Menu\\Teammenu-center.res", $"{TF2Directory}\\rayshud\\resource\\ui\\Teammenu.res");
-                File.Move($"{TF2Directory}\\rayshud\\customizations\\Team Menu\\ClassSelection-center.res", $"{TF2Directory}\\rayshud\\resource\\ui\\ClassSelection.res");
+                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Team Menu\\Teammenu-center.res", $"{TF2Directory}\\rayshud\\resource\\ui\\Teammenu.res", true);
+                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Team Menu\\ClassSelection-center.res", $"{TF2Directory}\\rayshud\\resource\\ui\\ClassSelection.res", true);
             }
             else
             {
-                File.Move($"{TF2Directory}\\rayshud\\customizations\\Team Menu\\Teammenu-left.res", $"{TF2Directory}\\rayshud\\resource\\ui\\Teammenu.res");
-                File.Move($"{TF2Directory}\\rayshud\\customizations\\Team Menu\\ClassSelection-left.res", $"{TF2Directory}\\rayshud\\resource\\ui\\Teammenu.res");
+                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Team Menu\\Teammenu-left.res", $"{TF2Directory}\\rayshud\\resource\\ui\\Teammenu.res", true);
+                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Team Menu\\ClassSelection-left.res", $"{TF2Directory}\\rayshud\\resource\\ui\\Teammenu.res", true);
             }
 
             if (settings.HealthStyle == 1)
-                File.Move($"{TF2Directory}\\rayshud\\customizations\\Player Health\\HudPlayerHealth-default.res", $"{TF2Directory}\\rayshud\\resource\\ui\\HudPlayerHealth.res");
+                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Player Health\\HudPlayerHealth-default.res", $"{TF2Directory}\\rayshud\\resource\\ui\\HudPlayerHealth.res", true);
             else if (settings.HealthStyle == 2)
-                File.Move($"{TF2Directory}\\rayshud\\customizations\\Player Health\\HudPlayerHealth-teambar.res", $"{TF2Directory}\\rayshud\\resource\\ui\\HudPlayerHealth.res");
+                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Player Health\\HudPlayerHealth-teambar.res", $"{TF2Directory}\\rayshud\\resource\\ui\\HudPlayerHealth.res", true);
             else if (settings.HealthStyle == 3)
-                File.Move($"{TF2Directory}\\rayshud\\customizations\\Player Health\\HudPlayerHealth-cross.res", $"{TF2Directory}\\rayshud\\resource\\ui\\HudPlayerHealth.res");
+                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Player Health\\HudPlayerHealth-cross.res", $"{TF2Directory}\\rayshud\\resource\\ui\\HudPlayerHealth.res", true);
             else if (settings.HealthStyle == 4)
-                File.Move($"{TF2Directory}\\rayshud\\customizations\\Player Health\\HudPlayerHealth-broesel.res", $"{TF2Directory}\\rayshud\\resource\\ui\\HudPlayerHealth.res");
+                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Player Health\\HudPlayerHealth-broesel.res", $"{TF2Directory}\\rayshud\\resource\\ui\\HudPlayerHealth.res", true);
             //-------------------------------------------------------------------------
 
             string[] lines = File.ReadAllLines(animations);
