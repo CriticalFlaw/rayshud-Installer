@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TF2HUD-Installer", "TF2HUD-Installer\TF2HUD-Installer.csproj", "{E6A8D663-BC74-43C8-9533-E1DED8DDABE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rayshud-Installer", "TF2HUD-Installer\rayshud-Installer.csproj", "{E6A8D663-BC74-43C8-9533-E1DED8DDABE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
