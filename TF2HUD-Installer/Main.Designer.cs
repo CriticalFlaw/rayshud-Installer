@@ -222,8 +222,9 @@
             // rbChatBoxBottom
             // 
             this.rbChatBoxBottom.AutoSize = true;
+            this.rbChatBoxBottom.Checked = true;
             this.rbChatBoxBottom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbChatBoxBottom.Location = new System.Drawing.Point(90, 14);
+            this.rbChatBoxBottom.Location = new System.Drawing.Point(8, 14);
             this.rbChatBoxBottom.Name = "rbChatBoxBottom";
             this.rbChatBoxBottom.Size = new System.Drawing.Size(95, 20);
             this.rbChatBoxBottom.TabIndex = 11;
@@ -235,13 +236,11 @@
             // rbChatBoxTop
             // 
             this.rbChatBoxTop.AutoSize = true;
-            this.rbChatBoxTop.Checked = true;
             this.rbChatBoxTop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbChatBoxTop.Location = new System.Drawing.Point(8, 14);
+            this.rbChatBoxTop.Location = new System.Drawing.Point(109, 14);
             this.rbChatBoxTop.Name = "rbChatBoxTop";
             this.rbChatBoxTop.Size = new System.Drawing.Size(74, 20);
             this.rbChatBoxTop.TabIndex = 10;
-            this.rbChatBoxTop.TabStop = true;
             this.rbChatBoxTop.Text = "Top Left";
             this.rbChatBoxTop.UseVisualStyleBackColor = true;
             this.rbChatBoxTop.CheckedChanged += new System.EventHandler(this.rbChatBox_CheckedChanged);

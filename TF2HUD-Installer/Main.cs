@@ -153,9 +153,9 @@ namespace FlawHUD_Installer
                     cbScoreboard.SelectedIndex = 0;
 
                 if (settings.ChatBox)
-                    rbChatBoxBottom.Checked = true;
-                else
                     rbChatBoxTop.Checked = true;
+                else
+                    rbChatBoxBottom.Checked = true;
 
                 if (settings.TeamSelect)
                     rbTeamSelectCenter.Checked = true;
@@ -258,6 +258,28 @@ namespace FlawHUD_Installer
             WriteToSettings("TeamSelect", settings.TeamSelect.ToString());
             WriteToSettings("DisguiseImage", settings.DisguiseImage.ToString());
             WriteToSettings("DefaultMenuBG", settings.DefaultMenuBG.ToString());
+            WriteToSettings("UberAnimation", settings.UberAnimation.ToString());
+            WriteToSettings("UberBarColor", settings.UberBarColor.ToString());
+            WriteToSettings("UberFullColor", settings.UberFullColor.ToString());
+            WriteToSettings("UberFlashColor1", settings.UberFlashColor1.ToString());
+            WriteToSettings("UberFlashColor2", settings.UberFlashColor2.ToString());
+            WriteToSettings("XHairEnabled", settings.XHairEnabled.ToString());
+            WriteToSettings("XHairStyle", settings.XHairStyle.ToString());
+            WriteToSettings("XHairOutline", settings.XHairOutline.ToString());
+            WriteToSettings("XHairPulse", settings.XHairPulse.ToString());
+            WriteToSettings("XHairHeight", settings.XHairHeight.ToString());
+            WriteToSettings("XHairWidth", settings.XHairWidth.ToString());
+            WriteToSettings("XHairColor", settings.XHairColor.ToString());
+            WriteToSettings("XHairPulseColor", settings.XHairPulseColor.ToString());
+            WriteToSettings("HealingDone", settings.HealingDone.ToString());
+            WriteToSettings("HealthStyle", settings.HealthStyle.ToString());
+            WriteToSettings("HealthNormal", settings.HealthNormal.ToString());
+            WriteToSettings("HealthBuff", settings.HealthBuff.ToString());
+            WriteToSettings("HealthLow", settings.HealthLow.ToString());
+            WriteToSettings("AmmoClip", settings.AmmoClip.ToString());
+            WriteToSettings("AmmoReserve", settings.AmmoReserve.ToString());
+            WriteToSettings("AmmoClipLow", settings.AmmoClipLow.ToString());
+            WriteToSettings("AmmoReserveLow", settings.AmmoReserveLow.ToString());
         }
 
         private void WriteToSettings(string setting, string value)
@@ -321,7 +343,8 @@ namespace FlawHUD_Installer
                 if (Directory.Exists($"{TF2Directory}\\rayshud"))
                 {
                     Directory.Delete($"{TF2Directory}\\rayshud", true);
-                    MessageBox.Show($"Finished Uninstalling rayshud...");
+                    MessageBox.Show($"Finished Uninstalling rayshud...", "rayshud Uninstalled!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtDirectory.Text = TF2Directory;
                     txtInstalledVersion.Text = "...";
                     CheckHUDDirectory();
                 }
@@ -346,23 +369,33 @@ namespace FlawHUD_Installer
 
             if (settings.HUDVersion)
             {
-                if (Directory.Exists($"{TF2Directory}\\rayshud\\materials\\console"))
+                if (Directory.Exists($"{TF2Directory}\\rayshud\\materials\\console_off"))
+                {
+                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\materials\\console\\background_upward.vtf", $"{TF2Directory}\\rayshud\\materials\\console_off\\background_upward.vtf", true);
+                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\materials\\console\\background_upward_widescreen.vtf", $"{TF2Directory}\\rayshud\\materials\\console_off\\background_upward_widescreen.vtf", true);
+                }
+                else
                 {
                     File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\materials\\console\\background_upward.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward.vtf", true);
                     File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\materials\\console\\background_upward_widescreen.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward_widescreen.vtf", true);
-                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\resource\\ui\\mainmenuoverride.res", $"{TF2Directory}\\rayshud\\resource\\ui\\mainmenuoverride.res", true);
-                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\resource\\gamemenu.res", $"{TF2Directory}\\rayshud\\resource\\gamemenu.res", true);
                 }
+                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\resource\\ui\\mainmenuoverride.res", $"{TF2Directory}\\rayshud\\resource\\ui\\mainmenuoverride.res", true);
+                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\resource\\gamemenu.res", $"{TF2Directory}\\rayshud\\resource\\gamemenu.res", true);
             }
             else
             {
-                if (Directory.Exists($"{TF2Directory}\\rayshud\\materials\\console"))
+                if (Directory.Exists($"{TF2Directory}\\rayshud\\materials\\console_off"))
+                {
+                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\materials\\console\\background_upward.vtf", $"{TF2Directory}\\rayshud\\materials\\console_off\\background_upward.vtf", true);
+                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\materials\\console\\background_upward_widescreen.vtf", $"{TF2Directory}\\rayshud\\materials\\console_off\\background_upward_widescreen.vtf", true);
+                }
+                else
                 {
                     File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\materials\\console\\background_upward.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward.vtf", true);
                     File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\materials\\console\\background_upward_widescreen.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward_widescreen.vtf", true);
-                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\resource\\ui\\mainmenuoverride.res", $"{TF2Directory}\\rayshud\\resource\\ui\\mainmenuoverride.res", true);
-                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\resource\\gamemenu.res", $"{TF2Directory}\\rayshud\\resource\\gamemenu.res", true);
                 }
+                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\resource\\ui\\mainmenuoverride.res", $"{TF2Directory}\\rayshud\\resource\\ui\\mainmenuoverride.res", true);
+                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\resource\\gamemenu.res", $"{TF2Directory}\\rayshud\\resource\\gamemenu.res", true);
             }
 
             if (settings.Scoreboard)
@@ -380,7 +413,7 @@ namespace FlawHUD_Installer
             }
             else
             {
-                if ((Directory.Exists($"{TF2Directory}\\rayshud\\materials\\console_off")) && (File.Exists($"{TF2Directory}\\rayshud\\materials\\chapterbackgrounds_off.txt")))
+                if ((Directory.Exists($"{TF2Directory}\\rayshud\\materials\\console_off")) && (File.Exists($"{TF2Directory}\\rayshud\\scripts\\chapterbackgrounds_off.txt")))
                 {
                     Directory.Move($"{TF2Directory}\\rayshud\\materials\\console_off", $"{TF2Directory}\\rayshud\\materials\\console");
                     File.Move($"{TF2Directory}\\rayshud\\scripts\\chapterbackgrounds_off.txt", $"{TF2Directory}\\rayshud\\scripts\\chapterbackgrounds.txt");
@@ -395,7 +428,7 @@ namespace FlawHUD_Installer
             else
             {
                 File.Copy($"{TF2Directory}\\rayshud\\customizations\\Team Menu\\Teammenu-left.res", $"{TF2Directory}\\rayshud\\resource\\ui\\Teammenu.res", true);
-                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Team Menu\\ClassSelection-left.res", $"{TF2Directory}\\rayshud\\resource\\ui\\Teammenu.res", true);
+                File.Copy($"{TF2Directory}\\rayshud\\customizations\\Team Menu\\ClassSelection-left.res", $"{TF2Directory}\\rayshud\\resource\\ui\\ClassSelection.res", true);
             }
 
             if (settings.HealthStyle == 1)
@@ -409,67 +442,74 @@ namespace FlawHUD_Installer
             //-------------------------------------------------------------------------
 
             string[] lines = File.ReadAllLines(animations);
-            if (settings.DisguiseImage)
-            {
-                lines[87 - 1] = lines[87 - 1].Replace("//", string.Empty);
-                lines[88 - 1] = lines[88 - 1].Replace("//", string.Empty);
-                lines[89 - 1] = lines[89 - 1].Replace("//", string.Empty);
-                lines[94 - 1] = lines[94 - 1].Replace("//", string.Empty);
-                lines[95 - 1] = lines[95 - 1].Replace("//", string.Empty);
-                lines[96 - 1] = lines[96 - 1].Replace("//", string.Empty);
-            }
-            else
-            {
-                lines[87 - 1] = $"\t//{lines[87 - 1]}";
-                lines[88 - 1] = $"\t//{lines[88 - 1]}";
-                lines[89 - 1] = $"\t//{lines[89 - 1]}";
-                lines[94 - 1] = $"\t//{lines[94 - 1]}";
-                lines[95 - 1] = $"\t//{lines[95 - 1]}";
-                lines[96 - 1] = $"\t//{lines[96 - 1]}";
-            }
-
+            lines[87 - 1] = lines[87 - 1].Replace("//", string.Empty);
+            lines[88 - 1] = lines[88 - 1].Replace("//", string.Empty);
+            lines[89 - 1] = lines[89 - 1].Replace("//", string.Empty);
+            lines[94 - 1] = lines[94 - 1].Replace("//", string.Empty);
+            lines[95 - 1] = lines[95 - 1].Replace("//", string.Empty);
+            lines[96 - 1] = lines[96 - 1].Replace("//", string.Empty);
             lines[104 - 1] = lines[104 - 1].Replace("//", string.Empty);
             lines[105 - 1] = lines[105 - 1].Replace("//", string.Empty);
             lines[106 - 1] = lines[106 - 1].Replace("//", string.Empty);
             File.WriteAllLines(animations, lines);
+            File.WriteAllLines(animations, lines);
+
+            if (settings.DisguiseImage)
+            {
+                lines[87 - 1] = $"\t{lines[87 - 1].Replace("//", string.Empty).Trim()}";
+                lines[88 - 1] = $"\t{lines[88 - 1].Replace("//", string.Empty).Trim()}";
+                lines[89 - 1] = $"\t{lines[89 - 1].Replace("//", string.Empty).Trim()}";
+                lines[94 - 1] = $"\t{lines[94 - 1].Replace("//", string.Empty).Trim()}";
+                lines[95 - 1] = $"\t{lines[95 - 1].Replace("//", string.Empty).Trim()}";
+                lines[96 - 1] = $"\t{lines[96 - 1].Replace("//", string.Empty).Trim()}";
+            }
+            else
+            {
+                lines[87 - 1] = $"\t//{lines[87 - 1].Trim()}";
+                lines[88 - 1] = $"\t//{lines[88 - 1].Trim()}";
+                lines[89 - 1] = $"\t//{lines[89 - 1].Trim()}";
+                lines[94 - 1] = $"\t//{lines[94 - 1].Trim()}";
+                lines[95 - 1] = $"\t//{lines[95 - 1].Trim()}";
+                lines[96 - 1] = $"\t//{lines[96 - 1].Trim()}";
+            }
 
             if (settings.UberAnimation == 1)
             {
-                lines[104 - 1] = lines[104 - 1].Replace("//", string.Empty);
-                lines[105 - 1] = $"//{lines[105 - 1]}";
-                lines[106 - 1] = $"//{lines[106 - 1]}";
+                lines[104 - 1] = $"\t{lines[104 - 1].Replace("//", string.Empty).Trim()}";
+                lines[105 - 1] = $"\t//{lines[105 - 1].Trim()}";
+                lines[106 - 1] = $"\t//{lines[106 - 1].Trim()}";
             }
             else if (settings.UberAnimation == 2)
             {
-                lines[104 - 1] = $"\t//{lines[104 - 1]}";
-                lines[105 - 1] = lines[105 - 1].Replace("//", string.Empty);
-                lines[106 - 1] = $"\t//{lines[106 - 1]}";
+                lines[104 - 1] = $"\t//{lines[104 - 1].Trim()}";
+                lines[105 - 1] = $"\t{lines[105 - 1].Replace("//", string.Empty).Trim()}";
+                lines[106 - 1] = $"\t//{lines[106 - 1].Trim()}";
             }
             else if (settings.UberAnimation == 3)
             {
-                lines[104 - 1] = $"\t//{lines[104 - 1]}";
-                lines[105 - 1] = $"\t//{lines[105 - 1]}";
-                lines[106 - 1] = lines[106 - 1].Replace("//", string.Empty);
+                lines[104 - 1] = $"\t//{lines[104 - 1].Trim()}";
+                lines[105 - 1] = $"\t//{lines[105 - 1].Trim()}";
+                lines[106 - 1] = $"\t{lines[106 - 1].Replace("//", string.Empty).Trim()}";
             }
 
             if (settings.XHairPulse)
             {
-                lines[80 - 1] = lines[87 - 1].Replace("//", string.Empty);
-                lines[81 - 1] = lines[88 - 1].Replace("//", string.Empty);
+                lines[80 - 1] = lines[80 - 1].Replace("//", string.Empty);
+                lines[81 - 1] = lines[81 - 1].Replace("//", string.Empty);
             }
             else
             {
-                lines[80 - 1] = $"//{lines[87 - 1]}";
-                lines[81 - 1] = $"//{lines[88 - 1]}";
+                lines[80 - 1] = $"//{lines[80 - 1]}";
+                lines[81 - 1] = $"//{lines[81 - 1]}";
             }
             File.WriteAllLines(animations, lines);
             //-------------------------------------------------------------------------
 
             lines = File.ReadAllLines(chat);
             if (settings.ChatBox)
-                lines[10 - 1] = $"\t\t\"ypos\"\t\t\t\t\"30\"";
+                lines[10 - 1] = $"\t\t\"ypos\"\t\t\t\t\"20\"";
             else
-                lines[10 - 1] = $"\t\t\"ypos\"\t\t\t\t\"150\"";
+                lines[10 - 1] = $"\t\t\"ypos\"\t\t\t\t\"360\"";
             File.WriteAllLines(chat, lines);
 
             lines = File.ReadAllLines(layout);
@@ -546,20 +586,20 @@ namespace FlawHUD_Installer
             //-------------------------------------------------------------------------
 
             lines = File.ReadAllLines(colorScheme);
-            lines[7 - 1] = $"t\t\"Ammo In Clip\"   \"{settings.AmmoClip}\"";
-            lines[8 - 1] = $"\t\t\"Ammo In Reserve\"    \"{settings.AmmoReserve}\"";
-            lines[9 - 1] = $"\t\t\"Ammo In Clip Low\"   \"{settings.AmmoClipLow}\"";
-            lines[10 - 1] = $"\t\t\"Ammo In Reserve Low\"   \"{settings.AmmoReserveLow}\"";
-            lines[23 - 1] = $"\t\t\"Health Normal\" \"{settings.HealthNormal}\"";
-            lines[24 - 1] = $"\t\t\"Health Buff\"   \"{settings.HealthBuff}\"";
-            lines[25 - 1] = $"\t\t\"Health Hurt\"   \"{settings.HealthLow}\"";
-            lines[32 - 1] = $"\t\t\"Uber Bar Color\"    \"{settings.UberBarColor}\"";
-            lines[35 - 1] = $"\t\t\"Solid Color Uber\"  \"{settings.UberFullColor}\"";
-            lines[37 - 1] = $"\t\t\"Flashing Uber Color1\"  \"{settings.UberFlashColor1}\"";
-            lines[38 - 1] = $"\t\t\"Flashing Uber Color2\"  \"{settings.UberFlashColor2}\"";
-            lines[41 - 1] = $"\t\t\"Heal Numbers\"  \"{settings.HealingDone}\"";
-            lines[45 - 1] = $"\t\t\"XHairEnabled\" \"{settings.XHairColor}\"";
-            lines[46 - 1] = $"\t\t\"CrosshairDamage\"   \"{settings.XHairPulseColor}\"";
+            lines[7 - 1] = $"\t\t\"Ammo In Clip\"\t\t\t\t\t\"{settings.AmmoClip}\"";
+            lines[8 - 1] = $"\t\t\"Ammo In Reserve\"\t\t\t\t\"{settings.AmmoReserve}\"";
+            lines[9 - 1] = $"\t\t\"Ammo In Clip Low\"\t\t\t\t\"{settings.AmmoClipLow}\"";
+            lines[10 - 1] = $"\t\t\"Ammo In Reserve Low\"\t\t\t\"{settings.AmmoReserveLow}\"";
+            lines[23 - 1] = $"\t\t\"Health Normal\"\t\t\t\t\t\"{settings.HealthNormal}\"";
+            lines[24 - 1] = $"\t\t\"Health Buff\"\t\t\t\t\t\"{settings.HealthBuff}\"";
+            lines[25 - 1] = $"\t\t\"Health Hurt\"\t\t\t\t\t\"{settings.HealthLow}\"";
+            lines[32 - 1] = $"\t\t\"Uber Bar Color\"\t\t\t\t\"{settings.UberBarColor}\"";
+            lines[35 - 1] = $"\t\t\"Solid Color Uber\"\t\t\t\t\"{settings.UberFullColor}\"";
+            lines[37 - 1] = $"\t\t\"Flashing Uber Color1\"\t\t\t\"{settings.UberFlashColor1}\"";
+            lines[38 - 1] = $"\t\t\"Flashing Uber Color2\"\t\t\t\"{settings.UberFlashColor2}\"";
+            lines[41 - 1] = $"\t\t\"Heal Numbers\"\t\t\t\t\t\"{settings.HealingDone}\"";
+            lines[45 - 1] = $"\t\t\"Crosshair\"\t\t\t\t\t\t\"{settings.XHairColor}\"";
+            lines[46 - 1] = $"\t\t\"CrosshairDamage\"\t\t\t\t\"{settings.XHairPulseColor}\"";
             File.WriteAllLines(colorScheme, lines);
 
             MessageBox.Show($"rayshud changes applied", "Changes Applied!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -723,7 +763,7 @@ namespace FlawHUD_Installer
 
         private void rbChatBox_CheckedChanged(object sender, EventArgs e)
         {
-            settings.ChatBox = rbChatBoxBottom.Checked;
+            settings.ChatBox = rbChatBoxTop.Checked;
         }
 
         private void rbTeamSelect_CheckedChanged(object sender, EventArgs e)
