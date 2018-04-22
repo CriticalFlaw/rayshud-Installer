@@ -109,6 +109,7 @@
             this.btnSaveChanges = new System.Windows.Forms.Button();
             this.txtLiveVersion = new System.Windows.Forms.Label();
             this.txtInstalledVersion = new System.Windows.Forms.Label();
+            this.btnOpenDirectory = new System.Windows.Forms.Button();
             this.tabEditor.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.gbTeamSelect.SuspendLayout();
@@ -471,6 +472,7 @@
             // btnBrowse
             // 
             this.btnBrowse.BackColor = System.Drawing.Color.LightGray;
+            this.btnBrowse.FlatAppearance.BorderSize = 0;
             this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrowse.ForeColor = System.Drawing.Color.Black;
             this.btnBrowse.Location = new System.Drawing.Point(603, 6);
@@ -971,6 +973,7 @@
             // 
             this.btnInstall.BackColor = System.Drawing.Color.LightGray;
             this.btnInstall.Enabled = false;
+            this.btnInstall.FlatAppearance.BorderSize = 0;
             this.btnInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInstall.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInstall.ForeColor = System.Drawing.Color.Black;
@@ -986,6 +989,7 @@
             // 
             this.btnUninstall.BackColor = System.Drawing.Color.LightGray;
             this.btnUninstall.Enabled = false;
+            this.btnUninstall.FlatAppearance.BorderSize = 0;
             this.btnUninstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUninstall.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUninstall.ForeColor = System.Drawing.Color.Black;
@@ -1001,6 +1005,7 @@
             // 
             this.btnPlayTF2.BackColor = System.Drawing.Color.LightGray;
             this.btnPlayTF2.Enabled = false;
+            this.btnPlayTF2.FlatAppearance.BorderSize = 0;
             this.btnPlayTF2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPlayTF2.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlayTF2.ForeColor = System.Drawing.Color.Black;
@@ -1036,6 +1041,7 @@
             // 
             this.btnSaveChanges.BackColor = System.Drawing.Color.LightGray;
             this.btnSaveChanges.Enabled = false;
+            this.btnSaveChanges.FlatAppearance.BorderSize = 0;
             this.btnSaveChanges.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSaveChanges.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSaveChanges.ForeColor = System.Drawing.Color.Black;
@@ -1065,12 +1071,27 @@
             this.txtInstalledVersion.Size = new System.Drawing.Size(0, 17);
             this.txtInstalledVersion.TabIndex = 31;
             // 
+            // btnOpenDirectory
+            // 
+            this.btnOpenDirectory.BackColor = System.Drawing.Color.LightGray;
+            this.btnOpenDirectory.FlatAppearance.BorderSize = 0;
+            this.btnOpenDirectory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenDirectory.ForeColor = System.Drawing.Color.Black;
+            this.btnOpenDirectory.Location = new System.Drawing.Point(546, 333);
+            this.btnOpenDirectory.Name = "btnOpenDirectory";
+            this.btnOpenDirectory.Size = new System.Drawing.Size(159, 27);
+            this.btnOpenDirectory.TabIndex = 32;
+            this.btnOpenDirectory.Text = "Open HUD Directory";
+            this.btnOpenDirectory.UseVisualStyleBackColor = false;
+            this.btnOpenDirectory.Click += new System.EventHandler(this.btnOpenDirectory_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
             this.ClientSize = new System.Drawing.Size(717, 366);
+            this.Controls.Add(this.btnOpenDirectory);
             this.Controls.Add(this.txtInstalledVersion);
             this.Controls.Add(this.txtLiveVersion);
             this.Controls.Add(this.btnSaveChanges);
@@ -1199,5 +1220,6 @@
         private System.Windows.Forms.ListBox lbHealthStyle;
         private System.Windows.Forms.NumericUpDown txtXHairWidth;
         private System.Windows.Forms.NumericUpDown txtXHairHeight;
+        private System.Windows.Forms.Button btnOpenDirectory;
     }
 }

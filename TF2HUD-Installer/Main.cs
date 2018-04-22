@@ -915,6 +915,12 @@ namespace FlawHUD_Installer
                 txtXHairHeight.Value = Convert.ToInt32(matches[1].Value);
             }
         }
+
+        private void btnOpenDirectory_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists($"{TF2Directory}\\rayshud"))
+                Process.Start("explorer.exe", $"{TF2Directory}\\rayshud");
+        }
     }
 
     public class RootObject
