@@ -275,6 +275,7 @@
             this.btnUberFlashColor2.Size = new System.Drawing.Size(86, 22);
             this.btnUberFlashColor2.TabIndex = 13;
             this.btnUberFlashColor2.UseVisualStyleBackColor = false;
+            this.btnUberFlashColor2.Click += new System.EventHandler(this.btnColorPicker_Click);
             // 
             // btnUberFullColor
             // 
@@ -284,6 +285,7 @@
             this.btnUberFullColor.Size = new System.Drawing.Size(172, 22);
             this.btnUberFullColor.TabIndex = 12;
             this.btnUberFullColor.UseVisualStyleBackColor = false;
+            this.btnUberFullColor.Click += new System.EventHandler(this.btnColorPicker_Click);
             // 
             // btnUberBarColor
             // 
@@ -293,6 +295,7 @@
             this.btnUberBarColor.Size = new System.Drawing.Size(172, 22);
             this.btnUberBarColor.TabIndex = 11;
             this.btnUberBarColor.UseVisualStyleBackColor = false;
+            this.btnUberBarColor.Click += new System.EventHandler(this.btnColorPicker_Click);
             // 
             // rbUberAnimation3
             // 
@@ -360,6 +363,7 @@
             this.btnUberFlashColor1.Size = new System.Drawing.Size(86, 22);
             this.btnUberFlashColor1.TabIndex = 5;
             this.btnUberFlashColor1.UseVisualStyleBackColor = false;
+            this.btnUberFlashColor1.Click += new System.EventHandler(this.btnColorPicker_Click);
             // 
             // lblUberFlashColor
             // 
@@ -747,6 +751,7 @@
             this.btnAmmoReserveLow.Size = new System.Drawing.Size(120, 22);
             this.btnAmmoReserveLow.TabIndex = 20;
             this.btnAmmoReserveLow.UseVisualStyleBackColor = false;
+            this.btnAmmoReserveLow.Click += new System.EventHandler(this.btnColorPicker_Click);
             // 
             // btnAmmoReserve
             // 
@@ -756,6 +761,7 @@
             this.btnAmmoReserve.Size = new System.Drawing.Size(120, 22);
             this.btnAmmoReserve.TabIndex = 19;
             this.btnAmmoReserve.UseVisualStyleBackColor = false;
+            this.btnAmmoReserve.Click += new System.EventHandler(this.btnColorPicker_Click);
             // 
             // btnAmmoClipLow
             // 
@@ -765,6 +771,7 @@
             this.btnAmmoClipLow.Size = new System.Drawing.Size(120, 22);
             this.btnAmmoClipLow.TabIndex = 17;
             this.btnAmmoClipLow.UseVisualStyleBackColor = false;
+            this.btnAmmoClipLow.Click += new System.EventHandler(this.btnColorPicker_Click);
             // 
             // btnAmmoClip
             // 
@@ -774,6 +781,7 @@
             this.btnAmmoClip.Size = new System.Drawing.Size(120, 22);
             this.btnAmmoClip.TabIndex = 16;
             this.btnAmmoClip.UseVisualStyleBackColor = false;
+            this.btnAmmoClip.Click += new System.EventHandler(this.btnColorPicker_Click);
             // 
             // lblAmmoReserveLow
             // 
