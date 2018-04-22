@@ -76,6 +76,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Resources\Cerbetica.ttf" />
+    <None Include="Resources\Cerbetica_bold.ttf" />
+    <None Include="Resources\Cerbetica_edited.ttf" />
+    <None Include="Resources\crosshairs.ttf" />
+    <None Include="Resources\Garm3nFont.ttf" />
+    <None Include="Resources\KnucklesCrosses.ttf" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Main.resx">
@@ -88,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="rayshud.ico" />
+    <None Include="Resources\TF2Wall.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
