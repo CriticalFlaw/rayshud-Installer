@@ -142,41 +142,35 @@ namespace FlawHUD_Installer
                 btnAmmoReserveLow.BackColor = Color.FromArgb(255, 128, 28);
 
                 // GENERAL
-                if (settings.HUDVersion == "classic")
+                if (settings.HUDVersion)
                     cbHUDVersion.SelectedIndex = 1;
                 else
                     cbHUDVersion.SelectedIndex = 0;
 
-                if (settings.Scoreboard == "minimal")
+                if (settings.Scoreboard)
                     cbScoreboard.SelectedIndex = 1;
                 else
                     cbScoreboard.SelectedIndex = 0;
 
-                if (settings.ChatBox == "top")
-                    rbChatBoxTop.Checked = true;
-                else
+                if (settings.ChatBox)
                     rbChatBoxBottom.Checked = true;
-
-                if (settings.TeamSelect == "left")
-                    rbTeamSelectLeft.Checked = true;
                 else
+                    rbChatBoxTop.Checked = true;
+
+                if (settings.TeamSelect)
                     rbTeamSelectCenter.Checked = true;
-
-                if (settings.DisguiseImage == "on")
-                    cbDisguiseImage.Checked = true;
                 else
-                    cbDisguiseImage.Checked = false;
+                    rbTeamSelectLeft.Checked = true;
 
-                if (settings.DefaultMenuBG == "on")
-                    cbDefaultMenuBG.Checked = true;
-                else
-                    cbDefaultMenuBG.Checked = false;
+                cbDisguiseImage.Checked = settings.DisguiseImage;
 
-                if (settings.UberAnimation == "flash")
+                cbDefaultMenuBG.Checked = settings.DefaultMenuBG;
+
+                if (settings.UberAnimation == 1)
                     rbUberAnimation1.Checked = true;
-                else if (settings.UberAnimation == "solid")
+                else if (settings.UberAnimation == 2)
                     rbUberAnimation2.Checked = true;
-                else if (settings.UberAnimation == "rainbow")
+                else if (settings.UberAnimation == 3)
                     rbUberAnimation3.Checked = true;
 
                 string[] split = settings.UberBarColor.Split(null);
@@ -191,26 +185,17 @@ namespace FlawHUD_Installer
                 btnUberFlashColor2.BackColor = Color.FromArgb(Convert.ToInt32(split[0]), Convert.ToInt32(split[1]), Convert.ToInt32(split[2]));
 
                 // CROSSHAIR
-                lbXHairStyles.SelectedIndex = lbXHairStyles.FindStringExact(settings.XHairStyle);
+                //lbXHairStyles.SelectedIndex = settings.XHairStyle - 1;
 
-                if (settings.XHairEnabled == "on")
-                    cbXHairEnabled.Checked = true;
-                else
-                    cbXHairEnabled.Checked = false;
+                cbXHairEnabled.Checked = settings.XHairEnabled;
 
-                if (settings.XHairOutline == "on")
-                    cbXHairOutline.Checked = true;
-                else
-                    cbXHairOutline.Checked = false;
+                cbXHairOutline.Checked = settings.XHairOutline;
 
-                if (settings.XHairPulse == "on")
-                    cbXHairPulse.Checked = true;
-                else
-                    cbXHairPulse.Checked = false;
+                cbXHairPulse.Checked = settings.XHairPulse;
 
-                txtXHairHeight.Value = Convert.ToInt32(settings.XHairHeight);
+                txtXHairHeight.Value = settings.XHairHeight;
 
-                txtXHairWidth.Value = Convert.ToInt32(settings.XHairWidth);
+                txtXHairWidth.Value = settings.XHairWidth;
 
                 split = settings.XHairColor.Split(null);
                 btnXHairColor.BackColor = Color.FromArgb(Convert.ToInt32(split[0]), Convert.ToInt32(split[1]), Convert.ToInt32(split[2]));
@@ -219,7 +204,7 @@ namespace FlawHUD_Installer
                 btnXHairPulseColor.BackColor = Color.FromArgb(Convert.ToInt32(split[0]), Convert.ToInt32(split[1]), Convert.ToInt32(split[2]));
 
                 // HEALTH and AMMO
-                lbHealthStyle.SelectedIndex = lbXHairStyles.FindStringExact(settings.HealthStyle);
+                //lbHealthStyle.SelectedIndex = settings.HealthStyle - 1;
 
                 split = settings.HealingDone.Split(null);
                 btnHealingDone.BackColor = Color.FromArgb(Convert.ToInt32(split[0]), Convert.ToInt32(split[1]), Convert.ToInt32(split[2]));
@@ -267,35 +252,12 @@ namespace FlawHUD_Installer
 
         public void UpdateSettingsFile()
         {
-            if (settings.HUDVersion == "classic")
-                WriteToSettings("HUDVersion", "classic");
-            else
-                WriteToSettings("HUDVersion", "modern");
-
-            if (settings.Scoreboard == "minimal")
-                WriteToSettings("Scoreboard", "minimal");
-            else
-                WriteToSettings("Scoreboard", "standard");
-
-            if (settings.ChatBox == "top")
-                WriteToSettings("ChatBox", "top");
-            else
-                WriteToSettings("ChatBox", "bottom");
-
-            if (settings.TeamSelect == "left")
-                WriteToSettings("TeamSelect", "left");
-            else
-                WriteToSettings("TeamSelect", "center");
-
-            if (settings.DisguiseImage == "on")
-                WriteToSettings("DisguiseImage", "on");
-            else
-                WriteToSettings("DisguiseImage", "off");
-
-            if (settings.DefaultMenuBG == "on")
-                WriteToSettings("DefaultMenuBG", "on");
-            else
-                WriteToSettings("DefaultMenuBG", "off");
+            WriteToSettings("HUDVersion", settings.HUDVersion.ToString());
+            WriteToSettings("Scoreboard", settings.Scoreboard.ToString());
+            WriteToSettings("ChatBox", settings.ChatBox.ToString());
+            WriteToSettings("TeamSelect", settings.TeamSelect.ToString());
+            WriteToSettings("DisguiseImage", settings.DisguiseImage.ToString());
+            WriteToSettings("DefaultMenuBG", settings.DefaultMenuBG.ToString());
         }
 
         private void WriteToSettings(string setting, string value)
@@ -312,7 +274,7 @@ namespace FlawHUD_Installer
             using (StreamReader reader = new StreamReader($"{TF2Directory}\\rayshud\\customizations\\settings.json"))
             {
                 string json = reader.ReadToEnd();
-                RootObject items = JsonConvert.DeserializeObject<RootObject>(json);
+                settings = JsonConvert.DeserializeObject<RootObject>(json);
             }
         }
 
@@ -382,7 +344,7 @@ namespace FlawHUD_Installer
             var chat = $"{TF2Directory}\\rayshud\\resource\\ui\\basechat.res";
             var layout = $"{TF2Directory}\\rayshud\\scripts\\hudlayout.res";
 
-            if (settings.HUDVersion == "classic")
+            if (settings.HUDVersion)
             {
                 File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\materials\\console\\background_upward.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward.vtf", true);
                 File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\materials\\console\\background_upward_widescreen.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward_widescreen.vtf", true);
@@ -393,12 +355,12 @@ namespace FlawHUD_Installer
                 File.Copy($"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\materials\\console\\background_upward_widescreen.vtf", $"{TF2Directory}\\rayshud\\materials\\console\\background_upward_widescreen.vtf", true);
             }
 
-            if (settings.Scoreboard == "minimal")
+            if (settings.Scoreboard)
                 File.Copy($"{TF2Directory}\\rayshud\\customizations\\Scoreboard\\scoreboard-minimal.res", $"{TF2Directory}\\rayshud\\resource\\ui\\scoreboard.res", true);
             else
                 File.Copy($"{TF2Directory}\\rayshud\\customizations\\Scoreboard\\scoreboard-default.res", $"{TF2Directory}\\rayshud\\resource\\ui\\scoreboard.res", true);
 
-            if (settings.DefaultMenuBG == "off")
+            if (settings.DefaultMenuBG)
             {
                 Directory.Move($"{TF2Directory}\\rayshud\\material\\console", $"{TF2Directory}\\rayshud\\material\\console_off");
                 File.Move($"{TF2Directory}\\rayshud\\material\\chapterbackgrounds.txt", $"{TF2Directory}\\rayshud\\material\\chapterbackgrounds_off.txt");
@@ -409,7 +371,7 @@ namespace FlawHUD_Installer
                 File.Move($"{TF2Directory}\\rayshud\\material\\chapterbackgrounds_off.txt", $"{TF2Directory}\\rayshud\\material\\chapterbackgrounds.txt");
             }
 
-            if (settings.TeamSelect == "center")
+            if (settings.TeamSelect)
             {
                 File.Move($"{TF2Directory}\\rayshud\\customizations\\Team Menu\\Teammenu-center.res", $"{TF2Directory}\\rayshud\\resource\\ui\\Teammenu.res");
                 File.Move($"{TF2Directory}\\rayshud\\customizations\\Team Menu\\ClassSelection-center.res", $"{TF2Directory}\\rayshud\\resource\\ui\\ClassSelection.res");
@@ -420,27 +382,18 @@ namespace FlawHUD_Installer
                 File.Move($"{TF2Directory}\\rayshud\\customizations\\Team Menu\\ClassSelection-left.res", $"{TF2Directory}\\rayshud\\resource\\ui\\Teammenu.res");
             }
 
-            if (settings.HealthStyle == "default")
+            if (settings.HealthStyle == 1)
                 File.Move($"{TF2Directory}\\rayshud\\customizations\\Player Health\\HudPlayerHealth-default.res", $"{TF2Directory}\\rayshud\\resource\\ui\\HudPlayerHealth.res");
-            else if (settings.HealthStyle == "teambar")
+            else if (settings.HealthStyle == 2)
                 File.Move($"{TF2Directory}\\rayshud\\customizations\\Player Health\\HudPlayerHealth-teambar.res", $"{TF2Directory}\\rayshud\\resource\\ui\\HudPlayerHealth.res");
-            else if (settings.HealthStyle == "cross")
+            else if (settings.HealthStyle == 3)
                 File.Move($"{TF2Directory}\\rayshud\\customizations\\Player Health\\HudPlayerHealth-cross.res", $"{TF2Directory}\\rayshud\\resource\\ui\\HudPlayerHealth.res");
-            else if (settings.HealthStyle == "broesel")
+            else if (settings.HealthStyle == 4)
                 File.Move($"{TF2Directory}\\rayshud\\customizations\\Player Health\\HudPlayerHealth-broesel.res", $"{TF2Directory}\\rayshud\\resource\\ui\\HudPlayerHealth.res");
             //-------------------------------------------------------------------------
 
             string[] lines = File.ReadAllLines(animations);
-            if (settings.DisguiseImage == "off")
-            {
-                lines[87 - 1] = $"//{lines[87 - 1]}";
-                lines[88 - 1] = $"//{lines[88 - 1]}";
-                lines[89 - 1] = $"//{lines[89 - 1]}";
-                lines[94 - 1] = $"//{lines[94 - 1]}";
-                lines[95 - 1] = $"//{lines[95 - 1]}";
-                lines[96 - 1] = $"//{lines[96 - 1]}";
-            }
-            else
+            if (settings.DisguiseImage)
             {
                 lines[87 - 1] = lines[87 - 1].Replace("//", string.Empty);
                 lines[88 - 1] = lines[88 - 1].Replace("//", string.Empty);
@@ -449,27 +402,36 @@ namespace FlawHUD_Installer
                 lines[95 - 1] = lines[95 - 1].Replace("//", string.Empty);
                 lines[96 - 1] = lines[96 - 1].Replace("//", string.Empty);
             }
+            else
+            {
+                lines[87 - 1] = $"//{lines[87 - 1]}";
+                lines[88 - 1] = $"//{lines[88 - 1]}";
+                lines[89 - 1] = $"//{lines[89 - 1]}";
+                lines[94 - 1] = $"//{lines[94 - 1]}";
+                lines[95 - 1] = $"//{lines[95 - 1]}";
+                lines[96 - 1] = $"//{lines[96 - 1]}";
+            }
 
-            if (settings.UberAnimation == "flash")
+            if (settings.UberAnimation == 1)
             {
                 lines[104 - 1] = lines[104 - 1].Replace("//", string.Empty);
                 lines[105 - 1] = $"//{lines[105 - 1]}";
                 lines[106 - 1] = $"//{lines[106 - 1]}";
             }
-            else if (settings.UberAnimation == "solid")
+            else if (settings.UberAnimation == 2)
             {
                 lines[104 - 1] = $"//{lines[104 - 1]}";
                 lines[105 - 1] = lines[105 - 1].Replace("//", string.Empty);
                 lines[106 - 1] = $"//{lines[106 - 1]}";
             }
-            else if (settings.UberAnimation == "rainbow")
+            else if (settings.UberAnimation == 3)
             {
                 lines[104 - 1] = $"//{lines[104 - 1]}";
                 lines[105 - 1] = $"//{lines[105 - 1]}";
                 lines[106 - 1] = lines[106 - 1].Replace("//", string.Empty);
             }
 
-            if (settings.XHairPulse == "on")
+            if (settings.XHairPulse)
             {
                 lines[80 - 1] = lines[87 - 1].Replace("//", string.Empty);
                 lines[81 - 1] = lines[88 - 1].Replace("//", string.Empty);
@@ -483,76 +445,76 @@ namespace FlawHUD_Installer
             //-------------------------------------------------------------------------
 
             lines = File.ReadAllLines(chat);
-            if (settings.ChatBox == "top")
-                lines[10 - 1] = $"\"ypos\"   \"150\"";
-            else
+            if (settings.ChatBox)
                 lines[10 - 1] = $"\"ypos\"   \"30\"";
+            else
+                lines[10 - 1] = $"\"ypos\"   \"150\"";
             File.WriteAllLines(chat, lines);
 
             lines = File.ReadAllLines(layout);
             switch (settings.XHairStyle)
             {
-                case "xHairCircle":
+                case 1: //xHairCircle
                     SetCrosshairSettings(33);
                     break;
 
-                case "ScatterSpread":
+                case 2: //ScatterSpread
                     SetCrosshairSettings(50);
                     break;
 
-                case "BasicCross":
+                case 3: //BasicCross
                     SetCrosshairSettings(68);
                     break;
 
-                case "BasicCrossSmall":
+                case 4: //BasicCrossSmall
                     SetCrosshairSettings(85);
                     break;
 
-                case "BasicCrossLarge":
+                case 5: //BasicCrossLarge
                     SetCrosshairSettings(102);
                     break;
 
-                case "BasicDot":
+                case 6: //BasicDot
                     SetCrosshairSettings(119);
                     break;
 
-                case "CircleDot":
+                case 7: //CircleDot
                     SetCrosshairSettings(136);
                     break;
 
-                case "ThinCircle":
+                case 8: //ThinCircle
                     SetCrosshairSettings(153);
                     break;
 
-                case "WingsPlus":
+                case 9: //WingsPlus
                     SetCrosshairSettings(170);
                     break;
 
-                case "Wings":
+                case 10:    //Wings
                     SetCrosshairSettings(187);
                     break;
 
-                case "WingsSmallDot":
+                case 11:    //WingsSmallDot
                     SetCrosshairSettings(204);
                     break;
 
-                case "WingsSmall":
+                case 12:    //WingsSmall
                     SetCrosshairSettings(221);
                     break;
 
-                case "OpenCross":
+                case 13:    //OpenCross
                     SetCrosshairSettings(238);
                     break;
 
-                case "OpenCrossDot":
+                case 14:    //OpenCrossDot
                     SetCrosshairSettings(255);
                     break;
 
-                case "ThinCross":
+                case 15:    //ThinCross
                     SetCrosshairSettings(272);
                     break;
 
-                case "KonrWings":
+                case 16:    //KonrWings
                     SetCrosshairSettings(289);
                     break;
             }
@@ -585,7 +547,7 @@ namespace FlawHUD_Installer
         private void SetCrosshairSettings(int index)
         {
             var lines = File.ReadAllLines($"{TF2Directory}\\rayshud\\scripts\\hudlayout.res");
-            if (settings.XHairEnabled == "on")
+            if (settings.XHairEnabled)
             {
                 lines[(index) - 1] = $"\"visible\"   \"1\"";
                 lines[(index + 1) - 1] = $"\"enabled\"   \"1\"";
@@ -714,75 +676,63 @@ namespace FlawHUD_Installer
 
         private void cbHUDVersion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settings.HUDVersion = "modern";
             if (cbHUDVersion.SelectedIndex > 0)
-                settings.HUDVersion = "classic";
+                settings.HUDVersion = true;
+            else
+                settings.HUDVersion = false;
         }
 
         private void cbScoreboard_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settings.Scoreboard = "normal";
             if (cbScoreboard.SelectedIndex > 0)
-                settings.Scoreboard = "minimal";
+                settings.Scoreboard = true;
+            else
+                settings.Scoreboard = false;
         }
 
         private void cbDisguiseImage_CheckedChanged(object sender, EventArgs e)
         {
-            settings.DisguiseImage = "off";
-            if (cbDisguiseImage.Checked)
-                settings.DisguiseImage = "on";
+            settings.DisguiseImage = cbDisguiseImage.Checked;
         }
 
         private void cbDefaultMenuBG_CheckedChanged(object sender, EventArgs e)
         {
-            settings.DefaultMenuBG = "off";
-            if (cbDefaultMenuBG.Checked)
-                settings.DefaultMenuBG = "on";
+            settings.DefaultMenuBG = cbDefaultMenuBG.Checked;
         }
 
         private void rbChatBox_CheckedChanged(object sender, EventArgs e)
         {
-            settings.ChatBox = "top";
-            if (rbChatBoxBottom.Checked)
-                settings.ChatBox = "bottom";
+            settings.ChatBox = rbChatBoxBottom.Checked;
         }
 
         private void rbTeamSelect_CheckedChanged(object sender, EventArgs e)
         {
-            settings.TeamSelect = "left";
-            if (rbTeamSelectCenter.Checked)
-                settings.TeamSelect = "center";
+            settings.TeamSelect = rbTeamSelectCenter.Checked;
         }
 
         private void rbUberAnimation_CheckedChanged(object sender, EventArgs e)
         {
             if (rbUberAnimation1.Checked)
-                settings.UberAnimation = "flash";
+                settings.UberAnimation = 1;
             else if (rbUberAnimation2.Checked)
-                settings.UberAnimation = "solid";
+                settings.UberAnimation = 2;
             else if (rbUberAnimation3.Checked)
-                settings.UberAnimation = "rainbow";
+                settings.UberAnimation = 3;
         }
 
         private void cbXHairEnabled_CheckedChanged(object sender, EventArgs e)
         {
-            settings.XHairEnabled = "off";
-            if (cbXHairEnabled.Checked)
-                settings.XHairEnabled = "on";
+            settings.XHairEnabled = cbXHairEnabled.Checked;
         }
 
         private void cbXHairOutline_CheckedChanged(object sender, EventArgs e)
         {
-            settings.XHairOutline = "off";
-            if (cbXHairOutline.Checked)
-                settings.XHairOutline = "on";
+            settings.XHairOutline = cbXHairOutline.Checked;
         }
 
         private void cbXHairPulse_CheckedChanged(object sender, EventArgs e)
         {
-            settings.XHairPulse = "off";
-            if (cbXHairPulse.Checked)
-                settings.XHairPulse = "on";
+            settings.XHairPulse = cbXHairPulse.Checked;
         }
 
         private void txtXHairSize_TextChanged(object sender, EventArgs e)
@@ -790,100 +740,100 @@ namespace FlawHUD_Installer
             if (txtXHairHeight.Value < 0 && txtXHairHeight.Value > 500)
                 txtXHairHeight.Value = 200;
             else
-                settings.XHairHeight = txtXHairHeight.Value.ToString();
+                settings.XHairHeight = Convert.ToInt32(txtXHairHeight.Value);
 
             if (txtXHairWidth.Value < 0 && txtXHairWidth.Value > 500)
                 txtXHairWidth.Value = 200;
             else
-                settings.XHairWidth = txtXHairWidth.Value.ToString();
+                settings.XHairWidth = Convert.ToInt32(txtXHairWidth.Value);
         }
 
         private void lbPlayerHealth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settings.HealthStyle = lbHealthStyle.SelectedItem.ToString();
+            settings.HealthStyle = lbHealthStyle.SelectedIndex + 1;
         }
 
         private void lbXHairStyles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settings.XHairStyle = lbXHairStyles.SelectedItem.ToString();
+            settings.XHairStyle = lbXHairStyles.SelectedIndex + 1;
             switch (settings.XHairStyle)
             {
-                case "xHairCircle":
+                case 1:
                     pbPreview2.ImageLocation = "https://i.imgur.com/vO6Q3KL.jpg";
                     LoadCrosshairSettings(33);
                     break;
 
-                case "ScatterSpread":
+                case 2:
                     pbPreview2.ImageLocation = "https://i.imgur.com/S7yWqL8.jpg";
                     LoadCrosshairSettings(50);
                     break;
 
-                case "BasicCross":
+                case 3:
                     pbPreview2.ImageLocation = "https://i.imgur.com/9FMR0oN.jpg";
                     LoadCrosshairSettings(68);
                     break;
 
-                case "BasicCrossSmall":
+                case 4:
                     pbPreview2.ImageLocation = "https://i.imgur.com/x9M3tZA.jpg";
                     LoadCrosshairSettings(85);
                     break;
 
-                case "BasicCrossLarge":
+                case 5:
                     pbPreview2.ImageLocation = "https://i.imgur.com/dUtMMpz.jpg";
                     LoadCrosshairSettings(102);
                     break;
 
-                case "BasicDot":
+                case 6:
                     pbPreview2.ImageLocation = "https://i.imgur.com/cM4B3Yq.jpg";
                     LoadCrosshairSettings(119);
                     break;
 
-                case "CircleDot":
+                case 7:
                     pbPreview2.ImageLocation = "https://i.imgur.com/yUDWwOU.jpg";
                     LoadCrosshairSettings(136);
                     break;
 
-                case "ThinCircle":
+                case 8:
                     pbPreview2.ImageLocation = "https://i.imgur.com/T8ovez4.jpg";
                     LoadCrosshairSettings(153);
                     break;
 
-                case "WingsPlus":
+                case 9:
                     pbPreview2.ImageLocation = "https://i.imgur.com/uonkSki.jpg";
                     LoadCrosshairSettings(170);
                     break;
 
-                case "Wings":
+                case 10:
                     pbPreview2.ImageLocation = "https://i.imgur.com/pOltRKf.jpg";
                     LoadCrosshairSettings(187);
                     break;
 
-                case "WingsSmallDot":
+                case 11:
                     pbPreview2.ImageLocation = "https://i.imgur.com/eGqDvF0.jpg";
                     LoadCrosshairSettings(204);
                     break;
 
-                case "WingsSmall":
+                case 12:
                     pbPreview2.ImageLocation = "https://i.imgur.com/eGqDvF0.jpg";
                     LoadCrosshairSettings(221);
                     break;
 
-                case "OpenCross":
+                case 13:
                     pbPreview2.ImageLocation = "https://i.imgur.com/Yc5H81Q.jpg";
                     LoadCrosshairSettings(238);
                     break;
 
-                case "OpenCrossDot":
+                case 14:
                     pbPreview2.ImageLocation = "https://i.imgur.com/YNLmuze.jpg";
                     LoadCrosshairSettings(255);
                     break;
 
-                case "ThinCross":
+                case 15:
                     pbPreview2.ImageLocation = "https://i.imgur.com/SzZkbaB.jpg";
                     LoadCrosshairSettings(272);
                     break;
 
-                case "KonrWings":
+                case 16:
                     pbPreview2.ImageLocation = "https://i.imgur.com/ym1WUsP.jpg";
                     LoadCrosshairSettings(289);
                     break;
@@ -908,27 +858,27 @@ namespace FlawHUD_Installer
 
     public class RootObject
     {
-        public string HUDVersion { get; set; }
-        public string Scoreboard { get; set; }
-        public string ChatBox { get; set; }
-        public string TeamSelect { get; set; }
-        public string DisguiseImage { get; set; }
-        public string DefaultMenuBG { get; set; }
-        public string UberAnimation { get; set; }
+        public bool HUDVersion { get; set; }
+        public bool Scoreboard { get; set; }
+        public bool ChatBox { get; set; }
+        public bool TeamSelect { get; set; }
+        public bool DisguiseImage { get; set; }
+        public bool DefaultMenuBG { get; set; }
+        public int UberAnimation { get; set; }
         public string UberBarColor { get; set; }
         public string UberFullColor { get; set; }
         public string UberFlashColor1 { get; set; }
         public string UberFlashColor2 { get; set; }
-        public string XHairEnabled { get; set; }
-        public string XHairStyle { get; set; }
-        public string XHairOutline { get; set; }
-        public string XHairPulse { get; set; }
-        public string XHairHeight { get; set; }
-        public string XHairWidth { get; set; }
+        public bool XHairEnabled { get; set; }
+        public int XHairStyle { get; set; }
+        public bool XHairOutline { get; set; }
+        public bool XHairPulse { get; set; }
+        public int XHairHeight { get; set; }
+        public int XHairWidth { get; set; }
         public string XHairColor { get; set; }
         public string XHairPulseColor { get; set; }
         public string HealingDone { get; set; }
-        public string HealthStyle { get; set; }
+        public int HealthStyle { get; set; }
         public string HealthNormal { get; set; }
         public string HealthBuff { get; set; }
         public string HealthLow { get; set; }
