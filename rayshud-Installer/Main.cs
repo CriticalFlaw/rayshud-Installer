@@ -89,8 +89,12 @@ namespace FlawHUD_Installer
         {
             try
             {
+                if ((Directory.Exists($"{TF2Directory}\\rayshud-installer")) && (Directory.Exists($"{TF2Directory}\\rayshud")))
+                    Directory.Delete($"{TF2Directory}\\rayshud", true);
+
                 if (Directory.Exists($"{TF2Directory}\\rayshud-installer"))
                     Directory.Move($"{TF2Directory}\\rayshud-installer", $"{TF2Directory}\\rayshud");
+
                 if (Directory.Exists($"{TF2Directory}\\rayshud"))
                 {
                     btnUninstall.Enabled = true;
@@ -140,6 +144,8 @@ namespace FlawHUD_Installer
                 btnAmmoReserve.BackColor = Color.FromArgb(72, 255, 255);
                 btnAmmoClipLow.BackColor = Color.FromArgb(255, 42, 130);
                 btnAmmoReserveLow.BackColor = Color.FromArgb(255, 128, 28);
+
+                txtLastModified.Text = settings.LastModified.ToString();
 
                 // GENERAL
                 if (settings.HUDVersion)
@@ -280,6 +286,8 @@ namespace FlawHUD_Installer
             WriteToSettings("AmmoReserve", settings.AmmoReserve.ToString());
             WriteToSettings("AmmoClipLow", settings.AmmoClipLow.ToString());
             WriteToSettings("AmmoReserveLow", settings.AmmoReserveLow.ToString());
+            WriteToSettings("LastModified", DateTime.Now.ToString());
+            txtLastModified.Text = DateTime.Now.ToString();
         }
 
         private void WriteToSettings(string setting, string value)
@@ -307,6 +315,8 @@ namespace FlawHUD_Installer
                 // Remove the downloaded file from the temporary location
                 if (File.Exists($"{Application.StartupPath}\\TempHUD.zip"))
                     File.Delete($"{Application.StartupPath}\\TempHUD.zip");
+                if (File.Exists($"{TF2Directory}\\rayshud\\customizations\\settings.json"))
+                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\settings.json", $"{Application.StartupPath}\\settings.json", true);
 
                 WebClient WC = new WebClient(); // Download th HUD into a temporary location
                 WC.DownloadFile("https://github.com/raysfire/rayshud/archive/installer.zip", "TempHUD.zip");
@@ -325,6 +335,11 @@ namespace FlawHUD_Installer
                     case "Refresh":
                         MessageBox.Show($"Finished Refreshing rayshud...", "rayshud Refreshed!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
+                }
+                if (File.Exists($"{Application.StartupPath}\\settings.json"))
+                {
+                    File.Copy($"{Application.StartupPath}\\settings.json", $"{TF2Directory}\\rayshud\\customizations\\settings.json", true);
+                    File.Delete($"{Application.StartupPath}\\settings.json");
                 }
                 CheckHUDDirectory();
             }
@@ -953,5 +968,6 @@ namespace FlawHUD_Installer
         public string AmmoClipLow { get; set; }
         public string AmmoReserve { get; set; }
         public string AmmoReserveLow { get; set; }
+        public string LastModified { get; set; }
     }
 }

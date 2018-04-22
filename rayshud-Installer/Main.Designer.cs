@@ -110,6 +110,8 @@
             this.txtLiveVersion = new System.Windows.Forms.Label();
             this.txtInstalledVersion = new System.Windows.Forms.Label();
             this.btnOpenDirectory = new System.Windows.Forms.Button();
+            this.lblLastModified = new System.Windows.Forms.Label();
+            this.txtLastModified = new System.Windows.Forms.Label();
             this.tabEditor.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.gbTeamSelect.SuspendLayout();
@@ -1021,7 +1023,7 @@
             // 
             this.lblLiveVersion.AutoSize = true;
             this.lblLiveVersion.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLiveVersion.Location = new System.Drawing.Point(288, 15);
+            this.lblLiveVersion.Location = new System.Drawing.Point(251, 9);
             this.lblLiveVersion.Name = "lblLiveVersion";
             this.lblLiveVersion.Size = new System.Drawing.Size(97, 17);
             this.lblLiveVersion.TabIndex = 25;
@@ -1031,7 +1033,7 @@
             // 
             this.lblInstalledVersion.AutoSize = true;
             this.lblInstalledVersion.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInstalledVersion.Location = new System.Drawing.Point(498, 15);
+            this.lblInstalledVersion.Location = new System.Drawing.Point(251, 26);
             this.lblInstalledVersion.Name = "lblInstalledVersion";
             this.lblInstalledVersion.Size = new System.Drawing.Size(109, 17);
             this.lblInstalledVersion.TabIndex = 27;
@@ -1057,19 +1059,21 @@
             // 
             this.txtLiveVersion.AutoSize = true;
             this.txtLiveVersion.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLiveVersion.Location = new System.Drawing.Point(391, 16);
+            this.txtLiveVersion.Location = new System.Drawing.Point(360, 10);
             this.txtLiveVersion.Name = "txtLiveVersion";
-            this.txtLiveVersion.Size = new System.Drawing.Size(0, 17);
+            this.txtLiveVersion.Size = new System.Drawing.Size(17, 17);
             this.txtLiveVersion.TabIndex = 30;
+            this.txtLiveVersion.Text = "...";
             // 
             // txtInstalledVersion
             // 
             this.txtInstalledVersion.AutoSize = true;
             this.txtInstalledVersion.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtInstalledVersion.Location = new System.Drawing.Point(613, 15);
+            this.txtInstalledVersion.Location = new System.Drawing.Point(360, 26);
             this.txtInstalledVersion.Name = "txtInstalledVersion";
-            this.txtInstalledVersion.Size = new System.Drawing.Size(0, 17);
+            this.txtInstalledVersion.Size = new System.Drawing.Size(17, 17);
             this.txtInstalledVersion.TabIndex = 31;
+            this.txtInstalledVersion.Text = "...";
             // 
             // btnOpenDirectory
             // 
@@ -1085,12 +1089,34 @@
             this.btnOpenDirectory.UseVisualStyleBackColor = false;
             this.btnOpenDirectory.Click += new System.EventHandler(this.btnOpenDirectory_Click);
             // 
+            // lblLastModified
+            // 
+            this.lblLastModified.AutoSize = true;
+            this.lblLastModified.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLastModified.Location = new System.Drawing.Point(446, 9);
+            this.lblLastModified.Name = "lblLastModified";
+            this.lblLastModified.Size = new System.Drawing.Size(94, 17);
+            this.lblLastModified.TabIndex = 33;
+            this.lblLastModified.Text = "Last Modified:";
+            // 
+            // txtLastModified
+            // 
+            this.txtLastModified.AutoSize = true;
+            this.txtLastModified.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLastModified.Location = new System.Drawing.Point(543, 10);
+            this.txtLastModified.Name = "txtLastModified";
+            this.txtLastModified.Size = new System.Drawing.Size(17, 17);
+            this.txtLastModified.TabIndex = 34;
+            this.txtLastModified.Text = "...";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
             this.ClientSize = new System.Drawing.Size(717, 366);
+            this.Controls.Add(this.txtLastModified);
+            this.Controls.Add(this.lblLastModified);
             this.Controls.Add(this.btnOpenDirectory);
             this.Controls.Add(this.txtInstalledVersion);
             this.Controls.Add(this.txtLiveVersion);
@@ -1221,5 +1247,7 @@
         private System.Windows.Forms.NumericUpDown txtXHairWidth;
         private System.Windows.Forms.NumericUpDown txtXHairHeight;
         private System.Windows.Forms.Button btnOpenDirectory;
+        private System.Windows.Forms.Label lblLastModified;
+        private System.Windows.Forms.Label txtLastModified;
     }
 }
