@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Drawing.Text;
 
 namespace FlawHUD_Installer
 {
@@ -22,6 +23,9 @@ namespace FlawHUD_Installer
         public Main()
         {
             InitializeComponent();
+            lblCrosshair.Parent = pbPreview1;
+            lblCrosshair.BackColor = Color.Transparent;
+            PrivateFontCollection PFC = new PrivateFontCollection();
             GetLiveVersion();
         }
 
@@ -102,15 +106,22 @@ namespace FlawHUD_Installer
                     txtDirectory.Text = $"{TF2Directory}\\rayshud";
                     txtInstalledVersion.Text = File.ReadLines($"{TF2Directory}\\rayshud\\README.md").Last().ToString();
                     if (txtInstalledVersion.ToString().Trim() == txtLiveVersion.ToString().Trim())
+                    {
                         btnInstall.Text = "Refresh";
+                        txtStatus.Text = "Installed, Updated";
+                    }
                     else
+                    {
                         btnInstall.Text = "Update";
+                        txtStatus.Text = "Installed, Outdated";
+                    }
                     ReadSettingsFile();
                     DisplayHUDSettings();
                 }
                 else
                 {
                     btnInstall.Text = "Install";
+                    txtStatus.Text = "Not Installed";
                     btnUninstall.Enabled = false;
                     btnSaveChanges.Enabled = false;
                 }
@@ -133,6 +144,7 @@ namespace FlawHUD_Installer
 
                 // CROSSHAIR
                 btnXHairColor.BackColor = Color.FromArgb(242, 242, 242);
+                lblCrosshair.ForeColor = btnXHairColor.BackColor;
                 btnXHairPulseColor.BackColor = Color.FromArgb(255, 0, 0);
 
                 // HEALTH and AMMO
@@ -199,12 +211,11 @@ namespace FlawHUD_Installer
 
                 cbXHairPulse.Checked = settings.XHairPulse;
 
-                txtXHairHeight.Value = settings.XHairHeight;
-
-                txtXHairWidth.Value = settings.XHairWidth;
+                cbXHairSize.SelectedValue = settings.XHairSize;
 
                 split = settings.XHairColor.Split(null);
                 btnXHairColor.BackColor = Color.FromArgb(Convert.ToInt32(split[0]), Convert.ToInt32(split[1]), Convert.ToInt32(split[2]));
+                lblCrosshair.ForeColor = btnXHairColor.BackColor;
 
                 split = settings.XHairPulseColor.Split(null);
                 btnXHairPulseColor.BackColor = Color.FromArgb(Convert.ToInt32(split[0]), Convert.ToInt32(split[1]), Convert.ToInt32(split[2]));
@@ -273,8 +284,7 @@ namespace FlawHUD_Installer
             WriteToSettings("XHairStyle", settings.XHairStyle.ToString());
             WriteToSettings("XHairOutline", settings.XHairOutline.ToString());
             WriteToSettings("XHairPulse", settings.XHairPulse.ToString());
-            WriteToSettings("XHairHeight", settings.XHairHeight.ToString());
-            WriteToSettings("XHairWidth", settings.XHairWidth.ToString());
+            WriteToSettings("XHairSize", settings.XHairSize.ToString());
             WriteToSettings("XHairColor", settings.XHairColor.ToString());
             WriteToSettings("XHairPulseColor", settings.XHairPulseColor.ToString());
             WriteToSettings("HealingDone", settings.HealingDone.ToString());
@@ -361,6 +371,7 @@ namespace FlawHUD_Installer
                     MessageBox.Show($"Finished Uninstalling rayshud...", "rayshud Uninstalled!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     txtDirectory.Text = TF2Directory;
                     txtInstalledVersion.Text = "...";
+                    txtLastModified.Text = "...";
                     CheckHUDDirectory();
                 }
                 else
@@ -633,8 +644,7 @@ namespace FlawHUD_Installer
                 lines[(index) - 1] = $"\t\t\"visible\"   \"0\"";
                 lines[(index) - 1] = $"\t\t\"enabled\"   \"0\"";
             }
-            lines[(index + 5) - 1] = $"\t\t\"wide\"   \"{settings.XHairWidth}\"";
-            lines[(index + 6) - 1] = $"\t\t\"tall\"   \"{settings.XHairHeight}\"";
+            lines[(index + 7) - 1] = $"\t\t\"font\"   \"Crosshairs{settings.XHairSize}\"";
         }
 
         private void btnPlayTF2_Click(object sender, EventArgs e)
@@ -700,6 +710,7 @@ namespace FlawHUD_Installer
                     case "btnXHairColor":
                         btnXHairColor.BackColor = colorPicker.Color;
                         settings.XHairColor = $"{colorPicker.Color.R} {colorPicker.Color.G} {colorPicker.Color.B} 255";
+                        lblCrosshair.ForeColor = btnXHairColor.BackColor;
                         break;
 
                     case "btnXHairPulseColor":
@@ -813,15 +824,7 @@ namespace FlawHUD_Installer
 
         private void txtXHairSize_TextChanged(object sender, EventArgs e)
         {
-            if (txtXHairHeight.Value < 0 && txtXHairHeight.Value > 500)
-                txtXHairHeight.Value = 200;
-            else
-                settings.XHairHeight = Convert.ToInt32(txtXHairHeight.Value);
-
-            if (txtXHairWidth.Value < 0 && txtXHairWidth.Value > 500)
-                txtXHairWidth.Value = 200;
-            else
-                settings.XHairWidth = Convert.ToInt32(txtXHairWidth.Value);
+            settings.XHairSize = cbXHairSize.SelectedValue.ToString();
         }
 
         private void lbPlayerHealth_SelectedIndexChanged(object sender, EventArgs e)
@@ -835,100 +838,81 @@ namespace FlawHUD_Installer
             switch (settings.XHairStyle)
             {
                 case 1:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/vO6Q3KL.jpg";
-                    LoadCrosshairSettings(33);
+                    lblCrosshair.Text = "2";
+                    cbXHairSize.SelectedIndex = 10;
                     break;
 
                 case 2:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/S7yWqL8.jpg";
-                    LoadCrosshairSettings(50);
+                    lblCrosshair.Text = "2";
+                    cbXHairSize.SelectedIndex = 13;
                     break;
 
                 case 3:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/9FMR0oN.jpg";
-                    LoadCrosshairSettings(68);
+                    lblCrosshair.Text = "2";
+                    cbXHairSize.SelectedIndex = 6;
                     break;
 
                 case 4:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/x9M3tZA.jpg";
-                    LoadCrosshairSettings(85);
+                    lblCrosshair.Text = "3";
+                    cbXHairSize.SelectedIndex = 9;
                     break;
 
                 case 5:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/dUtMMpz.jpg";
-                    LoadCrosshairSettings(102);
+                    lblCrosshair.Text = "8";
+                    cbXHairSize.SelectedIndex = 14;
                     break;
 
                 case 6:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/cM4B3Yq.jpg";
-                    LoadCrosshairSettings(119);
+                    lblCrosshair.Text = "i";
+                    cbXHairSize.SelectedIndex = 9;
                     break;
 
                 case 7:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/yUDWwOU.jpg";
-                    LoadCrosshairSettings(136);
+                    lblCrosshair.Text = "i";
+                    cbXHairSize.SelectedIndex = 9;
                     break;
 
                 case 8:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/T8ovez4.jpg";
-                    LoadCrosshairSettings(153);
+                    lblCrosshair.Text = "h";
+                    cbXHairSize.SelectedIndex = 9;
                     break;
 
                 case 9:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/uonkSki.jpg";
-                    LoadCrosshairSettings(170);
+                    lblCrosshair.Text = "0";
+                    cbXHairSize.SelectedIndex = 13;
                     break;
 
                 case 10:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/pOltRKf.jpg";
-                    LoadCrosshairSettings(187);
+                    lblCrosshair.Text = "9";
+                    cbXHairSize.SelectedIndex = 14;
                     break;
 
                 case 11:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/eGqDvF0.jpg";
-                    LoadCrosshairSettings(204);
+                    lblCrosshair.Text = "+";
+                    cbXHairSize.SelectedIndex = 9;
                     break;
 
                 case 12:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/eGqDvF0.jpg";
-                    LoadCrosshairSettings(221);
+                    lblCrosshair.Text = "d";
+                    cbXHairSize.SelectedIndex = 14;
                     break;
 
                 case 13:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/Yc5H81Q.jpg";
-                    LoadCrosshairSettings(238);
+                    lblCrosshair.Text = "c";
+                    cbXHairSize.SelectedIndex = 14;
                     break;
 
                 case 14:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/YNLmuze.jpg";
-                    LoadCrosshairSettings(255);
+                    lblCrosshair.Text = "g";
+                    cbXHairSize.SelectedIndex = 14;
                     break;
 
                 case 15:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/SzZkbaB.jpg";
-                    LoadCrosshairSettings(272);
-                    break;
-
-                case 16:
-                    pbPreview2.ImageLocation = "https://i.imgur.com/ym1WUsP.jpg";
-                    LoadCrosshairSettings(289);
+                    lblCrosshair.Text = "o";
+                    cbXHairSize.SelectedIndex = 14;
                     break;
             }
-        }
-
-        private void LoadCrosshairSettings(int index)
-        {
-            if (btnUninstall.Enabled == true)
-            {
-                var pattern = "\\\"(.*?)\\\"";
-                var lines = File.ReadAllLines($"{TF2Directory}\\rayshud\\scripts\\hudlayout.res");
-                cbXHairEnabled.Checked = lines[(index) - 1] == "\"visible\"  \"0\"";
-                cbXHairOutline.Checked = lines[(index + 1) - 1] == "\"enabled\"    \"0\"";
-                var matches = Regex.Matches(lines[(index + 5) - 1], pattern);
-                txtXHairWidth.Value = Convert.ToInt32(matches[1].Value);
-                matches = Regex.Matches(lines[(index + 6) - 1], pattern);
-                txtXHairHeight.Value = Convert.ToInt32(matches[1].Value);
-            }
+            //lblCrosshair.Font = new Font(lblCrosshair.Font.FontFamily, Convert.ToUInt32(cbXHairSize.SelectedValue);
         }
 
         private void btnOpenDirectory_Click(object sender, EventArgs e)
@@ -955,8 +939,7 @@ namespace FlawHUD_Installer
         public int XHairStyle { get; set; }
         public bool XHairOutline { get; set; }
         public bool XHairPulse { get; set; }
-        public int XHairHeight { get; set; }
-        public int XHairWidth { get; set; }
+        public string XHairSize { get; set; }
         public string XHairColor { get; set; }
         public string XHairPulseColor { get; set; }
         public string HealingDone { get; set; }

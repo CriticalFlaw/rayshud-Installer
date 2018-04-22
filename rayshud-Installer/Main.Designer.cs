@@ -62,10 +62,10 @@
             this.lblDirectory = new System.Windows.Forms.Label();
             this.tabCrosshair = new System.Windows.Forms.TabPage();
             this.gbPreview2 = new System.Windows.Forms.GroupBox();
-            this.pbPreview2 = new System.Windows.Forms.PictureBox();
+            this.lblCrosshair = new System.Windows.Forms.Label();
+            this.pbPreview1 = new System.Windows.Forms.PictureBox();
             this.gbProperties2 = new System.Windows.Forms.GroupBox();
-            this.txtXHairWidth = new System.Windows.Forms.NumericUpDown();
-            this.txtXHairHeight = new System.Windows.Forms.NumericUpDown();
+            this.cbXHairSize = new System.Windows.Forms.ComboBox();
             this.btnXHairColor = new System.Windows.Forms.Button();
             this.btnXHairPulseColor = new System.Windows.Forms.Button();
             this.cbXHairPulse = new System.Windows.Forms.CheckBox();
@@ -74,8 +74,7 @@
             this.lblXHairColor = new System.Windows.Forms.Label();
             this.cbXHairOutline = new System.Windows.Forms.CheckBox();
             this.cbXHairEnabled = new System.Windows.Forms.CheckBox();
-            this.lblXHairHeight = new System.Windows.Forms.Label();
-            this.lblXHairWidth = new System.Windows.Forms.Label();
+            this.lblXHairSize = new System.Windows.Forms.Label();
             this.tabHealthAmmo = new System.Windows.Forms.TabPage();
             this.gbProperties4 = new System.Windows.Forms.GroupBox();
             this.btnAmmoReserveLow = new System.Windows.Forms.Button();
@@ -112,6 +111,8 @@
             this.btnOpenDirectory = new System.Windows.Forms.Button();
             this.lblLastModified = new System.Windows.Forms.Label();
             this.txtLastModified = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.txtStatus = new System.Windows.Forms.Label();
             this.tabEditor.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.gbTeamSelect.SuspendLayout();
@@ -120,10 +121,8 @@
             this.gbProperties1.SuspendLayout();
             this.tabCrosshair.SuspendLayout();
             this.gbPreview2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPreview2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPreview1)).BeginInit();
             this.gbProperties2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtXHairWidth)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtXHairHeight)).BeginInit();
             this.tabHealthAmmo.SuspendLayout();
             this.gbProperties4.SuspendLayout();
             this.gbPreview3.SuspendLayout();
@@ -517,7 +516,8 @@
             // 
             // gbPreview2
             // 
-            this.gbPreview2.Controls.Add(this.pbPreview2);
+            this.gbPreview2.Controls.Add(this.lblCrosshair);
+            this.gbPreview2.Controls.Add(this.pbPreview1);
             this.gbPreview2.ForeColor = System.Drawing.Color.White;
             this.gbPreview2.Location = new System.Drawing.Point(341, 6);
             this.gbPreview2.Name = "gbPreview2";
@@ -526,19 +526,30 @@
             this.gbPreview2.TabStop = false;
             this.gbPreview2.Text = "Preview";
             // 
-            // pbPreview2
+            // lblCrosshair
             // 
-            this.pbPreview2.Image = ((System.Drawing.Image)(resources.GetObject("pbPreview2.Image")));
-            this.pbPreview2.Location = new System.Drawing.Point(7, 21);
-            this.pbPreview2.Name = "pbPreview2";
-            this.pbPreview2.Size = new System.Drawing.Size(327, 227);
-            this.pbPreview2.TabIndex = 0;
-            this.pbPreview2.TabStop = false;
+            this.lblCrosshair.BackColor = System.Drawing.Color.Transparent;
+            this.lblCrosshair.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCrosshair.Font = new System.Drawing.Font("Crosshairs", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCrosshair.Location = new System.Drawing.Point(3, 18);
+            this.lblCrosshair.Name = "lblCrosshair";
+            this.lblCrosshair.Size = new System.Drawing.Size(334, 232);
+            this.lblCrosshair.TabIndex = 3;
+            this.lblCrosshair.Text = "o";
+            this.lblCrosshair.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pbPreview1
+            // 
+            this.pbPreview1.Image = global::TF2HUD_Installer.Properties.Resources.Wall;
+            this.pbPreview1.Location = new System.Drawing.Point(6, 21);
+            this.pbPreview1.Name = "pbPreview1";
+            this.pbPreview1.Size = new System.Drawing.Size(328, 226);
+            this.pbPreview1.TabIndex = 2;
+            this.pbPreview1.TabStop = false;
             // 
             // gbProperties2
             // 
-            this.gbProperties2.Controls.Add(this.txtXHairWidth);
-            this.gbProperties2.Controls.Add(this.txtXHairHeight);
+            this.gbProperties2.Controls.Add(this.cbXHairSize);
             this.gbProperties2.Controls.Add(this.btnXHairColor);
             this.gbProperties2.Controls.Add(this.btnXHairPulseColor);
             this.gbProperties2.Controls.Add(this.cbXHairPulse);
@@ -547,8 +558,7 @@
             this.gbProperties2.Controls.Add(this.lblXHairColor);
             this.gbProperties2.Controls.Add(this.cbXHairOutline);
             this.gbProperties2.Controls.Add(this.cbXHairEnabled);
-            this.gbProperties2.Controls.Add(this.lblXHairHeight);
-            this.gbProperties2.Controls.Add(this.lblXHairWidth);
+            this.gbProperties2.Controls.Add(this.lblXHairSize);
             this.gbProperties2.ForeColor = System.Drawing.Color.White;
             this.gbProperties2.Location = new System.Drawing.Point(3, 6);
             this.gbProperties2.Name = "gbProperties2";
@@ -557,44 +567,39 @@
             this.gbProperties2.TabStop = false;
             this.gbProperties2.Text = "Properties";
             // 
-            // txtXHairWidth
+            // cbXHairSize
             // 
-            this.txtXHairWidth.Location = new System.Drawing.Point(210, 127);
-            this.txtXHairWidth.Maximum = new decimal(new int[] {
-            400,
-            0,
-            0,
-            0});
-            this.txtXHairWidth.Name = "txtXHairWidth";
-            this.txtXHairWidth.Size = new System.Drawing.Size(80, 22);
-            this.txtXHairWidth.TabIndex = 14;
-            this.txtXHairWidth.Value = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            // 
-            // txtXHairHeight
-            // 
-            this.txtXHairHeight.Location = new System.Drawing.Point(210, 97);
-            this.txtXHairHeight.Maximum = new decimal(new int[] {
-            400,
-            0,
-            0,
-            0});
-            this.txtXHairHeight.Name = "txtXHairHeight";
-            this.txtXHairHeight.Size = new System.Drawing.Size(80, 22);
-            this.txtXHairHeight.TabIndex = 13;
-            this.txtXHairHeight.Value = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
+            this.cbXHairSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbXHairSize.Enabled = false;
+            this.cbXHairSize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbXHairSize.FormattingEnabled = true;
+            this.cbXHairSize.Items.AddRange(new object[] {
+            "8",
+            "10",
+            "12",
+            "14",
+            "16",
+            "18",
+            "20",
+            "22",
+            "24",
+            "26",
+            "28",
+            "30",
+            "32",
+            "34",
+            "36",
+            "38",
+            "40"});
+            this.cbXHairSize.Location = new System.Drawing.Point(199, 95);
+            this.cbXHairSize.Name = "cbXHairSize";
+            this.cbXHairSize.Size = new System.Drawing.Size(121, 23);
+            this.cbXHairSize.TabIndex = 13;
             // 
             // btnXHairColor
             // 
             this.btnXHairColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnXHairColor.Location = new System.Drawing.Point(158, 174);
+            this.btnXHairColor.Location = new System.Drawing.Point(157, 140);
             this.btnXHairColor.Name = "btnXHairColor";
             this.btnXHairColor.Size = new System.Drawing.Size(163, 22);
             this.btnXHairColor.TabIndex = 12;
@@ -604,7 +609,7 @@
             // btnXHairPulseColor
             // 
             this.btnXHairPulseColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnXHairPulseColor.Location = new System.Drawing.Point(158, 218);
+            this.btnXHairPulseColor.Location = new System.Drawing.Point(157, 184);
             this.btnXHairPulseColor.Name = "btnXHairPulseColor";
             this.btnXHairPulseColor.Size = new System.Drawing.Size(162, 22);
             this.btnXHairPulseColor.TabIndex = 11;
@@ -654,7 +659,7 @@
             // lblXHairPulse
             // 
             this.lblXHairPulse.AutoSize = true;
-            this.lblXHairPulse.Location = new System.Drawing.Point(158, 199);
+            this.lblXHairPulse.Location = new System.Drawing.Point(157, 165);
             this.lblXHairPulse.Name = "lblXHairPulse";
             this.lblXHairPulse.Size = new System.Drawing.Size(73, 16);
             this.lblXHairPulse.TabIndex = 10;
@@ -663,7 +668,7 @@
             // lblXHairColor
             // 
             this.lblXHairColor.AutoSize = true;
-            this.lblXHairColor.Location = new System.Drawing.Point(158, 155);
+            this.lblXHairColor.Location = new System.Drawing.Point(157, 121);
             this.lblXHairColor.Name = "lblXHairColor";
             this.lblXHairColor.Size = new System.Drawing.Size(94, 16);
             this.lblXHairColor.TabIndex = 8;
@@ -698,23 +703,14 @@
             this.cbXHairEnabled.UseVisualStyleBackColor = true;
             this.cbXHairEnabled.CheckedChanged += new System.EventHandler(this.cbXHairEnabled_CheckedChanged);
             // 
-            // lblXHairHeight
+            // lblXHairSize
             // 
-            this.lblXHairHeight.AutoSize = true;
-            this.lblXHairHeight.Location = new System.Drawing.Point(158, 99);
-            this.lblXHairHeight.Name = "lblXHairHeight";
-            this.lblXHairHeight.Size = new System.Drawing.Size(50, 16);
-            this.lblXHairHeight.TabIndex = 6;
-            this.lblXHairHeight.Text = "Height:";
-            // 
-            // lblXHairWidth
-            // 
-            this.lblXHairWidth.AutoSize = true;
-            this.lblXHairWidth.Location = new System.Drawing.Point(158, 129);
-            this.lblXHairWidth.Name = "lblXHairWidth";
-            this.lblXHairWidth.Size = new System.Drawing.Size(46, 16);
-            this.lblXHairWidth.TabIndex = 5;
-            this.lblXHairWidth.Text = "Width:";
+            this.lblXHairSize.AutoSize = true;
+            this.lblXHairSize.Location = new System.Drawing.Point(158, 99);
+            this.lblXHairSize.Name = "lblXHairSize";
+            this.lblXHairSize.Size = new System.Drawing.Size(33, 16);
+            this.lblXHairSize.TabIndex = 6;
+            this.lblXHairSize.Text = "Size:";
             // 
             // tabHealthAmmo
             // 
@@ -1109,12 +1105,34 @@
             this.txtLastModified.TabIndex = 34;
             this.txtLastModified.Text = "...";
             // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.Location = new System.Drawing.Point(446, 27);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(49, 17);
+            this.lblStatus.TabIndex = 35;
+            this.lblStatus.Text = "Status:";
+            // 
+            // txtStatus
+            // 
+            this.txtStatus.AutoSize = true;
+            this.txtStatus.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtStatus.Location = new System.Drawing.Point(543, 27);
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.Size = new System.Drawing.Size(17, 17);
+            this.txtStatus.TabIndex = 36;
+            this.txtStatus.Text = "...";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
             this.ClientSize = new System.Drawing.Size(717, 366);
+            this.Controls.Add(this.txtStatus);
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.txtLastModified);
             this.Controls.Add(this.lblLastModified);
             this.Controls.Add(this.btnOpenDirectory);
@@ -1149,11 +1167,9 @@
             this.gbProperties1.PerformLayout();
             this.tabCrosshair.ResumeLayout(false);
             this.gbPreview2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbPreview2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPreview1)).EndInit();
             this.gbProperties2.ResumeLayout(false);
             this.gbProperties2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtXHairWidth)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtXHairHeight)).EndInit();
             this.tabHealthAmmo.ResumeLayout(false);
             this.gbProperties4.ResumeLayout(false);
             this.gbProperties4.PerformLayout();
@@ -1169,10 +1185,9 @@
         private System.Windows.Forms.TabControl tabEditor;
         private System.Windows.Forms.TabPage tabCrosshair;
         private System.Windows.Forms.TabPage tabGeneral;
-        private System.Windows.Forms.Label lblXHairWidth;
         private System.Windows.Forms.CheckBox cbXHairOutline;
         private System.Windows.Forms.CheckBox cbXHairEnabled;
-        private System.Windows.Forms.Label lblXHairHeight;
+        private System.Windows.Forms.Label lblXHairSize;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.TabPage tabHealthAmmo;
         private System.Windows.Forms.ComboBox cbScoreboard;
@@ -1203,7 +1218,6 @@
         private System.Windows.Forms.GroupBox gbProperties1;
         private System.Windows.Forms.CheckBox cbDisguiseImage;
         private System.Windows.Forms.GroupBox gbPreview2;
-        private System.Windows.Forms.PictureBox pbPreview2;
         private System.Windows.Forms.GroupBox gbProperties2;
         private System.Windows.Forms.Button btnXHairColor;
         private System.Windows.Forms.Button btnXHairPulseColor;
@@ -1244,10 +1258,13 @@
         private System.Windows.Forms.Label lblAmmoClip;
         private System.Windows.Forms.GroupBox gbInformation;
         private System.Windows.Forms.ListBox lbHealthStyle;
-        private System.Windows.Forms.NumericUpDown txtXHairWidth;
-        private System.Windows.Forms.NumericUpDown txtXHairHeight;
         private System.Windows.Forms.Button btnOpenDirectory;
         private System.Windows.Forms.Label lblLastModified;
         private System.Windows.Forms.Label txtLastModified;
+        private System.Windows.Forms.ComboBox cbXHairSize;
+        private System.Windows.Forms.Label lblCrosshair;
+        private System.Windows.Forms.PictureBox pbPreview1;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label txtStatus;
     }
 }
