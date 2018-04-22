@@ -420,13 +420,18 @@ namespace FlawHUD_Installer
             }
             else
             {
-                lines[87 - 1] = $"//{lines[87 - 1]}";
-                lines[88 - 1] = $"//{lines[88 - 1]}";
-                lines[89 - 1] = $"//{lines[89 - 1]}";
-                lines[94 - 1] = $"//{lines[94 - 1]}";
-                lines[95 - 1] = $"//{lines[95 - 1]}";
-                lines[96 - 1] = $"//{lines[96 - 1]}";
+                lines[87 - 1] = $"\t//{lines[87 - 1]}";
+                lines[88 - 1] = $"\t//{lines[88 - 1]}";
+                lines[89 - 1] = $"\t//{lines[89 - 1]}";
+                lines[94 - 1] = $"\t//{lines[94 - 1]}";
+                lines[95 - 1] = $"\t//{lines[95 - 1]}";
+                lines[96 - 1] = $"\t//{lines[96 - 1]}";
             }
+
+            lines[104 - 1] = lines[104 - 1].Replace("//", string.Empty);
+            lines[105 - 1] = lines[105 - 1].Replace("//", string.Empty);
+            lines[106 - 1] = lines[106 - 1].Replace("//", string.Empty);
+            File.WriteAllLines(animations, lines);
 
             if (settings.UberAnimation == 1)
             {
@@ -436,14 +441,14 @@ namespace FlawHUD_Installer
             }
             else if (settings.UberAnimation == 2)
             {
-                lines[104 - 1] = $"//{lines[104 - 1]}";
+                lines[104 - 1] = $"\t//{lines[104 - 1]}";
                 lines[105 - 1] = lines[105 - 1].Replace("//", string.Empty);
-                lines[106 - 1] = $"//{lines[106 - 1]}";
+                lines[106 - 1] = $"\t//{lines[106 - 1]}";
             }
             else if (settings.UberAnimation == 3)
             {
-                lines[104 - 1] = $"//{lines[104 - 1]}";
-                lines[105 - 1] = $"//{lines[105 - 1]}";
+                lines[104 - 1] = $"\t//{lines[104 - 1]}";
+                lines[105 - 1] = $"\t//{lines[105 - 1]}";
                 lines[106 - 1] = lines[106 - 1].Replace("//", string.Empty);
             }
 
@@ -462,9 +467,9 @@ namespace FlawHUD_Installer
 
             lines = File.ReadAllLines(chat);
             if (settings.ChatBox)
-                lines[10 - 1] = $"\"ypos\"   \"30\"";
+                lines[10 - 1] = $"\t\t\"ypos\"\t\t\t\t\"30\"";
             else
-                lines[10 - 1] = $"\"ypos\"   \"150\"";
+                lines[10 - 1] = $"\t\t\"ypos\"\t\t\t\t\"150\"";
             File.WriteAllLines(chat, lines);
 
             lines = File.ReadAllLines(layout);
@@ -541,20 +546,20 @@ namespace FlawHUD_Installer
             //-------------------------------------------------------------------------
 
             lines = File.ReadAllLines(colorScheme);
-            lines[7 - 1] = $"\"Ammo In Clip\"   \"{settings.AmmoClip}\"";
-            lines[8 - 1] = $"\"Ammo In Reserve\"    \"{settings.AmmoReserve}\"";
-            lines[9 - 1] = $"\"Ammo In Clip Low\"   \"{settings.AmmoClipLow}\"";
-            lines[10 - 1] = $"\"Ammo In Reserve Low\"   \"{settings.AmmoReserveLow}\"";
-            lines[23 - 1] = $"\"Health Normal\" \"{settings.HealthNormal}\"";
-            lines[24 - 1] = $"\"Health Buff\"   \"{settings.HealthBuff}\"";
-            lines[25 - 1] = $"\"Health Hurt\"   \"{settings.HealthLow}\"";
-            lines[32 - 1] = $"\"Uber Bar Color\"    \"{settings.UberBarColor}\"";
-            lines[35 - 1] = $"\"Solid Color Uber\"  \"{settings.UberFullColor}\"";
-            lines[37 - 1] = $"\"Flashing Uber Color1\"  \"{settings.UberFlashColor1}\"";
-            lines[38 - 1] = $"\"Flashing Uber Color2\"  \"{settings.UberFlashColor2}\"";
-            lines[41 - 1] = $"\"Heal Numbers\"  \"{settings.HealingDone}\"";
-            lines[45 - 1] = $"\"XHairEnabled\" \"{settings.XHairColor}\"";
-            lines[46 - 1] = $"\"CrosshairDamage\"   \"{settings.XHairPulseColor}\"";
+            lines[7 - 1] = $"t\t\"Ammo In Clip\"   \"{settings.AmmoClip}\"";
+            lines[8 - 1] = $"\t\t\"Ammo In Reserve\"    \"{settings.AmmoReserve}\"";
+            lines[9 - 1] = $"\t\t\"Ammo In Clip Low\"   \"{settings.AmmoClipLow}\"";
+            lines[10 - 1] = $"\t\t\"Ammo In Reserve Low\"   \"{settings.AmmoReserveLow}\"";
+            lines[23 - 1] = $"\t\t\"Health Normal\" \"{settings.HealthNormal}\"";
+            lines[24 - 1] = $"\t\t\"Health Buff\"   \"{settings.HealthBuff}\"";
+            lines[25 - 1] = $"\t\t\"Health Hurt\"   \"{settings.HealthLow}\"";
+            lines[32 - 1] = $"\t\t\"Uber Bar Color\"    \"{settings.UberBarColor}\"";
+            lines[35 - 1] = $"\t\t\"Solid Color Uber\"  \"{settings.UberFullColor}\"";
+            lines[37 - 1] = $"\t\t\"Flashing Uber Color1\"  \"{settings.UberFlashColor1}\"";
+            lines[38 - 1] = $"\t\t\"Flashing Uber Color2\"  \"{settings.UberFlashColor2}\"";
+            lines[41 - 1] = $"\t\t\"Heal Numbers\"  \"{settings.HealingDone}\"";
+            lines[45 - 1] = $"\t\t\"XHairEnabled\" \"{settings.XHairColor}\"";
+            lines[46 - 1] = $"\t\t\"CrosshairDamage\"   \"{settings.XHairPulseColor}\"";
             File.WriteAllLines(colorScheme, lines);
 
             MessageBox.Show($"rayshud changes applied", "Changes Applied!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -565,16 +570,16 @@ namespace FlawHUD_Installer
             var lines = File.ReadAllLines($"{TF2Directory}\\rayshud\\scripts\\hudlayout.res");
             if (settings.XHairEnabled)
             {
-                lines[(index) - 1] = $"\"visible\"   \"1\"";
-                lines[(index + 1) - 1] = $"\"enabled\"   \"1\"";
+                lines[(index) - 1] = $"\t\t\"visible\"   \"1\"";
+                lines[(index + 1) - 1] = $"\t\t\"enabled\"   \"1\"";
             }
             else
             {
-                lines[(index) - 1] = $"\"visible\"   \"0\"";
-                lines[(index) - 1] = $"\"enabled\"   \"0\"";
+                lines[(index) - 1] = $"\t\t\"visible\"   \"0\"";
+                lines[(index) - 1] = $"\t\t\"enabled\"   \"0\"";
             }
-            lines[(index + 5) - 1] = $"\"wide\"   \"{settings.XHairWidth}\"";
-            lines[(index + 6) - 1] = $"\"tall\"   \"{settings.XHairHeight}\"";
+            lines[(index + 5) - 1] = $"\t\t\"wide\"   \"{settings.XHairWidth}\"";
+            lines[(index + 6) - 1] = $"\t\t\"tall\"   \"{settings.XHairHeight}\"";
         }
 
         private void btnPlayTF2_Click(object sender, EventArgs e)
