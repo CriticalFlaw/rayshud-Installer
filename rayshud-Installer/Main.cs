@@ -23,8 +23,12 @@ namespace FlawHUD_Installer
         public Main()
         {
             InitializeComponent();
-            lblCrosshair.Parent = pbPreview1;
+            lblCrosshair.Parent = pbPreview;
+            lblXHairSize.Parent = pbPreview;
+            txtXHairSize.Parent = pbPreview;
             lblCrosshair.BackColor = Color.Transparent;
+            lblXHairSize.BackColor = Color.Transparent;
+            txtXHairSize.BackColor = Color.Transparent;
             PrivateFontCollection PFC = new PrivateFontCollection();
             GetLiveVersion();
         }
@@ -211,7 +215,7 @@ namespace FlawHUD_Installer
 
                 cbXHairPulse.Checked = settings.XHairPulse;
 
-                cbXHairSize.SelectedValue = settings.XHairSize;
+                txtXHairSize.Text = settings.XHairSize;
 
                 split = settings.XHairColor.Split(null);
                 btnXHairColor.BackColor = Color.FromArgb(Convert.ToInt32(split[0]), Convert.ToInt32(split[1]), Convert.ToInt32(split[2]));
@@ -284,7 +288,7 @@ namespace FlawHUD_Installer
             WriteToSettings("XHairStyle", settings.XHairStyle.ToString());
             WriteToSettings("XHairOutline", settings.XHairOutline.ToString());
             WriteToSettings("XHairPulse", settings.XHairPulse.ToString());
-            WriteToSettings("XHairSize", settings.XHairSize.ToString());
+            //WriteToSettings("XHairSize", settings.XHairSize.ToString());
             WriteToSettings("XHairColor", settings.XHairColor.ToString());
             WriteToSettings("XHairPulseColor", settings.XHairPulseColor.ToString());
             WriteToSettings("HealingDone", settings.HealingDone.ToString());
@@ -824,7 +828,7 @@ namespace FlawHUD_Installer
 
         private void txtXHairSize_TextChanged(object sender, EventArgs e)
         {
-            settings.XHairSize = cbXHairSize.SelectedValue.ToString();
+            settings.XHairSize = txtXHairSize.Text;
         }
 
         private void lbPlayerHealth_SelectedIndexChanged(object sender, EventArgs e)
@@ -839,79 +843,80 @@ namespace FlawHUD_Installer
             {
                 case 1:
                     lblCrosshair.Text = "2";
-                    cbXHairSize.SelectedIndex = 10;
+                    txtXHairSize.Text = "26";
                     break;
 
                 case 2:
                     lblCrosshair.Text = "2";
-                    cbXHairSize.SelectedIndex = 13;
+                    txtXHairSize.Text = "32";
                     break;
 
                 case 3:
                     lblCrosshair.Text = "2";
-                    cbXHairSize.SelectedIndex = 6;
+                    txtXHairSize.Text = "18";
                     break;
 
                 case 4:
                     lblCrosshair.Text = "3";
-                    cbXHairSize.SelectedIndex = 9;
+                    txtXHairSize.Text = "24";
                     break;
 
                 case 5:
                     lblCrosshair.Text = "8";
-                    cbXHairSize.SelectedIndex = 14;
+                    txtXHairSize.Text = "34";
                     break;
 
                 case 6:
                     lblCrosshair.Text = "i";
-                    cbXHairSize.SelectedIndex = 9;
+                    txtXHairSize.Text = "24";
                     break;
 
                 case 7:
                     lblCrosshair.Text = "i";
-                    cbXHairSize.SelectedIndex = 9;
+                    txtXHairSize.Text = "24";
                     break;
 
                 case 8:
                     lblCrosshair.Text = "h";
-                    cbXHairSize.SelectedIndex = 9;
+                    txtXHairSize.Text = "24";
                     break;
 
                 case 9:
                     lblCrosshair.Text = "0";
-                    cbXHairSize.SelectedIndex = 13;
+                    txtXHairSize.Text = "32";
                     break;
 
                 case 10:
                     lblCrosshair.Text = "9";
-                    cbXHairSize.SelectedIndex = 14;
+                    txtXHairSize.Text = "34";
                     break;
 
                 case 11:
                     lblCrosshair.Text = "+";
-                    cbXHairSize.SelectedIndex = 9;
+                    txtXHairSize.Text = "24";
                     break;
 
                 case 12:
                     lblCrosshair.Text = "d";
-                    cbXHairSize.SelectedIndex = 14;
+                    txtXHairSize.Text = "34";
                     break;
 
                 case 13:
                     lblCrosshair.Text = "c";
-                    cbXHairSize.SelectedIndex = 14;
+                    txtXHairSize.Text = "34";
                     break;
 
                 case 14:
                     lblCrosshair.Text = "g";
-                    cbXHairSize.SelectedIndex = 14;
+                    txtXHairSize.Text = "34";
                     break;
 
                 case 15:
                     lblCrosshair.Text = "o";
-                    cbXHairSize.SelectedIndex = 14;
+                    txtXHairSize.Text = "34";
                     break;
             }
+            settings.XHairSize = txtXHairSize.Text;
             //lblCrosshair.Font = new Font(lblCrosshair.Font.FontFamily, Convert.ToUInt32(cbXHairSize.SelectedValue);
         }
 
