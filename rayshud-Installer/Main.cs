@@ -754,12 +754,12 @@ namespace FlawHUD_Installer
 
                     case "btnAmmoClipLow":
                         btnAmmoClipLow.BackColor = colorPicker.Color;
-                        settings.AmmoClip = $"{colorPicker.Color.R} {colorPicker.Color.G} {colorPicker.Color.B} 255";
+                        settings.AmmoClipLow = $"{colorPicker.Color.R} {colorPicker.Color.G} {colorPicker.Color.B} 255";
                         break;
 
                     case "btnAmmoReserveLow":
                         btnAmmoReserveLow.BackColor = colorPicker.Color;
-                        settings.AmmoReserve = $"{colorPicker.Color.R} {colorPicker.Color.G} {colorPicker.Color.B} 255";
+                        settings.AmmoReserveLow = $"{colorPicker.Color.R} {colorPicker.Color.G} {colorPicker.Color.B} 255";
                         break;
                 }
             }
