@@ -121,17 +121,8 @@
   <data name="Cerbetica" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cerbetica.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Cerbetica_bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cerbetica_bold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Cerbetica_edited" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cerbetica_edited.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="crosshairs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Crosshairs" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\crosshairs.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Garm3nFont" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Garm3nFont.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="KnucklesCrosses" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\KnucklesCrosses.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

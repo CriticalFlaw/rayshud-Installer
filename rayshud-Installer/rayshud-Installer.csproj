@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E6A8D663-BC74-43C8-9533-E1DED8DDABE6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TF2HUD_Installer</RootNamespace>
-    <AssemblyName>TF2HUD-Installer</AssemblyName>
+    <RootNamespace>rayshud_Installer</RootNamespace>
+    <AssemblyName>rayshud-Installer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -35,7 +35,7 @@
     <ApplicationIcon>rayshud.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>TF2HUD_Installer.Program</StartupObject>
+    <StartupObject>rayshud_Installer.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -77,10 +77,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Resources\Cerbetica.ttf" />
-    <None Include="Resources\Cerbetica_bold.ttf" />
-    <None Include="Resources\Cerbetica_edited.ttf" />
-    <None Include="Resources\crosshairs.ttf" />
-    <None Include="Resources\Garm3nFont.ttf" />
+    <None Include="Resources\Crosshairs.ttf" />
     <None Include="Resources\KnucklesCrosses.ttf" />
   </ItemGroup>
   <ItemGroup>

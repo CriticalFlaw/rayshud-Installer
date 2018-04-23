@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TF2HUD_Installer.Properties {
+namespace rayshud_Installer.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace TF2HUD_Installer.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TF2HUD_Installer.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("rayshud_Installer.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -73,39 +73,9 @@ namespace TF2HUD_Installer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] Cerbetica_bold {
+        internal static byte[] Crosshairs {
             get {
-                object obj = ResourceManager.GetObject("Cerbetica_bold", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Cerbetica_edited {
-            get {
-                object obj = ResourceManager.GetObject("Cerbetica_edited", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] crosshairs {
-            get {
-                object obj = ResourceManager.GetObject("crosshairs", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Garm3nFont {
-            get {
-                object obj = ResourceManager.GetObject("Garm3nFont", resourceCulture);
+                object obj = ResourceManager.GetObject("Crosshairs", resourceCulture);
                 return ((byte[])(obj));
             }
         }

@@ -1,8 +1,7 @@
-﻿using FlawHUD_Installer;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
-namespace TF2HUD_Installer
+namespace rayshud_Installer
 {
     internal static class Program
     {

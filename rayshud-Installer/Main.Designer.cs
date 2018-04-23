@@ -1,4 +1,4 @@
-﻿namespace FlawHUD_Installer
+﻿namespace rayshud_Installer
 {
     partial class Main
     {
@@ -32,6 +32,11 @@
             this.tabEditor = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
             this.gbInformation = new System.Windows.Forms.GroupBox();
+            this.lblInfo4 = new System.Windows.Forms.Label();
+            this.lblInfo3 = new System.Windows.Forms.Label();
+            this.lblInfo1 = new System.Windows.Forms.Label();
+            this.lblInfo2 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.gbTeamSelect = new System.Windows.Forms.GroupBox();
             this.rbTeamSelectCenter = new System.Windows.Forms.RadioButton();
             this.rbTeamSelectLeft = new System.Windows.Forms.RadioButton();
@@ -63,7 +68,6 @@
             this.tabGameplay = new System.Windows.Forms.TabPage();
             this.gbPreview = new System.Windows.Forms.GroupBox();
             this.txtXHairSize = new System.Windows.Forms.Label();
-            this.lblXHairSize = new System.Windows.Forms.Label();
             this.lblCrosshair = new System.Windows.Forms.Label();
             this.pbPreview = new System.Windows.Forms.PictureBox();
             this.gbCrosshair = new System.Windows.Forms.GroupBox();
@@ -110,11 +114,7 @@
             this.txtLastModified = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.btnSetDefault = new System.Windows.Forms.Button();
             this.tabEditor.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.gbInformation.SuspendLayout();
@@ -143,6 +143,7 @@
             // tabGeneral
             // 
             this.tabGeneral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
+            this.tabGeneral.Controls.Add(this.btnSetDefault);
             this.tabGeneral.Controls.Add(this.gbInformation);
             this.tabGeneral.Controls.Add(this.gbTeamSelect);
             this.tabGeneral.Controls.Add(this.gbChatBox);
@@ -161,10 +162,10 @@
             // 
             // gbInformation
             // 
-            this.gbInformation.Controls.Add(this.label4);
-            this.gbInformation.Controls.Add(this.label3);
-            this.gbInformation.Controls.Add(this.label2);
-            this.gbInformation.Controls.Add(this.label1);
+            this.gbInformation.Controls.Add(this.lblInfo4);
+            this.gbInformation.Controls.Add(this.lblInfo3);
+            this.gbInformation.Controls.Add(this.lblInfo1);
+            this.gbInformation.Controls.Add(this.lblInfo2);
             this.gbInformation.Controls.Add(this.linkLabel1);
             this.gbInformation.ForeColor = System.Drawing.Color.White;
             this.gbInformation.Location = new System.Drawing.Point(6, 186);
@@ -173,6 +174,51 @@
             this.gbInformation.TabIndex = 21;
             this.gbInformation.TabStop = false;
             this.gbInformation.Text = "Information";
+            // 
+            // lblInfo4
+            // 
+            this.lblInfo4.AutoSize = true;
+            this.lblInfo4.Location = new System.Drawing.Point(163, 38);
+            this.lblInfo4.Name = "lblInfo4";
+            this.lblInfo4.Size = new System.Drawing.Size(503, 16);
+            this.lblInfo4.TabIndex = 4;
+            this.lblInfo4.Text = "For any installer issues, suggestions, code contributions or comments to the GitH" +
+    "ub repo";
+            // 
+            // lblInfo3
+            // 
+            this.lblInfo3.AutoSize = true;
+            this.lblInfo3.Location = new System.Drawing.Point(292, 18);
+            this.lblInfo3.Name = "lblInfo3";
+            this.lblInfo3.Size = new System.Drawing.Size(374, 16);
+            this.lblInfo3.TabIndex = 3;
+            this.lblInfo3.Text = "For rayshud related matters, go to the Steam Group or GitHub";
+            // 
+            // lblInfo1
+            // 
+            this.lblInfo1.AutoSize = true;
+            this.lblInfo1.Location = new System.Drawing.Point(5, 18);
+            this.lblInfo1.Name = "lblInfo1";
+            this.lblInfo1.Size = new System.Drawing.Size(122, 16);
+            this.lblInfo1.TabIndex = 2;
+            this.lblInfo1.Text = "rayshud by: raysfire";
+            // 
+            // lblInfo2
+            // 
+            this.lblInfo2.AutoSize = true;
+            this.lblInfo2.Location = new System.Drawing.Point(5, 38);
+            this.lblInfo2.Name = "lblInfo2";
+            this.lblInfo2.Size = new System.Drawing.Size(142, 16);
+            this.lblInfo2.TabIndex = 1;
+            this.lblInfo2.Text = "Installer by: CriticalFlaw";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(8, 22);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(0, 16);
+            this.linkLabel1.TabIndex = 0;
             // 
             // gbTeamSelect
             // 
@@ -480,9 +526,9 @@
             this.btnBrowse.FlatAppearance.BorderSize = 0;
             this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBrowse.ForeColor = System.Drawing.Color.Black;
-            this.btnBrowse.Location = new System.Drawing.Point(603, 6);
+            this.btnBrowse.Location = new System.Drawing.Point(487, 8);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(75, 33);
+            this.btnBrowse.Size = new System.Drawing.Size(75, 23);
             this.btnBrowse.TabIndex = 2;
             this.btnBrowse.Text = "Browse";
             this.btnBrowse.UseVisualStyleBackColor = false;
@@ -493,7 +539,7 @@
             this.txtDirectory.Location = new System.Drawing.Point(53, 9);
             this.txtDirectory.Name = "txtDirectory";
             this.txtDirectory.ReadOnly = true;
-            this.txtDirectory.Size = new System.Drawing.Size(544, 22);
+            this.txtDirectory.Size = new System.Drawing.Size(425, 22);
             this.txtDirectory.TabIndex = 1;
             // 
             // lblDirectory
@@ -522,55 +568,46 @@
             // gbPreview
             // 
             this.gbPreview.Controls.Add(this.txtXHairSize);
-            this.gbPreview.Controls.Add(this.lblXHairSize);
             this.gbPreview.Controls.Add(this.lblCrosshair);
             this.gbPreview.Controls.Add(this.pbPreview);
             this.gbPreview.ForeColor = System.Drawing.Color.White;
             this.gbPreview.Location = new System.Drawing.Point(394, 3);
             this.gbPreview.Name = "gbPreview";
-            this.gbPreview.Size = new System.Drawing.Size(287, 148);
+            this.gbPreview.Size = new System.Drawing.Size(287, 142);
             this.gbPreview.TabIndex = 7;
             this.gbPreview.TabStop = false;
-            this.gbPreview.Text = "Preview";
+            this.gbPreview.Text = "Crosshair Preview";
             // 
             // txtXHairSize
             // 
             this.txtXHairSize.AutoSize = true;
             this.txtXHairSize.BackColor = System.Drawing.Color.Transparent;
-            this.txtXHairSize.Location = new System.Drawing.Point(40, 123);
+            this.txtXHairSize.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtXHairSize.Font = new System.Drawing.Font("Berlin Sans FB", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtXHairSize.Location = new System.Drawing.Point(3, 119);
             this.txtXHairSize.Name = "txtXHairSize";
-            this.txtXHairSize.Size = new System.Drawing.Size(17, 16);
-            this.txtXHairSize.TabIndex = 7;
-            this.txtXHairSize.Text = "...";
-            // 
-            // lblXHairSize
-            // 
-            this.lblXHairSize.AutoSize = true;
-            this.lblXHairSize.BackColor = System.Drawing.Color.Transparent;
-            this.lblXHairSize.Location = new System.Drawing.Point(8, 123);
-            this.lblXHairSize.Name = "lblXHairSize";
-            this.lblXHairSize.Size = new System.Drawing.Size(33, 16);
-            this.lblXHairSize.TabIndex = 6;
-            this.lblXHairSize.Text = "Size:";
+            this.txtXHairSize.Size = new System.Drawing.Size(27, 20);
+            this.txtXHairSize.TabIndex = 9;
+            this.txtXHairSize.Text = "24";
+            this.txtXHairSize.TextChanged += new System.EventHandler(this.txtXHairSize_TextChanged);
             // 
             // lblCrosshair
             // 
             this.lblCrosshair.BackColor = System.Drawing.Color.Transparent;
-            this.lblCrosshair.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCrosshair.Font = new System.Drawing.Font("Crosshairs", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCrosshair.Location = new System.Drawing.Point(3, 18);
+            this.lblCrosshair.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCrosshair.Location = new System.Drawing.Point(30, 24);
             this.lblCrosshair.Name = "lblCrosshair";
-            this.lblCrosshair.Size = new System.Drawing.Size(281, 127);
+            this.lblCrosshair.Size = new System.Drawing.Size(225, 96);
             this.lblCrosshair.TabIndex = 3;
-            this.lblCrosshair.Text = "o";
-            this.lblCrosshair.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCrosshair.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblCrosshair.UseCompatibleTextRendering = true;
             // 
             // pbPreview
             // 
-            this.pbPreview.Image = global::TF2HUD_Installer.Properties.Resources.Wall;
+            this.pbPreview.Image = global::rayshud_Installer.Properties.Resources.Wall;
             this.pbPreview.Location = new System.Drawing.Point(6, 21);
             this.pbPreview.Name = "pbPreview";
-            this.pbPreview.Size = new System.Drawing.Size(277, 121);
+            this.pbPreview.Size = new System.Drawing.Size(275, 115);
             this.pbPreview.TabIndex = 2;
             this.pbPreview.TabStop = false;
             // 
@@ -587,7 +624,7 @@
             this.gbCrosshair.ForeColor = System.Drawing.Color.White;
             this.gbCrosshair.Location = new System.Drawing.Point(3, 3);
             this.gbCrosshair.Name = "gbCrosshair";
-            this.gbCrosshair.Size = new System.Drawing.Size(385, 148);
+            this.gbCrosshair.Size = new System.Drawing.Size(385, 142);
             this.gbCrosshair.TabIndex = 6;
             this.gbCrosshair.TabStop = false;
             this.gbCrosshair.Text = "Crosshair";
@@ -1081,50 +1118,19 @@
             this.txtStatus.TabIndex = 36;
             this.txtStatus.Text = "...";
             // 
-            // linkLabel1
+            // btnSetDefault
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(8, 22);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(0, 16);
-            this.linkLabel1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(142, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Installer by: CriticalFlaw";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 18);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(122, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "rayshud by: raysfire";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(292, 18);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(374, 16);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "For rayshud related matters, go to the Steam Group or GitHub";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(163, 38);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(503, 16);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "For any installer issues, suggestions, code contributions or comments to the GitH" +
-    "ub repo";
+            this.btnSetDefault.BackColor = System.Drawing.Color.LightGray;
+            this.btnSetDefault.FlatAppearance.BorderSize = 0;
+            this.btnSetDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetDefault.ForeColor = System.Drawing.Color.Black;
+            this.btnSetDefault.Location = new System.Drawing.Point(568, 8);
+            this.btnSetDefault.Name = "btnSetDefault";
+            this.btnSetDefault.Size = new System.Drawing.Size(110, 23);
+            this.btnSetDefault.TabIndex = 37;
+            this.btnSetDefault.Text = "Set to Default";
+            this.btnSetDefault.UseVisualStyleBackColor = false;
+            this.btnSetDefault.Click += new System.EventHandler(this.btnSetDefault_Click);
             // 
             // Main
             // 
@@ -1259,15 +1265,15 @@
         private System.Windows.Forms.Label lblXHairColor;
         private System.Windows.Forms.CheckBox cbXHairOutline;
         private System.Windows.Forms.CheckBox cbXHairEnabled;
-        private System.Windows.Forms.Label lblXHairSize;
         private System.Windows.Forms.GroupBox gbPreview;
-        private System.Windows.Forms.Label txtXHairSize;
         private System.Windows.Forms.Label lblCrosshair;
         private System.Windows.Forms.PictureBox pbPreview;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblInfo4;
+        private System.Windows.Forms.Label lblInfo3;
+        private System.Windows.Forms.Label lblInfo1;
+        private System.Windows.Forms.Label lblInfo2;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label txtXHairSize;
+        private System.Windows.Forms.Button btnSetDefault;
     }
 }

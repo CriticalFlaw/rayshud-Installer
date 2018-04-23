@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TF2HUD-Installer")]
-[assembly: AssemblyDescription("https://github.com/CriticalFlaw/TF2HUD-Installer")]
+[assembly: AssemblyTitle("rayshud-Installer")]
+[assembly: AssemblyDescription("https://github.com/CriticalFlaw/rayshud-Installer")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TF2HUD-Installer")]
+[assembly: AssemblyProduct("rayshud-Installer")]
 [assembly: AssemblyCopyright("Copyright © CriticalFlaw 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
