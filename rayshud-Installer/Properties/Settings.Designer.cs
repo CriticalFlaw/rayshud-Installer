@@ -38,37 +38,26 @@ namespace rayshud_Installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/rayshud-i" +
+            "nstaller/settings.json")]
+        public string GitSettings {
+            get {
+                return ((string)(this["GitSettings"]));
+            }
+            set {
+                this["GitSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://raw.githubusercontent.com/raysfire/rayshud/installer/README.md")]
-        public string GetLiveVersion {
+        public string GitVersion {
             get {
-                return ((string)(this["GetLiveVersion"]));
+                return ((string)(this["GitVersion"]));
             }
             set {
-                this["GetLiveVersion"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Unable to find the latest version number.")]
-        public string ErrorLiveVersion {
-            get {
-                return ((string)(this["ErrorLiveVersion"]));
-            }
-            set {
-                this["ErrorLiveVersion"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("TempHUD")]
-        public string TempFileName {
-            get {
-                return ((string)(this["TempFileName"]));
-            }
-            set {
-                this["TempFileName"] = value;
+                this["GitVersion"] = value;
             }
         }
         
@@ -86,140 +75,103 @@ namespace rayshud_Installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Please select your tf/custom folder. Example:")]
-        public string UserShowDirectory {
+        [global::System.Configuration.DefaultSettingValueAttribute("installer")]
+        public string GitBranch {
             get {
-                return ((string)(this["UserShowDirectory"]));
+                return ((string)(this["GitBranch"]));
             }
             set {
-                this["UserShowDirectory"] = value;
+                this["GitBranch"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while applying installer changes to rayshud")]
-        public string ErrorApplyChanges {
+        [global::System.Configuration.DefaultSettingValueAttribute("rayshud.zip")]
+        public string TempName {
             get {
-                return ((string)(this["ErrorApplyChanges"]));
+                return ((string)(this["TempName"]));
             }
             set {
-                this["ErrorApplyChanges"] = value;
+                this["TempName"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while attempting to download rayshud")]
-        public string ErrorInstallMessage {
+        [global::System.Configuration.DefaultSettingValueAttribute("settings.json")]
+        public string SettingsName {
             get {
-                return ((string)(this["ErrorInstallMessage"]));
+                return ((string)(this["SettingsName"]));
             }
             set {
-                this["ErrorInstallMessage"] = value;
+                this["SettingsName"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Done installing rayshud")]
-        public string SuccessInstallMessage {
+        [global::System.Configuration.DefaultSettingValueAttribute("rayshud has been installed")]
+        public string SuccessInstall {
             get {
-                return ((string)(this["SuccessInstallMessage"]));
+                return ((string)(this["SuccessInstall"]));
             }
             set {
-                this["SuccessInstallMessage"] = value;
+                this["SuccessInstall"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Done updating rayshud")]
-        public string SuccessUpdateMessage {
+        [global::System.Configuration.DefaultSettingValueAttribute("rayshud has been updated")]
+        public string SuccessRefresh {
             get {
-                return ((string)(this["SuccessUpdateMessage"]));
+                return ((string)(this["SuccessRefresh"]));
             }
             set {
-                this["SuccessUpdateMessage"] = value;
+                this["SuccessRefresh"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Steam\\\\steamapps\\\\common\\\\Team Fortress 2\\\\tf\\\\custom")]
-        public string TFDirectoryValidation {
+        [global::System.Configuration.DefaultSettingValueAttribute("rayshud settings applied")]
+        public string SuccessUpdate {
             get {
-                return ((string)(this["TFDirectoryValidation"]));
+                return ((string)(this["SuccessUpdate"]));
             }
             set {
-                this["TFDirectoryValidation"] = value;
+                this["SuccessUpdate"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("rayshud settings saved and applied")]
-        public string SuccessApplyChanges {
+        [global::System.Configuration.DefaultSettingValueAttribute("rayshud has been removed")]
+        public string SuccessRemove {
             get {
-                return ((string)(this["SuccessApplyChanges"]));
+                return ((string)(this["SuccessRemove"]));
             }
             set {
-                this["SuccessApplyChanges"] = value;
+                this["SuccessRemove"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("HudPlayerHealth")]
-        public string FilePlayerHealth {
+        [global::System.Configuration.DefaultSettingValueAttribute("Unable to find rayshud in the tf/custom directory")]
+        public string rayshudNotFound {
             get {
-                return ((string)(this["FilePlayerHealth"]));
+                return ((string)(this["rayshudNotFound"]));
             }
             set {
-                this["FilePlayerHealth"] = value;
+                this["rayshudNotFound"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Done uninstalling rayshud")]
-        public string SuccessUninstallMessage {
-            get {
-                return ((string)(this["SuccessUninstallMessage"]));
-            }
-            set {
-                this["SuccessUninstallMessage"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("rayshud was not found in the tf/custom directory")]
-        public string WarningUninstallMessage {
-            get {
-                return ((string)(this["WarningUninstallMessage"]));
-            }
-            set {
-                this["WarningUninstallMessage"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while attempting to remove rayshud")]
-        public string ErrorUninstallMessage {
-            get {
-                return ((string)(this["ErrorUninstallMessage"]));
-            }
-            set {
-                this["ErrorUninstallMessage"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("tf/custom directory not set! Click the browse button to set it before using the i" +
-            "nstaller")]
+        [global::System.Configuration.DefaultSettingValueAttribute("tf/custom directory not set! Click the browse button to set it before installing")]
         public string TFDirectoryNotSet {
             get {
                 return ((string)(this["TFDirectoryNotSet"]));
@@ -243,85 +195,73 @@ namespace rayshud_Installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while verifying rayshud version numbers")]
-        public string ErrorTFDirectory {
+        [global::System.Configuration.DefaultSettingValueAttribute("Unable to find the local version number")]
+        public string ErrorVersionLocal {
             get {
-                return ((string)(this["ErrorTFDirectory"]));
+                return ((string)(this["ErrorVersionLocal"]));
             }
             set {
-                this["ErrorTFDirectory"] = value;
+                this["ErrorVersionLocal"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occured while loading configuration settings")]
-        public string ErrorLoadConfiguration {
+        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while loading installer settings")]
+        public string ErrorLoad {
             get {
-                return ((string)(this["ErrorLoadConfiguration"]));
+                return ((string)(this["ErrorLoad"]));
             }
             set {
-                this["ErrorLoadConfiguration"] = value;
+                this["ErrorLoad"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("installer")]
-        public string GitBranch {
+        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while attempting to remove rayshud")]
+        public string ErrorRemove {
             get {
-                return ((string)(this["GitBranch"]));
+                return ((string)(this["ErrorRemove"]));
             }
             set {
-                this["GitBranch"] = value;
+                this["ErrorRemove"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ClassSelection")]
-        public string FileClassSelection {
+        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while attempting to apply changes to rayshud")]
+        public string ErrorUpdate {
             get {
-                return ((string)(this["FileClassSelection"]));
+                return ((string)(this["ErrorUpdate"]));
             }
             set {
-                this["FileClassSelection"] = value;
+                this["ErrorUpdate"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("TeamMenu")]
-        public string FileTeamMenu {
+        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while attempting to download and install rayshud")]
+        public string ErrorInstall {
             get {
-                return ((string)(this["FileTeamMenu"]));
+                return ((string)(this["ErrorInstall"]));
             }
             set {
-                this["FileTeamMenu"] = value;
+                this["ErrorInstall"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("chapterbackgrounds")]
-        public string FileChapterBackgrounds {
+        [global::System.Configuration.DefaultSettingValueAttribute("Unable to find the latest version number")]
+        public string ErrorVersionLive {
             get {
-                return ((string)(this["FileChapterBackgrounds"]));
+                return ((string)(this["ErrorVersionLive"]));
             }
             set {
-                this["FileChapterBackgrounds"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("scoreboard")]
-        public string FileScoreboard {
-            get {
-                return ((string)(this["FileScoreboard"]));
-            }
-            set {
-                this["FileScoreboard"] = value;
+                this["ErrorVersionLive"] = value;
             }
         }
     }
