@@ -69,7 +69,9 @@
             this.tabGameplay = new System.Windows.Forms.TabPage();
             this.gbPreview = new System.Windows.Forms.GroupBox();
             this.lblCrosshair = new System.Windows.Forms.Label();
+            this.pbPreview = new System.Windows.Forms.PictureBox();
             this.gbCrosshair = new System.Windows.Forms.GroupBox();
+            this.btnAndKnuckles = new System.Windows.Forms.Button();
             this.cbXHairSizes = new System.Windows.Forms.ComboBox();
             this.lblXHairSizes = new System.Windows.Forms.Label();
             this.btnXHairColor = new System.Windows.Forms.Button();
@@ -116,8 +118,6 @@
             this.lblStatus = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.pbPreview = new System.Windows.Forms.PictureBox();
-            this.btnAndKnuckles = new System.Windows.Forms.Button();
             this.tabEditor.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.gbInformation.SuspendLayout();
@@ -127,10 +127,10 @@
             this.gbProperties1.SuspendLayout();
             this.tabGameplay.SuspendLayout();
             this.gbPreview.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).BeginInit();
             this.gbCrosshair.SuspendLayout();
             this.gbProperties4.SuspendLayout();
             this.gbProperties3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // tabEditor
@@ -611,6 +611,15 @@
             this.lblCrosshair.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblCrosshair.UseCompatibleTextRendering = true;
             // 
+            // pbPreview
+            // 
+            this.pbPreview.Image = global::rayshud_Installer.Properties.Resources.wall;
+            this.pbPreview.Location = new System.Drawing.Point(6, 21);
+            this.pbPreview.Name = "pbPreview";
+            this.pbPreview.Size = new System.Drawing.Size(275, 115);
+            this.pbPreview.TabIndex = 2;
+            this.pbPreview.TabStop = false;
+            // 
             // gbCrosshair
             // 
             this.gbCrosshair.Controls.Add(this.btnAndKnuckles);
@@ -631,6 +640,18 @@
             this.gbCrosshair.TabIndex = 6;
             this.gbCrosshair.TabStop = false;
             this.gbCrosshair.Text = "Crosshair";
+            // 
+            // btnAndKnuckles
+            // 
+            this.btnAndKnuckles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAndKnuckles.Location = new System.Drawing.Point(351, 13);
+            this.btnAndKnuckles.Name = "btnAndKnuckles";
+            this.btnAndKnuckles.Size = new System.Drawing.Size(28, 23);
+            this.btnAndKnuckles.TabIndex = 15;
+            this.btnAndKnuckles.Text = "?";
+            this.btnAndKnuckles.UseVisualStyleBackColor = true;
+            this.btnAndKnuckles.Visible = false;
+            this.btnAndKnuckles.Click += new System.EventHandler(this.btnAndKnuckles_Click);
             // 
             // cbXHairSizes
             // 
@@ -1157,27 +1178,6 @@
             // 
             this.backgroundWorker1.WorkerReportsProgress = true;
             // 
-            // pbPreview
-            // 
-            this.pbPreview.Image = global::rayshud_Installer.Properties.Resources.wall;
-            this.pbPreview.Location = new System.Drawing.Point(6, 21);
-            this.pbPreview.Name = "pbPreview";
-            this.pbPreview.Size = new System.Drawing.Size(275, 115);
-            this.pbPreview.TabIndex = 2;
-            this.pbPreview.TabStop = false;
-            // 
-            // btnAndKnuckles
-            // 
-            this.btnAndKnuckles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAndKnuckles.Location = new System.Drawing.Point(351, 13);
-            this.btnAndKnuckles.Name = "btnAndKnuckles";
-            this.btnAndKnuckles.Size = new System.Drawing.Size(28, 23);
-            this.btnAndKnuckles.TabIndex = 15;
-            this.btnAndKnuckles.Text = "?";
-            this.btnAndKnuckles.UseVisualStyleBackColor = true;
-            this.btnAndKnuckles.Visible = false;
-            this.btnAndKnuckles.Click += new System.EventHandler(this.btnAndKnuckles_Click);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1223,13 +1223,13 @@
             this.tabGameplay.ResumeLayout(false);
             this.gbPreview.ResumeLayout(false);
             this.gbPreview.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).EndInit();
             this.gbCrosshair.ResumeLayout(false);
             this.gbCrosshair.PerformLayout();
             this.gbProperties4.ResumeLayout(false);
             this.gbProperties4.PerformLayout();
             this.gbProperties3.ResumeLayout(false);
             this.gbProperties3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

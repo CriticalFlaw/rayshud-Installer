@@ -212,6 +212,7 @@ namespace rayshud_Installer
                     btnUninstall.Enabled = true;
                     btnSaveChanges.Enabled = true;
                     btnOpenDirectory.Enabled = true;
+                    btnSetDefault.Enabled = true;
                     txtDirectory.Text = $"{TF2Directory}\\rayshud";
                     // Get the version number from the installed rayshud README
                     txtInstalledVersion.Text = File.ReadLines($"{TF2Directory}\\rayshud\\README.md").Last();
@@ -236,6 +237,7 @@ namespace rayshud_Installer
                     btnUninstall.Enabled = false;
                     btnSaveChanges.Enabled = false;
                     btnOpenDirectory.Enabled = false;
+                    btnSetDefault.Enabled = false;
                 }
             }
             catch (Exception ex)
