@@ -69,8 +69,9 @@
             this.tabGameplay = new System.Windows.Forms.TabPage();
             this.gbPreview = new System.Windows.Forms.GroupBox();
             this.lblCrosshair = new System.Windows.Forms.Label();
-            this.pbPreview = new System.Windows.Forms.PictureBox();
             this.gbCrosshair = new System.Windows.Forms.GroupBox();
+            this.cbXHairSizes = new System.Windows.Forms.ComboBox();
+            this.lblXHairSizes = new System.Windows.Forms.Label();
             this.btnXHairColor = new System.Windows.Forms.Button();
             this.btnXHairPulseColor = new System.Windows.Forms.Button();
             this.cbXHairPulse = new System.Windows.Forms.CheckBox();
@@ -115,8 +116,8 @@
             this.lblStatus = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.lblXHairSizes = new System.Windows.Forms.Label();
-            this.cbXHairSizes = new System.Windows.Forms.ComboBox();
+            this.pbPreview = new System.Windows.Forms.PictureBox();
+            this.btnAndKnuckles = new System.Windows.Forms.Button();
             this.tabEditor.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.gbInformation.SuspendLayout();
@@ -126,10 +127,10 @@
             this.gbProperties1.SuspendLayout();
             this.tabGameplay.SuspendLayout();
             this.gbPreview.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).BeginInit();
             this.gbCrosshair.SuspendLayout();
             this.gbProperties4.SuspendLayout();
             this.gbProperties3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // tabEditor
@@ -335,6 +336,7 @@
             // btnUberFlashColor2
             // 
             this.btnUberFlashColor2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
+            this.btnUberFlashColor2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUberFlashColor2.Location = new System.Drawing.Point(240, 109);
             this.btnUberFlashColor2.Name = "btnUberFlashColor2";
             this.btnUberFlashColor2.Size = new System.Drawing.Size(86, 22);
@@ -345,6 +347,7 @@
             // btnUberFullColor
             // 
             this.btnUberFullColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
+            this.btnUberFullColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUberFullColor.Location = new System.Drawing.Point(154, 84);
             this.btnUberFullColor.Name = "btnUberFullColor";
             this.btnUberFullColor.Size = new System.Drawing.Size(172, 22);
@@ -355,6 +358,7 @@
             // btnUberBarColor
             // 
             this.btnUberBarColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
+            this.btnUberBarColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUberBarColor.Location = new System.Drawing.Point(154, 58);
             this.btnUberBarColor.Name = "btnUberBarColor";
             this.btnUberBarColor.Size = new System.Drawing.Size(172, 22);
@@ -423,6 +427,7 @@
             // btnUberFlashColor1
             // 
             this.btnUberFlashColor1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
+            this.btnUberFlashColor1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUberFlashColor1.Location = new System.Drawing.Point(154, 109);
             this.btnUberFlashColor1.Name = "btnUberFlashColor1";
             this.btnUberFlashColor1.Size = new System.Drawing.Size(86, 22);
@@ -606,17 +611,9 @@
             this.lblCrosshair.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblCrosshair.UseCompatibleTextRendering = true;
             // 
-            // pbPreview
-            // 
-            this.pbPreview.Image = global::rayshud_Installer.Properties.Resources.wall;
-            this.pbPreview.Location = new System.Drawing.Point(6, 21);
-            this.pbPreview.Name = "pbPreview";
-            this.pbPreview.Size = new System.Drawing.Size(275, 115);
-            this.pbPreview.TabIndex = 2;
-            this.pbPreview.TabStop = false;
-            // 
             // gbCrosshair
             // 
+            this.gbCrosshair.Controls.Add(this.btnAndKnuckles);
             this.gbCrosshair.Controls.Add(this.cbXHairSizes);
             this.gbCrosshair.Controls.Add(this.lblXHairSizes);
             this.gbCrosshair.Controls.Add(this.btnXHairColor);
@@ -635,9 +632,32 @@
             this.gbCrosshair.TabStop = false;
             this.gbCrosshair.Text = "Crosshair";
             // 
+            // cbXHairSizes
+            // 
+            this.cbXHairSizes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbXHairSizes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbXHairSizes.Font = new System.Drawing.Font("Berlin Sans FB", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbXHairSizes.FormattingEnabled = true;
+            this.cbXHairSizes.ItemHeight = 13;
+            this.cbXHairSizes.Location = new System.Drawing.Point(257, 58);
+            this.cbXHairSizes.Name = "cbXHairSizes";
+            this.cbXHairSizes.Size = new System.Drawing.Size(114, 21);
+            this.cbXHairSizes.TabIndex = 14;
+            this.cbXHairSizes.SelectedIndexChanged += new System.EventHandler(this.cbXHairSize_SelectedIndexChanged);
+            // 
+            // lblXHairSizes
+            // 
+            this.lblXHairSizes.AutoSize = true;
+            this.lblXHairSizes.Location = new System.Drawing.Point(160, 63);
+            this.lblXHairSizes.Name = "lblXHairSizes";
+            this.lblXHairSizes.Size = new System.Drawing.Size(87, 16);
+            this.lblXHairSizes.TabIndex = 13;
+            this.lblXHairSizes.Text = "Crosshair Size:";
+            // 
             // btnXHairColor
             // 
             this.btnXHairColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
+            this.btnXHairColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnXHairColor.Location = new System.Drawing.Point(257, 83);
             this.btnXHairColor.Name = "btnXHairColor";
             this.btnXHairColor.Size = new System.Drawing.Size(114, 22);
@@ -648,6 +668,7 @@
             // btnXHairPulseColor
             // 
             this.btnXHairPulseColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
+            this.btnXHairPulseColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnXHairPulseColor.Location = new System.Drawing.Point(257, 108);
             this.btnXHairPulseColor.Name = "btnXHairPulseColor";
             this.btnXHairPulseColor.Size = new System.Drawing.Size(114, 22);
@@ -687,6 +708,7 @@
             "Wings",
             "WingsPlus",
             "WingsSmall",
+            "WingsSmallDot",
             "xHairCircle"});
             this.lbXHairStyles.Location = new System.Drawing.Point(6, 21);
             this.lbXHairStyles.Name = "lbXHairStyles";
@@ -762,9 +784,10 @@
             // btnAmmoReserveLow
             // 
             this.btnAmmoReserveLow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnAmmoReserveLow.Location = new System.Drawing.Point(146, 81);
+            this.btnAmmoReserveLow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAmmoReserveLow.Location = new System.Drawing.Point(141, 81);
             this.btnAmmoReserveLow.Name = "btnAmmoReserveLow";
-            this.btnAmmoReserveLow.Size = new System.Drawing.Size(120, 22);
+            this.btnAmmoReserveLow.Size = new System.Drawing.Size(114, 22);
             this.btnAmmoReserveLow.TabIndex = 20;
             this.btnAmmoReserveLow.UseVisualStyleBackColor = false;
             this.btnAmmoReserveLow.Click += new System.EventHandler(this.btnColorPicker_Click);
@@ -772,9 +795,10 @@
             // btnAmmoReserve
             // 
             this.btnAmmoReserve.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnAmmoReserve.Location = new System.Drawing.Point(146, 37);
+            this.btnAmmoReserve.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAmmoReserve.Location = new System.Drawing.Point(141, 37);
             this.btnAmmoReserve.Name = "btnAmmoReserve";
-            this.btnAmmoReserve.Size = new System.Drawing.Size(120, 22);
+            this.btnAmmoReserve.Size = new System.Drawing.Size(114, 22);
             this.btnAmmoReserve.TabIndex = 19;
             this.btnAmmoReserve.UseVisualStyleBackColor = false;
             this.btnAmmoReserve.Click += new System.EventHandler(this.btnColorPicker_Click);
@@ -782,9 +806,10 @@
             // btnAmmoClipLow
             // 
             this.btnAmmoClipLow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnAmmoClipLow.Location = new System.Drawing.Point(6, 81);
+            this.btnAmmoClipLow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAmmoClipLow.Location = new System.Drawing.Point(9, 81);
             this.btnAmmoClipLow.Name = "btnAmmoClipLow";
-            this.btnAmmoClipLow.Size = new System.Drawing.Size(120, 22);
+            this.btnAmmoClipLow.Size = new System.Drawing.Size(114, 22);
             this.btnAmmoClipLow.TabIndex = 17;
             this.btnAmmoClipLow.UseVisualStyleBackColor = false;
             this.btnAmmoClipLow.Click += new System.EventHandler(this.btnColorPicker_Click);
@@ -792,9 +817,10 @@
             // btnAmmoClip
             // 
             this.btnAmmoClip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnAmmoClip.Location = new System.Drawing.Point(6, 37);
+            this.btnAmmoClip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAmmoClip.Location = new System.Drawing.Point(9, 37);
             this.btnAmmoClip.Name = "btnAmmoClip";
-            this.btnAmmoClip.Size = new System.Drawing.Size(120, 22);
+            this.btnAmmoClip.Size = new System.Drawing.Size(114, 22);
             this.btnAmmoClip.TabIndex = 16;
             this.btnAmmoClip.UseVisualStyleBackColor = false;
             this.btnAmmoClip.Click += new System.EventHandler(this.btnColorPicker_Click);
@@ -802,7 +828,7 @@
             // lblAmmoReserveLow
             // 
             this.lblAmmoReserveLow.AutoSize = true;
-            this.lblAmmoReserveLow.Location = new System.Drawing.Point(146, 62);
+            this.lblAmmoReserveLow.Location = new System.Drawing.Point(138, 62);
             this.lblAmmoReserveLow.Name = "lblAmmoReserveLow";
             this.lblAmmoReserveLow.Size = new System.Drawing.Size(137, 16);
             this.lblAmmoReserveLow.TabIndex = 13;
@@ -820,7 +846,7 @@
             // lblAmmoReserve
             // 
             this.lblAmmoReserve.AutoSize = true;
-            this.lblAmmoReserve.Location = new System.Drawing.Point(146, 18);
+            this.lblAmmoReserve.Location = new System.Drawing.Point(138, 18);
             this.lblAmmoReserve.Name = "lblAmmoReserve";
             this.lblAmmoReserve.Size = new System.Drawing.Size(109, 16);
             this.lblAmmoReserve.TabIndex = 8;
@@ -882,9 +908,10 @@
             // btnHealingDone
             // 
             this.btnHealingDone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnHealingDone.Location = new System.Drawing.Point(120, 37);
+            this.btnHealingDone.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHealingDone.Location = new System.Drawing.Point(123, 37);
             this.btnHealingDone.Name = "btnHealingDone";
-            this.btnHealingDone.Size = new System.Drawing.Size(120, 22);
+            this.btnHealingDone.Size = new System.Drawing.Size(114, 22);
             this.btnHealingDone.TabIndex = 16;
             this.btnHealingDone.UseVisualStyleBackColor = false;
             this.btnHealingDone.Click += new System.EventHandler(this.btnColorPicker_Click);
@@ -892,9 +919,10 @@
             // btnHealthNormal
             // 
             this.btnHealthNormal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnHealthNormal.Location = new System.Drawing.Point(260, 37);
+            this.btnHealthNormal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHealthNormal.Location = new System.Drawing.Point(257, 37);
             this.btnHealthNormal.Name = "btnHealthNormal";
-            this.btnHealthNormal.Size = new System.Drawing.Size(120, 22);
+            this.btnHealthNormal.Size = new System.Drawing.Size(114, 22);
             this.btnHealthNormal.TabIndex = 14;
             this.btnHealthNormal.UseVisualStyleBackColor = false;
             this.btnHealthNormal.Click += new System.EventHandler(this.btnColorPicker_Click);
@@ -902,9 +930,10 @@
             // btnHealthBuff
             // 
             this.btnHealthBuff.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnHealthBuff.Location = new System.Drawing.Point(120, 81);
+            this.btnHealthBuff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHealthBuff.Location = new System.Drawing.Point(123, 81);
             this.btnHealthBuff.Name = "btnHealthBuff";
-            this.btnHealthBuff.Size = new System.Drawing.Size(120, 22);
+            this.btnHealthBuff.Size = new System.Drawing.Size(114, 22);
             this.btnHealthBuff.TabIndex = 13;
             this.btnHealthBuff.UseVisualStyleBackColor = false;
             this.btnHealthBuff.Click += new System.EventHandler(this.btnColorPicker_Click);
@@ -912,9 +941,10 @@
             // btnHealthLow
             // 
             this.btnHealthLow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
-            this.btnHealthLow.Location = new System.Drawing.Point(260, 81);
+            this.btnHealthLow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHealthLow.Location = new System.Drawing.Point(257, 81);
             this.btnHealthLow.Name = "btnHealthLow";
-            this.btnHealthLow.Size = new System.Drawing.Size(120, 22);
+            this.btnHealthLow.Size = new System.Drawing.Size(114, 22);
             this.btnHealthLow.TabIndex = 12;
             this.btnHealthLow.UseVisualStyleBackColor = false;
             this.btnHealthLow.Click += new System.EventHandler(this.btnColorPicker_Click);
@@ -922,7 +952,7 @@
             // lblHealthLow
             // 
             this.lblHealthLow.AutoSize = true;
-            this.lblHealthLow.Location = new System.Drawing.Point(260, 62);
+            this.lblHealthLow.Location = new System.Drawing.Point(254, 62);
             this.lblHealthLow.Name = "lblHealthLow";
             this.lblHealthLow.Size = new System.Drawing.Size(111, 16);
             this.lblHealthLow.TabIndex = 9;
@@ -940,7 +970,7 @@
             // lblHealthNormal
             // 
             this.lblHealthNormal.AutoSize = true;
-            this.lblHealthNormal.Location = new System.Drawing.Point(260, 18);
+            this.lblHealthNormal.Location = new System.Drawing.Point(254, 18);
             this.lblHealthNormal.Name = "lblHealthNormal";
             this.lblHealthNormal.Size = new System.Drawing.Size(96, 16);
             this.lblHealthNormal.TabIndex = 7;
@@ -1127,27 +1157,26 @@
             // 
             this.backgroundWorker1.WorkerReportsProgress = true;
             // 
-            // lblXHairSizes
+            // pbPreview
             // 
-            this.lblXHairSizes.AutoSize = true;
-            this.lblXHairSizes.Location = new System.Drawing.Point(160, 63);
-            this.lblXHairSizes.Name = "lblXHairSizes";
-            this.lblXHairSizes.Size = new System.Drawing.Size(87, 16);
-            this.lblXHairSizes.TabIndex = 13;
-            this.lblXHairSizes.Text = "Crosshair Size:";
+            this.pbPreview.Image = global::rayshud_Installer.Properties.Resources.wall;
+            this.pbPreview.Location = new System.Drawing.Point(6, 21);
+            this.pbPreview.Name = "pbPreview";
+            this.pbPreview.Size = new System.Drawing.Size(275, 115);
+            this.pbPreview.TabIndex = 2;
+            this.pbPreview.TabStop = false;
             // 
-            // cbXHairSizes
+            // btnAndKnuckles
             // 
-            this.cbXHairSizes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbXHairSizes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbXHairSizes.Font = new System.Drawing.Font("Berlin Sans FB", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbXHairSizes.FormattingEnabled = true;
-            this.cbXHairSizes.ItemHeight = 13;
-            this.cbXHairSizes.Location = new System.Drawing.Point(259, 59);
-            this.cbXHairSizes.Name = "cbXHairSizes";
-            this.cbXHairSizes.Size = new System.Drawing.Size(112, 21);
-            this.cbXHairSizes.TabIndex = 14;
-            this.cbXHairSizes.SelectedIndexChanged += new System.EventHandler(this.cbXHairSize_SelectedIndexChanged);
+            this.btnAndKnuckles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAndKnuckles.Location = new System.Drawing.Point(351, 13);
+            this.btnAndKnuckles.Name = "btnAndKnuckles";
+            this.btnAndKnuckles.Size = new System.Drawing.Size(28, 23);
+            this.btnAndKnuckles.TabIndex = 15;
+            this.btnAndKnuckles.Text = "?";
+            this.btnAndKnuckles.UseVisualStyleBackColor = true;
+            this.btnAndKnuckles.Visible = false;
+            this.btnAndKnuckles.Click += new System.EventHandler(this.btnAndKnuckles_Click);
             // 
             // Main
             // 
@@ -1194,13 +1223,13 @@
             this.tabGameplay.ResumeLayout(false);
             this.gbPreview.ResumeLayout(false);
             this.gbPreview.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).EndInit();
             this.gbCrosshair.ResumeLayout(false);
             this.gbCrosshair.PerformLayout();
             this.gbProperties4.ResumeLayout(false);
             this.gbProperties4.PerformLayout();
             this.gbProperties3.ResumeLayout(false);
             this.gbProperties3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1294,5 +1323,6 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ComboBox cbXHairSizes;
         private System.Windows.Forms.Label lblXHairSizes;
+        private System.Windows.Forms.Button btnAndKnuckles;
     }
 }

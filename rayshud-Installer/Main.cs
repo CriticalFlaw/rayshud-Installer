@@ -162,6 +162,8 @@ namespace rayshud_Installer
                     TF2Directory = Properties.Settings.Default.TFDirectoryD32;
                 else if (Directory.Exists(Properties.Settings.Default.TFDirectoryD64))
                     TF2Directory = Properties.Settings.Default.TFDirectoryD64;
+                else if (Directory.Exists("C:\\Users\\igor.nikitin\\Downloads\\custom"))
+                    TF2Directory = "C:\\Users\\igor.nikitin\\Downloads\\custom";    // DEBUG
                 else
                 {
                     // If tf/custom is not found, ask the user to provide it
@@ -683,7 +685,7 @@ namespace rayshud_Installer
 
                 // Crosshairs - disable all and remove outlining
                 lines = File.ReadAllLines(layout);
-                for (int x = 34; x <= 272; x += 17)     // Increase the maximum value when including more crosshairs
+                for (int x = 13; x <= 51; x += 19)
                 {
                     lines[x - 1] = "\t\t\"visible\"\t\t\"0\"";
                     lines[x + 1 - 1] = "\t\t\"enabled\"\t\t\"0\"";
@@ -694,141 +696,88 @@ namespace rayshud_Installer
                 // 10. Crosshairs - either enabled or disabled with or without outlines, change the visible, enabled and font values of hudlayout.res
                 if (settings.XHairEnabled)
                 {
+                    if (settings.XHairStyle >= 1 && settings.XHairStyle <= 15)
+                    {
+                        lines[13 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                        lines[14 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                        if (settings.XHairOutline)
+                            lines[20 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
+                        else
+                            lines[20 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                    }
+                    else if(settings.XHairStyle == 16)
+                    {
+                        lines[32 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                        lines[33 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                        if (settings.XHairOutline)
+                            lines[39 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
+                        else
+                            lines[39 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                    }
+                    else if (settings.XHairStyle >= 17 && settings.XHairStyle <= 84)
+                    {
+                        lines[51 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                        lines[52 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                        if (settings.XHairOutline)
+                            lines[58 - 1] = $"\t\t\"font\"\t\t\t\"size:{cbXHairSizes.Text},outline:on\"";
+                        else
+                            lines[58 - 1] = $"\t\t\"font\"\t\t\t\"size:{cbXHairSizes.Text},outline:off\"";
+                    }
+
                     switch (settings.XHairStyle)
                     {
                         case 1: // BasicCross
-                            lines[34 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[35 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[41 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[41 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
-                            break;
-
                         case 2: // BasicCrossLarge
-                            lines[51 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[52 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[58 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[58 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
-                            break;
-
                         case 3: // BasicCrossSmall
-                            lines[68 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[69 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[75 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[75 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                            lines[21 - 1] = "\t\t\"labelText\"\t\t\"2\"";
                             break;
 
                         case 4: // BasicDot
-                            lines[85 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[86 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[92 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[92 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                            lines[21 - 1] = "\t\t\"labelText\"\t\t\"3\"";
                             break;
 
                         case 5: // CircleDot
-                            lines[102 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[103 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[109 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[109 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                            lines[21 - 1] = "\t\t\"labelText\"\t\t\"8\"";
                             break;
 
                         case 6: // OpenCross
-                            lines[119 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[120 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[126 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[126 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                            lines[21 - 1] = "\t\t\"labelText\"\t\t\"i\"";
                             break;
 
                         case 7: // OpenCrossDot
-                            lines[136 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[137 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[143 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[143 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                            lines[21 - 1] = "\t\t\"labelText\"\t\t\"h\"";
                             break;
 
                         case 8: // ScatterSpread
-                            lines[153 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[154 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[160 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[160 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                            lines[21 - 1] = "\t\t\"labelText\"\t\t\"0\"";
                             break;
 
                         case 9: // ThinCircle
-                            lines[170 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[171 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[177 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[177 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                            lines[21 - 1] = "\t\t\"labelText\"\t\t\"9\"";
                             break;
 
                         case 10: // ThinCross
-                            lines[187 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[188 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[194 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[194 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                            lines[21 - 1] = "\t\t\"labelText\"\t\t\"+\"";
                             break;
 
                         case 11: // Wings
-                            lines[204 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[205 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[211 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[211 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                            lines[21 - 1] = "\t\t\"labelText\"\t\t\"d\"";
                             break;
 
                         case 12: // WingsPlus
-                            lines[221 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[222 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[228 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[228 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                            lines[21 - 1] = "\t\t\"labelText\"\t\t\"c\"";
                             break;
 
                         case 13: // WingsSmall
-                            lines[238 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[239 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[245 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[245 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                            lines[21 - 1] = "\t\t\"labelText\"\t\t\"g\"";
                             break;
 
                         case 14: // WingsSmallDot
-                            lines[255 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[256 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[262 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[262 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                            lines[21 - 1] = "\t\t\"labelText\"\t\t\"f\"";
                             break;
 
                         case 15: // xHairCircle
-                            lines[272 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                            lines[273 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                            if (settings.XHairOutline)
-                                lines[279 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
-                            else
-                                lines[279 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                            lines[21 - 1] = "\t\t\"labelText\"\t\t\"o\"";
                             break;
 
                         case 16: // KonrWings
@@ -1191,6 +1140,16 @@ namespace rayshud_Installer
             settings.LastModified = DateTime.Now.ToString(CultureInfo.CurrentCulture);
             UpdateSettingsFile();
             DisplayHUDSettings();
+        }
+
+        private void btnAndKnuckles_Click(object sender, EventArgs e)
+        {
+            var directory = $"{Application.StartupPath}\\KnuckleCrosses.jpg";
+            if (File.Exists(directory))
+                File.Delete(directory);
+            var bitmap = new Bitmap(Properties.Resources.KnucklesCrosses1);
+            bitmap.Save(directory);
+            Process.Start(directory);
         }
     }
 

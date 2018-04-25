@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="rayshud.ico" />
+    <None Include="Resources\KnucklesCrosses.png" />
     <EmbeddedResource Include="Resources\wall.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
