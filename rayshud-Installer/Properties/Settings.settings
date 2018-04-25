@@ -14,26 +14,14 @@
     <Setting Name="TempFileName" Type="System.String" Scope="User">
       <Value Profile="(Default)">TempHUD</Value>
     </Setting>
-    <Setting Name="TFDirectoryC32" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\\Program Files (x86)\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom</Value>
-    </Setting>
-    <Setting Name="TFDirectoryC64" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\\Program Files\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom</Value>
-    </Setting>
-    <Setting Name="TFDirectoryD32" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\\Program Files (x86)\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom</Value>
-    </Setting>
-    <Setting Name="TFDirectoryD64" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\\Program Files\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom</Value>
+    <Setting Name="TFDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom</Value>
     </Setting>
     <Setting Name="UserShowDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">Please select your tf/custom folder. Example:</Value>
     </Setting>
     <Setting Name="ErrorApplyChanges" Type="System.String" Scope="User">
       <Value Profile="(Default)">An error occurred while applying installer changes to rayshud</Value>
-    </Setting>
-    <Setting Name="SettingsDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">rayshud\\customizations\\settings.json</Value>
     </Setting>
     <Setting Name="ErrorInstallMessage" Type="System.String" Scope="User">
       <Value Profile="(Default)">An error occurred while attempting to download rayshud</Value>

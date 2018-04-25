@@ -34,7 +34,8 @@ namespace rayshud_Installer
         {
             InitializeComponent();
             InitializeCustomFonts();
-            GetLiveVersion();
+            CheckLiveVersion();
+            CheckTF2Directory();
         }
 
         #region DEBUG
@@ -71,13 +72,13 @@ namespace rayshud_Installer
                 // Remove the temporary downloaded rayshud files
                 if (File.Exists($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip"))
                     File.Delete($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip");
-                // Back-up the installer configuration file
-                if (File.Exists($"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}"))
-                    File.Copy($"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}", $"{Application.StartupPath}\\settings.json", true);
                 // Download the latest rayshud from GitHub and extract into the tf/custom directory
                 // Report progress to 'UI' thread
                 backgroundWorker1.ReportProgress(50);
                 var client = new WebClient();
+                // Back-up the installer configuration file
+                if (!File.Exists($"{Application.StartupPath}\\settings.json"))
+                    client.DownloadFile($"https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/rayshud-installer/settings.json", $"{Application.StartupPath}\\settings.json");
                 client.DownloadFile($"https://github.com/raysfire/rayshud/archive/{Properties.Settings.Default.GitBranch}.zip", $"{Properties.Settings.Default.TempFileName}.zip");    //DEBUG
                 ZipFile.ExtractToDirectory($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip", TF2Directory);
                 // Either do a clean install or refresh/update of rayshud
@@ -93,12 +94,6 @@ namespace rayshud_Installer
                         // Replace the installed rayshud with a fresh copy
                         Directory.Delete($"{TF2Directory}\\rayshud", true);
                         Directory.Move($"{TF2Directory}\\rayshud-{Properties.Settings.Default.GitBranch}", $"{TF2Directory}\\rayshud");
-                        // Restore the installation configuration file
-                        if (File.Exists($"{Application.StartupPath}\\settings.json"))
-                        {
-                            File.Copy($"{Application.StartupPath}\\settings.json", $"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}", true);
-                            File.Delete($"{Application.StartupPath}\\settings.json");
-                        }
                         MessageBox.Show(Properties.Settings.Default.SuccessUpdateMessage, "rayshud Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                 }
@@ -127,7 +122,7 @@ namespace rayshud_Installer
         }
         #endregion
 
-        private void GetLiveVersion()
+        private void CheckLiveVersion()
         {
             try
             {
@@ -137,7 +132,6 @@ namespace rayshud_Installer
                 var textFromURLArray = textFromURL.Split('\n');
                 // Retrieve the latest version number from the README
                 txtLiveVersion.Text = textFromURLArray[textFromURLArray.Length - 2];
-                CheckTF2Directory();
             }
             catch (Exception ex)
             {
@@ -150,34 +144,30 @@ namespace rayshud_Installer
         {
             try
             {
-                // Check for temporary files, remove them if found
-                if (File.Exists($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip"))
-                    File.Delete($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip");
                 // Check default Steam installation directories for the tf/custom folder
-                if (Directory.Exists(Properties.Settings.Default.TFDirectoryC32))
-                    TF2Directory = Properties.Settings.Default.TFDirectoryC32;
-                else if (Directory.Exists(Properties.Settings.Default.TFDirectoryC64))
-                    TF2Directory = Properties.Settings.Default.TFDirectoryC64;
-                else if (Directory.Exists(Properties.Settings.Default.TFDirectoryD32))
-                    TF2Directory = Properties.Settings.Default.TFDirectoryD32;
-                else if (Directory.Exists(Properties.Settings.Default.TFDirectoryD64))
-                    TF2Directory = Properties.Settings.Default.TFDirectoryD64;
-                else if (Directory.Exists("C:\\Users\\igor.nikitin\\Downloads\\custom"))
-                    TF2Directory = "C:\\Users\\igor.nikitin\\Downloads\\custom";    // DEBUG
+                if (Directory.Exists($"C:\\Program Files (x86)\\{Properties.Settings.Default.TFDirectory}"))
+                    TF2Directory = $"C:\\Program Files (x86)\\{Properties.Settings.Default.TFDirectory}";
+                else if (Directory.Exists($"D:\\Program Files (x86)\\{Properties.Settings.Default.TFDirectory}"))
+                    TF2Directory = $"D:\\Program Files (x86)\\{Properties.Settings.Default.TFDirectory}";
+                else if (Directory.Exists($"C:\\Program Files\\{Properties.Settings.Default.TFDirectory}"))
+                    TF2Directory = $"C:\\Program Files\\{Properties.Settings.Default.TFDirectory}";
+                else if (Directory.Exists($"D:\\Program Files\\{Properties.Settings.Default.TFDirectory}"))
+                    TF2Directory = $"D:\\Program Files\\{Properties.Settings.Default.TFDirectory}";
+                else if (Directory.Exists("C:\\Users\\igor.nikitin\\Downloads\\tf\\custom"))
+                    TF2Directory = "C:\\Users\\igor.nikitin\\Downloads\\tf\\custom";    // DEBUG
                 else
                 {
                     // If tf/custom is not found, ask the user to provide it
-                    var DirectoryBrowser = new FolderBrowserDialog
-                    {
-                        Description = $"{Properties.Settings.Default.UserShowDirectory}\n{Properties.Settings.Default.TFDirectoryC32}"
-                    };
                     var validHUDDirectory = false;
+                    var DirectoryBrowser = new FolderBrowserDialog();
+                    DirectoryBrowser.Description = $"{Properties.Settings.Default.UserShowDirectory}\n{Properties.Settings.Default.TFDirectory}";
+                    DirectoryBrowser.ShowNewFolderButton = true;
                     while (validHUDDirectory == false)
                     {
                         // Loop until the user clicks Cancel or provides a directory that contains tf/custom
                         if (DirectoryBrowser.ShowDialog() == DialogResult.OK)
                         {
-                            if (!DirectoryBrowser.SelectedPath.Contains("custom")) continue;        //Properties.Settings.Default.TFDirectoryValidation   //DEBUG
+                            if (!DirectoryBrowser.SelectedPath.Contains("tf\\custom")) continue;
                             TF2Directory = DirectoryBrowser.SelectedPath;
                             validHUDDirectory = true;
                         }
@@ -227,8 +217,6 @@ namespace rayshud_Installer
                         btnInstall.Text = "Update";
                         txtStatus.Text = "Installed, Outdated";
                     }
-                    ReadFromSettings();
-                    DisplayHUDSettings();
                 }
                 else
                 {
@@ -239,6 +227,8 @@ namespace rayshud_Installer
                     btnOpenDirectory.Enabled = false;
                     btnSetDefault.Enabled = false;
                 }
+                ReadFromSettings();
+                DisplayHUDSettings();
             }
             catch (Exception ex)
             {
@@ -403,16 +393,16 @@ namespace rayshud_Installer
 
         private void WriteToSettings(string setting, string value)
         {
-            string json = File.ReadAllText($"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}");
+            string json = File.ReadAllText($"{Application.StartupPath}\\settings.json");
             dynamic jsonObj = JsonConvert.DeserializeObject(json);
             jsonObj[setting] = value;
             string output = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
-            File.WriteAllText($"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}", output);
+            File.WriteAllText($"{Application.StartupPath}\\settings.json", output);
         }
 
         public void ReadFromSettings()
         {
-            using (var reader = new StreamReader($"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}"))
+            using (var reader = new StreamReader($"{Application.StartupPath}\\settings.json"))
             {
                 string json = reader.ReadToEnd();
                 settings = JsonConvert.DeserializeObject<RootObject>(json);
@@ -425,14 +415,16 @@ namespace rayshud_Installer
             //backgroundWorker1.RunWorkerAsync();
             try
             {
+                var client = new WebClient();
                 // Remove the temporary downloaded rayshud files
                 if (File.Exists($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip"))
                     File.Delete($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip");
-                // Back-up the installer configuration file
-                if (File.Exists($"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}"))
-                    File.Copy($"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}", $"{Application.StartupPath}\\settings.json", true);
+                // Restore the configuration file if it has been removed
+                if (!File.Exists($"{Application.StartupPath}\\settings.json"))
+                    client.DownloadFile($"https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/rayshud-installer/settings.json", $"{Application.StartupPath}\\settings.json");
+                else
+                    UpdateSettingsFile();
                 // Download the latest rayshud from GitHub and extract into the tf/custom directory
-                var client = new WebClient();
                 client.DownloadFile($"https://github.com/raysfire/rayshud/archive/{Properties.Settings.Default.GitBranch}.zip", $"{Properties.Settings.Default.TempFileName}.zip");    //DEBUG
                 ZipFile.ExtractToDirectory($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip", TF2Directory);
                 // Either do a clean install or refresh/update of rayshud
@@ -448,12 +440,6 @@ namespace rayshud_Installer
                         // Replace the installed rayshud with a fresh copy
                         Directory.Delete($"{TF2Directory}\\rayshud", true);
                         Directory.Move($"{TF2Directory}\\rayshud-{Properties.Settings.Default.GitBranch}", $"{TF2Directory}\\rayshud");
-                        // Restore the installation configuration file
-                        if (File.Exists($"{Application.StartupPath}\\settings.json"))
-                        {
-                            File.Copy($"{Application.StartupPath}\\settings.json", $"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}", true);
-                            File.Delete($"{Application.StartupPath}\\settings.json");
-                        }
                         MessageBox.Show(Properties.Settings.Default.SuccessUpdateMessage, "rayshud Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                 }
@@ -832,10 +818,9 @@ namespace rayshud_Installer
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             var IsDirectoryValid = false;
-            var DirectoryBrowser = new FolderBrowserDialog
-            {
-                Description = $"{Properties.Settings.Default.UserShowDirectory}\n{Properties.Settings.Default.TFDirectoryC32}"
-            };
+            var DirectoryBrowser = new FolderBrowserDialog();
+            DirectoryBrowser.Description = $"{Properties.Settings.Default.UserShowDirectory}\n{Properties.Settings.Default.TFDirectory}";
+            DirectoryBrowser.ShowNewFolderButton = true;
             while (IsDirectoryValid == false)
             {
                 // Until the correct path is provided or the user clicks 'Cancel' - keep prompting for a valid tf/custom directory.

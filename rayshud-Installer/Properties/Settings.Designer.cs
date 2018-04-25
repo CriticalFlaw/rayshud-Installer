@@ -74,49 +74,13 @@ namespace rayshud_Installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\Team Fortress 2\\\\tf\\\\custom")]
-        public string TFDirectoryC32 {
+        [global::System.Configuration.DefaultSettingValueAttribute("Steam\\\\steamapps\\\\common\\\\Team Fortress 2\\\\tf\\\\custom")]
+        public string TFDirectory {
             get {
-                return ((string)(this["TFDirectoryC32"]));
+                return ((string)(this["TFDirectory"]));
             }
             set {
-                this["TFDirectoryC32"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\\\Program Files\\\\Steam\\\\steamapps\\\\common\\\\Team Fortress 2\\\\tf\\\\custom")]
-        public string TFDirectoryC64 {
-            get {
-                return ((string)(this["TFDirectoryC64"]));
-            }
-            set {
-                this["TFDirectoryC64"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\Team Fortress 2\\\\tf\\\\custom")]
-        public string TFDirectoryD32 {
-            get {
-                return ((string)(this["TFDirectoryD32"]));
-            }
-            set {
-                this["TFDirectoryD32"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\\\Program Files\\\\Steam\\\\steamapps\\\\common\\\\Team Fortress 2\\\\tf\\\\custom")]
-        public string TFDirectoryD64 {
-            get {
-                return ((string)(this["TFDirectoryD64"]));
-            }
-            set {
-                this["TFDirectoryD64"] = value;
+                this["TFDirectory"] = value;
             }
         }
         
@@ -141,18 +105,6 @@ namespace rayshud_Installer.Properties {
             }
             set {
                 this["ErrorApplyChanges"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("rayshud\\\\customizations\\\\settings.json")]
-        public string SettingsDirectory {
-            get {
-                return ((string)(this["SettingsDirectory"]));
-            }
-            set {
-                this["SettingsDirectory"] = value;
             }
         }
         

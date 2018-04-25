@@ -496,9 +496,9 @@
             this.cbDefaultMenuBG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbDefaultMenuBG.Location = new System.Drawing.Point(146, 73);
             this.cbDefaultMenuBG.Name = "cbDefaultMenuBG";
-            this.cbDefaultMenuBG.Size = new System.Drawing.Size(179, 20);
+            this.cbDefaultMenuBG.Size = new System.Drawing.Size(143, 20);
             this.cbDefaultMenuBG.TabIndex = 9;
-            this.cbDefaultMenuBG.Text = "Default Menu Background";
+            this.cbDefaultMenuBG.Text = "Default Background";
             this.cbDefaultMenuBG.UseVisualStyleBackColor = true;
             this.cbDefaultMenuBG.CheckedChanged += new System.EventHandler(this.cbDefaultMenuBG_CheckedChanged);
             // 
