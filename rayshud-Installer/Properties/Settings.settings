@@ -1,0 +1,93 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="rayshud_Installer.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SentryIO" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://e3d4daa2995342d1aaca5827b95fce2d:23548ce9177049f5a1601ceafeb8c609@sentry.io/1190168</Value>
+    </Setting>
+    <Setting Name="GetLiveVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://raw.githubusercontent.com/raysfire/rayshud/installer/README.md</Value>
+    </Setting>
+    <Setting Name="ErrorLiveVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Unable to find the latest version number.</Value>
+    </Setting>
+    <Setting Name="TempFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">TempHUD</Value>
+    </Setting>
+    <Setting Name="TFDirectoryC32" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\\Program Files (x86)\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom</Value>
+    </Setting>
+    <Setting Name="TFDirectoryC64" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\\Program Files\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom</Value>
+    </Setting>
+    <Setting Name="TFDirectoryD32" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\\Program Files (x86)\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom</Value>
+    </Setting>
+    <Setting Name="TFDirectoryD64" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\\Program Files\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom</Value>
+    </Setting>
+    <Setting Name="UserShowDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Please select your tf/custom folder. Example:</Value>
+    </Setting>
+    <Setting Name="ErrorApplyChanges" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while applying installer changes to rayshud</Value>
+    </Setting>
+    <Setting Name="SettingsDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">rayshud\\customizations\\settings.json</Value>
+    </Setting>
+    <Setting Name="ErrorInstallMessage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while attempting to download rayshud</Value>
+    </Setting>
+    <Setting Name="SuccessInstallMessage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Done installing rayshud</Value>
+    </Setting>
+    <Setting Name="SuccessUpdateMessage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Done updating rayshud</Value>
+    </Setting>
+    <Setting Name="TFDirectoryValidation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom</Value>
+    </Setting>
+    <Setting Name="SuccessApplyChanges" Type="System.String" Scope="User">
+      <Value Profile="(Default)">rayshud settings saved and applied</Value>
+    </Setting>
+    <Setting Name="FilePlayerHealth" Type="System.String" Scope="User">
+      <Value Profile="(Default)">HudPlayerHealth</Value>
+    </Setting>
+    <Setting Name="SuccessUninstallMessage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Done uninstalling rayshud</Value>
+    </Setting>
+    <Setting Name="WarningUninstallMessage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">rayshud was not found in the tf/custom directory</Value>
+    </Setting>
+    <Setting Name="ErrorUninstallMessage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while attempting to remove rayshud</Value>
+    </Setting>
+    <Setting Name="TFDirectoryNotSet" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tf/custom directory not set! Click the browse button to set it before using the installer</Value>
+    </Setting>
+    <Setting Name="TFDirectoryNotFound" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Unable to find the tf/custom directory</Value>
+    </Setting>
+    <Setting Name="ErrorTFDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while verifying rayshud version numbers</Value>
+    </Setting>
+    <Setting Name="ErrorLoadConfiguration" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occured while loading configuration settings</Value>
+    </Setting>
+    <Setting Name="GitBranch" Type="System.String" Scope="User">
+      <Value Profile="(Default)">installer</Value>
+    </Setting>
+    <Setting Name="FileClassSelection" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ClassSelection</Value>
+    </Setting>
+    <Setting Name="FileTeamMenu" Type="System.String" Scope="User">
+      <Value Profile="(Default)">TeamMenu</Value>
+    </Setting>
+    <Setting Name="FileChapterBackgrounds" Type="System.String" Scope="User">
+      <Value Profile="(Default)">chapterbackgrounds</Value>
+    </Setting>
+    <Setting Name="FileScoreboard" Type="System.String" Scope="User">
+      <Value Profile="(Default)">scoreboard</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

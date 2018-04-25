@@ -93,9 +93,9 @@ namespace rayshud_Installer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Wall {
+        internal static System.Drawing.Bitmap wall {
             get {
-                object obj = ResourceManager.GetObject("Wall", resourceCulture);
+                object obj = ResourceManager.GetObject("wall", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

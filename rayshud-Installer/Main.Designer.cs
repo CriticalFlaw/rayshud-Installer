@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tabEditor = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.btnSetDefault = new System.Windows.Forms.Button();
             this.gbInformation = new System.Windows.Forms.GroupBox();
             this.lblInfo4 = new System.Windows.Forms.Label();
             this.lblInfo3 = new System.Windows.Forms.Label();
@@ -114,7 +115,6 @@
             this.txtLastModified = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.Label();
-            this.btnSetDefault = new System.Windows.Forms.Button();
             this.tabEditor.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.gbInformation.SuspendLayout();
@@ -159,6 +159,20 @@
             this.tabGeneral.Size = new System.Drawing.Size(684, 261);
             this.tabGeneral.TabIndex = 1;
             this.tabGeneral.Text = "General";
+            // 
+            // btnSetDefault
+            // 
+            this.btnSetDefault.BackColor = System.Drawing.Color.LightGray;
+            this.btnSetDefault.FlatAppearance.BorderSize = 0;
+            this.btnSetDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetDefault.ForeColor = System.Drawing.Color.Black;
+            this.btnSetDefault.Location = new System.Drawing.Point(568, 8);
+            this.btnSetDefault.Name = "btnSetDefault";
+            this.btnSetDefault.Size = new System.Drawing.Size(110, 23);
+            this.btnSetDefault.TabIndex = 37;
+            this.btnSetDefault.Text = "Set to Default";
+            this.btnSetDefault.UseVisualStyleBackColor = false;
+            this.btnSetDefault.Click += new System.EventHandler(this.btnSetDefault_Click);
             // 
             // gbInformation
             // 
@@ -593,18 +607,22 @@
             // 
             // lblCrosshair
             // 
+            this.lblCrosshair.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCrosshair.AutoSize = true;
             this.lblCrosshair.BackColor = System.Drawing.Color.Transparent;
             this.lblCrosshair.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCrosshair.Location = new System.Drawing.Point(30, 24);
+            this.lblCrosshair.Location = new System.Drawing.Point(97, 33);
             this.lblCrosshair.Name = "lblCrosshair";
-            this.lblCrosshair.Size = new System.Drawing.Size(225, 96);
+            this.lblCrosshair.Size = new System.Drawing.Size(0, 111);
             this.lblCrosshair.TabIndex = 3;
-            this.lblCrosshair.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblCrosshair.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblCrosshair.UseCompatibleTextRendering = true;
             // 
             // pbPreview
             // 
-            this.pbPreview.Image = global::rayshud_Installer.Properties.Resources.Wall;
+            this.pbPreview.Image = global::rayshud_Installer.Properties.Resources.wall;
             this.pbPreview.Location = new System.Drawing.Point(6, 21);
             this.pbPreview.Name = "pbPreview";
             this.pbPreview.Size = new System.Drawing.Size(275, 115);
@@ -1082,7 +1100,7 @@
             // 
             this.lblLastModified.AutoSize = true;
             this.lblLastModified.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLastModified.Location = new System.Drawing.Point(446, 9);
+            this.lblLastModified.Location = new System.Drawing.Point(446, 26);
             this.lblLastModified.Name = "lblLastModified";
             this.lblLastModified.Size = new System.Drawing.Size(94, 17);
             this.lblLastModified.TabIndex = 33;
@@ -1092,7 +1110,7 @@
             // 
             this.txtLastModified.AutoSize = true;
             this.txtLastModified.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLastModified.Location = new System.Drawing.Point(543, 9);
+            this.txtLastModified.Location = new System.Drawing.Point(543, 26);
             this.txtLastModified.Name = "txtLastModified";
             this.txtLastModified.Size = new System.Drawing.Size(17, 17);
             this.txtLastModified.TabIndex = 34;
@@ -1102,7 +1120,7 @@
             // 
             this.lblStatus.AutoSize = true;
             this.lblStatus.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(446, 26);
+            this.lblStatus.Location = new System.Drawing.Point(446, 9);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(49, 17);
             this.lblStatus.TabIndex = 35;
@@ -1112,25 +1130,11 @@
             // 
             this.txtStatus.AutoSize = true;
             this.txtStatus.Font = new System.Drawing.Font("Berlin Sans FB", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStatus.Location = new System.Drawing.Point(543, 26);
+            this.txtStatus.Location = new System.Drawing.Point(543, 9);
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.Size = new System.Drawing.Size(17, 17);
             this.txtStatus.TabIndex = 36;
             this.txtStatus.Text = "...";
-            // 
-            // btnSetDefault
-            // 
-            this.btnSetDefault.BackColor = System.Drawing.Color.LightGray;
-            this.btnSetDefault.FlatAppearance.BorderSize = 0;
-            this.btnSetDefault.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSetDefault.ForeColor = System.Drawing.Color.Black;
-            this.btnSetDefault.Location = new System.Drawing.Point(568, 8);
-            this.btnSetDefault.Name = "btnSetDefault";
-            this.btnSetDefault.Size = new System.Drawing.Size(110, 23);
-            this.btnSetDefault.TabIndex = 37;
-            this.btnSetDefault.Text = "Set to Default";
-            this.btnSetDefault.UseVisualStyleBackColor = false;
-            this.btnSetDefault.Click += new System.EventHandler(this.btnSetDefault_Click);
             // 
             // Main
             // 

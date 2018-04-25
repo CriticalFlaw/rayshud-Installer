@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E6A8D663-BC74-43C8-9533-E1DED8DDABE6}</ProjectGuid>
+    <ProjectGuid>{5B5590F2-D9CA-4BFB-9834-367F8B318BF8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>rayshud_Installer</RootNamespace>
     <AssemblyName>rayshud-Installer</AssemblyName>
@@ -33,9 +33,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>rayshud.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>rayshud_Installer.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -67,31 +64,39 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-    <None Include="Resources\Cerbetica.ttf" />
-    <None Include="Resources\Crosshairs.ttf" />
-    <None Include="Resources\KnucklesCrosses.ttf" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Resources\Cerbetica.ttf" />
+    <EmbeddedResource Include="Resources\Crosshairs.ttf" />
+    <EmbeddedResource Include="Resources\KnucklesCrosses.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="rayshud.ico" />
-    <None Include="Resources\TF2Wall.jpg" />
+    <EmbeddedResource Include="Resources\wall.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

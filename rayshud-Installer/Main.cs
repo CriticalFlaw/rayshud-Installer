@@ -10,7 +10,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace rayshud_Installer
@@ -18,10 +17,14 @@ namespace rayshud_Installer
     public partial class Main : Form
     {
         // Create the error-tracking object
-        private readonly RavenClient ravenClient = new RavenClient("https://e3d4daa2995342d1aaca5827b95fce2d:23548ce9177049f5a1601ceafeb8c609@sentry.io/1190168");
+        private readonly RavenClient ravenClient = new RavenClient(Properties.Settings.Default.SentryIO);
         // Create the HUD configuration object
         private RootObject settings = new RootObject();
         public string TF2Directory;
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
+        private PrivateFontCollection fonts = new PrivateFontCollection();
+        private Font myFont;
 
         public Main()
         {
@@ -32,24 +35,22 @@ namespace rayshud_Installer
 
         private void InitializeCustomFonts()
         {
-            // Create a private font collection object.
-            var fonts = new PrivateFontCollection();
-            // Select your font from the resources.
-            int fontLength = Properties.Resources.Crosshairs.Length;
-            // Create a buffer to read in to
-            var fontdata = Properties.Resources.Crosshairs;
-            // Create an unsafe memory block for the font data
-            var data = Marshal.AllocCoTaskMem(fontLength);
-            // Copy the bytes to the unsafe memory block
-            Marshal.Copy(fontdata, 0, data, fontLength);
-            // Pass the font to the font collection
-            fonts.AddMemoryFont(data, fontLength);
-            lblCrosshair.Font = new Font(fonts.Families[0], lblCrosshair.Font.Size);
-            // Set label background to be transparent over a picture-box
+            var fontData = Properties.Resources.Crosshairs;
+            var fontPtr = System.Runtime.InteropServices.Marshal.AllocCoTaskMem(fontData.Length);
+            System.Runtime.InteropServices.Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+            uint dummy = 0;
+            fonts.AddMemoryFont(fontPtr, fontData.Length);
+            AddFontMemResourceEx(fontPtr, (uint)fontData.Length, IntPtr.Zero, ref dummy);
+            System.Runtime.InteropServices.Marshal.FreeCoTaskMem(fontPtr);
+            myFont = new Font(fonts.Families[0], 16.0F);
+
             lblCrosshair.Parent = pbPreview;
             txtXHairSize.Parent = pbPreview;
             lblCrosshair.BackColor = Color.Transparent;
             txtXHairSize.BackColor = Color.Transparent;
+            lblCrosshair.Font = new Font(myFont.FontFamily, 52, FontStyle.Regular);
+            //lblCrosshair.Font = myFont;
+            //this.Font = myFont;
         }
 
         private void GetLiveVersion()
@@ -58,7 +59,7 @@ namespace rayshud_Installer
             {
                 var client = new WebClient();
                 // Download the latest rayshud README
-                var textFromURL = client.DownloadString("https://raw.githubusercontent.com/raysfire/rayshud/installer/README.md");
+                var textFromURL = client.DownloadString(Properties.Settings.Default.GetLiveVersion);
                 var textFromURLArray = textFromURL.Split('\n');
                 // Retrieve the latest version number from the README
                 txtLiveVersion.Text = textFromURLArray[textFromURLArray.Length - 2];
@@ -67,7 +68,7 @@ namespace rayshud_Installer
             catch (Exception ex)
             {
                 ravenClient.Capture(new SentryEvent(ex));
-                MessageBox.Show($"Unable to find the latest version number. \n{ex.Message}", @"Error: Finding latest version number", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{Properties.Settings.Default.ErrorLiveVersion}\n{ex.Message}", "Error: Checking latest version", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -76,23 +77,23 @@ namespace rayshud_Installer
             try
             {
                 // Check for temporary files, remove them if found
-                if (File.Exists($"{Application.StartupPath}\\TempHUD.zip"))
-                    File.Delete($"{Application.StartupPath}\\TempHUD.zip");
+                if (File.Exists($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip"))
+                    File.Delete($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip");
                 // Check default Steam installation directories for the tf/custom folder
-                if (Directory.Exists("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom"))
-                    TF2Directory = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom";
-                else if (Directory.Exists("C:\\Program Files\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom"))
-                    TF2Directory = "C:\\Program Files\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom";
-                else if (Directory.Exists("D:\\Program Files (x86)\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom"))
-                    TF2Directory = "D:\\Program Files (x86)\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom";
-                else if (Directory.Exists("D:\\Program Files\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom"))
-                    TF2Directory = "D:\\Program Files\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom";
+                if (Directory.Exists(Properties.Settings.Default.TFDirectoryC32))
+                    TF2Directory = Properties.Settings.Default.TFDirectoryC32;
+                else if (Directory.Exists(Properties.Settings.Default.TFDirectoryC64))
+                    TF2Directory = Properties.Settings.Default.TFDirectoryC64;
+                else if (Directory.Exists(Properties.Settings.Default.TFDirectoryD32))
+                    TF2Directory = Properties.Settings.Default.TFDirectoryD32;
+                else if (Directory.Exists(Properties.Settings.Default.TFDirectoryD64))
+                    TF2Directory = Properties.Settings.Default.TFDirectoryD64;
                 else
                 {
                     // If tf/custom is not found, ask the user to provide it
                     var DirectoryBrowser = new FolderBrowserDialog
                     {
-                        Description = "Please select your tf/custom folder. Example: \nC:/Program Files (x86)/Steam/steamapps/common/Team Fortress 2/tf/custom"
+                        Description = $"{Properties.Settings.Default.UserShowDirectory}\n{Properties.Settings.Default.TFDirectoryC32}"
                     };
                     var validHUDDirectory = false;
                     while (validHUDDirectory == false)
@@ -100,7 +101,7 @@ namespace rayshud_Installer
                         // Loop until the user clicks Cancel or provides a directory that contains tf/custom
                         if (DirectoryBrowser.ShowDialog() == DialogResult.OK)
                         {
-                            if (!DirectoryBrowser.SelectedPath.Contains("custom")) continue;        //"Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom"   //DEBUG
+                            if (!DirectoryBrowser.SelectedPath.Contains("custom")) continue;        //Properties.Settings.Default.TFDirectoryValidation   //DEBUG
                             TF2Directory = DirectoryBrowser.SelectedPath;
                             validHUDDirectory = true;
                         }
@@ -110,7 +111,7 @@ namespace rayshud_Installer
                 }
 
                 if (string.IsNullOrWhiteSpace(TF2Directory))
-                    txtDirectory.Text = "tf/custom directory not set! Click the browse button to set it before using the installer";
+                    txtDirectory.Text = Properties.Settings.Default.TFDirectoryNotSet;
                 else
                 {
                     txtDirectory.Text = TF2Directory;
@@ -122,7 +123,7 @@ namespace rayshud_Installer
             catch (Exception ex)
             {
                 ravenClient.Capture(new SentryEvent(ex));
-                MessageBox.Show($"Unable to find the tf/custom directory. \n{ex.Message}", @"Error: Finding tf/custom directory", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{Properties.Settings.Default.TFDirectoryNotFound}\n{ex.Message}", "Error: Checking tf/custom directory", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -164,7 +165,7 @@ namespace rayshud_Installer
             catch (Exception ex)
             {
                 ravenClient.Capture(new SentryEvent(ex));
-                MessageBox.Show($"An error occurred while verifying rayshud version numbers \n{ex.Message}", @"Error: Verifying rayshud version", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{Properties.Settings.Default.ErrorTFDirectory}\n{ex.Message}", "Error: Checking rayshud directory", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -216,9 +217,11 @@ namespace rayshud_Installer
                     case 1:
                         rbUberAnimation1.Checked = true;
                         break;
+
                     case 2:
                         rbUberAnimation2.Checked = true;
                         break;
+
                     case 3:
                         rbUberAnimation3.Checked = true;
                         break;
@@ -244,7 +247,7 @@ namespace rayshud_Installer
 
                 cbXHairPulse.Checked = settings.XHairPulse;
 
-                txtXHairSize.Text = settings.XHairSize;
+                txtXHairSize.Text = settings.XHairSize.ToString();
 
                 split = settings.XHairColor.Split(null);
                 btnXHairColor.BackColor = Color.FromArgb(Convert.ToInt32(split[0]), Convert.ToInt32(split[1]), Convert.ToInt32(split[2]));
@@ -282,7 +285,7 @@ namespace rayshud_Installer
             catch (Exception ex)
             {
                 ravenClient.Capture(new SentryEvent(ex));
-                MessageBox.Show($"An error occured while loading configuration settings. \n{ex.Message}", @"Error: Loading Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{Properties.Settings.Default.ErrorLoadConfiguration}\n{ex.Message}", "Error: Loading Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -304,7 +307,7 @@ namespace rayshud_Installer
             WriteToSettings("XHairStyle", settings.XHairStyle.ToString());
             WriteToSettings("XHairOutline", settings.XHairOutline.ToString());
             WriteToSettings("XHairPulse", settings.XHairPulse.ToString());
-            WriteToSettings("XHairSize", settings.XHairSize);
+            WriteToSettings("XHairSize", settings.XHairSize.ToString());
             WriteToSettings("XHairColor", settings.XHairColor);
             WriteToSettings("XHairPulseColor", settings.XHairPulseColor);
             WriteToSettings("HealingDone", settings.HealingDone);
@@ -322,16 +325,16 @@ namespace rayshud_Installer
 
         private void WriteToSettings(string setting, string value)
         {
-            string json = File.ReadAllText($"{TF2Directory}\\rayshud\\customizations\\settings.json");
+            string json = File.ReadAllText($"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}");
             dynamic jsonObj = JsonConvert.DeserializeObject(json);
             jsonObj[setting] = value;
             string output = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
-            File.WriteAllText($"{TF2Directory}\\rayshud\\customizations\\settings.json", output);
+            File.WriteAllText($"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}", output);
         }
 
         public void ReadFromSettings()
         {
-            using (var reader = new StreamReader($"{TF2Directory}\\rayshud\\customizations\\settings.json"))
+            using (var reader = new StreamReader($"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}"))
             {
                 string json = reader.ReadToEnd();
                 settings = JsonConvert.DeserializeObject<RootObject>(json);
@@ -343,46 +346,46 @@ namespace rayshud_Installer
             try
             {
                 // Remove the temporary downloaded rayshud files
-                if (File.Exists($"{Application.StartupPath}\\TempHUD.zip"))
-                    File.Delete($"{Application.StartupPath}\\TempHUD.zip");
+                if (File.Exists($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip"))
+                    File.Delete($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip");
                 // Back-up the installer configuration file
-                if (File.Exists($"{TF2Directory}\\rayshud\\customizations\\settings.json"))
-                    File.Copy($"{TF2Directory}\\rayshud\\customizations\\settings.json", $"{Application.StartupPath}\\settings.json", true);
+                if (File.Exists($"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}"))
+                    File.Copy($"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}", $"{Application.StartupPath}\\settings.json", true);
                 // Download the latest rayshud from GitHub and extract into the tf/custom directory
                 var client = new WebClient();
-                client.DownloadFile("https://github.com/raysfire/rayshud/archive/installer.zip", "TempHUD.zip");    //DEBUG
-                ZipFile.ExtractToDirectory($"{Application.StartupPath}\\TempHUD.zip", TF2Directory);
+                client.DownloadFile($"https://github.com/raysfire/rayshud/archive/{Properties.Settings.Default.GitBranch}.zip", $"{Properties.Settings.Default.TempFileName}.zip");    //DEBUG
+                ZipFile.ExtractToDirectory($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip", TF2Directory);
                 // Either do a clean install or refresh/update of rayshud
                 switch (btnInstall.Text)
                 {
                     case "Install":
-                        Directory.Move($"{TF2Directory}\\rayshud-installer", $"{TF2Directory}\\rayshud");
-                        MessageBox.Show("Done installing rayshud", @"rayshud Installed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Directory.Move($"{TF2Directory}\\rayshud-{Properties.Settings.Default.GitBranch}", $"{TF2Directory}\\rayshud");
+                        MessageBox.Show(Properties.Settings.Default.SuccessInstallMessage, "rayshud Installed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
 
                     case "Update":
                     case "Refresh":
                         // Replace the installed rayshud with a fresh copy
                         Directory.Delete($"{TF2Directory}\\rayshud", true);
-                        Directory.Move($"{TF2Directory}\\rayshud-installer", $"{TF2Directory}\\rayshud");
+                        Directory.Move($"{TF2Directory}\\rayshud-{Properties.Settings.Default.GitBranch}", $"{TF2Directory}\\rayshud");
                         // Restore the installation configuration file
                         if (File.Exists($"{Application.StartupPath}\\settings.json"))
                         {
-                            File.Copy($"{Application.StartupPath}\\settings.json", $"{TF2Directory}\\rayshud\\customizations\\settings.json", true);
+                            File.Copy($"{Application.StartupPath}\\settings.json", $"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}", true);
                             File.Delete($"{Application.StartupPath}\\settings.json");
                         }
-                        MessageBox.Show("Done updating rayshud", @"rayshud Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(Properties.Settings.Default.SuccessUpdateMessage, "rayshud Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                 }
                 // Remove the temporary downloaded rayshud files
-                if (File.Exists($"{Application.StartupPath}\\TempHUD.zip"))
-                    File.Delete($"{Application.StartupPath}\\TempHUD.zip");
+                if (File.Exists($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip"))
+                    File.Delete($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip");
                 CheckHUDDirectory();
             }
             catch (Exception ex)
             {
                 ravenClient.Capture(new SentryEvent(ex));
-                MessageBox.Show($"An error occurred while attempting to download rayshud \n{ex.Message}", @"Error: Downloading rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{Properties.Settings.Default.ErrorInstallMessage}\n{ex.Message}", "Error: Installing rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -393,390 +396,403 @@ namespace rayshud_Installer
                 if (Directory.Exists($"{TF2Directory}\\rayshud"))
                 {
                     Directory.Delete($"{TF2Directory}\\rayshud", true);
-                    MessageBox.Show("Done uninstalling rayshud", @"rayshud Uninstalled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Properties.Settings.Default.SuccessUninstallMessage, "rayshud Uninstalled", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     txtDirectory.Text = TF2Directory;
                     txtInstalledVersion.Text = "...";
                     txtLastModified.Text = "...";
                     CheckHUDDirectory();
                 }
                 else
-                    MessageBox.Show("rayshud was not found in the tf/custom directory", @"Error: rayshud Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    btnUninstall.Enabled = false;
             }
             catch (Exception ex)
             {
                 ravenClient.Capture(new SentryEvent(ex));
-                MessageBox.Show($"An error occurred while attempting to remove rayshud \n{ex.Message}", @"Error: Uninstalling rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{Properties.Settings.Default.ErrorUninstallMessage}\n{ex.Message}", "Error: Uninstalling rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnSaveChanges_Click(object sender, EventArgs e)
         {
-            // DEBUG
             try
             {
+                // Update the installer configuration file
+                UpdateSettingsFile();
+                // Set the directories to be used during the file reads/writes
+                var console = $"{TF2Directory}\\rayshud\\materials\\console";
+                var resource = $"{TF2Directory}\\rayshud\\resource\\ui";
+                var scripts = $"{TF2Directory}\\rayshud\\scripts";
+                var colorScheme = $"{TF2Directory}\\rayshud\\resource\\scheme\\clientscheme_colors.res";
+                var animations = $"{TF2Directory}\\rayshud\\scripts\\hudanimations_custom.txt";
+                var chat = $"{TF2Directory}\\rayshud\\resource\\ui\\basechat.res";
+                var layout = $"{TF2Directory}\\rayshud\\scripts\\hudlayout.res";
+                var classicMaterials = $"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\materials\\console";
+                var classicResources = $"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Classic\\resource\\";
+                var modernMaterials = $"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\materials\\console";
+                var modernResources = $"{TF2Directory}\\rayshud\\customizations\\Main Menu\\Modern\\resource\\";
+                var scoreboard = $"{TF2Directory}\\rayshud\\customizations\\Scoreboard";
+                var teammenu = $"{TF2Directory}\\rayshud\\customizations\\Team Menu";
+                var playerhealth = $"{TF2Directory}\\rayshud\\customizations\\Player Health";
 
+                // 1. Main Menu Style - either classic or modern, copy and replace existing files
+                if (settings.HUDVersion)
+                {
+                    if (Directory.Exists($"{console}_off"))
+                    {
+                        File.Copy($"{classicMaterials}\\background_upward.vtf", $"{console}_off\\background_upward.vtf", true);
+                        File.Copy($"{classicMaterials}\\background_upward_widescreen.vtf", $"{console}_off\\background_upward_widescreen.vtf", true);
+                    }
+                    else
+                    {
+                        File.Copy($"{classicMaterials}\\background_upward.vtf", $"{console}\\background_upward.vtf", true);
+                        File.Copy($"{classicMaterials}\\background_upward_widescreen.vtf", $"{console}\\background_upward_widescreen.vtf", true);
+                    }
+
+                    File.Copy($"{classicResources}\\ui\\mainmenuoverride.res", $"{resource}\\mainmenuoverride.res", true);
+                    File.Copy($"{classicResources}\\gamemenu.res", $"{TF2Directory}\\rayshud\\resource\\gamemenu.res", true);
+                }
+                else
+                {
+                    if (Directory.Exists($"{console}_off"))
+                    {
+                        File.Copy($"{modernMaterials}\\background_upward.vtf", $"{console}_off\\background_upward.vtf", true);
+                        File.Copy($"{modernMaterials}\\background_upward_widescreen.vtf", $"{console}_off\\background_upward_widescreen.vtf", true);
+                    }
+                    else
+                    {
+                        File.Copy($"{modernMaterials}\\background_upward.vtf", $"{console}\\background_upward.vtf", true);
+                        File.Copy($"{modernMaterials}\\background_upward_widescreen.vtf", $"{console}\\background_upward_widescreen.vtf", true);
+                    }
+
+                    File.Copy($"{modernResources}\\ui\\mainmenuoverride.res", $"{resource}\\mainmenuoverride.res", true);
+                    File.Copy($"{modernResources}\\gamemenu.res", $"{TF2Directory}\\rayshud\\resource\\gamemenu.res", true);
+                }
+
+                // 2. Scoreboard Style - either normal or minimal (6v6), copy and replace existing files
+                if (settings.Scoreboard)
+                    File.Copy($"{scoreboard}\\{Properties.Settings.Default.FileScoreboard}-minimal.res", $"{resource}\\{Properties.Settings.Default.FileScoreboard}.res", true);
+                else
+                    File.Copy($"{scoreboard}\\{Properties.Settings.Default.FileScoreboard}-default.res", $"{resource}\\{Properties.Settings.Default.FileScoreboard}.res", true);
+
+                // 3. Default Background - enable or disable the custom backgrounds files by renaming them
+                if (settings.DefaultMenuBG)
+                {
+                    if (Directory.Exists(console))
+                    {
+                        Directory.Move(console, $"{console}_off");
+                        File.Move($"{scripts}\\{Properties.Settings.Default.FileChapterBackgrounds}.txt", $"{scripts}\\{Properties.Settings.Default.FileChapterBackgrounds}_off.txt");
+                    }
+                }
+                else
+                {
+                    if (Directory.Exists($"{console}_off") && File.Exists($"{scripts}\\{Properties.Settings.Default.FileChapterBackgrounds}_off.txt"))
+                    {
+                        Directory.Move($"{console}_off", console);
+                        File.Move($"{scripts}\\{Properties.Settings.Default.FileChapterBackgrounds}_off.txt", $"{scripts}\\{Properties.Settings.Default.FileChapterBackgrounds}.txt");
+                    }
+                }
+
+                // 4. Class/Team Select Style - either left or center, copy and replace existing files
+                if (settings.TeamSelect)
+                {
+                    File.Copy($"{teammenu}\\{Properties.Settings.Default.FileTeamMenu}-center.res", $"{resource}\\{Properties.Settings.Default.FileTeamMenu}.res", true);
+                    File.Copy($"{teammenu}\\{Properties.Settings.Default.FileClassSelection}-center.res", $"{resource}\\{Properties.Settings.Default.FileClassSelection}.res", true);
+                }
+                else
+                {
+                    File.Copy($"{teammenu}\\{Properties.Settings.Default.FileTeamMenu}-left.res", $"{resource}\\{Properties.Settings.Default.FileTeamMenu}.res", true);
+                    File.Copy($"{teammenu}\\{Properties.Settings.Default.FileClassSelection}-left.res", $"{resource}\\{Properties.Settings.Default.FileClassSelection}.res", true);
+                }
+
+                switch (settings.HealthStyle)
+                {
+                    // 5. Player Health Style - either default, cross, teambar or broesel, copy and replace existing files
+                    case 1:
+                        File.Copy($"{playerhealth}\\{Properties.Settings.Default.FilePlayerHealth}-default.res", $"{resource}\\{Properties.Settings.Default.FilePlayerHealth}.res",
+                            true);
+                        break;
+
+                    case 2:
+                        File.Copy($"{playerhealth}\\{Properties.Settings.Default.FilePlayerHealth}-teambar.res", $"{resource}\\{Properties.Settings.Default.FilePlayerHealth}.res",
+                            true);
+                        break;
+
+                    case 3:
+                        File.Copy($"{playerhealth}\\{Properties.Settings.Default.FilePlayerHealth}-cross.res", $"{resource}\\{Properties.Settings.Default.FilePlayerHealth}.res",
+                            true);
+                        break;
+
+                    case 4:
+                        File.Copy($"{playerhealth}\\{Properties.Settings.Default.FilePlayerHealth}-broesel.res", $"{resource}\\{Properties.Settings.Default.FilePlayerHealth}.res",
+                            true);
+                        break;
+                }
+
+                // Spy Disguise Image and Uber Animation - uncomment all
+                var lines = File.ReadAllLines(animations);
+                lines[87 - 1] = lines[87 - 1].Replace("//", string.Empty);
+                lines[88 - 1] = lines[88 - 1].Replace("//", string.Empty);
+                lines[89 - 1] = lines[89 - 1].Replace("//", string.Empty);
+                lines[94 - 1] = lines[94 - 1].Replace("//", string.Empty);
+                lines[95 - 1] = lines[95 - 1].Replace("//", string.Empty);
+                lines[96 - 1] = lines[96 - 1].Replace("//", string.Empty);
+                lines[104 - 1] = lines[104 - 1].Replace("//", string.Empty);
+                lines[105 - 1] = lines[105 - 1].Replace("//", string.Empty);
+                lines[106 - 1] = lines[106 - 1].Replace("//", string.Empty);
+                File.WriteAllLines(animations, lines);
+
+                // 6. Spy Disguise Image - enable or disable by commenting out the lines
+                if (settings.DisguiseImage)
+                {
+                    lines[87 - 1] = $"\t{lines[87 - 1].Replace("//", string.Empty).Trim()}";
+                    lines[88 - 1] = $"\t{lines[88 - 1].Replace("//", string.Empty).Trim()}";
+                    lines[89 - 1] = $"\t{lines[89 - 1].Replace("//", string.Empty).Trim()}";
+                    lines[94 - 1] = $"\t{lines[94 - 1].Replace("//", string.Empty).Trim()}";
+                    lines[95 - 1] = $"\t{lines[95 - 1].Replace("//", string.Empty).Trim()}";
+                    lines[96 - 1] = $"\t{lines[96 - 1].Replace("//", string.Empty).Trim()}";
+                }
+                else
+                {
+                    lines[87 - 1] = $"\t//{lines[87 - 1].Trim()}";
+                    lines[88 - 1] = $"\t//{lines[88 - 1].Trim()}";
+                    lines[89 - 1] = $"\t//{lines[89 - 1].Trim()}";
+                    lines[94 - 1] = $"\t//{lines[94 - 1].Trim()}";
+                    lines[95 - 1] = $"\t//{lines[95 - 1].Trim()}";
+                    lines[96 - 1] = $"\t//{lines[96 - 1].Trim()}";
+                }
+
+                switch (settings.UberAnimation)
+                {
+                    // 7. Uber Animation - enable or disable by commenting out the lines
+                    case 1:
+                        lines[104 - 1] = $"\t{lines[104 - 1].Replace("//", string.Empty).Trim()}";
+                        lines[105 - 1] = $"\t//{lines[105 - 1].Trim()}";
+                        lines[106 - 1] = $"\t//{lines[106 - 1].Trim()}";
+                        break;
+
+                    case 2:
+                        lines[104 - 1] = $"\t//{lines[104 - 1].Trim()}";
+                        lines[105 - 1] = $"\t{lines[105 - 1].Replace("//", string.Empty).Trim()}";
+                        lines[106 - 1] = $"\t//{lines[106 - 1].Trim()}";
+                        break;
+
+                    case 3:
+                        lines[104 - 1] = $"\t//{lines[104 - 1].Trim()}";
+                        lines[105 - 1] = $"\t//{lines[105 - 1].Trim()}";
+                        lines[106 - 1] = $"\t{lines[106 - 1].Replace("//", string.Empty).Trim()}";
+                        break;
+                }
+
+                // 8. Crosshair Pulse - enable or disable by commenting out the lines
+                if (settings.XHairPulse)
+                {
+                    lines[80 - 1] = lines[80 - 1].Replace("//", string.Empty);
+                    lines[81 - 1] = lines[81 - 1].Replace("//", string.Empty);
+                }
+                else
+                {
+                    lines[80 - 1] = $"//{lines[80 - 1]}";
+                    lines[81 - 1] = $"//{lines[81 - 1]}";
+                }
+
+                File.WriteAllLines(animations, lines);
+
+                // 9. Chat box position - either top or bottom, change the ypos value of basechat.res
+                lines = File.ReadAllLines(chat);
+                if (settings.ChatBox)
+                    lines[10 - 1] = "\t\t\"ypos\"\t\t\t\t\"30\"";
+                else
+                    lines[10 - 1] = "\t\t\"ypos\"\t\t\t\t\"360\"";
+                File.WriteAllLines(chat, lines);
+
+                // Crosshairs - disable all and remove outlining
+                lines = File.ReadAllLines(layout);
+                for (int x = 34; x <= 290; x += 17)
+                {
+                    lines[x - 1] = "\t\t\"visible\"\t\t\"0\"";
+                    lines[x + 1 - 1] = "\t\t\"enabled\"\t\t\"0\"";
+                    lines[x + 7 - 1] = lines[x + 7 - 1].Replace("Outline", string.Empty);
+                    File.WriteAllLines(layout, lines);
+                }
+
+                // 10. Crosshairs - either enabled or disabled with or without outlines, change the visible, enabled and font values of hudlayout.res
+                if (settings.XHairEnabled)
+                {
+                    switch (settings.XHairStyle)
+                    {
+                        case 1: // BasicCross
+                            lines[34 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[35 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[41 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[41 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+
+                        case 2: // BasicCrossLarge
+                            lines[51 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[52 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[58 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[58 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+
+                        case 3: // BasicCrossSmall
+                            lines[68 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[69 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[75 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[75 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+
+                        case 4: // BasicDot
+                            lines[85 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[86 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[92 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[92 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+
+                        case 5: // CircleDot
+                            lines[102 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[103 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[109 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[109 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+
+                        case 6: // KonrWings
+                            lines[119 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[120 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[126 - 1] = $"\t\t\"font\"\t\t\t\"KonrWings{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[126 - 1] = $"\t\t\"font\"\t\t\t\"KonrWings{txtXHairSize.Text}\"";
+                            break;
+
+                        case 7: // OpenCross
+                            lines[136 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[137 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[143 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[143 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+
+                        case 8: // OpenCrossDot
+                            lines[153 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[154 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[160 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[160 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+
+                        case 9: // ScatterSpread
+                            lines[170 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[171 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[177 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[177 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+
+                        case 10: // ThinCircle
+                            lines[187 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[188 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[194 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[194 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+
+                        case 11: // ThinCross
+                            lines[204 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[205 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[211 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[211 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+
+                        case 12: // Wings
+                            lines[221 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[222 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[228 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[228 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+
+                        case 13: // WingsPlus
+                            lines[238 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[239 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[245 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[245 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+
+                        case 14: // WingsSmall
+                            lines[255 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[256 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[262 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[262 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+
+                        case 15: // WingsSmallDot
+                            lines[272 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[273 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[279 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[279 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+
+                        case 16: // xHairCircle
+                            lines[289 - 1] = "\t\t\"visible\"\t\t\"1\"";
+                            lines[290 - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                            if (settings.XHairOutline)
+                                lines[296 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                            else
+                                lines[296 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                            break;
+                    }
+
+                    File.WriteAllLines(layout, lines);
+                }
+
+                // 11. Color Values - replace the color RGB values in clientscheme_colors.res file
+                lines = File.ReadAllLines(colorScheme);
+                lines[7 - 1] = $"\t\t\"Ammo In Clip\"\t\t\t\t\t\"{settings.AmmoClip}\"";
+                lines[8 - 1] = $"\t\t\"Ammo In Reserve\"\t\t\t\t\"{settings.AmmoReserve}\"";
+                lines[9 - 1] = $"\t\t\"Ammo In Clip Low\"\t\t\t\t\"{settings.AmmoClipLow}\"";
+                lines[10 - 1] = $"\t\t\"Ammo In Reserve Low\"\t\t\t\"{settings.AmmoReserveLow}\"";
+                lines[23 - 1] = $"\t\t\"Health Normal\"\t\t\t\t\t\"{settings.HealthNormal}\"";
+                lines[24 - 1] = $"\t\t\"Health Buff\"\t\t\t\t\t\"{settings.HealthBuff}\"";
+                lines[25 - 1] = $"\t\t\"Health Hurt\"\t\t\t\t\t\"{settings.HealthLow}\"";
+                lines[32 - 1] = $"\t\t\"Uber Bar Color\"\t\t\t\t\"{settings.UberBarColor}\"";
+                lines[35 - 1] = $"\t\t\"Solid Color Uber\"\t\t\t\t\"{settings.UberFullColor}\"";
+                lines[37 - 1] = $"\t\t\"Flashing Uber Color1\"\t\t\t\"{settings.UberFlashColor1}\"";
+                lines[38 - 1] = $"\t\t\"Flashing Uber Color2\"\t\t\t\"{settings.UberFlashColor2}\"";
+                lines[41 - 1] = $"\t\t\"Heal Numbers\"\t\t\t\t\t\"{settings.HealingDone}\"";
+                lines[45 - 1] = $"\t\t\"Crosshair\"\t\t\t\t\t\t\"{settings.XHairColor}\"";
+                lines[46 - 1] = $"\t\t\"CrosshairDamage\"\t\t\t\t\"{settings.XHairPulseColor}\"";
+                File.WriteAllLines(colorScheme, lines);
+
+                MessageBox.Show(Properties.Settings.Default.SuccessApplyChanges, "Changes Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 ravenClient.Capture(new SentryEvent(ex));
-                MessageBox.Show($"An error occurred while applying installer changes to rayshud \n{ex.Message}", @"Error: Updating rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{Properties.Settings.Default.ErrorApplyChanges}\n{ex.Message}", "Error: Updating rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            // Update the installer configuration file
-            UpdateSettingsFile();
-            // Set the directories to be used during the file reads/writes
-            var console = $"{TF2Directory}\\rayshud\\materials\\console";
-            var resource = $"{TF2Directory}\\rayshud\\resource\\ui";
-            var scripts = $"{TF2Directory}\\rayshud\\scripts";
-            var mainmenu = $"{TF2Directory}\\rayshud\\customizations\\Main Menu";
-            var scoreboard = $"{TF2Directory}\\rayshud\\customizations\\Scoreboard";
-            var teammenu = $"{TF2Directory}\\rayshud\\customizations\\Team Menu";
-            var playerhealth = $"{TF2Directory}\\rayshud\\customizations\\Player Health";
-            var colorScheme = $"{TF2Directory}\\rayshud\\resource\\scheme\\clientscheme_colors.res";
-            var animations = $"{TF2Directory}\\rayshud\\scripts\\hudanimations_custom.txt";
-            var chat = $"{TF2Directory}\\rayshud\\resource\\ui\\basechat.res";
-            var layout = $"{TF2Directory}\\rayshud\\scripts\\hudlayout.res";
-
-            // 1. Main Menu Style - either classic or modern, copy and replace existing files
-            if (settings.HUDVersion)
-            {
-                if (Directory.Exists($"{console}_off"))
-                {
-                    File.Copy($"{mainmenu}\\Classic\\materials\\console\\background_upward.vtf", $"{console}_off\\background_upward.vtf", true);
-                    File.Copy($"{mainmenu}\\Classic\\materials\\console\\background_upward_widescreen.vtf", $"{console}_off\\background_upward_widescreen.vtf", true);
-                }
-                else
-                {
-                    File.Copy($"{mainmenu}\\Classic\\materials\\console\\background_upward.vtf", $"{console}\\background_upward.vtf", true);
-                    File.Copy($"{mainmenu}\\Classic\\materials\\console\\background_upward_widescreen.vtf", $"{console}\\background_upward_widescreen.vtf", true);
-                }
-                File.Copy($"{mainmenu}\\Classic\\resource\\ui\\mainmenuoverride.res", $"{resource}\\mainmenuoverride.res", true);
-                File.Copy($"{mainmenu}\\Classic\\resource\\gamemenu.res", $"{TF2Directory}\\rayshud\\resource\\gamemenu.res", true);
-            }
-            else
-            {
-                if (Directory.Exists($"{console}_off"))
-                {
-                    File.Copy($"{mainmenu}\\Modern\\materials\\console\\background_upward.vtf", $"{console}_off\\background_upward.vtf", true);
-                    File.Copy($"{mainmenu}\\Modern\\materials\\console\\background_upward_widescreen.vtf", $"{console}_off\\background_upward_widescreen.vtf", true);
-                }
-                else
-                {
-                    File.Copy($"{mainmenu}\\Modern\\materials\\console\\background_upward.vtf", $"{console}\\background_upward.vtf", true);
-                    File.Copy($"{mainmenu}\\Modern\\materials\\console\\background_upward_widescreen.vtf", $"{console}\\background_upward_widescreen.vtf", true);
-                }
-                File.Copy($"{mainmenu}\\Modern\\resource\\ui\\mainmenuoverride.res", $"{resource}\\mainmenuoverride.res", true);
-                File.Copy($"{mainmenu}\\Modern\\resource\\gamemenu.res", $"{TF2Directory}\\rayshud\\resource\\gamemenu.res", true);
-            }
-
-            // 2. Scoreboard Style - either normal or minimal (6v6), copy and replace existing files
-            if (settings.Scoreboard)
-                File.Copy($"{scoreboard}\\scoreboard-minimal.res", $"{resource}\\scoreboard.res", true);
-            else
-                File.Copy($"{scoreboard}\\scoreboard-default.res", $"{resource}\\scoreboard.res", true);
-
-            // 3. Default Background - enable or disable the custom backgrounds files by renaming them
-            if (settings.DefaultMenuBG)
-            {
-                if (Directory.Exists(console))
-                {
-                    Directory.Move(console, $"{console}_off");
-                    File.Move($"{scripts}\\chapterbackgrounds.txt", $"{scripts}\\chapterbackgrounds_off.txt");
-                }
-            }
-            else
-            {
-                if (Directory.Exists($"{console}_off") && File.Exists($"{scripts}\\chapterbackgrounds_off.txt"))
-                {
-                    Directory.Move($"{console}_off", console);
-                    File.Move($"{scripts}\\chapterbackgrounds_off.txt", $"{scripts}\\chapterbackgrounds.txt");
-                }
-            }
-
-            // 4. Class/Team Select Style - either left or center, copy and replace existing files
-            if (settings.TeamSelect)
-            {
-                File.Copy($"{teammenu}\\Teammenu-center.res", $"{resource}\\Teammenu.res", true);
-                File.Copy($"{teammenu}\\ClassSelection-center.res", $"{resource}\\ClassSelection.res", true);
-            }
-            else
-            {
-                File.Copy($"{teammenu}\\Teammenu-left.res", $"{resource}\\Teammenu.res", true);
-                File.Copy($"{teammenu}\\ClassSelection-left.res", $"{resource}\\ClassSelection.res", true);
-            }
-
-            switch (settings.HealthStyle)
-            {
-                // 5. Player Health Style - either default, cross, teambar or broesel, copy and replace existing files
-                case 1:
-                    File.Copy($"{playerhealth}\\HudPlayerHealth-default.res", $"{resource}\\HudPlayerHealth.res", true);
-                    break;
-                case 2:
-                    File.Copy($"{playerhealth}\\HudPlayerHealth-teambar.res", $"{resource}\\HudPlayerHealth.res", true);
-                    break;
-                case 3:
-                    File.Copy($"{playerhealth}\\HudPlayerHealth-cross.res", $"{resource}\\HudPlayerHealth.res", true);
-                    break;
-                case 4:
-                    File.Copy($"{playerhealth}\\HudPlayerHealth-broesel.res", $"{resource}\\HudPlayerHealth.res", true);
-                    break;
-            }
-
-            // Spy Disguise Image and Uber Animation - uncomment all
-            var lines = File.ReadAllLines(animations);
-            lines[87 - 1] = lines[87 - 1].Replace("//", string.Empty);
-            lines[88 - 1] = lines[88 - 1].Replace("//", string.Empty);
-            lines[89 - 1] = lines[89 - 1].Replace("//", string.Empty);
-            lines[94 - 1] = lines[94 - 1].Replace("//", string.Empty);
-            lines[95 - 1] = lines[95 - 1].Replace("//", string.Empty);
-            lines[96 - 1] = lines[96 - 1].Replace("//", string.Empty);
-            lines[104 - 1] = lines[104 - 1].Replace("//", string.Empty);
-            lines[105 - 1] = lines[105 - 1].Replace("//", string.Empty);
-            lines[106 - 1] = lines[106 - 1].Replace("//", string.Empty);
-            File.WriteAllLines(animations, lines);
-
-            // 6. Spy Disguise Image - enable or disable by commenting out the lines
-            if (settings.DisguiseImage)
-            {
-                lines[87 - 1] = $"\t{lines[87 - 1].Replace("//", string.Empty).Trim()}";
-                lines[88 - 1] = $"\t{lines[88 - 1].Replace("//", string.Empty).Trim()}";
-                lines[89 - 1] = $"\t{lines[89 - 1].Replace("//", string.Empty).Trim()}";
-                lines[94 - 1] = $"\t{lines[94 - 1].Replace("//", string.Empty).Trim()}";
-                lines[95 - 1] = $"\t{lines[95 - 1].Replace("//", string.Empty).Trim()}";
-                lines[96 - 1] = $"\t{lines[96 - 1].Replace("//", string.Empty).Trim()}";
-            }
-            else
-            {
-                lines[87 - 1] = $"\t//{lines[87 - 1].Trim()}";
-                lines[88 - 1] = $"\t//{lines[88 - 1].Trim()}";
-                lines[89 - 1] = $"\t//{lines[89 - 1].Trim()}";
-                lines[94 - 1] = $"\t//{lines[94 - 1].Trim()}";
-                lines[95 - 1] = $"\t//{lines[95 - 1].Trim()}";
-                lines[96 - 1] = $"\t//{lines[96 - 1].Trim()}";
-            }
-
-            switch (settings.UberAnimation)
-            {
-                // 7. Uber Animation - enable or disable by commenting out the lines
-                case 1:
-                    lines[104 - 1] = $"\t{lines[104 - 1].Replace("//", string.Empty).Trim()}";
-                    lines[105 - 1] = $"\t//{lines[105 - 1].Trim()}";
-                    lines[106 - 1] = $"\t//{lines[106 - 1].Trim()}";
-                    break;
-                case 2:
-                    lines[104 - 1] = $"\t//{lines[104 - 1].Trim()}";
-                    lines[105 - 1] = $"\t{lines[105 - 1].Replace("//", string.Empty).Trim()}";
-                    lines[106 - 1] = $"\t//{lines[106 - 1].Trim()}";
-                    break;
-                case 3:
-                    lines[104 - 1] = $"\t//{lines[104 - 1].Trim()}";
-                    lines[105 - 1] = $"\t//{lines[105 - 1].Trim()}";
-                    lines[106 - 1] = $"\t{lines[106 - 1].Replace("//", string.Empty).Trim()}";
-                    break;
-            }
-
-            // 8. Crosshair Pulse - enable or disable by commenting out the lines
-            if (settings.XHairPulse)
-            {
-                lines[80 - 1] = lines[80 - 1].Replace("//", string.Empty);
-                lines[81 - 1] = lines[81 - 1].Replace("//", string.Empty);
-            }
-            else
-            {
-                lines[80 - 1] = $"//{lines[80 - 1]}";
-                lines[81 - 1] = $"//{lines[81 - 1]}";
-            }
-            File.WriteAllLines(animations, lines);
-
-            // 9. Chat box position - either top or bottom, change the ypos value of basechat.res
-            lines = File.ReadAllLines(chat);
-            if (settings.ChatBox)
-                lines[10 - 1] = "\t\t\"ypos\"\t\t\t\t\"30\"";
-            else
-                lines[10 - 1] = "\t\t\"ypos\"\t\t\t\t\"360\"";
-            File.WriteAllLines(chat, lines);
-
-            // Crosshairs - disable all and remove outlining
-            lines = File.ReadAllLines(layout);
-            for (int x = 34; x <= 290; x += 17)
-            {
-                lines[x - 1] = "\t\t\"visible\"\t\t\"0\"";
-                lines[x + 1 - 1] = "\t\t\"enabled\"\t\t\"0\"";
-                lines[x + 7 - 1] = lines[x + 7 - 1].Replace("Outline", string.Empty);
-                File.WriteAllLines(layout, lines);
-            }
-
-            // 10. Crosshairs - either enabled or disabled with or without outlines, change the visible, enabled and font values of hudlayout.res
-            if (settings.XHairEnabled)
-            {
-                switch (settings.XHairStyle)
-                {
-                    case 1:     // BasicCross
-                        lines[34 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[35 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[41 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[41 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 2:     // BasicCrossLarge
-                        lines[51 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[52 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[58 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[58 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 3:     // BasicCrossSmall
-                        lines[68 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[69 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[75 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[75 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 4:     // BasicDot
-                        lines[85 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[86 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[92 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[92 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 5:     // CircleDot
-                        lines[102 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[103 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[109 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[109 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 6:     // KonrWings
-                        lines[119 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[120 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[126 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[126 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 7:     // OpenCross
-                        lines[136 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[137 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[143 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[143 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 8:     // OpenCrossDot
-                        lines[153 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[154 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[160 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[160 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 9:     // ScatterSpread
-                        lines[170 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[171 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[177 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[177 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 10:    // ThinCircle
-                        lines[187 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[188 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[194 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[194 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 11:    // ThinCross
-                        lines[204 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[205 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[211 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[211 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 12:    // Wings
-                        lines[221 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[222 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[228 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[228 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 13:    // WingsPlus
-                        lines[238 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[239 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[245 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[245 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 14:    // WingsSmall
-                        lines[255 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[256 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[262 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[262 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 15:    // WingsSmallDot
-                        lines[272 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[273 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[279 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[279 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-
-                    case 16:    // xHairCircle
-                        lines[289 - 1] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[290 - 1] = "\t\t\"enabled\"\t\t\"1\"";
-                        if (settings.XHairOutline)
-                            lines[296 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
-                        else
-                            lines[296 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
-                        break;
-                }
-                File.WriteAllLines(layout, lines);
-            }
-
-            // 11. Color Values - replace the color RGB values in clientscheme_colors.res file
-            lines = File.ReadAllLines(colorScheme);
-            lines[7 - 1] = $"\t\t\"Ammo In Clip\"\t\t\t\t\t\"{settings.AmmoClip}\"";
-            lines[8 - 1] = $"\t\t\"Ammo In Reserve\"\t\t\t\t\"{settings.AmmoReserve}\"";
-            lines[9 - 1] = $"\t\t\"Ammo In Clip Low\"\t\t\t\t\"{settings.AmmoClipLow}\"";
-            lines[10 - 1] = $"\t\t\"Ammo In Reserve Low\"\t\t\t\"{settings.AmmoReserveLow}\"";
-            lines[23 - 1] = $"\t\t\"Health Normal\"\t\t\t\t\t\"{settings.HealthNormal}\"";
-            lines[24 - 1] = $"\t\t\"Health Buff\"\t\t\t\t\t\"{settings.HealthBuff}\"";
-            lines[25 - 1] = $"\t\t\"Health Hurt\"\t\t\t\t\t\"{settings.HealthLow}\"";
-            lines[32 - 1] = $"\t\t\"Uber Bar Color\"\t\t\t\t\"{settings.UberBarColor}\"";
-            lines[35 - 1] = $"\t\t\"Solid Color Uber\"\t\t\t\t\"{settings.UberFullColor}\"";
-            lines[37 - 1] = $"\t\t\"Flashing Uber Color1\"\t\t\t\"{settings.UberFlashColor1}\"";
-            lines[38 - 1] = $"\t\t\"Flashing Uber Color2\"\t\t\t\"{settings.UberFlashColor2}\"";
-            lines[41 - 1] = $"\t\t\"Heal Numbers\"\t\t\t\t\t\"{settings.HealingDone}\"";
-            lines[45 - 1] = $"\t\t\"Crosshair\"\t\t\t\t\t\t\"{settings.XHairColor}\"";
-            lines[46 - 1] = $"\t\t\"CrosshairDamage\"\t\t\t\t\"{settings.XHairPulseColor}\"";
-            File.WriteAllLines(colorScheme, lines);
-
-            MessageBox.Show("rayshud settings saved and applied.", "Changes Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnPlayTF2_Click(object sender, EventArgs e)
@@ -791,14 +807,14 @@ namespace rayshud_Installer
             var IsDirectoryValid = false;
             var DirectoryBrowser = new FolderBrowserDialog
             {
-                Description = "Please select your tf/custom folder. Example: \nC:/Program Files (x86)/Steam/steamapps/common/Team Fortress 2/tf/custom"
+                Description = $"{Properties.Settings.Default.UserShowDirectory}\n{Properties.Settings.Default.TFDirectoryC32}"
             };
             while (IsDirectoryValid == false)
             {
                 // Until the correct path is provided or the user clicks 'Cancel' - keep prompting for a valid tf/custom directory.
                 if (DirectoryBrowser.ShowDialog() == DialogResult.OK)
                 {
-                    if (!DirectoryBrowser.SelectedPath.Contains("custom")) continue;   //"Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom"  // DEBUG
+                    if (!DirectoryBrowser.SelectedPath.Contains("custom")) continue;   //Properties.Settings.Default.TFDirectoryValidation  // DEBUG
                     TF2Directory = DirectoryBrowser.SelectedPath;
                     txtDirectory.Text = TF2Directory;
                     btnInstall.Enabled = true;
@@ -951,7 +967,7 @@ namespace rayshud_Installer
 
         private void txtXHairSize_TextChanged(object sender, EventArgs e)
         {
-            settings.XHairSize = txtXHairSize.Text;
+            settings.XHairSize = Convert.ToInt32(txtXHairSize.Text);
         }
 
         private void lbPlayerHealth_SelectedIndexChanged(object sender, EventArgs e)
@@ -1044,7 +1060,7 @@ namespace rayshud_Installer
                     txtXHairSize.Text = string.Empty;
                     break;
             }
-            settings.XHairSize = txtXHairSize.Text;
+            settings.XHairSize = Convert.ToInt32(txtXHairSize.Text);
         }
 
         private void btnOpenDirectory_Click(object sender, EventArgs e)
@@ -1055,34 +1071,35 @@ namespace rayshud_Installer
 
         private void btnSetDefault_Click(object sender, EventArgs e)
         {
-            WriteToSettings("HUDVersion", "False");
-            WriteToSettings("Scoreboard", "False");
-            WriteToSettings("ChatBox", "False");
-            WriteToSettings("TeamSelect", "False");
-            WriteToSettings("DisguiseImage", "False");
-            WriteToSettings("DefaultMenuBG", "False");
-            WriteToSettings("UberAnimation", "1");
-            WriteToSettings("UberBarColor", "235 226 202 255");
-            WriteToSettings("UberFullColor", "255 50 255 255");
-            WriteToSettings("UberFlashColor1", "255 165 0 255");
-            WriteToSettings("UberFlashColor2", "255 69 0 255");
-            WriteToSettings("XHairEnabled", "False");
-            WriteToSettings("XHairStyle", "1");
-            WriteToSettings("XHairOutline", "False");
-            WriteToSettings("XHairPulse", "True");
-            WriteToSettings("XHairSize", "20");
-            WriteToSettings("XHairColor", "242 242 242 255");
-            WriteToSettings("XHairPulseColor", "255 0 0 255");
-            WriteToSettings("HealingDone", "48 255 48 255");
-            WriteToSettings("HealthStyle", "1");
-            WriteToSettings("HealthNormal", "235 226 202 255");
-            WriteToSettings("HealthBuff", "48 255 48 255");
-            WriteToSettings("HealthLow", "255 153 0 255");
-            WriteToSettings("AmmoClip", "48 255 48 255");
-            WriteToSettings("AmmoReserve", "72 255 255 255");
-            WriteToSettings("AmmoClipLow", "255 42 130 255");
-            WriteToSettings("AmmoReserveLow", "255 128 28 255");
-            WriteToSettings("LastModified", DateTime.Now.ToString(CultureInfo.CurrentCulture));
+            settings.HUDVersion = false;
+            settings.Scoreboard = false;
+            settings.ChatBox = false;
+            settings.TeamSelect = false;
+            settings.DisguiseImage = false;
+            settings.DefaultMenuBG = false;
+            settings.UberAnimation = 1;
+            settings.UberBarColor = "235 226 202 255";
+            settings.UberFullColor = "255 50 255 255";
+            settings.UberFlashColor1 = "255 165 0 255";
+            settings.UberFlashColor2 = "255 69 0 255";
+            settings.XHairEnabled = false;
+            settings.XHairStyle = 1;
+            settings.XHairOutline = false;
+            settings.XHairPulse = true;
+            settings.XHairSize = 20;
+            settings.XHairColor = "242 242 242 255";
+            settings.XHairPulseColor = "255 0 0 255";
+            settings.HealingDone = "48 255 48 255";
+            settings.HealthStyle = 1;
+            settings.HealthNormal = "235 226 202 255";
+            settings.HealthBuff = "48 255 48 255";
+            settings.HealthLow = "255 153 0 255";
+            settings.AmmoClip = "48 255 48 255";
+            settings.AmmoReserve = "72 255 255 255";
+            settings.AmmoClipLow = "255 42 130 255";
+            settings.AmmoReserveLow = "255 128 28 255";
+            settings.LastModified = DateTime.Now.ToString(CultureInfo.CurrentCulture);
+            UpdateSettingsFile();
             DisplayHUDSettings();
         }
     }
@@ -1104,7 +1121,7 @@ namespace rayshud_Installer
         public int XHairStyle { get; set; }
         public bool XHairOutline { get; set; }
         public bool XHairPulse { get; set; }
-        public string XHairSize { get; set; }
+        public int XHairSize { get; set; }
         public string XHairColor { get; set; }
         public string XHairPulseColor { get; set; }
         public string HealingDone { get; set; }
