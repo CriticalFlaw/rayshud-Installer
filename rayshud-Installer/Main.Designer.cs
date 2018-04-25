@@ -33,8 +33,8 @@
             this.tabGeneral = new System.Windows.Forms.TabPage();
             this.btnSetDefault = new System.Windows.Forms.Button();
             this.gbInformation = new System.Windows.Forms.GroupBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblInfo4 = new System.Windows.Forms.Label();
-            this.lblInfo3 = new System.Windows.Forms.Label();
             this.lblInfo1 = new System.Windows.Forms.Label();
             this.lblInfo2 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -68,7 +68,6 @@
             this.lblDirectory = new System.Windows.Forms.Label();
             this.tabGameplay = new System.Windows.Forms.TabPage();
             this.gbPreview = new System.Windows.Forms.GroupBox();
-            this.txtXHairSize = new System.Windows.Forms.Label();
             this.lblCrosshair = new System.Windows.Forms.Label();
             this.pbPreview = new System.Windows.Forms.PictureBox();
             this.gbCrosshair = new System.Windows.Forms.GroupBox();
@@ -115,6 +114,9 @@
             this.txtLastModified = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.lblXHairSizes = new System.Windows.Forms.Label();
+            this.cbXHairSizes = new System.Windows.Forms.ComboBox();
             this.tabEditor.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.gbInformation.SuspendLayout();
@@ -176,8 +178,8 @@
             // 
             // gbInformation
             // 
+            this.gbInformation.Controls.Add(this.progressBar1);
             this.gbInformation.Controls.Add(this.lblInfo4);
-            this.gbInformation.Controls.Add(this.lblInfo3);
             this.gbInformation.Controls.Add(this.lblInfo1);
             this.gbInformation.Controls.Add(this.lblInfo2);
             this.gbInformation.Controls.Add(this.linkLabel1);
@@ -189,24 +191,22 @@
             this.gbInformation.TabStop = false;
             this.gbInformation.Text = "Information";
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(166, 37);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(500, 23);
+            this.progressBar1.TabIndex = 5;
+            // 
             // lblInfo4
             // 
             this.lblInfo4.AutoSize = true;
-            this.lblInfo4.Location = new System.Drawing.Point(163, 38);
+            this.lblInfo4.Location = new System.Drawing.Point(163, 18);
             this.lblInfo4.Name = "lblInfo4";
             this.lblInfo4.Size = new System.Drawing.Size(503, 16);
             this.lblInfo4.TabIndex = 4;
             this.lblInfo4.Text = "For any installer issues, suggestions, code contributions or comments to the GitH" +
     "ub repo";
-            // 
-            // lblInfo3
-            // 
-            this.lblInfo3.AutoSize = true;
-            this.lblInfo3.Location = new System.Drawing.Point(292, 18);
-            this.lblInfo3.Name = "lblInfo3";
-            this.lblInfo3.Size = new System.Drawing.Size(374, 16);
-            this.lblInfo3.TabIndex = 3;
-            this.lblInfo3.Text = "For rayshud related matters, go to the Steam Group or GitHub";
             // 
             // lblInfo1
             // 
@@ -581,7 +581,6 @@
             // 
             // gbPreview
             // 
-            this.gbPreview.Controls.Add(this.txtXHairSize);
             this.gbPreview.Controls.Add(this.lblCrosshair);
             this.gbPreview.Controls.Add(this.pbPreview);
             this.gbPreview.ForeColor = System.Drawing.Color.White;
@@ -591,19 +590,6 @@
             this.gbPreview.TabIndex = 7;
             this.gbPreview.TabStop = false;
             this.gbPreview.Text = "Crosshair Preview";
-            // 
-            // txtXHairSize
-            // 
-            this.txtXHairSize.AutoSize = true;
-            this.txtXHairSize.BackColor = System.Drawing.Color.Transparent;
-            this.txtXHairSize.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txtXHairSize.Font = new System.Drawing.Font("Berlin Sans FB", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtXHairSize.Location = new System.Drawing.Point(3, 119);
-            this.txtXHairSize.Name = "txtXHairSize";
-            this.txtXHairSize.Size = new System.Drawing.Size(27, 20);
-            this.txtXHairSize.TabIndex = 9;
-            this.txtXHairSize.Text = "24";
-            this.txtXHairSize.TextChanged += new System.EventHandler(this.txtXHairSize_TextChanged);
             // 
             // lblCrosshair
             // 
@@ -631,6 +617,8 @@
             // 
             // gbCrosshair
             // 
+            this.gbCrosshair.Controls.Add(this.cbXHairSizes);
+            this.gbCrosshair.Controls.Add(this.lblXHairSizes);
             this.gbCrosshair.Controls.Add(this.btnXHairColor);
             this.gbCrosshair.Controls.Add(this.btnXHairPulseColor);
             this.gbCrosshair.Controls.Add(this.cbXHairPulse);
@@ -673,7 +661,7 @@
             this.cbXHairPulse.Checked = true;
             this.cbXHairPulse.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbXHairPulse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbXHairPulse.Location = new System.Drawing.Point(161, 60);
+            this.cbXHairPulse.Location = new System.Drawing.Point(230, 33);
             this.cbXHairPulse.Name = "cbXHairPulse";
             this.cbXHairPulse.Size = new System.Drawing.Size(126, 20);
             this.cbXHairPulse.TabIndex = 9;
@@ -691,7 +679,6 @@
             "BasicCrossSmall",
             "BasicDot",
             "CircleDot",
-            "KonrWings",
             "OpenCross",
             "OpenCrossDot",
             "ScatterSpread",
@@ -710,7 +697,7 @@
             // lblXHairPulse
             // 
             this.lblXHairPulse.AutoSize = true;
-            this.lblXHairPulse.Location = new System.Drawing.Point(158, 112);
+            this.lblXHairPulse.Location = new System.Drawing.Point(160, 112);
             this.lblXHairPulse.Name = "lblXHairPulse";
             this.lblXHairPulse.Size = new System.Drawing.Size(73, 16);
             this.lblXHairPulse.TabIndex = 10;
@@ -719,7 +706,7 @@
             // lblXHairColor
             // 
             this.lblXHairColor.AutoSize = true;
-            this.lblXHairColor.Location = new System.Drawing.Point(157, 87);
+            this.lblXHairColor.Location = new System.Drawing.Point(160, 87);
             this.lblXHairColor.Name = "lblXHairColor";
             this.lblXHairColor.Size = new System.Drawing.Size(94, 16);
             this.lblXHairColor.TabIndex = 8;
@@ -730,12 +717,12 @@
             this.cbXHairOutline.AutoSize = true;
             this.cbXHairOutline.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cbXHairOutline.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbXHairOutline.Location = new System.Drawing.Point(161, 40);
+            this.cbXHairOutline.Location = new System.Drawing.Point(160, 33);
             this.cbXHairOutline.Name = "cbXHairOutline";
             this.cbXHairOutline.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cbXHairOutline.Size = new System.Drawing.Size(153, 20);
+            this.cbXHairOutline.Size = new System.Drawing.Size(64, 20);
             this.cbXHairOutline.TabIndex = 0;
-            this.cbXHairOutline.Text = "Outline Enable/Disable";
+            this.cbXHairOutline.Text = "Outline";
             this.cbXHairOutline.UseVisualStyleBackColor = true;
             this.cbXHairOutline.CheckedChanged += new System.EventHandler(this.cbXHairOutline_CheckedChanged);
             // 
@@ -745,7 +732,7 @@
             this.cbXHairEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cbXHairEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbXHairEnabled.ForeColor = System.Drawing.Color.White;
-            this.cbXHairEnabled.Location = new System.Drawing.Point(161, 21);
+            this.cbXHairEnabled.Location = new System.Drawing.Point(160, 14);
             this.cbXHairEnabled.Name = "cbXHairEnabled";
             this.cbXHairEnabled.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.cbXHairEnabled.Size = new System.Drawing.Size(163, 20);
@@ -1136,6 +1123,32 @@
             this.txtStatus.TabIndex = 36;
             this.txtStatus.Text = "...";
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            // 
+            // lblXHairSizes
+            // 
+            this.lblXHairSizes.AutoSize = true;
+            this.lblXHairSizes.Location = new System.Drawing.Point(160, 63);
+            this.lblXHairSizes.Name = "lblXHairSizes";
+            this.lblXHairSizes.Size = new System.Drawing.Size(87, 16);
+            this.lblXHairSizes.TabIndex = 13;
+            this.lblXHairSizes.Text = "Crosshair Size:";
+            // 
+            // cbXHairSizes
+            // 
+            this.cbXHairSizes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbXHairSizes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbXHairSizes.Font = new System.Drawing.Font("Berlin Sans FB", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbXHairSizes.FormattingEnabled = true;
+            this.cbXHairSizes.ItemHeight = 13;
+            this.cbXHairSizes.Location = new System.Drawing.Point(259, 59);
+            this.cbXHairSizes.Name = "cbXHairSizes";
+            this.cbXHairSizes.Size = new System.Drawing.Size(112, 21);
+            this.cbXHairSizes.TabIndex = 14;
+            this.cbXHairSizes.SelectedIndexChanged += new System.EventHandler(this.cbXHairSize_SelectedIndexChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1273,11 +1286,13 @@
         private System.Windows.Forms.Label lblCrosshair;
         private System.Windows.Forms.PictureBox pbPreview;
         private System.Windows.Forms.Label lblInfo4;
-        private System.Windows.Forms.Label lblInfo3;
         private System.Windows.Forms.Label lblInfo1;
         private System.Windows.Forms.Label lblInfo2;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label txtXHairSize;
         private System.Windows.Forms.Button btnSetDefault;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.ComboBox cbXHairSizes;
+        private System.Windows.Forms.Label lblXHairSizes;
     }
 }

@@ -2,6 +2,7 @@
 using SharpRaven;
 using SharpRaven.Data;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
@@ -21,10 +22,13 @@ namespace rayshud_Installer
         // Create the HUD configuration object
         private RootObject settings = new RootObject();
         public string TF2Directory;
+
+        #region DEBUG
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
         private PrivateFontCollection fonts = new PrivateFontCollection();
         private Font myFont;
+        #endregion DEBUG
 
         public Main()
         {
@@ -33,6 +37,7 @@ namespace rayshud_Installer
             GetLiveVersion();
         }
 
+        #region DEBUG
         private void InitializeCustomFonts()
         {
             var fontData = Properties.Resources.Crosshairs;
@@ -45,13 +50,82 @@ namespace rayshud_Installer
             myFont = new Font(fonts.Families[0], 16.0F);
 
             lblCrosshair.Parent = pbPreview;
-            txtXHairSize.Parent = pbPreview;
             lblCrosshair.BackColor = Color.Transparent;
-            txtXHairSize.BackColor = Color.Transparent;
             lblCrosshair.Font = new Font(myFont.FontFamily, 52, FontStyle.Regular);
             //lblCrosshair.Font = myFont;
             //this.Font = myFont;
+
+            // This event will be raised on the worker thread when the worker starts
+            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+            // This event will be raised when we call ReportProgress
+            backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
         }
+
+        // On worker thread so do our thing!
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                // Report progress to 'UI' thread
+                backgroundWorker1.ReportProgress(25);
+                // Remove the temporary downloaded rayshud files
+                if (File.Exists($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip"))
+                    File.Delete($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip");
+                // Back-up the installer configuration file
+                if (File.Exists($"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}"))
+                    File.Copy($"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}", $"{Application.StartupPath}\\settings.json", true);
+                // Download the latest rayshud from GitHub and extract into the tf/custom directory
+                // Report progress to 'UI' thread
+                backgroundWorker1.ReportProgress(50);
+                var client = new WebClient();
+                client.DownloadFile($"https://github.com/raysfire/rayshud/archive/{Properties.Settings.Default.GitBranch}.zip", $"{Properties.Settings.Default.TempFileName}.zip");    //DEBUG
+                ZipFile.ExtractToDirectory($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip", TF2Directory);
+                // Either do a clean install or refresh/update of rayshud
+                switch (btnInstall.Text)
+                {
+                    case "Install":
+                        Directory.Move($"{TF2Directory}\\rayshud-{Properties.Settings.Default.GitBranch}", $"{TF2Directory}\\rayshud");
+                        MessageBox.Show(Properties.Settings.Default.SuccessInstallMessage, "rayshud Installed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+
+                    case "Update":
+                    case "Refresh":
+                        // Replace the installed rayshud with a fresh copy
+                        Directory.Delete($"{TF2Directory}\\rayshud", true);
+                        Directory.Move($"{TF2Directory}\\rayshud-{Properties.Settings.Default.GitBranch}", $"{TF2Directory}\\rayshud");
+                        // Restore the installation configuration file
+                        if (File.Exists($"{Application.StartupPath}\\settings.json"))
+                        {
+                            File.Copy($"{Application.StartupPath}\\settings.json", $"{TF2Directory}\\{Properties.Settings.Default.SettingsDirectory}", true);
+                            File.Delete($"{Application.StartupPath}\\settings.json");
+                        }
+                        MessageBox.Show(Properties.Settings.Default.SuccessUpdateMessage, "rayshud Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+                }
+                // Report progress to 'UI' thread
+                backgroundWorker1.ReportProgress(75);
+                // Remove the temporary downloaded rayshud files
+                if (File.Exists($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip"))
+                    File.Delete($"{Application.StartupPath}\\{Properties.Settings.Default.TempFileName}.zip");
+                // Report progress to 'UI' thread
+                backgroundWorker1.ReportProgress(100);
+                // Simulate long task
+                System.Threading.Thread.Sleep(100);
+                //CheckHUDDirectory();
+            }
+            catch (Exception ex)
+            {
+                ravenClient.Capture(new SentryEvent(ex));
+                MessageBox.Show($"{Properties.Settings.Default.ErrorInstallMessage}\n{ex.Message}", "Error: Installing rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        // Back on the 'UI' thread so we can update the progress bar
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            // The progress percentage is a property of e
+            progressBar1.Value = e.ProgressPercentage;
+        }
+        #endregion
 
         private void GetLiveVersion()
         {
@@ -246,8 +320,8 @@ namespace rayshud_Installer
                 cbXHairOutline.Checked = settings.XHairOutline;
 
                 cbXHairPulse.Checked = settings.XHairPulse;
-
-                txtXHairSize.Text = settings.XHairSize.ToString();
+                
+                cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf(settings.XHairSize.ToString());
 
                 split = settings.XHairColor.Split(null);
                 btnXHairColor.BackColor = Color.FromArgb(Convert.ToInt32(split[0]), Convert.ToInt32(split[1]), Convert.ToInt32(split[2]));
@@ -343,6 +417,8 @@ namespace rayshud_Installer
 
         private void btnInstall_Click(object sender, EventArgs e)
         {
+            // Start the background worker
+            //backgroundWorker1.RunWorkerAsync();
             try
             {
                 // Remove the temporary downloaded rayshud files
@@ -504,9 +580,9 @@ namespace rayshud_Installer
                     File.Copy($"{teammenu}\\{Properties.Settings.Default.FileClassSelection}-left.res", $"{resource}\\{Properties.Settings.Default.FileClassSelection}.res", true);
                 }
 
+                // 5. Player Health Style - either default, cross, teambar or broesel, copy and replace existing files
                 switch (settings.HealthStyle)
                 {
-                    // 5. Player Health Style - either default, cross, teambar or broesel, copy and replace existing files
                     case 1:
                         File.Copy($"{playerhealth}\\{Properties.Settings.Default.FilePlayerHealth}-default.res", $"{resource}\\{Properties.Settings.Default.FilePlayerHealth}.res",
                             true);
@@ -561,9 +637,9 @@ namespace rayshud_Installer
                     lines[96 - 1] = $"\t//{lines[96 - 1].Trim()}";
                 }
 
+                // 7. Uber Animation - enable or disable by commenting out the lines
                 switch (settings.UberAnimation)
                 {
-                    // 7. Uber Animation - enable or disable by commenting out the lines
                     case 1:
                         lines[104 - 1] = $"\t{lines[104 - 1].Replace("//", string.Empty).Trim()}";
                         lines[105 - 1] = $"\t//{lines[105 - 1].Trim()}";
@@ -607,7 +683,7 @@ namespace rayshud_Installer
 
                 // Crosshairs - disable all and remove outlining
                 lines = File.ReadAllLines(layout);
-                for (int x = 34; x <= 290; x += 17)
+                for (int x = 34; x <= 272; x += 17)     // Increase the maximum value when including more crosshairs
                 {
                     lines[x - 1] = "\t\t\"visible\"\t\t\"0\"";
                     lines[x + 1 - 1] = "\t\t\"enabled\"\t\t\"0\"";
@@ -624,144 +700,144 @@ namespace rayshud_Installer
                             lines[34 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[35 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[41 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[41 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[41 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[41 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
                         case 2: // BasicCrossLarge
                             lines[51 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[52 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[58 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[58 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[58 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[58 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
                         case 3: // BasicCrossSmall
                             lines[68 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[69 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[75 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[75 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[75 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[75 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
                         case 4: // BasicDot
                             lines[85 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[86 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[92 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[92 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[92 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[92 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
                         case 5: // CircleDot
                             lines[102 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[103 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[109 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[109 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[109 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[109 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
-                        case 6: // KonrWings
+                        case 6: // OpenCross
                             lines[119 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[120 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[126 - 1] = $"\t\t\"font\"\t\t\t\"KonrWings{txtXHairSize.Text}Outline\"";
+                                lines[126 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[126 - 1] = $"\t\t\"font\"\t\t\t\"KonrWings{txtXHairSize.Text}\"";
+                                lines[126 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
-                        case 7: // OpenCross
+                        case 7: // OpenCrossDot
                             lines[136 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[137 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[143 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[143 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[143 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[143 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
-                        case 8: // OpenCrossDot
+                        case 8: // ScatterSpread
                             lines[153 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[154 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[160 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[160 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[160 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[160 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
-                        case 9: // ScatterSpread
+                        case 9: // ThinCircle
                             lines[170 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[171 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[177 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[177 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[177 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[177 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
-                        case 10: // ThinCircle
+                        case 10: // ThinCross
                             lines[187 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[188 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[194 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[194 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[194 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[194 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
-                        case 11: // ThinCross
+                        case 11: // Wings
                             lines[204 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[205 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[211 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[211 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[211 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[211 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
-                        case 12: // Wings
+                        case 12: // WingsPlus
                             lines[221 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[222 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[228 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[228 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[228 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[228 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
-                        case 13: // WingsPlus
+                        case 13: // WingsSmall
                             lines[238 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[239 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[245 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[245 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[245 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[245 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
-                        case 14: // WingsSmall
+                        case 14: // WingsSmallDot
                             lines[255 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[256 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[262 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[262 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[262 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[262 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
-                        case 15: // WingsSmallDot
+                        case 15: // xHairCircle
                             lines[272 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[273 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[279 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[279 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[279 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[279 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
                             break;
 
-                        case 16: // xHairCircle
+                        case 16: // KonrWings
                             lines[289 - 1] = "\t\t\"visible\"\t\t\"1\"";
                             lines[290 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                             if (settings.XHairOutline)
-                                lines[296 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}Outline\"";
+                                lines[296 - 1] = $"\t\t\"font\"\t\t\t\"KonrWings{cbXHairSizes.Text}Outline\"";
                             else
-                                lines[296 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{txtXHairSize.Text}\"";
+                                lines[296 - 1] = $"\t\t\"font\"\t\t\t\"KonrWings{cbXHairSizes.Text}\"";
                             break;
                     }
 
@@ -965,9 +1041,9 @@ namespace rayshud_Installer
             settings.XHairPulse = cbXHairPulse.Checked;
         }
 
-        private void txtXHairSize_TextChanged(object sender, EventArgs e)
+        private void cbXHairSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settings.XHairSize = Convert.ToInt32(txtXHairSize.Text);
+            settings.XHairSize = Convert.ToInt32(cbXHairSizes.Items[cbXHairSizes.SelectedIndex].ToString());
         }
 
         private void lbPlayerHealth_SelectedIndexChanged(object sender, EventArgs e)
@@ -977,90 +1053,104 @@ namespace rayshud_Installer
 
         private void lbXHairStyles_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Save the crosshair style to the installer-config file
             settings.XHairStyle = lbXHairStyles.SelectedIndex + 1;
+            // Reinitialize the crosshair size options
+            cbXHairSizes.Items.Clear();
+            switch (lbXHairStyles.SelectedItem.ToString())
+            {
+                case "KonrWings":
+                    for (int x = 16; x <= 40; x += 8)
+                        cbXHairSizes.Items.Add(x.ToString());
+                    break;
+                case "KnuckleCrosses":
+                    for (int x = 10; x <= 50; x += 1)
+                        cbXHairSizes.Items.Add(x.ToString());
+                    break;
+                default:
+                    for (int x = 8; x <= 40; x += 2)
+                        cbXHairSizes.Items.Add(x.ToString());
+                    break;
+            }
+
+            // Update the crosshair settings on the UI
             switch (settings.XHairStyle)
             {
                 case 1:
                     lblCrosshair.Text = @"2";
-                    txtXHairSize.Text = @"26";
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("26");
                     break;
 
                 case 2:
                     lblCrosshair.Text = @"2";
-                    txtXHairSize.Text = @"32";
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("32");
                     break;
 
                 case 3:
                     lblCrosshair.Text = @"2";
-                    txtXHairSize.Text = @"18";
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("18");
                     break;
 
                 case 4:
                     lblCrosshair.Text = @"3";
-                    txtXHairSize.Text = @"24";
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("24");
                     break;
 
                 case 5:
                     lblCrosshair.Text = @"8";
-                    txtXHairSize.Text = @"34";
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("34");
                     break;
 
                 case 6:
                     lblCrosshair.Text = @"i";
-                    txtXHairSize.Text = @"24";
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("24");
                     break;
 
                 case 7:
-                    lblCrosshair.Text = @"i";
-                    txtXHairSize.Text = @"24";
-                    break;
-
-                case 8:
                     lblCrosshair.Text = @"h";
-                    txtXHairSize.Text = @"24";
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("24");
                     break;
 
                 case 9:
                     lblCrosshair.Text = @"0";
-                    txtXHairSize.Text = @"32";
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("32");
                     break;
 
                 case 10:
                     lblCrosshair.Text = @"9";
-                    txtXHairSize.Text = @"34";
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("34");
                     break;
 
                 case 11:
                     lblCrosshair.Text = @"+";
-                    txtXHairSize.Text = @"24";
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("24");
                     break;
 
                 case 12:
                     lblCrosshair.Text = @"d";
-                    txtXHairSize.Text = @"34";
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("34");
                     break;
 
                 case 13:
                     lblCrosshair.Text = @"c";
-                    txtXHairSize.Text = @"34";
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("34");
                     break;
 
                 case 14:
                     lblCrosshair.Text = @"g";
-                    txtXHairSize.Text = @"34";
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("34");
                     break;
 
                 case 15:
                     lblCrosshair.Text = @"o";
-                    txtXHairSize.Text = @"34";
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("34");
                     break;
 
                 default:
                     lblCrosshair.Text = string.Empty;
-                    txtXHairSize.Text = string.Empty;
+                    cbXHairSizes.SelectedIndex = 0;
                     break;
             }
-            settings.XHairSize = Convert.ToInt32(txtXHairSize.Text);
         }
 
         private void btnOpenDirectory_Click(object sender, EventArgs e)
