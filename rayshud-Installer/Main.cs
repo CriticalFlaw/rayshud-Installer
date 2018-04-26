@@ -658,61 +658,97 @@ namespace rayshud_Installer
                             lines[58 - 1] = $"\t\t\"font\"\t\t\t\"size:{cbXHairSizes.Text},outline:off\"";
                     }
 
-                    var crosshairStyleIndex = 21;
+                    var crosshairStyleIndex = 16;
                     switch (settings.XHairStyle)
                     {
                         case 1: // BasicCross
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-102\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-99\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"2\"";
+                            break;
+
                         case 2: // BasicCrossLarge
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-102\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-98\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"2\"";
+                            break;
+
                         case 3: // BasicCrossSmall
-                            lines[crosshairStyleIndex - 1] = "\t\t\"labelText\"\t\t\"2\"";
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-101\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-99\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"2\"";
                             break;
 
                         case 4: // BasicDot
-                            lines[crosshairStyleIndex - 1] = "\t\t\"labelText\"\t\t\"3\"";
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-103\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-100\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"3\"";
                             break;
 
                         case 5: // CircleDot
-                            lines[crosshairStyleIndex - 1] = "\t\t\"labelText\"\t\t\"8\"";
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-103\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-96\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"8\"";
                             break;
 
                         case 6: // OpenCross
-                            lines[crosshairStyleIndex - 1] = "\t\t\"labelText\"\t\t\"i\"";
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-85\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-100\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"i\"";
                             break;
 
                         case 7: // OpenCrossDot
-                            lines[crosshairStyleIndex - 1] = "\t\t\"labelText\"\t\t\"h\"";
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-85\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-100\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"h\"";
                             break;
 
                         case 8: // ScatterSpread
-                            lines[crosshairStyleIndex - 1] = "\t\t\"labelText\"\t\t\"0\"";
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-99\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-99\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"0\"";
                             break;
 
                         case 9: // ThinCircle
-                            lines[crosshairStyleIndex - 1] = "\t\t\"labelText\"\t\t\"9\"";
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-100\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-96\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"9\"";
                             break;
 
                         case 10: // ThinCross
-                            lines[crosshairStyleIndex - 1] = "\t\t\"labelText\"\t\t\"+\"";
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-100\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-103\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"+\"";
                             break;
 
                         case 11: // Wings
-                            lines[crosshairStyleIndex - 1] = "\t\t\"labelText\"\t\t\"d\"";
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-100\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-97\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"d\"";
                             break;
 
                         case 12: // WingsPlus
-                            lines[crosshairStyleIndex - 1] = "\t\t\"labelText\"\t\t\"c\"";
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-100\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-97\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"c\"";
                             break;
 
                         case 13: // WingsSmall
-                            lines[crosshairStyleIndex - 1] = "\t\t\"labelText\"\t\t\"g\"";
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-100\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-97\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"g\"";
                             break;
 
                         case 14: // WingsSmallDot
-                            lines[crosshairStyleIndex - 1] = "\t\t\"labelText\"\t\t\"f\"";
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-100\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-97\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"f\"";
                             break;
 
                         case 15: // xHairCircle
-                            lines[crosshairStyleIndex - 1] = "\t\t\"labelText\"\t\t\"o\"";
+                            lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-100\"";
+                            lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-102\"";
+                            lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"0\"";
                             break;
 
                         default:
