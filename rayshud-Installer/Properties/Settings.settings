@@ -15,7 +15,7 @@
       <Value Profile="(Default)">https://raw.githubusercontent.com/raysfire/rayshud/installer/README.md</Value>
     </Setting>
     <Setting Name="TFDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom</Value>
+      <Value Profile="(Default)">Steam\steamapps\common\Team Fortress 2\tf\custom</Value>
     </Setting>
     <Setting Name="TempName" Type="System.String" Scope="User">
       <Value Profile="(Default)">rayshud.zip</Value>

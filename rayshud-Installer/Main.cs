@@ -2,6 +2,9 @@
 using SharpRaven;
 using SharpRaven.Data;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
@@ -10,6 +13,8 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace rayshud_Installer
@@ -373,7 +378,7 @@ namespace rayshud_Installer
                 else
                     UpdateSettingsFile();
                 // Download the latest rayshud from GitHub and extract into the tf/custom directory
-                client.DownloadFile($"https://github.com/raysfire/rayshud/archive/{Properties.Settings.Default.GitBranch}.zip", $"{Properties.Settings.Default.TempName}");    //DEBUG
+                client.DownloadFile($"https://github.com/raysfire/rayshud/archive/installer.zip", $"rayshud.zip");    //DEBUG
                 ZipFile.ExtractToDirectory($"{Application.StartupPath}\\{Properties.Settings.Default.TempName}", TF2Directory);
                 // Either do a clean install or refresh/update of rayshud
                 switch (btnInstall.Text)
@@ -1114,7 +1119,7 @@ namespace rayshud_Installer
 
         private void btnAndKnuckles_Click(object sender, EventArgs e)
         {
-            var bitmap = new Bitmap(Properties.Resources.KnucklesCrosses1);
+            var bitmap = new Bitmap(Properties.Resources.KnucklesCrosses);
             var directory = $"{Application.StartupPath}\\KnuckleCrosses.jpg";
             if (File.Exists(directory))
                 File.Delete(directory);

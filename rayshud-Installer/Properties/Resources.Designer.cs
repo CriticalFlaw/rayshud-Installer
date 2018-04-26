@@ -81,22 +81,22 @@ namespace rayshud_Installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] KnucklesCrosses {
+        internal static System.Drawing.Bitmap KnucklesCrosses {
             get {
                 object obj = ResourceManager.GetObject("KnucklesCrosses", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static System.Drawing.Bitmap KnucklesCrosses1 {
+        internal static byte[] KnucklesCrosses1 {
             get {
                 object obj = ResourceManager.GetObject("KnucklesCrosses1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ((byte[])(obj));
             }
         }
         

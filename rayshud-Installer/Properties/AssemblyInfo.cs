@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("rayshud-Installer")]
-[assembly: AssemblyDescription("https://github.com/CriticalFlaw/rayshud-Installer")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("rayshud-Installer")]
-[assembly: AssemblyCopyright("Copyright © CriticalFlaw 2018")]
+[assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5b5590f2-d9ca-4bfb-9834-367f8b318bf8")]
+[assembly: Guid("c561f80f-0ebb-4667-8509-a52c2a11f286")]
 
 // Version information for an assembly consists of the following four values:
 //
