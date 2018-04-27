@@ -33,11 +33,9 @@
             this.tabGeneral = new System.Windows.Forms.TabPage();
             this.btnSetDefault = new System.Windows.Forms.Button();
             this.gbInformation = new System.Windows.Forms.GroupBox();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblInfo4 = new System.Windows.Forms.Label();
             this.lblInfo1 = new System.Windows.Forms.Label();
             this.lblInfo2 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.gbTeamSelect = new System.Windows.Forms.GroupBox();
             this.rbTeamSelectCenter = new System.Windows.Forms.RadioButton();
             this.rbTeamSelectLeft = new System.Windows.Forms.RadioButton();
@@ -56,7 +54,7 @@
             this.btnUberFlashColor1 = new System.Windows.Forms.Button();
             this.lblUberFlashColor = new System.Windows.Forms.Label();
             this.lblUberFullColor = new System.Windows.Forms.Label();
-            this.gbProperties1 = new System.Windows.Forms.GroupBox();
+            this.gbSettings = new System.Windows.Forms.GroupBox();
             this.cbDisguiseImage = new System.Windows.Forms.CheckBox();
             this.lblHUDVersion = new System.Windows.Forms.Label();
             this.cbDefaultMenuBG = new System.Windows.Forms.CheckBox();
@@ -82,7 +80,7 @@
             this.lblXHairColor = new System.Windows.Forms.Label();
             this.cbXHairOutline = new System.Windows.Forms.CheckBox();
             this.cbXHairEnabled = new System.Windows.Forms.CheckBox();
-            this.gbProperties4 = new System.Windows.Forms.GroupBox();
+            this.gbAmmo = new System.Windows.Forms.GroupBox();
             this.btnAmmoReserveLow = new System.Windows.Forms.Button();
             this.btnAmmoReserve = new System.Windows.Forms.Button();
             this.btnAmmoClipLow = new System.Windows.Forms.Button();
@@ -91,7 +89,7 @@
             this.lblAmmoClipLow = new System.Windows.Forms.Label();
             this.lblAmmoReserve = new System.Windows.Forms.Label();
             this.lblAmmoClip = new System.Windows.Forms.Label();
-            this.gbProperties3 = new System.Windows.Forms.GroupBox();
+            this.gbHealth = new System.Windows.Forms.GroupBox();
             this.lbHealthStyle = new System.Windows.Forms.ListBox();
             this.lblHealthStyle = new System.Windows.Forms.Label();
             this.btnHealingDone = new System.Windows.Forms.Button();
@@ -117,20 +115,22 @@
             this.txtLastModified = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.Label();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.btnSteamGroup = new System.Windows.Forms.Button();
+            this.btnGitIssue = new System.Windows.Forms.Button();
+            this.btnGitRepo = new System.Windows.Forms.Button();
             this.tabEditor.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.gbInformation.SuspendLayout();
             this.gbTeamSelect.SuspendLayout();
             this.gbChatBox.SuspendLayout();
             this.gbUbercharge.SuspendLayout();
-            this.gbProperties1.SuspendLayout();
+            this.gbSettings.SuspendLayout();
             this.tabGameplay.SuspendLayout();
             this.gbPreview.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).BeginInit();
             this.gbCrosshair.SuspendLayout();
-            this.gbProperties4.SuspendLayout();
-            this.gbProperties3.SuspendLayout();
+            this.gbAmmo.SuspendLayout();
+            this.gbHealth.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabEditor
@@ -151,7 +151,7 @@
             this.tabGeneral.Controls.Add(this.gbTeamSelect);
             this.tabGeneral.Controls.Add(this.gbChatBox);
             this.tabGeneral.Controls.Add(this.gbUbercharge);
-            this.tabGeneral.Controls.Add(this.gbProperties1);
+            this.tabGeneral.Controls.Add(this.gbSettings);
             this.tabGeneral.Controls.Add(this.btnBrowse);
             this.tabGeneral.Controls.Add(this.txtDirectory);
             this.tabGeneral.Controls.Add(this.lblDirectory);
@@ -179,11 +179,12 @@
             // 
             // gbInformation
             // 
-            this.gbInformation.Controls.Add(this.progressBar1);
+            this.gbInformation.Controls.Add(this.btnGitRepo);
+            this.gbInformation.Controls.Add(this.btnGitIssue);
+            this.gbInformation.Controls.Add(this.btnSteamGroup);
             this.gbInformation.Controls.Add(this.lblInfo4);
             this.gbInformation.Controls.Add(this.lblInfo1);
             this.gbInformation.Controls.Add(this.lblInfo2);
-            this.gbInformation.Controls.Add(this.linkLabel1);
             this.gbInformation.ForeColor = System.Drawing.Color.White;
             this.gbInformation.Location = new System.Drawing.Point(6, 186);
             this.gbInformation.Name = "gbInformation";
@@ -192,27 +193,20 @@
             this.gbInformation.TabStop = false;
             this.gbInformation.Text = "Information";
             // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(166, 37);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(500, 23);
-            this.progressBar1.TabIndex = 5;
-            // 
             // lblInfo4
             // 
             this.lblInfo4.AutoSize = true;
-            this.lblInfo4.Location = new System.Drawing.Point(163, 18);
+            this.lblInfo4.Location = new System.Drawing.Point(166, 15);
             this.lblInfo4.Name = "lblInfo4";
-            this.lblInfo4.Size = new System.Drawing.Size(503, 16);
+            this.lblInfo4.Size = new System.Drawing.Size(496, 16);
             this.lblInfo4.TabIndex = 4;
-            this.lblInfo4.Text = "For any installer issues, suggestions, code contributions or comments to the GitH" +
-    "ub repo";
+            this.lblInfo4.Text = "For installer issues, suggestions, code contributions or comments go to the GitHu" +
+    "b repo";
             // 
             // lblInfo1
             // 
             this.lblInfo1.AutoSize = true;
-            this.lblInfo1.Location = new System.Drawing.Point(5, 18);
+            this.lblInfo1.Location = new System.Drawing.Point(6, 15);
             this.lblInfo1.Name = "lblInfo1";
             this.lblInfo1.Size = new System.Drawing.Size(122, 16);
             this.lblInfo1.TabIndex = 2;
@@ -221,19 +215,11 @@
             // lblInfo2
             // 
             this.lblInfo2.AutoSize = true;
-            this.lblInfo2.Location = new System.Drawing.Point(5, 38);
+            this.lblInfo2.Location = new System.Drawing.Point(6, 31);
             this.lblInfo2.Name = "lblInfo2";
             this.lblInfo2.Size = new System.Drawing.Size(142, 16);
             this.lblInfo2.TabIndex = 1;
             this.lblInfo2.Text = "Installer by: CriticalFlaw";
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(8, 22);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(0, 16);
-            this.linkLabel1.TabIndex = 0;
             // 
             // gbTeamSelect
             // 
@@ -453,21 +439,21 @@
             this.lblUberFullColor.TabIndex = 0;
             this.lblUberFullColor.Text = "Ubercharge Full Color:";
             // 
-            // gbProperties1
+            // gbSettings
             // 
-            this.gbProperties1.Controls.Add(this.cbDisguiseImage);
-            this.gbProperties1.Controls.Add(this.lblHUDVersion);
-            this.gbProperties1.Controls.Add(this.cbDefaultMenuBG);
-            this.gbProperties1.Controls.Add(this.cbScoreboard);
-            this.gbProperties1.Controls.Add(this.lblScoreboard);
-            this.gbProperties1.Controls.Add(this.cbHUDVersion);
-            this.gbProperties1.ForeColor = System.Drawing.Color.White;
-            this.gbProperties1.Location = new System.Drawing.Point(6, 37);
-            this.gbProperties1.Name = "gbProperties1";
-            this.gbProperties1.Size = new System.Drawing.Size(334, 106);
-            this.gbProperties1.TabIndex = 16;
-            this.gbProperties1.TabStop = false;
-            this.gbProperties1.Text = "Properties";
+            this.gbSettings.Controls.Add(this.cbDisguiseImage);
+            this.gbSettings.Controls.Add(this.lblHUDVersion);
+            this.gbSettings.Controls.Add(this.cbDefaultMenuBG);
+            this.gbSettings.Controls.Add(this.cbScoreboard);
+            this.gbSettings.Controls.Add(this.lblScoreboard);
+            this.gbSettings.Controls.Add(this.cbHUDVersion);
+            this.gbSettings.ForeColor = System.Drawing.Color.White;
+            this.gbSettings.Location = new System.Drawing.Point(6, 37);
+            this.gbSettings.Name = "gbSettings";
+            this.gbSettings.Size = new System.Drawing.Size(334, 106);
+            this.gbSettings.TabIndex = 16;
+            this.gbSettings.TabStop = false;
+            this.gbSettings.Text = "Settings";
             // 
             // cbDisguiseImage
             // 
@@ -576,8 +562,8 @@
             this.tabGameplay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
             this.tabGameplay.Controls.Add(this.gbPreview);
             this.tabGameplay.Controls.Add(this.gbCrosshair);
-            this.tabGameplay.Controls.Add(this.gbProperties4);
-            this.tabGameplay.Controls.Add(this.gbProperties3);
+            this.tabGameplay.Controls.Add(this.gbAmmo);
+            this.tabGameplay.Controls.Add(this.gbHealth);
             this.tabGameplay.Location = new System.Drawing.Point(4, 24);
             this.tabGameplay.Name = "tabGameplay";
             this.tabGameplay.Size = new System.Drawing.Size(684, 261);
@@ -784,23 +770,23 @@
             this.cbXHairEnabled.UseVisualStyleBackColor = true;
             this.cbXHairEnabled.CheckedChanged += new System.EventHandler(this.cbXHairEnabled_CheckedChanged);
             // 
-            // gbProperties4
+            // gbAmmo
             // 
-            this.gbProperties4.Controls.Add(this.btnAmmoReserveLow);
-            this.gbProperties4.Controls.Add(this.btnAmmoReserve);
-            this.gbProperties4.Controls.Add(this.btnAmmoClipLow);
-            this.gbProperties4.Controls.Add(this.btnAmmoClip);
-            this.gbProperties4.Controls.Add(this.lblAmmoReserveLow);
-            this.gbProperties4.Controls.Add(this.lblAmmoClipLow);
-            this.gbProperties4.Controls.Add(this.lblAmmoReserve);
-            this.gbProperties4.Controls.Add(this.lblAmmoClip);
-            this.gbProperties4.ForeColor = System.Drawing.Color.White;
-            this.gbProperties4.Location = new System.Drawing.Point(394, 148);
-            this.gbProperties4.Name = "gbProperties4";
-            this.gbProperties4.Size = new System.Drawing.Size(287, 110);
-            this.gbProperties4.TabIndex = 5;
-            this.gbProperties4.TabStop = false;
-            this.gbProperties4.Text = "Ammo";
+            this.gbAmmo.Controls.Add(this.btnAmmoReserveLow);
+            this.gbAmmo.Controls.Add(this.btnAmmoReserve);
+            this.gbAmmo.Controls.Add(this.btnAmmoClipLow);
+            this.gbAmmo.Controls.Add(this.btnAmmoClip);
+            this.gbAmmo.Controls.Add(this.lblAmmoReserveLow);
+            this.gbAmmo.Controls.Add(this.lblAmmoClipLow);
+            this.gbAmmo.Controls.Add(this.lblAmmoReserve);
+            this.gbAmmo.Controls.Add(this.lblAmmoClip);
+            this.gbAmmo.ForeColor = System.Drawing.Color.White;
+            this.gbAmmo.Location = new System.Drawing.Point(394, 148);
+            this.gbAmmo.Name = "gbAmmo";
+            this.gbAmmo.Size = new System.Drawing.Size(287, 110);
+            this.gbAmmo.TabIndex = 5;
+            this.gbAmmo.TabStop = false;
+            this.gbAmmo.Text = "Ammo";
             // 
             // btnAmmoReserveLow
             // 
@@ -882,25 +868,25 @@
             this.lblAmmoClip.TabIndex = 7;
             this.lblAmmoClip.Text = "Ammo In Clip:";
             // 
-            // gbProperties3
+            // gbHealth
             // 
-            this.gbProperties3.Controls.Add(this.lbHealthStyle);
-            this.gbProperties3.Controls.Add(this.lblHealthStyle);
-            this.gbProperties3.Controls.Add(this.btnHealingDone);
-            this.gbProperties3.Controls.Add(this.btnHealthNormal);
-            this.gbProperties3.Controls.Add(this.btnHealthBuff);
-            this.gbProperties3.Controls.Add(this.btnHealthLow);
-            this.gbProperties3.Controls.Add(this.lblHealthLow);
-            this.gbProperties3.Controls.Add(this.lblHealthBuff);
-            this.gbProperties3.Controls.Add(this.lblHealthNormal);
-            this.gbProperties3.Controls.Add(this.lblHealingDone);
-            this.gbProperties3.ForeColor = System.Drawing.Color.White;
-            this.gbProperties3.Location = new System.Drawing.Point(3, 148);
-            this.gbProperties3.Name = "gbProperties3";
-            this.gbProperties3.Size = new System.Drawing.Size(385, 110);
-            this.gbProperties3.TabIndex = 2;
-            this.gbProperties3.TabStop = false;
-            this.gbProperties3.Text = "Health";
+            this.gbHealth.Controls.Add(this.lbHealthStyle);
+            this.gbHealth.Controls.Add(this.lblHealthStyle);
+            this.gbHealth.Controls.Add(this.btnHealingDone);
+            this.gbHealth.Controls.Add(this.btnHealthNormal);
+            this.gbHealth.Controls.Add(this.btnHealthBuff);
+            this.gbHealth.Controls.Add(this.btnHealthLow);
+            this.gbHealth.Controls.Add(this.lblHealthLow);
+            this.gbHealth.Controls.Add(this.lblHealthBuff);
+            this.gbHealth.Controls.Add(this.lblHealthNormal);
+            this.gbHealth.Controls.Add(this.lblHealingDone);
+            this.gbHealth.ForeColor = System.Drawing.Color.White;
+            this.gbHealth.Location = new System.Drawing.Point(3, 148);
+            this.gbHealth.Name = "gbHealth";
+            this.gbHealth.Size = new System.Drawing.Size(385, 110);
+            this.gbHealth.TabIndex = 2;
+            this.gbHealth.TabStop = false;
+            this.gbHealth.Text = "Health";
             // 
             // lbHealthStyle
             // 
@@ -1174,9 +1160,38 @@
             this.txtStatus.TabIndex = 36;
             this.txtStatus.Text = "...";
             // 
-            // backgroundWorker1
+            // btnSteamGroup
             // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.btnSteamGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSteamGroup.Location = new System.Drawing.Point(470, 34);
+            this.btnSteamGroup.Name = "btnSteamGroup";
+            this.btnSteamGroup.Size = new System.Drawing.Size(153, 26);
+            this.btnSteamGroup.TabIndex = 5;
+            this.btnSteamGroup.Text = "rayshud Steam Group";
+            this.btnSteamGroup.UseVisualStyleBackColor = true;
+            this.btnSteamGroup.Click += new System.EventHandler(this.btnSteamGroup_Click);
+            // 
+            // btnGitIssue
+            // 
+            this.btnGitIssue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGitIssue.Location = new System.Drawing.Point(352, 34);
+            this.btnGitIssue.Name = "btnGitIssue";
+            this.btnGitIssue.Size = new System.Drawing.Size(112, 26);
+            this.btnGitIssue.TabIndex = 6;
+            this.btnGitIssue.Text = "Report Issue";
+            this.btnGitIssue.UseVisualStyleBackColor = true;
+            this.btnGitIssue.Click += new System.EventHandler(this.btnGitIssue_Click);
+            // 
+            // btnGitRepo
+            // 
+            this.btnGitRepo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGitRepo.Location = new System.Drawing.Point(223, 34);
+            this.btnGitRepo.Name = "btnGitRepo";
+            this.btnGitRepo.Size = new System.Drawing.Size(123, 26);
+            this.btnGitRepo.TabIndex = 7;
+            this.btnGitRepo.Text = "GitHub Repository";
+            this.btnGitRepo.UseVisualStyleBackColor = true;
+            this.btnGitRepo.Click += new System.EventHandler(this.btnGitRepo_Click);
             // 
             // Main
             // 
@@ -1218,18 +1233,18 @@
             this.gbChatBox.PerformLayout();
             this.gbUbercharge.ResumeLayout(false);
             this.gbUbercharge.PerformLayout();
-            this.gbProperties1.ResumeLayout(false);
-            this.gbProperties1.PerformLayout();
+            this.gbSettings.ResumeLayout(false);
+            this.gbSettings.PerformLayout();
             this.tabGameplay.ResumeLayout(false);
             this.gbPreview.ResumeLayout(false);
             this.gbPreview.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbPreview)).EndInit();
             this.gbCrosshair.ResumeLayout(false);
             this.gbCrosshair.PerformLayout();
-            this.gbProperties4.ResumeLayout(false);
-            this.gbProperties4.PerformLayout();
-            this.gbProperties3.ResumeLayout(false);
-            this.gbProperties3.PerformLayout();
+            this.gbAmmo.ResumeLayout(false);
+            this.gbAmmo.PerformLayout();
+            this.gbHealth.ResumeLayout(false);
+            this.gbHealth.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1247,7 +1262,7 @@
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.TextBox txtDirectory;
         private System.Windows.Forms.Label lblDirectory;
-        private System.Windows.Forms.GroupBox gbProperties3;
+        private System.Windows.Forms.GroupBox gbHealth;
         private System.Windows.Forms.Label lblHealingDone;
         private System.Windows.Forms.Label lblHealthLow;
         private System.Windows.Forms.Label lblHealthBuff;
@@ -1258,7 +1273,7 @@
         private System.Windows.Forms.Button btnPlayTF2;
         private System.Windows.Forms.Label lblLiveVersion;
         private System.Windows.Forms.Label lblInstalledVersion;
-        private System.Windows.Forms.GroupBox gbProperties1;
+        private System.Windows.Forms.GroupBox gbSettings;
         private System.Windows.Forms.CheckBox cbDisguiseImage;
         private System.Windows.Forms.Button btnHealingDone;
         private System.Windows.Forms.Button btnHealthNormal;
@@ -1286,7 +1301,7 @@
         private System.Windows.Forms.Label lblUberFullColor;
         private System.Windows.Forms.Button btnUberFlashColor2;
         private System.Windows.Forms.Label lblHealthStyle;
-        private System.Windows.Forms.GroupBox gbProperties4;
+        private System.Windows.Forms.GroupBox gbAmmo;
         private System.Windows.Forms.Button btnAmmoReserveLow;
         private System.Windows.Forms.Button btnAmmoReserve;
         private System.Windows.Forms.Button btnAmmoClipLow;
@@ -1317,12 +1332,12 @@
         private System.Windows.Forms.Label lblInfo4;
         private System.Windows.Forms.Label lblInfo1;
         private System.Windows.Forms.Label lblInfo2;
-        private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Button btnSetDefault;
-        private System.Windows.Forms.ProgressBar progressBar1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ComboBox cbXHairSizes;
         private System.Windows.Forms.Label lblXHairSizes;
         private System.Windows.Forms.Button btnAndKnuckles;
+        private System.Windows.Forms.Button btnGitRepo;
+        private System.Windows.Forms.Button btnGitIssue;
+        private System.Windows.Forms.Button btnSteamGroup;
     }
 }

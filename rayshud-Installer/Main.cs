@@ -2,9 +2,6 @@
 using SharpRaven;
 using SharpRaven.Data;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
@@ -13,8 +10,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace rayshud_Installer
@@ -23,13 +18,17 @@ namespace rayshud_Installer
     {
         // Create the error-tracking object
         private readonly RavenClient ravenClient = new RavenClient(Properties.Settings.Default.SentryIO);
+
         // Create the HUD configuration object
         private RootObject settings = new RootObject();
+
+        // Used to set the tf/custom directory that'll be used throughout
         private string TF2Directory;
+
         // Used for rendering the crosshair preview using a custom font
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
-        private PrivateFontCollection fonts = new PrivateFontCollection();
+        private readonly PrivateFontCollection fonts = new PrivateFontCollection();
         private Font myFont;
 
         public Main()
@@ -44,6 +43,7 @@ namespace rayshud_Installer
         {
             uint dummy = 0;
             var fontData = Properties.Resources.Crosshairs;
+            //var fontData = Properties.Resources.Cerbetica;
             var fontPtr = System.Runtime.InteropServices.Marshal.AllocCoTaskMem(fontData.Length);
             System.Runtime.InteropServices.Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
             fonts.AddMemoryFont(fontPtr, fontData.Length);
@@ -53,6 +53,7 @@ namespace rayshud_Installer
             lblCrosshair.Parent = pbPreview;
             lblCrosshair.BackColor = Color.Transparent;
             lblCrosshair.Font = new Font(myFont.FontFamily, 52, FontStyle.Regular);
+            //this.Font = new Font(myFont.FontFamily, 8, FontStyle.Regular);
         }
 
         private void CheckLiveVersion()
@@ -78,6 +79,8 @@ namespace rayshud_Installer
             try
             {
                 // Check default Steam installation directories for the tf/custom folder
+                if (Directory.Exists(settings.TF2Directory) && settings.TF2Directory != "null")
+                    TF2Directory = settings.TF2Directory;
                 if (Directory.Exists($"C:\\Program Files (x86)\\{Properties.Settings.Default.TFDirectory}"))
                     TF2Directory = $"C:\\Program Files (x86)\\{Properties.Settings.Default.TFDirectory}";
                 else if (Directory.Exists($"D:\\Program Files (x86)\\{Properties.Settings.Default.TFDirectory}"))
@@ -112,6 +115,7 @@ namespace rayshud_Installer
                 else
                 {
                     txtDirectory.Text = TF2Directory;
+                    settings.TF2Directory = txtDirectory.Text;
                     btnInstall.Enabled = true;
                     btnPlayTF2.Enabled = true;
                     CheckHUDDirectory();
@@ -342,6 +346,7 @@ namespace rayshud_Installer
             WriteToSettings("AmmoReserve", settings.AmmoReserve);
             WriteToSettings("AmmoClipLow", settings.AmmoClipLow);
             WriteToSettings("AmmoReserveLow", settings.AmmoReserveLow);
+            WriteToSettings("TF2Directory", settings.TF2Directory);
             WriteToSettings("LastModified", DateTime.Now.ToString(CultureInfo.CurrentCulture));
             txtLastModified.Text = DateTime.Now.ToString(CultureInfo.CurrentCulture);
         }
@@ -374,11 +379,11 @@ namespace rayshud_Installer
                     File.Delete($"{Application.StartupPath}\\{Properties.Settings.Default.TempName}");
                 // Restore the configuration file if it has been removed
                 if (!File.Exists($"{Application.StartupPath}\\settings.json"))
-                    client.DownloadFile($"https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/rayshud-installer/settings.json", $"{Application.StartupPath}\\settings.json");
+                    client.DownloadFile("https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/rayshud-installer/settings.json", $"{Application.StartupPath}\\settings.json");
                 else
                     UpdateSettingsFile();
                 // Download the latest rayshud from GitHub and extract into the tf/custom directory
-                client.DownloadFile($"https://github.com/raysfire/rayshud/archive/installer.zip", $"rayshud.zip");    //DEBUG
+                client.DownloadFile("https://github.com/raysfire/rayshud/archive/installer.zip", "rayshud.zip");    //DEBUG
                 ZipFile.ExtractToDirectory($"{Application.StartupPath}\\{Properties.Settings.Default.TempName}", TF2Directory);
                 // Either do a clean install or refresh/update of rayshud
                 switch (btnInstall.Text)
@@ -390,11 +395,11 @@ namespace rayshud_Installer
                         Directory.Move($"{TF2Directory}\\rayshud-{Properties.Settings.Default.GitBranch}", $"{TF2Directory}\\rayshud");
                         MessageBox.Show(Properties.Settings.Default.SuccessRefresh, "rayshud Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
+
                     default:
                         Directory.Move($"{TF2Directory}\\rayshud-{Properties.Settings.Default.GitBranch}", $"{TF2Directory}\\rayshud");
                         MessageBox.Show(Properties.Settings.Default.SuccessInstall, "rayshud Installed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
-
                 }
                 // Remove the temporary downloaded rayshud files
                 if (File.Exists($"{Application.StartupPath}\\{Properties.Settings.Default.TempName}"))
@@ -811,6 +816,7 @@ namespace rayshud_Installer
                     if (!DirectoryBrowser.SelectedPath.Contains("tf\\custom")) continue;
                     TF2Directory = DirectoryBrowser.SelectedPath;
                     txtDirectory.Text = TF2Directory;
+                    settings.TF2Directory = txtDirectory.Text;
                     btnInstall.Enabled = true;
                     btnPlayTF2.Enabled = true;
                     CheckHUDDirectory();
@@ -819,6 +825,31 @@ namespace rayshud_Installer
                 else
                     break;
             }
+        }
+
+        private void btnGitRepo_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/CriticalFlaw/rayshud-Installer");
+        }
+
+        private void btnGitIssue_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/CriticalFlaw/rayshud-Installer/issues");
+        }
+
+        private void btnSteamGroup_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://steamcommunity.com/groups/rayshud");
+        }
+
+        private void btnAndKnuckles_Click(object sender, EventArgs e)
+        {
+            var bitmap = new Bitmap(Properties.Resources.KnucklesCrosses);
+            var directory = $"{Application.StartupPath}\\KnuckleCrosses.jpg";
+            if (File.Exists(directory))
+                File.Delete(directory);
+            bitmap.Save(directory);
+            Process.Start(directory);
         }
 
         private void btnColorPicker_Click(object sender, EventArgs e)
@@ -1002,21 +1033,25 @@ namespace rayshud_Installer
             {
                 case 1:
                     lblCrosshair.Text = @"2";
+                    lblCrosshair.Location = new Point(50, 111);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("26");
                     break;
 
                 case 2:
                     lblCrosshair.Text = @"2";
+                    lblCrosshair.Location = new Point(0, 111);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("32");
                     break;
 
                 case 3:
                     lblCrosshair.Text = @"2";
+                    lblCrosshair.Location = new Point(0, 111);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("18");
                     break;
 
                 case 4:
                     lblCrosshair.Text = @"3";
+                    lblCrosshair.Location = new Point(0, 111);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("24");
                     break;
 
@@ -1116,16 +1151,6 @@ namespace rayshud_Installer
             UpdateSettingsFile();
             DisplayHUDSettings();
         }
-
-        private void btnAndKnuckles_Click(object sender, EventArgs e)
-        {
-            var bitmap = new Bitmap(Properties.Resources.KnucklesCrosses);
-            var directory = $"{Application.StartupPath}\\KnuckleCrosses.jpg";
-            if (File.Exists(directory))
-                File.Delete(directory);
-            bitmap.Save(directory);
-            Process.Start(directory);
-        }
     }
 
     public class RootObject
@@ -1157,6 +1182,7 @@ namespace rayshud_Installer
         public string AmmoClipLow { get; set; }
         public string AmmoReserve { get; set; }
         public string AmmoReserveLow { get; set; }
+        public string TF2Directory { get; set; }
         public string LastModified { get; set; }
     }
 }
