@@ -1034,77 +1034,93 @@ namespace rayshud_Installer
             // Update the crosshair settings on the UI
             switch (settings.XHairStyle)
             {
-                case 1:
+                case 1: // BasicCross
                     lblCrosshair.Text = @"2";
-                    lblCrosshair.Location = new Point(50, 111);
+                    lblCrosshair.Location = new Point(97, 33);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("26");
                     break;
 
-                case 2:
+                case 2: // BasicCrossLarge
                     lblCrosshair.Text = @"2";
-                    lblCrosshair.Location = new Point(0, 111);
+                    lblCrosshair.Location = new Point(97, 33);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("32");
                     break;
 
-                case 3:
+                case 3: // BasicCrossSmall
                     lblCrosshair.Text = @"2";
-                    lblCrosshair.Location = new Point(0, 111);
+                    lblCrosshair.Location = new Point(97, 33);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("18");
                     break;
 
-                case 4:
+                case 4: // BasicDot
                     lblCrosshair.Text = @"3";
-                    lblCrosshair.Location = new Point(0, 111);
+                    lblCrosshair.Location = new Point(103, 31);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("24");
                     break;
 
-                case 5:
+                case 5: // CircleDot
                     lblCrosshair.Text = @"8";
+                    lblCrosshair.Location = new Point(103, 31);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("34");
                     break;
 
-                case 6:
+                case 6: // OpenCross
                     lblCrosshair.Text = @"i";
+                    lblCrosshair.Location = new Point(95, 28);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("24");
                     break;
 
-                case 7:
+                case 7: // OpenCrossDot
                     lblCrosshair.Text = @"h";
+                    lblCrosshair.Location = new Point(95, 28);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("24");
                     break;
 
-                case 9:
+                case 8: // ScatterSpread
                     lblCrosshair.Text = @"0";
+                    lblCrosshair.Location = new Point(104, 30);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("32");
                     break;
 
-                case 10:
+                case 9: // ThinCircle
                     lblCrosshair.Text = @"9";
+                    lblCrosshair.Location = new Point(105, 32);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("34");
                     break;
 
-                case 11:
+                case 10: // ThinCross
                     lblCrosshair.Text = @"+";
+                    lblCrosshair.Location = new Point(108, 30);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("24");
                     break;
 
-                case 12:
+                case 11: // Wings
                     lblCrosshair.Text = @"d";
+                    lblCrosshair.Location = new Point(95, 32);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("34");
                     break;
 
-                case 13:
+                case 12: // WingsPlus
                     lblCrosshair.Text = @"c";
+                    lblCrosshair.Location = new Point(95, 32);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("34");
                     break;
 
-                case 14:
+                case 13: // WingsSmall
                     lblCrosshair.Text = @"g";
+                    lblCrosshair.Location = new Point(95, 32);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("34");
                     break;
 
-                case 15:
+                case 14: // WingsSmallDot
+                    lblCrosshair.Text = @"f";
+                    lblCrosshair.Location = new Point(95, 32);
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("34");
+                    break;
+
+                case 15: // XHairCirle
                     lblCrosshair.Text = @"o";
+                    lblCrosshair.Location = new Point(97, 32);
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("34");
                     break;
 
