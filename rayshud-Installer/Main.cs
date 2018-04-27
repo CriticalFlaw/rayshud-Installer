@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿
 using SharpRaven;
 using SharpRaven.Data;
 using System;
@@ -11,6 +11,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace rayshud_Installer
 {
@@ -94,7 +95,7 @@ namespace rayshud_Installer
                     // If tf/custom is not found, ask the user to provide it
                     var validHUDDirectory = false;
                     var DirectoryBrowser = new FolderBrowserDialog();
-                    DirectoryBrowser.Description = $"Please select your tf/custom folder. Example:\n{Properties.Settings.Default.TFDirectory}";
+                    DirectoryBrowser.Description = $"Please select your tf\\custom folder. Example:\n{Properties.Settings.Default.TFDirectory}";
                     DirectoryBrowser.ShowNewFolderButton = true;
                     while (validHUDDirectory == false)
                     {
@@ -116,6 +117,7 @@ namespace rayshud_Installer
                 {
                     txtDirectory.Text = TF2Directory;
                     settings.TF2Directory = txtDirectory.Text;
+                    WriteToSettings("TF2Directory", settings.TF2Directory.Replace("\\", "/"));
                     btnInstall.Enabled = true;
                     btnPlayTF2.Enabled = true;
                     CheckHUDDirectory();
@@ -806,7 +808,7 @@ namespace rayshud_Installer
         {
             var IsDirectoryValid = false;
             var DirectoryBrowser = new FolderBrowserDialog();
-            DirectoryBrowser.Description = $"Please select your tf/custom folder. Example:\n{Properties.Settings.Default.TFDirectory}";
+            DirectoryBrowser.Description = $"Please select your tf\\custom folder. Example:\n{Properties.Settings.Default.TFDirectory}";
             DirectoryBrowser.ShowNewFolderButton = true;
             while (IsDirectoryValid == false)
             {
@@ -817,6 +819,7 @@ namespace rayshud_Installer
                     TF2Directory = DirectoryBrowser.SelectedPath;
                     txtDirectory.Text = TF2Directory;
                     settings.TF2Directory = txtDirectory.Text;
+                    WriteToSettings("TF2Directory", settings.TF2Directory.Replace("\\", "/"));
                     btnInstall.Enabled = true;
                     btnPlayTF2.Enabled = true;
                     CheckHUDDirectory();
