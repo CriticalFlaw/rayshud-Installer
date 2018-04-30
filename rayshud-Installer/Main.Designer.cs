@@ -1000,7 +1000,7 @@
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(223, 24);
             this.lblTitle.TabIndex = 3;
-            this.lblTitle.Text = "rayshud Installer [beta]";
+            this.lblTitle.Text = "rayshud Installer";
             // 
             // btnInstall
             // 

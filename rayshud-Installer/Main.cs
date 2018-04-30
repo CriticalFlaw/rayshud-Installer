@@ -1,4 +1,4 @@
-﻿
+﻿using Newtonsoft.Json;
 using SharpRaven;
 using SharpRaven.Data;
 using System;
@@ -11,7 +11,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 
 namespace rayshud_Installer
 {
@@ -29,6 +28,7 @@ namespace rayshud_Installer
         // Used for rendering the crosshair preview using a custom font
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
+
         private readonly PrivateFontCollection fonts = new PrivateFontCollection();
         private Font myFont;
 
@@ -385,7 +385,7 @@ namespace rayshud_Installer
                 else
                     UpdateSettingsFile();
                 // Download the latest rayshud from GitHub and extract into the tf/custom directory
-                client.DownloadFile("https://github.com/raysfire/rayshud/archive/installer.zip", "rayshud.zip");    //DEBUG
+                client.DownloadFile("https://github.com/raysfire/rayshud/archive/installer.zip", "rayshud.zip");
                 ZipFile.ExtractToDirectory($"{Application.StartupPath}\\{Properties.Settings.Default.TempName}", TF2Directory);
                 // Either do a clean install or refresh/update of rayshud
                 switch (btnInstall.Text)
