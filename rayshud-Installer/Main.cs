@@ -222,6 +222,9 @@ namespace rayshud_Installer
                 // Default Background Image - off (false) or on (true)
                 cbDefaultMenuBG.Checked = settings.DefaultMenuBG;
 
+                // Main Menu Class Images - off (false) or on (true)
+                cbMenuClassImages.Checked = settings.MenuClassImages;
+
                 // Ubercharge Animation - Flash (1), Solid (2) or Rainbow (3)
                 switch (settings.UberAnimation)
                 {
@@ -327,6 +330,7 @@ namespace rayshud_Installer
             WriteToSettings("TeamSelect", settings.TeamSelect.ToString());
             WriteToSettings("DisguiseImage", settings.DisguiseImage.ToString());
             WriteToSettings("DefaultMenuBG", settings.DefaultMenuBG.ToString());
+            WriteToSettings("MenuClassImages", settings.MenuClassImages.ToString());
             WriteToSettings("UberAnimation", settings.UberAnimation.ToString());
             WriteToSettings("UberBarColor", settings.UberBarColor);
             WriteToSettings("UberFullColor", settings.UberFullColor);
@@ -459,6 +463,7 @@ namespace rayshud_Installer
                 var scoreboard = $"{TF2Directory}\\rayshud\\customizations\\Scoreboard";
                 var teammenu = $"{TF2Directory}\\rayshud\\customizations\\Team Menu";
                 var playerhealth = $"{TF2Directory}\\rayshud\\customizations\\Player Health";
+                var mainmenu = $"{TF2Directory}\\rayshud\\resource\\ui\\mainmenuoverride.res";
 
                 // 1. Main Menu Style - either classic or modern, copy and replace existing files
                 if (settings.HUDVersion)
@@ -621,7 +626,24 @@ namespace rayshud_Installer
 
                 File.WriteAllLines(animations, lines);
 
-                // 9. Chat box position - either top or bottom, change the ypos value of basechat.res
+                // 9. Mein Menu Class Image - enable or disable by commenting out the lines
+                lines = File.ReadAllLines(mainmenu);
+                int index = 253;
+                if (settings.HUDVersion)
+                    index = 246;
+                if (settings.DisguiseImage)
+                {
+                    lines[(index + 0) - 1] = "\t\t\"visible\"\t\t\"1\"";
+                    lines[(index + 1) - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                }
+                else
+                {
+                    lines[(index + 0) - 1] = "\t\t\"visible\"\t\t\"0\"";
+                    lines[(index + 1) - 1] = "\t\t\"enabled\"\t\t\"0\"";
+                }
+                File.WriteAllLines(mainmenu, lines);
+
+                // 10. Chat box position - either top or bottom, change the ypos value of basechat.res
                 lines = File.ReadAllLines(chat);
                 if (settings.ChatBox)
                     lines[10 - 1] = "\t\t\"ypos\"\t\t\t\t\"30\"";
@@ -634,12 +656,12 @@ namespace rayshud_Installer
                 for (int x = 13; x <= 51; x += 19)
                 {
                     lines[x - 1] = "\t\t\"visible\"\t\t\"0\"";
-                    lines[x + 1 - 1] = "\t\t\"enabled\"\t\t\"0\"";
-                    lines[x + 7 - 1] = lines[x + 7 - 1].Replace("Outline", string.Empty);
+                    lines[(x + 1) - 1] = "\t\t\"enabled\"\t\t\"0\"";
+                    lines[(x + 7) - 1] = lines[x + 7 - 1].Replace("Outline", string.Empty);
                     File.WriteAllLines(layout, lines);
                 }
 
-                // 10. Crosshairs - either enabled or disabled with or without outlines, change the visible, enabled and font values of hudlayout.res
+                // 11. Crosshairs - either enabled or disabled with or without outlines, change the visible, enabled and font values of hudlayout.res
                 if (settings.XHairEnabled)
                 {
                     if (settings.XHairStyle >= 1 && settings.XHairStyle <= 15)
@@ -656,9 +678,9 @@ namespace rayshud_Installer
                         lines[32 - 1] = "\t\t\"visible\"\t\t\"1\"";
                         lines[33 - 1] = "\t\t\"enabled\"\t\t\"1\"";
                         if (settings.XHairOutline)
-                            lines[39 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}Outline\"";
+                            lines[39 - 1] = $"\t\t\"font\"\t\t\t\"KonrWings{cbXHairSizes.Text}Outline\"";
                         else
-                            lines[39 - 1] = $"\t\t\"font\"\t\t\t\"Crosshairs{cbXHairSizes.Text}\"";
+                            lines[39 - 1] = $"\t\t\"font\"\t\t\t\"KonrWings{cbXHairSizes.Text}\"";
                     }
                     else if (settings.XHairStyle >= 17 && settings.XHairStyle <= 84)
                     {
@@ -770,7 +792,7 @@ namespace rayshud_Installer
                     File.WriteAllLines(layout, lines);
                 }
 
-                // 11. Color Values - replace the color RGB values in clientscheme_colors.res file
+                // 12. Color Values - replace the color RGB values in clientscheme_colors.res file
                 lines = File.ReadAllLines(colorScheme);
                 lines[7 - 1] = $"\t\t\"Ammo In Clip\"\t\t\t\t\t\"{settings.AmmoClip}\"";
                 lines[8 - 1] = $"\t\t\"Ammo In Reserve\"\t\t\t\t\"{settings.AmmoReserve}\"";
@@ -962,6 +984,11 @@ namespace rayshud_Installer
             settings.DefaultMenuBG = cbDefaultMenuBG.Checked;
         }
 
+        private void cbMenuClassImages_CheckedChanged(object sender, EventArgs e)
+        {
+            settings.MenuClassImages = cbMenuClassImages.Checked;
+        }
+
         private void rbChatBox_CheckedChanged(object sender, EventArgs e)
         {
             settings.ChatBox = rbChatBoxTop.Checked;
@@ -1124,6 +1151,12 @@ namespace rayshud_Installer
                     cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("34");
                     break;
 
+                case 16: // KonrWings
+                    lblCrosshair.Text = @"i";
+                    lblCrosshair.Location = new Point(97, 32);
+                    cbXHairSizes.SelectedIndex = cbXHairSizes.Items.IndexOf("24");
+                    break;
+
                 default:
                     lblCrosshair.Text = string.Empty;
                     cbXHairSizes.SelectedIndex = 0;
@@ -1145,6 +1178,7 @@ namespace rayshud_Installer
             settings.TeamSelect = false;
             settings.DisguiseImage = false;
             settings.DefaultMenuBG = false;
+            settings.MenuClassImages = false;
             settings.UberAnimation = 1;
             settings.UberBarColor = "235 226 202 255";
             settings.UberFullColor = "255 50 255 255";
@@ -1180,6 +1214,7 @@ namespace rayshud_Installer
         public bool TeamSelect { get; set; }
         public bool DisguiseImage { get; set; }
         public bool DefaultMenuBG { get; set; }
+        public bool MenuClassImages { get; set; }
         public int UberAnimation { get; set; }
         public string UberBarColor { get; set; }
         public string UberFullColor { get; set; }

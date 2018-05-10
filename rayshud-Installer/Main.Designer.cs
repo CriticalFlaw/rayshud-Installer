@@ -33,9 +33,10 @@
             this.tabGeneral = new System.Windows.Forms.TabPage();
             this.btnSetDefault = new System.Windows.Forms.Button();
             this.gbInformation = new System.Windows.Forms.GroupBox();
+            this.btnGitRepo = new System.Windows.Forms.Button();
+            this.btnGitIssue = new System.Windows.Forms.Button();
+            this.btnSteamGroup = new System.Windows.Forms.Button();
             this.lblInfo4 = new System.Windows.Forms.Label();
-            this.lblInfo1 = new System.Windows.Forms.Label();
-            this.lblInfo2 = new System.Windows.Forms.Label();
             this.gbTeamSelect = new System.Windows.Forms.GroupBox();
             this.rbTeamSelectCenter = new System.Windows.Forms.RadioButton();
             this.rbTeamSelectLeft = new System.Windows.Forms.RadioButton();
@@ -115,9 +116,7 @@
             this.txtLastModified = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.Label();
-            this.btnSteamGroup = new System.Windows.Forms.Button();
-            this.btnGitIssue = new System.Windows.Forms.Button();
-            this.btnGitRepo = new System.Windows.Forms.Button();
+            this.cbMenuClassImages = new System.Windows.Forms.CheckBox();
             this.tabEditor.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.gbInformation.SuspendLayout();
@@ -183,52 +182,64 @@
             this.gbInformation.Controls.Add(this.btnGitIssue);
             this.gbInformation.Controls.Add(this.btnSteamGroup);
             this.gbInformation.Controls.Add(this.lblInfo4);
-            this.gbInformation.Controls.Add(this.lblInfo1);
-            this.gbInformation.Controls.Add(this.lblInfo2);
             this.gbInformation.ForeColor = System.Drawing.Color.White;
-            this.gbInformation.Location = new System.Drawing.Point(6, 186);
+            this.gbInformation.Location = new System.Drawing.Point(206, 174);
             this.gbInformation.Name = "gbInformation";
-            this.gbInformation.Size = new System.Drawing.Size(672, 69);
+            this.gbInformation.Size = new System.Drawing.Size(472, 81);
             this.gbInformation.TabIndex = 21;
             this.gbInformation.TabStop = false;
             this.gbInformation.Text = "Information";
             // 
+            // btnGitRepo
+            // 
+            this.btnGitRepo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGitRepo.Location = new System.Drawing.Point(31, 41);
+            this.btnGitRepo.Name = "btnGitRepo";
+            this.btnGitRepo.Size = new System.Drawing.Size(123, 26);
+            this.btnGitRepo.TabIndex = 7;
+            this.btnGitRepo.Text = "GitHub Repository";
+            this.btnGitRepo.UseVisualStyleBackColor = true;
+            this.btnGitRepo.Click += new System.EventHandler(this.btnGitRepo_Click);
+            // 
+            // btnGitIssue
+            // 
+            this.btnGitIssue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGitIssue.Location = new System.Drawing.Point(160, 41);
+            this.btnGitIssue.Name = "btnGitIssue";
+            this.btnGitIssue.Size = new System.Drawing.Size(112, 26);
+            this.btnGitIssue.TabIndex = 6;
+            this.btnGitIssue.Text = "Report Issue";
+            this.btnGitIssue.UseVisualStyleBackColor = true;
+            this.btnGitIssue.Click += new System.EventHandler(this.btnGitIssue_Click);
+            // 
+            // btnSteamGroup
+            // 
+            this.btnSteamGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSteamGroup.Location = new System.Drawing.Point(278, 41);
+            this.btnSteamGroup.Name = "btnSteamGroup";
+            this.btnSteamGroup.Size = new System.Drawing.Size(153, 26);
+            this.btnSteamGroup.TabIndex = 5;
+            this.btnSteamGroup.Text = "rayshud Steam Group";
+            this.btnSteamGroup.UseVisualStyleBackColor = true;
+            this.btnSteamGroup.Click += new System.EventHandler(this.btnSteamGroup_Click);
+            // 
             // lblInfo4
             // 
             this.lblInfo4.AutoSize = true;
-            this.lblInfo4.Location = new System.Drawing.Point(166, 15);
+            this.lblInfo4.Location = new System.Drawing.Point(5, 18);
             this.lblInfo4.Name = "lblInfo4";
-            this.lblInfo4.Size = new System.Drawing.Size(496, 16);
+            this.lblInfo4.Size = new System.Drawing.Size(450, 16);
             this.lblInfo4.TabIndex = 4;
-            this.lblInfo4.Text = "For installer issues, suggestions, code contributions or comments go to the GitHu" +
-    "b repo";
-            // 
-            // lblInfo1
-            // 
-            this.lblInfo1.AutoSize = true;
-            this.lblInfo1.Location = new System.Drawing.Point(6, 15);
-            this.lblInfo1.Name = "lblInfo1";
-            this.lblInfo1.Size = new System.Drawing.Size(122, 16);
-            this.lblInfo1.TabIndex = 2;
-            this.lblInfo1.Text = "rayshud by: raysfire";
-            // 
-            // lblInfo2
-            // 
-            this.lblInfo2.AutoSize = true;
-            this.lblInfo2.Location = new System.Drawing.Point(6, 31);
-            this.lblInfo2.Name = "lblInfo2";
-            this.lblInfo2.Size = new System.Drawing.Size(142, 16);
-            this.lblInfo2.TabIndex = 1;
-            this.lblInfo2.Text = "Installer by: CriticalFlaw";
+            this.lblInfo4.Text = "For issues, suggestions, code contributions or comments go to the GitHub repo";
             // 
             // gbTeamSelect
             // 
             this.gbTeamSelect.Controls.Add(this.rbTeamSelectCenter);
             this.gbTeamSelect.Controls.Add(this.rbTeamSelectLeft);
             this.gbTeamSelect.ForeColor = System.Drawing.Color.White;
-            this.gbTeamSelect.Location = new System.Drawing.Point(206, 146);
+            this.gbTeamSelect.Location = new System.Drawing.Point(6, 174);
             this.gbTeamSelect.Name = "gbTeamSelect";
-            this.gbTeamSelect.Size = new System.Drawing.Size(134, 40);
+            this.gbTeamSelect.Size = new System.Drawing.Size(194, 40);
             this.gbTeamSelect.TabIndex = 20;
             this.gbTeamSelect.TabStop = false;
             this.gbTeamSelect.Text = "Team/Class Select";
@@ -237,7 +248,7 @@
             // 
             this.rbTeamSelectCenter.AutoSize = true;
             this.rbTeamSelectCenter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbTeamSelectCenter.Location = new System.Drawing.Point(64, 14);
+            this.rbTeamSelectCenter.Location = new System.Drawing.Point(109, 14);
             this.rbTeamSelectCenter.Name = "rbTeamSelectCenter";
             this.rbTeamSelectCenter.Size = new System.Drawing.Size(64, 20);
             this.rbTeamSelectCenter.TabIndex = 11;
@@ -265,9 +276,9 @@
             this.gbChatBox.Controls.Add(this.rbChatBoxBottom);
             this.gbChatBox.Controls.Add(this.rbChatBoxTop);
             this.gbChatBox.ForeColor = System.Drawing.Color.White;
-            this.gbChatBox.Location = new System.Drawing.Point(6, 146);
+            this.gbChatBox.Location = new System.Drawing.Point(6, 215);
             this.gbChatBox.Name = "gbChatBox";
-            this.gbChatBox.Size = new System.Drawing.Size(197, 40);
+            this.gbChatBox.Size = new System.Drawing.Size(194, 40);
             this.gbChatBox.TabIndex = 19;
             this.gbChatBox.TabStop = false;
             this.gbChatBox.Text = "Chat Box";
@@ -312,9 +323,9 @@
             this.gbUbercharge.Controls.Add(this.lblUberFlashColor);
             this.gbUbercharge.Controls.Add(this.lblUberFullColor);
             this.gbUbercharge.ForeColor = System.Drawing.Color.White;
-            this.gbUbercharge.Location = new System.Drawing.Point(346, 37);
+            this.gbUbercharge.Location = new System.Drawing.Point(325, 37);
             this.gbUbercharge.Name = "gbUbercharge";
-            this.gbUbercharge.Size = new System.Drawing.Size(332, 149);
+            this.gbUbercharge.Size = new System.Drawing.Size(353, 131);
             this.gbUbercharge.TabIndex = 18;
             this.gbUbercharge.TabStop = false;
             this.gbUbercharge.Text = "Ubercharge";
@@ -323,7 +334,7 @@
             // 
             this.btnUberFlashColor2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
             this.btnUberFlashColor2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUberFlashColor2.Location = new System.Drawing.Point(240, 109);
+            this.btnUberFlashColor2.Location = new System.Drawing.Point(245, 92);
             this.btnUberFlashColor2.Name = "btnUberFlashColor2";
             this.btnUberFlashColor2.Size = new System.Drawing.Size(86, 22);
             this.btnUberFlashColor2.TabIndex = 13;
@@ -334,7 +345,7 @@
             // 
             this.btnUberFullColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
             this.btnUberFullColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUberFullColor.Location = new System.Drawing.Point(154, 84);
+            this.btnUberFullColor.Location = new System.Drawing.Point(159, 67);
             this.btnUberFullColor.Name = "btnUberFullColor";
             this.btnUberFullColor.Size = new System.Drawing.Size(172, 22);
             this.btnUberFullColor.TabIndex = 12;
@@ -345,7 +356,7 @@
             // 
             this.btnUberBarColor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
             this.btnUberBarColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUberBarColor.Location = new System.Drawing.Point(154, 58);
+            this.btnUberBarColor.Location = new System.Drawing.Point(159, 41);
             this.btnUberBarColor.Name = "btnUberBarColor";
             this.btnUberBarColor.Size = new System.Drawing.Size(172, 22);
             this.btnUberBarColor.TabIndex = 11;
@@ -356,7 +367,7 @@
             // 
             this.rbUberAnimation3.AutoSize = true;
             this.rbUberAnimation3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbUberAnimation3.Location = new System.Drawing.Point(221, 36);
+            this.rbUberAnimation3.Location = new System.Drawing.Point(272, 15);
             this.rbUberAnimation3.Name = "rbUberAnimation3";
             this.rbUberAnimation3.Size = new System.Drawing.Size(75, 20);
             this.rbUberAnimation3.TabIndex = 10;
@@ -369,7 +380,7 @@
             // 
             this.rbUberAnimation2.AutoSize = true;
             this.rbUberAnimation2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbUberAnimation2.Location = new System.Drawing.Point(130, 36);
+            this.rbUberAnimation2.Location = new System.Drawing.Point(123, 15);
             this.rbUberAnimation2.Name = "rbUberAnimation2";
             this.rbUberAnimation2.Size = new System.Drawing.Size(84, 20);
             this.rbUberAnimation2.TabIndex = 9;
@@ -383,12 +394,12 @@
             this.rbUberAnimation1.AutoSize = true;
             this.rbUberAnimation1.Checked = true;
             this.rbUberAnimation1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbUberAnimation1.Location = new System.Drawing.Point(9, 37);
+            this.rbUberAnimation1.Location = new System.Drawing.Point(213, 15);
             this.rbUberAnimation1.Name = "rbUberAnimation1";
-            this.rbUberAnimation1.Size = new System.Drawing.Size(114, 20);
+            this.rbUberAnimation1.Size = new System.Drawing.Size(53, 20);
             this.rbUberAnimation1.TabIndex = 8;
             this.rbUberAnimation1.TabStop = true;
-            this.rbUberAnimation1.Text = "Two Color Flash";
+            this.rbUberAnimation1.Text = "Flash";
             this.rbUberAnimation1.UseVisualStyleBackColor = true;
             this.rbUberAnimation1.CheckedChanged += new System.EventHandler(this.rbUberAnimation_CheckedChanged);
             // 
@@ -397,14 +408,14 @@
             this.lblUberAnimation.AutoSize = true;
             this.lblUberAnimation.Location = new System.Drawing.Point(8, 18);
             this.lblUberAnimation.Name = "lblUberAnimation";
-            this.lblUberAnimation.Size = new System.Drawing.Size(155, 16);
+            this.lblUberAnimation.Size = new System.Drawing.Size(100, 16);
             this.lblUberAnimation.TabIndex = 7;
-            this.lblUberAnimation.Text = "Full Uber Animation Style:";
+            this.lblUberAnimation.Text = "Animation Style:";
             // 
             // lblUberBarColor
             // 
             this.lblUberBarColor.AutoSize = true;
-            this.lblUberBarColor.Location = new System.Drawing.Point(6, 62);
+            this.lblUberBarColor.Location = new System.Drawing.Point(11, 45);
             this.lblUberBarColor.Name = "lblUberBarColor";
             this.lblUberBarColor.Size = new System.Drawing.Size(140, 16);
             this.lblUberBarColor.TabIndex = 6;
@@ -414,7 +425,7 @@
             // 
             this.btnUberFlashColor1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(164)))));
             this.btnUberFlashColor1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUberFlashColor1.Location = new System.Drawing.Point(154, 109);
+            this.btnUberFlashColor1.Location = new System.Drawing.Point(159, 92);
             this.btnUberFlashColor1.Name = "btnUberFlashColor1";
             this.btnUberFlashColor1.Size = new System.Drawing.Size(86, 22);
             this.btnUberFlashColor1.TabIndex = 5;
@@ -424,7 +435,7 @@
             // lblUberFlashColor
             // 
             this.lblUberFlashColor.AutoSize = true;
-            this.lblUberFlashColor.Location = new System.Drawing.Point(6, 113);
+            this.lblUberFlashColor.Location = new System.Drawing.Point(11, 96);
             this.lblUberFlashColor.Name = "lblUberFlashColor";
             this.lblUberFlashColor.Size = new System.Drawing.Size(146, 16);
             this.lblUberFlashColor.TabIndex = 1;
@@ -433,7 +444,7 @@
             // lblUberFullColor
             // 
             this.lblUberFullColor.AutoSize = true;
-            this.lblUberFullColor.Location = new System.Drawing.Point(6, 88);
+            this.lblUberFullColor.Location = new System.Drawing.Point(11, 71);
             this.lblUberFullColor.Name = "lblUberFullColor";
             this.lblUberFullColor.Size = new System.Drawing.Size(136, 16);
             this.lblUberFullColor.TabIndex = 0;
@@ -441,6 +452,7 @@
             // 
             // gbSettings
             // 
+            this.gbSettings.Controls.Add(this.cbMenuClassImages);
             this.gbSettings.Controls.Add(this.cbDisguiseImage);
             this.gbSettings.Controls.Add(this.lblHUDVersion);
             this.gbSettings.Controls.Add(this.cbDefaultMenuBG);
@@ -450,7 +462,7 @@
             this.gbSettings.ForeColor = System.Drawing.Color.White;
             this.gbSettings.Location = new System.Drawing.Point(6, 37);
             this.gbSettings.Name = "gbSettings";
-            this.gbSettings.Size = new System.Drawing.Size(334, 106);
+            this.gbSettings.Size = new System.Drawing.Size(313, 131);
             this.gbSettings.TabIndex = 16;
             this.gbSettings.TabStop = false;
             this.gbSettings.Text = "Settings";
@@ -459,7 +471,7 @@
             // 
             this.cbDisguiseImage.AutoSize = true;
             this.cbDisguiseImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbDisguiseImage.Location = new System.Drawing.Point(6, 73);
+            this.cbDisguiseImage.Location = new System.Drawing.Point(8, 73);
             this.cbDisguiseImage.Name = "cbDisguiseImage";
             this.cbDisguiseImage.Size = new System.Drawing.Size(134, 20);
             this.cbDisguiseImage.TabIndex = 15;
@@ -480,7 +492,7 @@
             // 
             this.cbDefaultMenuBG.AutoSize = true;
             this.cbDefaultMenuBG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbDefaultMenuBG.Location = new System.Drawing.Point(146, 73);
+            this.cbDefaultMenuBG.Location = new System.Drawing.Point(153, 73);
             this.cbDefaultMenuBG.Name = "cbDefaultMenuBG";
             this.cbDefaultMenuBG.Size = new System.Drawing.Size(143, 20);
             this.cbDefaultMenuBG.TabIndex = 9;
@@ -498,7 +510,7 @@
             "Minimal (6v6)"});
             this.cbScoreboard.Location = new System.Drawing.Point(96, 44);
             this.cbScoreboard.Name = "cbScoreboard";
-            this.cbScoreboard.Size = new System.Drawing.Size(232, 23);
+            this.cbScoreboard.Size = new System.Drawing.Size(200, 23);
             this.cbScoreboard.TabIndex = 12;
             this.cbScoreboard.SelectionChangeCommitted += new System.EventHandler(this.cbScoreboard_SelectedIndexChanged);
             // 
@@ -521,7 +533,7 @@
             "Classic"});
             this.cbHUDVersion.Location = new System.Drawing.Point(96, 15);
             this.cbHUDVersion.Name = "cbHUDVersion";
-            this.cbHUDVersion.Size = new System.Drawing.Size(232, 23);
+            this.cbHUDVersion.Size = new System.Drawing.Size(200, 23);
             this.cbHUDVersion.TabIndex = 11;
             this.cbHUDVersion.SelectionChangeCommitted += new System.EventHandler(this.cbHUDVersion_SelectedIndexChanged);
             // 
@@ -716,7 +728,8 @@
             "WingsPlus",
             "WingsSmall",
             "WingsSmallDot",
-            "xHairCircle"});
+            "xHairCircle",
+            "KonrWings"});
             this.lbXHairStyles.Location = new System.Drawing.Point(6, 21);
             this.lbXHairStyles.Name = "lbXHairStyles";
             this.lbXHairStyles.Size = new System.Drawing.Size(145, 109);
@@ -998,7 +1011,7 @@
             this.lblTitle.Font = new System.Drawing.Font("Berlin Sans FB Demi", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(10, 10);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(223, 24);
+            this.lblTitle.Size = new System.Drawing.Size(159, 24);
             this.lblTitle.TabIndex = 3;
             this.lblTitle.Text = "rayshud Installer";
             // 
@@ -1160,38 +1173,17 @@
             this.txtStatus.TabIndex = 36;
             this.txtStatus.Text = "...";
             // 
-            // btnSteamGroup
+            // cbMenuClassImages
             // 
-            this.btnSteamGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSteamGroup.Location = new System.Drawing.Point(470, 34);
-            this.btnSteamGroup.Name = "btnSteamGroup";
-            this.btnSteamGroup.Size = new System.Drawing.Size(153, 26);
-            this.btnSteamGroup.TabIndex = 5;
-            this.btnSteamGroup.Text = "rayshud Steam Group";
-            this.btnSteamGroup.UseVisualStyleBackColor = true;
-            this.btnSteamGroup.Click += new System.EventHandler(this.btnSteamGroup_Click);
-            // 
-            // btnGitIssue
-            // 
-            this.btnGitIssue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGitIssue.Location = new System.Drawing.Point(352, 34);
-            this.btnGitIssue.Name = "btnGitIssue";
-            this.btnGitIssue.Size = new System.Drawing.Size(112, 26);
-            this.btnGitIssue.TabIndex = 6;
-            this.btnGitIssue.Text = "Report Issue";
-            this.btnGitIssue.UseVisualStyleBackColor = true;
-            this.btnGitIssue.Click += new System.EventHandler(this.btnGitIssue_Click);
-            // 
-            // btnGitRepo
-            // 
-            this.btnGitRepo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGitRepo.Location = new System.Drawing.Point(223, 34);
-            this.btnGitRepo.Name = "btnGitRepo";
-            this.btnGitRepo.Size = new System.Drawing.Size(123, 26);
-            this.btnGitRepo.TabIndex = 7;
-            this.btnGitRepo.Text = "GitHub Repository";
-            this.btnGitRepo.UseVisualStyleBackColor = true;
-            this.btnGitRepo.Click += new System.EventHandler(this.btnGitRepo_Click);
+            this.cbMenuClassImages.AutoSize = true;
+            this.cbMenuClassImages.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbMenuClassImages.Location = new System.Drawing.Point(8, 99);
+            this.cbMenuClassImages.Name = "cbMenuClassImages";
+            this.cbMenuClassImages.Size = new System.Drawing.Size(162, 20);
+            this.cbMenuClassImages.TabIndex = 16;
+            this.cbMenuClassImages.Text = "Main Menu Class Images";
+            this.cbMenuClassImages.UseVisualStyleBackColor = true;
+            this.cbMenuClassImages.CheckedChanged += new System.EventHandler(this.cbMenuClassImages_CheckedChanged);
             // 
             // Main
             // 
@@ -1330,8 +1322,6 @@
         private System.Windows.Forms.Label lblCrosshair;
         private System.Windows.Forms.PictureBox pbPreview;
         private System.Windows.Forms.Label lblInfo4;
-        private System.Windows.Forms.Label lblInfo1;
-        private System.Windows.Forms.Label lblInfo2;
         private System.Windows.Forms.Button btnSetDefault;
         private System.Windows.Forms.ComboBox cbXHairSizes;
         private System.Windows.Forms.Label lblXHairSizes;
@@ -1339,5 +1329,6 @@
         private System.Windows.Forms.Button btnGitRepo;
         private System.Windows.Forms.Button btnGitIssue;
         private System.Windows.Forms.Button btnSteamGroup;
+        private System.Windows.Forms.CheckBox cbMenuClassImages;
     }
 }
