@@ -181,7 +181,7 @@ namespace rayshud_Installer
                 // Set installer controls to default rayshud values
                 cbHUDVersion.SelectedIndex = 0;
                 cbScoreboard.SelectedIndex = 0;
-                rbChatBoxBottom.Checked = true;
+                rbChatBoxTop.Checked = true;
                 rbTeamSelectLeft.Checked = true;
                 btnUberBarColor.BackColor = Color.FromArgb(235, 226, 202);
                 btnUberFullColor.BackColor = Color.FromArgb(255, 50, 255);
@@ -208,9 +208,9 @@ namespace rayshud_Installer
                 if (settings.Scoreboard)
                     cbScoreboard.SelectedIndex = 1;
 
-                // Chatbox Position - Bottom-Left (false) or Top-Left (true)
+                // Chatbox Position - Top-Left (false) or Bottom-Left (true)
                 if (settings.ChatBox)
-                    rbChatBoxTop.Checked = true;
+                    rbChatBoxBottom.Checked = true;
 
                 // Team/Class Select Position - Left (false) or Center (true)
                 if (settings.TeamSelect)
@@ -389,7 +389,7 @@ namespace rayshud_Installer
                 else
                     UpdateSettingsFile();
                 // Download the latest rayshud from GitHub and extract into the tf/custom directory
-                client.DownloadFile("https://github.com/raysfire/rayshud/archive/installer.zip", "rayshud.zip");
+                client.DownloadFile("https://github.com/raysfire/rayshud/archive/master.zip", "rayshud.zip");
                 ZipFile.ExtractToDirectory($"{Application.StartupPath}\\{Properties.Settings.Default.TempName}", TF2Directory);
                 // Either do a clean install or refresh/update of rayshud
                 switch (btnInstall.Text)
@@ -628,27 +628,27 @@ namespace rayshud_Installer
 
                 // 9. Mein Menu Class Image - enable or disable by commenting out the lines
                 lines = File.ReadAllLines(mainmenu);
-                int index = 253;
+                int index = 247;
                 if (settings.HUDVersion)
-                    index = 246;
-                if (settings.DisguiseImage)
+                    index = 241;
+                if (settings.MenuClassImages)
                 {
-                    lines[(index + 0) - 1] = "\t\t\"visible\"\t\t\"1\"";
-                    lines[(index + 1) - 1] = "\t\t\"enabled\"\t\t\"1\"";
+                    lines[(index + 0) - 1] = "\t\t\"xpos\"\t\t\"c-250\"";
+                    lines[(index + 1) - 1] = "\t\t\"ypos\"\t\t\"-80\"";
                 }
                 else
                 {
-                    lines[(index + 0) - 1] = "\t\t\"visible\"\t\t\"0\"";
-                    lines[(index + 1) - 1] = "\t\t\"enabled\"\t\t\"0\"";
+                    lines[(index + 0) - 1] = "\t\t\"xpos\"\t\t\"9999\"";
+                    lines[(index + 1) - 1] = "\t\t\"ypos\"\t\t\"9999\"";
                 }
                 File.WriteAllLines(mainmenu, lines);
 
                 // 10. Chat box position - either top or bottom, change the ypos value of basechat.res
                 lines = File.ReadAllLines(chat);
                 if (settings.ChatBox)
-                    lines[10 - 1] = "\t\t\"ypos\"\t\t\t\t\"30\"";
-                else
                     lines[10 - 1] = "\t\t\"ypos\"\t\t\t\t\"360\"";
+                else
+                    lines[10 - 1] = "\t\t\"ypos\"\t\t\t\t\"30\"";
                 File.WriteAllLines(chat, lines);
 
                 // Crosshairs - disable all and remove outlining
@@ -693,6 +693,7 @@ namespace rayshud_Installer
                     }
 
                     var crosshairStyleIndex = 16;
+                    var konrwingsStyleIndex = 35;
                     switch (settings.XHairStyle)
                     {
                         case 1: // BasicCross
@@ -783,6 +784,12 @@ namespace rayshud_Installer
                             lines[(crosshairStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-100\"";
                             lines[(crosshairStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-102\"";
                             lines[(crosshairStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"0\"";
+                            break;
+
+                        case 16: // KonrWings
+                            lines[(konrwingsStyleIndex + 0) - 1] = "\t\t\"xpos\"\t\t\t\"c-100\"";
+                            lines[(konrwingsStyleIndex + 1) - 1] = "\t\t\"ypos\"\t\t\t\"c-102\"";
+                            lines[(konrwingsStyleIndex + 5) - 1] = "\t\t\"labelText\"\t\t\"0\"";
                             break;
 
                         default:
@@ -991,7 +998,7 @@ namespace rayshud_Installer
 
         private void rbChatBox_CheckedChanged(object sender, EventArgs e)
         {
-            settings.ChatBox = rbChatBoxTop.Checked;
+            settings.ChatBox = rbChatBoxBottom.Checked;
         }
 
         private void rbTeamSelect_CheckedChanged(object sender, EventArgs e)

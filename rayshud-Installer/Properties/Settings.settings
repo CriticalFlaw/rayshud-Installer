@@ -6,13 +6,13 @@
       <Value Profile="(Default)">https://e3d4daa2995342d1aaca5827b95fce2d:23548ce9177049f5a1601ceafeb8c609@sentry.io/1190168</Value>
     </Setting>
     <Setting Name="GitBranch" Type="System.String" Scope="User">
-      <Value Profile="(Default)">installer</Value>
+      <Value Profile="(Default)">master</Value>
     </Setting>
     <Setting Name="GitSettings" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/rayshud-installer/settings.json</Value>
     </Setting>
     <Setting Name="GitVersion" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://raw.githubusercontent.com/raysfire/rayshud/installer/README.md</Value>
+      <Value Profile="(Default)">https://raw.githubusercontent.com/raysfire/rayshud/master/README.md</Value>
     </Setting>
     <Setting Name="TFDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">Steam\steamapps\common\Team Fortress 2\tf\custom</Value>

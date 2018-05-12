@@ -56,6 +56,7 @@
             this.lblUberFlashColor = new System.Windows.Forms.Label();
             this.lblUberFullColor = new System.Windows.Forms.Label();
             this.gbSettings = new System.Windows.Forms.GroupBox();
+            this.cbMenuClassImages = new System.Windows.Forms.CheckBox();
             this.cbDisguiseImage = new System.Windows.Forms.CheckBox();
             this.lblHUDVersion = new System.Windows.Forms.Label();
             this.cbDefaultMenuBG = new System.Windows.Forms.CheckBox();
@@ -116,7 +117,6 @@
             this.txtLastModified = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.Label();
-            this.cbMenuClassImages = new System.Windows.Forms.CheckBox();
             this.tabEditor.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.gbInformation.SuspendLayout();
@@ -248,7 +248,7 @@
             // 
             this.rbTeamSelectCenter.AutoSize = true;
             this.rbTeamSelectCenter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbTeamSelectCenter.Location = new System.Drawing.Point(109, 14);
+            this.rbTeamSelectCenter.Location = new System.Drawing.Point(92, 14);
             this.rbTeamSelectCenter.Name = "rbTeamSelectCenter";
             this.rbTeamSelectCenter.Size = new System.Drawing.Size(64, 20);
             this.rbTeamSelectCenter.TabIndex = 11;
@@ -286,13 +286,11 @@
             // rbChatBoxBottom
             // 
             this.rbChatBoxBottom.AutoSize = true;
-            this.rbChatBoxBottom.Checked = true;
             this.rbChatBoxBottom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbChatBoxBottom.Location = new System.Drawing.Point(8, 14);
+            this.rbChatBoxBottom.Location = new System.Drawing.Point(92, 14);
             this.rbChatBoxBottom.Name = "rbChatBoxBottom";
             this.rbChatBoxBottom.Size = new System.Drawing.Size(95, 20);
             this.rbChatBoxBottom.TabIndex = 11;
-            this.rbChatBoxBottom.TabStop = true;
             this.rbChatBoxBottom.Text = "Bottom Left";
             this.rbChatBoxBottom.UseVisualStyleBackColor = true;
             this.rbChatBoxBottom.CheckedChanged += new System.EventHandler(this.rbChatBox_CheckedChanged);
@@ -300,11 +298,13 @@
             // rbChatBoxTop
             // 
             this.rbChatBoxTop.AutoSize = true;
+            this.rbChatBoxTop.Checked = true;
             this.rbChatBoxTop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbChatBoxTop.Location = new System.Drawing.Point(109, 14);
+            this.rbChatBoxTop.Location = new System.Drawing.Point(8, 14);
             this.rbChatBoxTop.Name = "rbChatBoxTop";
             this.rbChatBoxTop.Size = new System.Drawing.Size(74, 20);
             this.rbChatBoxTop.TabIndex = 10;
+            this.rbChatBoxTop.TabStop = true;
             this.rbChatBoxTop.Text = "Top Left";
             this.rbChatBoxTop.UseVisualStyleBackColor = true;
             this.rbChatBoxTop.CheckedChanged += new System.EventHandler(this.rbChatBox_CheckedChanged);
@@ -466,6 +466,18 @@
             this.gbSettings.TabIndex = 16;
             this.gbSettings.TabStop = false;
             this.gbSettings.Text = "Settings";
+            // 
+            // cbMenuClassImages
+            // 
+            this.cbMenuClassImages.AutoSize = true;
+            this.cbMenuClassImages.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbMenuClassImages.Location = new System.Drawing.Point(8, 99);
+            this.cbMenuClassImages.Name = "cbMenuClassImages";
+            this.cbMenuClassImages.Size = new System.Drawing.Size(162, 20);
+            this.cbMenuClassImages.TabIndex = 16;
+            this.cbMenuClassImages.Text = "Main Menu Class Images";
+            this.cbMenuClassImages.UseVisualStyleBackColor = true;
+            this.cbMenuClassImages.CheckedChanged += new System.EventHandler(this.cbMenuClassImages_CheckedChanged);
             // 
             // cbDisguiseImage
             // 
@@ -1172,18 +1184,6 @@
             this.txtStatus.Size = new System.Drawing.Size(17, 17);
             this.txtStatus.TabIndex = 36;
             this.txtStatus.Text = "...";
-            // 
-            // cbMenuClassImages
-            // 
-            this.cbMenuClassImages.AutoSize = true;
-            this.cbMenuClassImages.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbMenuClassImages.Location = new System.Drawing.Point(8, 99);
-            this.cbMenuClassImages.Name = "cbMenuClassImages";
-            this.cbMenuClassImages.Size = new System.Drawing.Size(162, 20);
-            this.cbMenuClassImages.TabIndex = 16;
-            this.cbMenuClassImages.Text = "Main Menu Class Images";
-            this.cbMenuClassImages.UseVisualStyleBackColor = true;
-            this.cbMenuClassImages.CheckedChanged += new System.EventHandler(this.cbMenuClassImages_CheckedChanged);
             // 
             // Main
             // 
