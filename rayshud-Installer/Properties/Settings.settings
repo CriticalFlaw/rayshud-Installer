@@ -9,7 +9,7 @@
       <Value Profile="(Default)">master</Value>
     </Setting>
     <Setting Name="GitSettings" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/rayshud-installer/settings.json</Value>
+      <Value Profile="(Default)">https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/rayshud-Installer/settings.json</Value>
     </Setting>
     <Setting Name="GitVersion" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://raw.githubusercontent.com/raysfire/rayshud/master/README.md</Value>
@@ -61,6 +61,12 @@
     </Setting>
     <Setting Name="ErrorRemove" Type="System.String" Scope="User">
       <Value Profile="(Default)">An error occurred while attempting to remove rayshud</Value>
+    </Setting>
+    <Setting Name="InstallerVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/rayshud-Installer/Properties/AssemblyInfo.cs</Value>
+    </Setting>
+    <Setting Name="InstallerUpdate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">A new version of the installer is available on GitHub! Download it here: https://github.com/CriticalFlaw/rayshud-Installer/releases</Value>
     </Setting>
   </Settings>
 </SettingsFile>

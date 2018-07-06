@@ -67,6 +67,17 @@ namespace rayshud_Installer
                 var textFromURLArray = textFromURL.Split('\n');
                 // Retrieve the latest version number from the README
                 txtLiveVersion.Text = textFromURLArray[textFromURLArray.Length - 2];
+
+                // Get the installed assembly version
+                System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+                FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+
+                // Download the latest rayshud assembly file
+                textFromURL = client.DownloadString(Properties.Settings.Default.InstallerVersion);
+                textFromURLArray = textFromURL.Split('\n');
+                // Retrieve and compare the installer version numbers
+                if (textFromURLArray[textFromURLArray.Length - 2] != $"[assembly: AssemblyFileVersion(\"{versionInfo.FileVersion}\")]")
+                    MessageBox.Show(Properties.Settings.Default.InstallerVersion, "New Installer Version Available!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
