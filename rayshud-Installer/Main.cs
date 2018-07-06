@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using SharpRaven;
 using SharpRaven.Data;
 using System;
@@ -556,8 +556,9 @@ namespace rayshud_Installer
                 }
 
                 // Spy Disguise Image and Uber Animation - uncomment all
-                var disguiseImageIndex = 87;
-                var uberAnimationIndex = 104;
+                var crosshairPulseIndex = 77;
+                var disguiseImageIndex = 84;
+                var uberAnimationIndex = 99;
                 var lines = File.ReadAllLines(animations);
                 lines[(disguiseImageIndex + 0) - 1] = lines[(disguiseImageIndex + 0) - 1].Replace("//", string.Empty);
                 lines[(disguiseImageIndex + 1) - 1] = lines[(disguiseImageIndex + 1) - 1].Replace("//", string.Empty);
@@ -615,13 +616,13 @@ namespace rayshud_Installer
                 // 8. Crosshair Pulse - enable or disable by commenting out the lines
                 if (settings.XHairPulse)
                 {
-                    lines[80 - 1] = lines[80 - 1].Replace("//", string.Empty);
-                    lines[81 - 1] = lines[81 - 1].Replace("//", string.Empty);
+                    lines[(crosshairPulseIndex + 0) - 1] = lines[(crosshairPulseIndex + 0) - 1].Replace("//", string.Empty);
+                    lines[(crosshairPulseIndex + 1) - 1] = lines[(crosshairPulseIndex + 1) - 1].Replace("//", string.Empty);
                 }
                 else
                 {
-                    lines[80 - 1] = $"//{lines[80 - 1]}";
-                    lines[81 - 1] = $"//{lines[81 - 1]}";
+                    lines[(crosshairPulseIndex + 0) - 1] = $"//{lines[(crosshairPulseIndex + 0) - 1]}";
+                    lines[(crosshairPulseIndex + 1) - 1] = $"//{lines[(crosshairPulseIndex + 1) - 1]}";
                 }
 
                 File.WriteAllLines(animations, lines);
