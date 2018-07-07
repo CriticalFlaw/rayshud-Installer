@@ -76,7 +76,7 @@ namespace rayshud_Installer
                 textFromURL = client.DownloadString(Properties.Settings.Default.InstallerVersion);
                 textFromURLArray = textFromURL.Split('\n');
                 // Retrieve and compare the installer version numbers
-                if (textFromURLArray[textFromURLArray.Length - 2] != $"[assembly: AssemblyFileVersion(\"{versionInfo.FileVersion}\")]")
+                if (textFromURLArray[textFromURLArray.Length - 2] != $"[assembly: AssemblyVersion(\"{versionInfo.FileVersion}\")]")
                     MessageBox.Show(Properties.Settings.Default.InstallerVersion, "New Installer Version Available!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -236,6 +236,9 @@ namespace rayshud_Installer
                 // Main Menu Class Images - off (false) or on (true)
                 cbMenuClassImages.Checked = settings.MenuClassImages;
 
+                // Damage Value Above Health - health (false) or ammo (true)
+                cbDamageValuePos.Checked = settings.DamageValuePos;
+
                 // Ubercharge Animation - Flash (1), Solid (2) or Rainbow (3)
                 switch (settings.UberAnimation)
                 {
@@ -363,6 +366,7 @@ namespace rayshud_Installer
             WriteToSettings("AmmoReserve", settings.AmmoReserve);
             WriteToSettings("AmmoClipLow", settings.AmmoClipLow);
             WriteToSettings("AmmoReserveLow", settings.AmmoReserveLow);
+            WriteToSettings("DamageValuePos", settings.DamageValuePos.ToString());
             WriteToSettings("TF2Directory", settings.TF2Directory);
             WriteToSettings("LastModified", DateTime.Now.ToString(CultureInfo.CurrentCulture));
             txtLastModified.Text = DateTime.Now.ToString(CultureInfo.CurrentCulture);
@@ -475,6 +479,7 @@ namespace rayshud_Installer
                 var teammenu = $"{TF2Directory}\\rayshud\\customizations\\Team Menu";
                 var playerhealth = $"{TF2Directory}\\rayshud\\customizations\\Player Health";
                 var mainmenu = $"{TF2Directory}\\rayshud\\resource\\ui\\mainmenuoverride.res";
+                var damage = $"{TF2Directory}\\rayshud\\resource\\ui\\huddamageaccount.res";
 
                 // 1. Main Menu Style - either classic or modern, copy and replace existing files
                 if (settings.HUDVersion)
@@ -829,6 +834,14 @@ namespace rayshud_Installer
                 lines[46 - 1] = $"\t\t\"CrosshairDamage\"\t\t\t\t\"{settings.XHairPulseColor}\"";
                 File.WriteAllLines(colorScheme, lines);
 
+                // 13. Damage Value Position - either above health or ammo, change the xpos value in huddamageaccount.res
+                lines = File.ReadAllLines(damage);
+                if (settings.DamageValuePos)
+                    lines[22 - 1] = "\t\t\"xpos\"\t\t\t\"c+108\"";
+                else
+                    lines[22 - 1] = "\t\t\"xpos\"\t\t\t\"c-188\"";
+                File.WriteAllLines(damage, lines);
+
                 MessageBox.Show(Properties.Settings.Default.SuccessUpdate, "Changes Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -1006,6 +1019,11 @@ namespace rayshud_Installer
         private void cbMenuClassImages_CheckedChanged(object sender, EventArgs e)
         {
             settings.MenuClassImages = cbMenuClassImages.Checked;
+        }
+
+        private void cbDamageValuePos_CheckedChanged(object sender, EventArgs e)
+        {
+            settings.DamageValuePos = cbDamageValuePos.Checked;
         }
 
         private void rbChatBox_CheckedChanged(object sender, EventArgs e)
@@ -1198,6 +1216,7 @@ namespace rayshud_Installer
             settings.DisguiseImage = false;
             settings.DefaultMenuBG = false;
             settings.MenuClassImages = false;
+            settings.DamageValuePos = false;
             settings.UberAnimation = 1;
             settings.UberBarColor = "235 226 202 255";
             settings.UberFullColor = "255 50 255 255";
@@ -1234,6 +1253,7 @@ namespace rayshud_Installer
         public bool DisguiseImage { get; set; }
         public bool DefaultMenuBG { get; set; }
         public bool MenuClassImages { get; set; }
+        public bool DamageValuePos { get; set; }
         public int UberAnimation { get; set; }
         public string UberBarColor { get; set; }
         public string UberFullColor { get; set; }
