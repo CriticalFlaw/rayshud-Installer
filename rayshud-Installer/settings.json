@@ -27,6 +27,7 @@
   "AmmoReserve": "72 255 255 255",
   "AmmoClipLow": "255 42 130 255",
   "AmmoReserveLow": "255 128 28 255",
+  "DamageValuePos": "False",
   "TF2Directory": "null",
   "LastModified": "4/22/2018 5:07:58 PM"
 }

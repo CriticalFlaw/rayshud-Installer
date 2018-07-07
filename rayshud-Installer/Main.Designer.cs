@@ -56,6 +56,7 @@
             this.lblUberFlashColor = new System.Windows.Forms.Label();
             this.lblUberFullColor = new System.Windows.Forms.Label();
             this.gbSettings = new System.Windows.Forms.GroupBox();
+            this.cbDamageValuePos = new System.Windows.Forms.CheckBox();
             this.cbMenuClassImages = new System.Windows.Forms.CheckBox();
             this.cbDisguiseImage = new System.Windows.Forms.CheckBox();
             this.lblHUDVersion = new System.Windows.Forms.Label();
@@ -452,6 +453,7 @@
             // 
             // gbSettings
             // 
+            this.gbSettings.Controls.Add(this.cbDamageValuePos);
             this.gbSettings.Controls.Add(this.cbMenuClassImages);
             this.gbSettings.Controls.Add(this.cbDisguiseImage);
             this.gbSettings.Controls.Add(this.lblHUDVersion);
@@ -467,15 +469,27 @@
             this.gbSettings.TabStop = false;
             this.gbSettings.Text = "Settings";
             // 
+            // cbDamageValuePos
+            // 
+            this.cbDamageValuePos.AutoSize = true;
+            this.cbDamageValuePos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbDamageValuePos.Location = new System.Drawing.Point(153, 99);
+            this.cbDamageValuePos.Name = "cbDamageValuePos";
+            this.cbDamageValuePos.Size = new System.Drawing.Size(156, 20);
+            this.cbDamageValuePos.TabIndex = 17;
+            this.cbDamageValuePos.Text = "Damage Above Ammo";
+            this.cbDamageValuePos.UseVisualStyleBackColor = true;
+            this.cbDamageValuePos.CheckedChanged += new System.EventHandler(this.cbDamageValuePos_CheckedChanged);
+            // 
             // cbMenuClassImages
             // 
             this.cbMenuClassImages.AutoSize = true;
             this.cbMenuClassImages.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbMenuClassImages.Location = new System.Drawing.Point(8, 99);
             this.cbMenuClassImages.Name = "cbMenuClassImages";
-            this.cbMenuClassImages.Size = new System.Drawing.Size(162, 20);
+            this.cbMenuClassImages.Size = new System.Drawing.Size(130, 20);
             this.cbMenuClassImages.TabIndex = 16;
-            this.cbMenuClassImages.Text = "Main Menu Class Images";
+            this.cbMenuClassImages.Text = "Menu Class Images";
             this.cbMenuClassImages.UseVisualStyleBackColor = true;
             this.cbMenuClassImages.CheckedChanged += new System.EventHandler(this.cbMenuClassImages_CheckedChanged);
             // 
@@ -1330,5 +1344,6 @@
         private System.Windows.Forms.Button btnGitIssue;
         private System.Windows.Forms.Button btnSteamGroup;
         private System.Windows.Forms.CheckBox cbMenuClassImages;
+        private System.Windows.Forms.CheckBox cbDamageValuePos;
     }
 }

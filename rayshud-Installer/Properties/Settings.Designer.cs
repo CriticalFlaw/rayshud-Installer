@@ -50,7 +50,7 @@ namespace rayshud_Installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/rayshud-i" +
+        [global::System.Configuration.DefaultSettingValueAttribute("https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/rayshud-I" +
             "nstaller/settings.json")]
         public string GitSettings {
             get {
@@ -262,6 +262,32 @@ namespace rayshud_Installer.Properties {
             }
             set {
                 this["ErrorRemove"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/rayshud-I" +
+            "nstaller/Properties/AssemblyInfo.cs")]
+        public string InstallerVersion {
+            get {
+                return ((string)(this["InstallerVersion"]));
+            }
+            set {
+                this["InstallerVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("A new version of the installer is available on GitHub! Download it here: https://" +
+            "github.com/CriticalFlaw/rayshud-Installer/releases")]
+        public string InstallerUpdate {
+            get {
+                return ((string)(this["InstallerUpdate"]));
+            }
+            set {
+                this["InstallerUpdate"] = value;
             }
         }
     }
