@@ -572,9 +572,9 @@ namespace rayshud_Installer
                 }
 
                 // Spy Disguise Image and Uber Animation - uncomment all
-                var crosshairPulseIndex = 77;
-                var disguiseImageIndex = 84;
-                var uberAnimationIndex = 99;
+                var crosshairPulseIndex = 80;
+                var disguiseImageIndex = 91;
+                var uberAnimationIndex = 107;
                 var lines = File.ReadAllLines(animations);
                 lines[(disguiseImageIndex + 0) - 1] = lines[(disguiseImageIndex + 0) - 1].Replace("//", string.Empty);
                 lines[(disguiseImageIndex + 1) - 1] = lines[(disguiseImageIndex + 1) - 1].Replace("//", string.Empty);
@@ -634,11 +634,19 @@ namespace rayshud_Installer
                 {
                     lines[(crosshairPulseIndex + 0) - 1] = lines[(crosshairPulseIndex + 0) - 1].Replace("//", string.Empty);
                     lines[(crosshairPulseIndex + 1) - 1] = lines[(crosshairPulseIndex + 1) - 1].Replace("//", string.Empty);
+                    lines[(crosshairPulseIndex + 2) - 1] = lines[(crosshairPulseIndex + 2) - 1].Replace("//", string.Empty);
+                    lines[(crosshairPulseIndex + 3) - 1] = lines[(crosshairPulseIndex + 3) - 1].Replace("//", string.Empty);
+                    lines[(crosshairPulseIndex + 4) - 1] = lines[(crosshairPulseIndex + 4) - 1].Replace("//", string.Empty);
+                    lines[(crosshairPulseIndex + 5) - 1] = lines[(crosshairPulseIndex + 5) - 1].Replace("//", string.Empty);
                 }
                 else
                 {
                     lines[(crosshairPulseIndex + 0) - 1] = $"//{lines[(crosshairPulseIndex + 0) - 1]}";
                     lines[(crosshairPulseIndex + 1) - 1] = $"//{lines[(crosshairPulseIndex + 1) - 1]}";
+                    lines[(crosshairPulseIndex + 2) - 1] = $"//{lines[(crosshairPulseIndex + 2) - 1]}";
+                    lines[(crosshairPulseIndex + 3) - 1] = $"//{lines[(crosshairPulseIndex + 3) - 1]}";
+                    lines[(crosshairPulseIndex + 4) - 1] = $"//{lines[(crosshairPulseIndex + 4) - 1]}";
+                    lines[(crosshairPulseIndex + 5) - 1] = $"//{lines[(crosshairPulseIndex + 5) - 1]}";
                 }
 
                 File.WriteAllLines(animations, lines);
