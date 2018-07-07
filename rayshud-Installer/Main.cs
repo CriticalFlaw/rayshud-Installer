@@ -77,7 +77,7 @@ namespace rayshud_Installer
                 textFromURLArray = textFromURL.Split('\n');
                 // Retrieve and compare the installer version numbers
                 if (textFromURLArray[textFromURLArray.Length - 2] != $"[assembly: AssemblyVersion(\"{versionInfo.FileVersion}\")]")
-                    MessageBox.Show(Properties.Settings.Default.InstallerVersion, "New Installer Version Available!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Properties.Settings.Default.InstallerUpdate, "New Installer Version Available!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
