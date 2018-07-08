@@ -653,7 +653,7 @@ namespace rayshud_Installer
 
                 // 9. Mein Menu Class Image - enable or disable by commenting out the lines
                 lines = File.ReadAllLines(mainmenu);
-                int index = 247;
+                int index = 248;
                 if (settings.HUDVersion)
                     index = 241;
                 if (settings.MenuClassImages)
