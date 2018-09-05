@@ -96,6 +96,7 @@
     <EmbeddedResource Include="Resources\Cerbetica.ttf" />
     <EmbeddedResource Include="Resources\Crosshairs.ttf" />
     <EmbeddedResource Include="Resources\KnucklesCrosses.ttf" />
+    <None Include="Resources\background.png" />
     <Content Include="settings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

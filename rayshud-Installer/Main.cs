@@ -66,7 +66,7 @@ namespace rayshud_Installer
                 var textFromURL = client.DownloadString(Properties.Settings.Default.GitVersion);
                 var textFromURLArray = textFromURL.Split('\n');
                 // Retrieve the latest version number from the README
-                txtLiveVersion.Text = textFromURLArray[textFromURLArray.Length - 2];
+                StatusBarVersion.Text = textFromURLArray[textFromURLArray.Length - 2];
 
                 // Get the installed assembly version
                 System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
@@ -152,24 +152,22 @@ namespace rayshud_Installer
                     btnOpenDirectory.Enabled = true;
                     btnSetDefault.Enabled = true;
                     txtDirectory.Text = $"{TF2Directory}\\rayshud";
-                    // Get the version number from the installed rayshud README
-                    txtInstalledVersion.Text = File.ReadLines($"{TF2Directory}\\rayshud\\README.md").Last();
                     // Compare the live and installed version numbers to determine if rayshud is updated
-                    if (txtInstalledVersion.ToString().Trim() == txtLiveVersion.ToString().Trim())
+                    if (File.ReadLines($"{TF2Directory}\\rayshud\\README.md").Last().ToString().Trim() == StatusBarVersion.ToString().Trim())
                     {
                         btnInstall.Text = "Refresh";
-                        txtStatus.Text = "Installed, Updated";
+                        StatusBarStatus.Text = "Installed, Updated";
                     }
                     else
                     {
                         btnInstall.Text = "Update";
-                        txtStatus.Text = "Installed, Outdated";
+                        StatusBarStatus.Text = "Installed, Outdated";
                     }
                 }
                 else
                 {
                     btnInstall.Text = "Install";
-                    txtStatus.Text = "Not Installed";
+                    StatusBarStatus.Text = "Not Installed";
                     btnUninstall.Enabled = false;
                     btnSaveChanges.Enabled = false;
                     btnOpenDirectory.Enabled = false;
@@ -209,7 +207,7 @@ namespace rayshud_Installer
                 btnAmmoReserve.BackColor = Color.FromArgb(72, 255, 255);
                 btnAmmoClipLow.BackColor = Color.FromArgb(255, 42, 130);
                 btnAmmoReserveLow.BackColor = Color.FromArgb(255, 128, 28);
-                txtLastModified.Text = settings.LastModified;
+                StatusBarLastModified.Text = $"Last Modified: {settings.LastModified}";
 
                 // Main Menu Style - Modern (0) or Classic (1)
                 if (settings.HUDVersion)
@@ -369,7 +367,7 @@ namespace rayshud_Installer
             WriteToSettings("DamageValuePos", settings.DamageValuePos.ToString());
             WriteToSettings("TF2Directory", settings.TF2Directory);
             WriteToSettings("LastModified", DateTime.Now.ToString(CultureInfo.CurrentCulture));
-            txtLastModified.Text = DateTime.Now.ToString(CultureInfo.CurrentCulture);
+            StatusBarLastModified.Text = $"Last Modified: {DateTime.Now.ToString(CultureInfo.CurrentCulture)}";
         }
 
         private static void WriteToSettings(string setting, string value)
@@ -443,8 +441,7 @@ namespace rayshud_Installer
                     Directory.Delete($"{TF2Directory}\\rayshud", true);
                     MessageBox.Show(Properties.Settings.Default.SuccessRemove, "rayshud Uninstalled", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     txtDirectory.Text = TF2Directory;
-                    txtInstalledVersion.Text = "...";
-                    txtLastModified.Text = "...";
+                    StatusBarLastModified.Text = "";
                     CheckHUDDirectory();
                 }
                 else

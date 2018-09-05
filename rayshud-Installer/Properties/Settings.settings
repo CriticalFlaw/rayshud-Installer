@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="SentryIO" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://e3d4daa2995342d1aaca5827b95fce2d:23548ce9177049f5a1601ceafeb8c609@sentry.io/1190168</Value>
+      <Value Profile="(Default)">https://837bcb9dc43d459daaaf6afbd0f6bcb0@sentry.io/1270434</Value>
     </Setting>
     <Setting Name="GitBranch" Type="System.String" Scope="User">
       <Value Profile="(Default)">master</Value>
