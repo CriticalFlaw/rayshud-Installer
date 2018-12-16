@@ -2,71 +2,155 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="rayshud_Installer.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="SentryIO" Type="System.String" Scope="User">
+    <Setting Name="sentry_io_key" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://837bcb9dc43d459daaaf6afbd0f6bcb0@sentry.io/1270434</Value>
     </Setting>
-    <Setting Name="GitBranch" Type="System.String" Scope="User">
-      <Value Profile="(Default)">master</Value>
-    </Setting>
-    <Setting Name="GitSettings" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/rayshud-Installer/settings.json</Value>
-    </Setting>
-    <Setting Name="GitVersion" Type="System.String" Scope="User">
+    <Setting Name="git_hud_readme" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://raw.githubusercontent.com/raysfire/rayshud/master/README.md</Value>
     </Setting>
-    <Setting Name="TFDirectory" Type="System.String" Scope="User">
+    <Setting Name="directory_base" Type="System.String" Scope="User">
       <Value Profile="(Default)">Steam\steamapps\common\Team Fortress 2\tf\custom</Value>
     </Setting>
-    <Setting Name="TempName" Type="System.String" Scope="User">
+    <Setting Name="temp_name" Type="System.String" Scope="User">
       <Value Profile="(Default)">rayshud.zip</Value>
     </Setting>
-    <Setting Name="SettingsName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">settings.json</Value>
-    </Setting>
-    <Setting Name="SuccessInstall" Type="System.String" Scope="User">
+    <Setting Name="msg_installed" Type="System.String" Scope="User">
       <Value Profile="(Default)">rayshud has been installed</Value>
     </Setting>
-    <Setting Name="SuccessRefresh" Type="System.String" Scope="User">
+    <Setting Name="msg_refreshed" Type="System.String" Scope="User">
       <Value Profile="(Default)">rayshud has been updated</Value>
     </Setting>
-    <Setting Name="SuccessUpdate" Type="System.String" Scope="User">
+    <Setting Name="msg_updateed" Type="System.String" Scope="User">
       <Value Profile="(Default)">rayshud settings applied</Value>
     </Setting>
-    <Setting Name="SuccessRemove" Type="System.String" Scope="User">
+    <Setting Name="msg_removeed" Type="System.String" Scope="User">
       <Value Profile="(Default)">rayshud has been removed</Value>
     </Setting>
-    <Setting Name="TFDirectoryNotSet" Type="System.String" Scope="User">
+    <Setting Name="directory_not_set" Type="System.String" Scope="User">
       <Value Profile="(Default)">tf/custom directory not set! Click the browse button to set it before installing</Value>
     </Setting>
-    <Setting Name="TFDirectoryNotFound" Type="System.String" Scope="User">
+    <Setting Name="directory_not_found_hud" Type="System.String" Scope="User">
       <Value Profile="(Default)">Unable to find the tf/custom directory</Value>
     </Setting>
-    <Setting Name="rayshudNotFound" Type="System.String" Scope="User">
+    <Setting Name="directory_not_found" Type="System.String" Scope="User">
       <Value Profile="(Default)">Unable to find rayshud in the tf/custom directory</Value>
     </Setting>
-    <Setting Name="ErrorVersionLocal" Type="System.String" Scope="User">
+    <Setting Name="error_version_local" Type="System.String" Scope="User">
       <Value Profile="(Default)">Unable to find the local version number</Value>
     </Setting>
-    <Setting Name="ErrorVersionLive" Type="System.String" Scope="User">
+    <Setting Name="error_version_live" Type="System.String" Scope="User">
       <Value Profile="(Default)">Unable to find the latest version number</Value>
     </Setting>
-    <Setting Name="ErrorInstall" Type="System.String" Scope="User">
+    <Setting Name="error_install" Type="System.String" Scope="User">
       <Value Profile="(Default)">An error occurred while attempting to download and install rayshud</Value>
     </Setting>
-    <Setting Name="ErrorUpdate" Type="System.String" Scope="User">
+    <Setting Name="error_update" Type="System.String" Scope="User">
       <Value Profile="(Default)">An error occurred while attempting to apply changes to rayshud</Value>
     </Setting>
-    <Setting Name="ErrorLoad" Type="System.String" Scope="User">
+    <Setting Name="error_load" Type="System.String" Scope="User">
       <Value Profile="(Default)">An error occurred while loading installer settings</Value>
     </Setting>
-    <Setting Name="ErrorRemove" Type="System.String" Scope="User">
+    <Setting Name="error_remove" Type="System.String" Scope="User">
       <Value Profile="(Default)">An error occurred while attempting to remove rayshud</Value>
     </Setting>
-    <Setting Name="InstallerVersion" Type="System.String" Scope="User">
+    <Setting Name="git_installer_version" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/rayshud-Installer/Properties/AssemblyInfo.cs</Value>
     </Setting>
-    <Setting Name="InstallerUpdate" Type="System.String" Scope="User">
+    <Setting Name="msg_update_installer" Type="System.String" Scope="User">
       <Value Profile="(Default)">A new version of the installer is available on GitHub! Download it here: https://github.com/CriticalFlaw/rayshud-Installer/releases</Value>
+    </Setting>
+    <Setting Name="v_HUDVersion" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_Scoreboard" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_ChatBox" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_TeamSelect" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_DisguiseImage" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_DefaultMenuBG" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_MenuClassImages" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_DamageValuePos" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_UberAnimation" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="v_UberBarColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">235 226 202 255</Value>
+    </Setting>
+    <Setting Name="v_UberFullColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">255 50 255 255</Value>
+    </Setting>
+    <Setting Name="v_UberFlashColor1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">255 165 0 255</Value>
+    </Setting>
+    <Setting Name="v_UberFlashColor2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">255 69 0 255</Value>
+    </Setting>
+    <Setting Name="v_XHairEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_XHairStyle" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="v_XHairOutline" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_XHairPulse" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="v_XHairSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="v_XHairColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">242 242 242 255</Value>
+    </Setting>
+    <Setting Name="v_XHairPulseColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">255 0 0 255</Value>
+    </Setting>
+    <Setting Name="v_HealingDone" Type="System.String" Scope="User">
+      <Value Profile="(Default)">48 255 48 255</Value>
+    </Setting>
+    <Setting Name="v_HealthStyle" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="v_HealthNormal" Type="System.String" Scope="User">
+      <Value Profile="(Default)">235 226 202 255</Value>
+    </Setting>
+    <Setting Name="v_HealthBuff" Type="System.String" Scope="User">
+      <Value Profile="(Default)">48 255 48 255</Value>
+    </Setting>
+    <Setting Name="v_HealthLow" Type="System.String" Scope="User">
+      <Value Profile="(Default)">255 153 0 255</Value>
+    </Setting>
+    <Setting Name="v_AmmoClip" Type="System.String" Scope="User">
+      <Value Profile="(Default)">48 255 48 255</Value>
+    </Setting>
+    <Setting Name="v_AmmoClipLow" Type="System.String" Scope="User">
+      <Value Profile="(Default)">255 42 130 255</Value>
+    </Setting>
+    <Setting Name="v_AmmoReserve" Type="System.String" Scope="User">
+      <Value Profile="(Default)">72 255 255 255</Value>
+    </Setting>
+    <Setting Name="v_AmmoReserveLow" Type="System.String" Scope="User">
+      <Value Profile="(Default)">255 128 28 255</Value>
+    </Setting>
+    <Setting Name="v_TF2Directory" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="v_LastModified" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
