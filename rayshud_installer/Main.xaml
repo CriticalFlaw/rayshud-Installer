@@ -1,0 +1,125 @@
+﻿<Window x:Class="rayshud_installer.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:properties="clr-namespace:rayshud_installer.Properties"
+        xmlns:local="clr-namespace:rayshud_installer"
+        mc:Ignorable="d"
+        Title="rayshud Installer" Height="387.6" Width="662.4"
+        FontFamily="Segoe UI" FontSize="10" Foreground="White" ResizeMode="NoResize">
+    <Grid>
+        <Button x:Name="btn_Browse" Content="Browse" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="Btn_Browse_Click" />
+        <Button x:Name="btn_Open" Content="Open" HorizontalAlignment="Left" Margin="93,10,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="Btn_Open_Click" />
+        <Button x:Name="btn_SteamGroup" Content="Steam Group" HorizontalAlignment="Left" Margin="173,10,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="Btn_SteamGroup_Click" />
+        <Button x:Name="btn_SourceCode" Content="Source Code" HorizontalAlignment="Left" Margin="253,10,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="Btn_SourceCode_Click" />
+        <Button x:Name="btn_ReportIssue" Content="Report Issue" HorizontalAlignment="Left" Margin="333,10,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="Btn_ReportIssue_Click" />
+        <GroupBox Header="Options" HorizontalAlignment="Left" Height="161" Margin="10,41,0,0" VerticalAlignment="Top" Width="200">
+            <Grid>
+                <CheckBox x:Name="chk_ClassicHUD" Content="Classic Main Menu Style" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" />
+                <CheckBox x:Name="chk_Scoreboard" Content="Minimal Scoreboard" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" />
+                <CheckBox x:Name="chk_DisguiseImage" Content="Spy Disguise Image" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" />
+                <CheckBox x:Name="chk_DefaultBG" Content="Default Backgrounds" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" />
+                <CheckBox x:Name="chk_ClassImage" Content="Menu Class Images" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" />
+                <CheckBox x:Name="chk_DamagePos" Content="Damage Above Health" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Ubercharge" HorizontalAlignment="Left" Height="161" Margin="216,41,0,0" VerticalAlignment="Top" Width="217">
+            <Grid>
+                <RadioButton x:Name="chk_UberFlash" Content="Flash" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" Height="14" Width="42" IsChecked="True" GroupName="UberStyle" />
+                <RadioButton x:Name="chk_UberSolid" Content="Solid" HorizontalAlignment="Left" Margin="62,10,0,0" VerticalAlignment="Top" Foreground="White" Height="14" Width="42" RenderTransformOrigin="0.781,0.352" GroupName="UberStyle" />
+                <RadioButton x:Name="chk_UberRainbow" Content="Rainbow" HorizontalAlignment="Left" Margin="119,10,0,0" VerticalAlignment="Top" Foreground="White" Height="14" Width="58" RenderTransformOrigin="0.253,0.581" GroupName="UberStyle" />
+                <Button x:Name="btn_UberBarColor" HorizontalAlignment="Left" Margin="109,32,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
+                <Button x:Name="btn_UberFullColor" HorizontalAlignment="Left" Margin="109,57,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
+                <Button x:Name="btn_UberFlash1" HorizontalAlignment="Left" Margin="109,82,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
+                <Button x:Name="btn_UberFlash2" HorizontalAlignment="Left" Margin="109,107,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
+                <Label Content="Charging Color:" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" Foreground="White" />
+                <Label Content="Full Charge Color:" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" Foreground="White" />
+                <Label Content="Full Charge Flash 1:" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" Foreground="White" />
+                <Label Content="Full Charge Flash 2:" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" Foreground="White" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Crosshair" HorizontalAlignment="Left" Height="161" Margin="438,41,0,0" VerticalAlignment="Top" Width="200">
+            <Grid>
+                <ComboBox x:Name="cb_XHairStyle" HorizontalAlignment="Left" Margin="90,9,0,0" VerticalAlignment="Top" Width="90">
+                    <ComboBoxItem Content="BasicCross" HorizontalAlignment="Left" Width="118.4" IsSelected="True" />
+                    <ComboBoxItem Content="BasicCrossLarge" HorizontalAlignment="Left" Width="118.4" />
+                    <ComboBoxItem Content="BasicCrossSmall" HorizontalAlignment="Left" Width="118.4" />
+                    <ComboBoxItem Content="BasicDot" HorizontalAlignment="Left" Width="118.4" />
+                    <ComboBoxItem Content="CircleDot" HorizontalAlignment="Left" Width="118.4" />
+                    <ComboBoxItem Content="OpenCross" HorizontalAlignment="Left" Width="118.4" />
+                    <ComboBoxItem Content="OpenCrossDot" HorizontalAlignment="Left" Width="118.4" />
+                    <ComboBoxItem Content="ScatterSpread" HorizontalAlignment="Left" Width="118.4" />
+                    <ComboBoxItem Content="ThinCircle" HorizontalAlignment="Left" Width="118.4" />
+                    <ComboBoxItem Content="ThinCross" HorizontalAlignment="Left" Width="118.4" />
+                    <ComboBoxItem Content="Wings" HorizontalAlignment="Left" Width="118.4" />
+                    <ComboBoxItem Content="WingsPlus" HorizontalAlignment="Left" Width="118.4" />
+                    <ComboBoxItem Content="WingsSmall" HorizontalAlignment="Left" Width="118.4" />
+                    <ComboBoxItem Content="xHairCircle" HorizontalAlignment="Left" Width="118.4" />
+                    <ComboBoxItem Content="KonrWings" HorizontalAlignment="Left" Width="118.4" />
+                </ComboBox>
+                <Button x:Name="btn_XHairColor" HorizontalAlignment="Left" Margin="90,56,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
+                <Button x:Name="btn_XHairPulse" HorizontalAlignment="Left" Margin="90,79,0,0" VerticalAlignment="Top"  Width="90" Height="18" Click="ColorPicker_Click" />
+                <CheckBox x:Name="chk_XHairEnable" Content="Toggle Crosshair" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Foreground="White" />
+                <CheckBox x:Name="chk_XHairOutline" Content="Toggle Outline" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="-0.061,1.395" />
+                <CheckBox x:Name="chk_XHairPulse" Content="Toggle Pulse" HorizontalAlignment="Left" Margin="100,120,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.537,2.833" />
+                <Label Content="Crosshair Style:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Foreground="White" Width="75" Grid.ColumnSpan="2" />
+                <Label Content="Crosshair Size:" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" Foreground="White" Width="75" Grid.ColumnSpan="2" />
+                <Label Content="Base Color:" HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Foreground="White" Width="75" Grid.ColumnSpan="2" />
+                <Label Content="Pulse Color:" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top" Foreground="White" Width="75" />
+                <ComboBox Name="cb_XHairSize" HorizontalAlignment="Left" Margin="90,32,0,0" VerticalAlignment="Top" Width="90" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Health" HorizontalAlignment="Left" Height="102" Margin="10,207,0,0" VerticalAlignment="Top" Width="281">
+            <Grid>
+                <ListBox Name="lb_HealthStyle" HorizontalAlignment="Left" Height="66" Margin="10,10,0,0" VerticalAlignment="Top" Width="65">
+                    <ListBoxItem Content="Default" IsSelected="True" />
+                    <ListBoxItem Content="Team Bar" />
+                    <ListBoxItem Content="Cross" />
+                </ListBox>
+                <Button x:Name="btn_HealthNormal" HorizontalAlignment="Left" Margin="80,19,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
+                <Button x:Name="btn_HealingDone" HorizontalAlignment="Left" Margin="175,19,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
+                <Button x:Name="btn_HealthBuff" HorizontalAlignment="Left" Margin="80,58,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
+                <Button x:Name="btn_HealthLow" HorizontalAlignment="Left" Margin="175,58,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
+                <Label Content="Health Normal:" HorizontalAlignment="Left" Margin="80,0,0,0" VerticalAlignment="Top" Foreground="White" />
+                <Label Content="Health Buffed:" HorizontalAlignment="Left" Margin="80,37,0,0" VerticalAlignment="Top" Foreground="White" />
+                <Label Content="Healing Done:" HorizontalAlignment="Left" Margin="175,0,0,0" VerticalAlignment="Top" Foreground="White" />
+                <Label Content="Health Low:" HorizontalAlignment="Left" Margin="175,37,0,0" VerticalAlignment="Top" Foreground="White" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Ammo" HorizontalAlignment="Left" Height="102" Margin="296,207,0,0" VerticalAlignment="Top" Width="212">
+            <Grid>
+                <Button x:Name="btn_AmmoClip" HorizontalAlignment="Left" Margin="8,19,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
+                <Button x:Name="btn_AmmoReserve" HorizontalAlignment="Left" Margin="103,19,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
+                <Button x:Name="btn_AmmoClipLow" HorizontalAlignment="Left" Margin="8,57,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
+                <Button x:Name="btn_AmmoReserveLow" HorizontalAlignment="Left" Margin="103,57,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
+                <Label Content="Ammo In Clip:" HorizontalAlignment="Left" Margin="10,-2,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" />
+                <Label Content="Low Clip:" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" />
+                <Label Content="Ammo In Reserve:" HorizontalAlignment="Left" Margin="103,-2,0,0" VerticalAlignment="Top" Foreground="White" />
+                <Label Content="Low Reserve:" HorizontalAlignment="Left" Margin="103,37,0,0" VerticalAlignment="Top" Foreground="White" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Team Select" HorizontalAlignment="Left" Height="35" Margin="513,207,0,0" VerticalAlignment="Top" Width="125">
+            <Grid>
+                <RadioButton x:Name="chk_TeamLeft" Content="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" IsChecked="True" GroupName="TeamSelect" />
+                <RadioButton x:Name="chk_TeamCenter" Content="Center" HorizontalAlignment="Left" Margin="48,0,0,0" VerticalAlignment="Top" Foreground="White" GroupName="TeamSelect" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Chat Box" HorizontalAlignment="Left" Height="35" Margin="513,247,0,0" VerticalAlignment="Top" Width="125">
+            <Grid>
+                <RadioButton x:Name="chk_ChatTop" Content="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" IsChecked="True" GroupName="ChatBox" />
+                <RadioButton x:Name="chk_ChatBottom" Content="Bottom" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Top" Foreground="White" GroupName="ChatBox" />
+            </Grid>
+        </GroupBox>
+        <Button x:Name="btn_Install" Content="Install" HorizontalAlignment="Left" Margin="10,314,0,0" VerticalAlignment="Top" Width="75" Height="27" Click="Btn_Install_Click" />
+        <Button x:Name="btn_Uninstall" Content="Uninstall" HorizontalAlignment="Left" Margin="93,314,0,0" VerticalAlignment="Top" Width="75" Height="27" Click="Btn_Uninstall_Click" />
+        <Button x:Name="btn_Save" Content="Save Changes" HorizontalAlignment="Left" Margin="174,314,0,0" VerticalAlignment="Top" Width="75" Height="27" Click="Btn_Save_Click" />
+        <Button x:Name="btn_Start" Content="Start TF2" HorizontalAlignment="Left" Margin="254,314,0,0" VerticalAlignment="Top" Width="75" Height="27" RenderTransformOrigin="-1.046,0.341" Click="Btn_Start_Click" />
+        <Button x:Name="btn_Reset" Content="Reset Settings" HorizontalAlignment="Left" Margin="333,314,0,0" VerticalAlignment="Top" Width="75" Height="27" RenderTransformOrigin="-1.046,0.341" Click="Btn_Reset_Click" />
+        <Label Name="lbl_Status" HorizontalAlignment="Left" Margin="413,314,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontSize="15" FontWeight="Bold" />
+        <Label Name="lbl_Directory" HorizontalAlignment="Left" Margin="413,9,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontSize="15" FontWeight="Bold" RenderTransformOrigin="4.761,9.296" />
+    </Grid>
+    <Window.Background>
+        <ImageBrush ImageSource="Resources/background.png"/>
+    </Window.Background>
+</Window>

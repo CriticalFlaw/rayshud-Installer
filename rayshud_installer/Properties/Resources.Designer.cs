@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace rayshud_Installer.Properties {
+namespace rayshud_installer.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace rayshud_Installer.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("rayshud_Installer.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("rayshud_installer.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -71,51 +71,11 @@ namespace rayshud_Installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Cerbetica {
-            get {
-                object obj = ResourceManager.GetObject("Cerbetica", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Crosshairs {
-            get {
-                object obj = ResourceManager.GetObject("Crosshairs", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap KnucklesCrosses {
+        internal static System.Drawing.Bitmap crosshairs {
             get {
-                object obj = ResourceManager.GetObject("KnucklesCrosses", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] KnucklesCrosses1 {
-            get {
-                object obj = ResourceManager.GetObject("KnucklesCrosses1", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap wall {
-            get {
-                object obj = ResourceManager.GetObject("wall", resourceCulture);
+                object obj = ResourceManager.GetObject("crosshairs", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

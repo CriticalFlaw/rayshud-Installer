@@ -1,0 +1,171 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="rayshud_installer.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="v_ClassicHUD" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_Scoreboard" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_DisguiseImage" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_DefaultBG" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_ClassImage" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_DamagePos" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_UberAnimation" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="v_UberBarColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#EBE2CA</Value>
+    </Setting>
+    <Setting Name="v_UberFullColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF3219</Value>
+    </Setting>
+    <Setting Name="v_UberFlash1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FFA500</Value>
+    </Setting>
+    <Setting Name="v_UberFlash2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF4500</Value>
+    </Setting>
+    <Setting Name="v_XHairStyle" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="v_XHairBaseColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#F2F2F2</Value>
+    </Setting>
+    <Setting Name="v_XHairPulseColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF0000</Value>
+    </Setting>
+    <Setting Name="v_XHairEnable" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_XHairOutline" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_XHairPulse" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_HealthStyle" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="v_HealthNormal" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#EBE2CA</Value>
+    </Setting>
+    <Setting Name="v_HealingDone" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#30FF30</Value>
+    </Setting>
+    <Setting Name="v_HealthBuff" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#30FF30</Value>
+    </Setting>
+    <Setting Name="v_HealthLow" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF9900</Value>
+    </Setting>
+    <Setting Name="v_AmmoClip" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#30FF30</Value>
+    </Setting>
+    <Setting Name="v_AmmoClipLow" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#48FFFF</Value>
+    </Setting>
+    <Setting Name="v_AmmoReserve" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF2A82</Value>
+    </Setting>
+    <Setting Name="v_AmmoReserveLow" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF801C</Value>
+    </Setting>
+    <Setting Name="v_TeamCenter" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="v_ChatBottom" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="app_directory" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="v_XHairSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="app_directory_steam" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Steam\steamapps\common\Team Fortress 2\tf\custom</Value>
+    </Setting>
+    <Setting Name="app_hud_mod_date" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="app_hud_version_local" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="app_hud_readme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://raw.githubusercontent.com/raysfire/rayshud/master/README.md</Value>
+    </Setting>
+    <Setting Name="app_hud_version_current" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="error_writer_main_menu" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while applying the main menu style setting</Value>
+    </Setting>
+    <Setting Name="error_writer_scoreboard" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while applying the scoreboard style setting</Value>
+    </Setting>
+    <Setting Name="error_writer_backgrounds" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while applying the default background setting</Value>
+    </Setting>
+    <Setting Name="error_writer_team_select" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while applying the team select style setting</Value>
+    </Setting>
+    <Setting Name="error_writer_health_style" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while applying the health style setting</Value>
+    </Setting>
+    <Setting Name="error_writer_disguise_image" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while applying the disguise image setting</Value>
+    </Setting>
+    <Setting Name="error_writer_uber_animation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while applying the uber animation setting</Value>
+    </Setting>
+    <Setting Name="error_writer_xhair_pulse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while applying the crosshair pulse setting</Value>
+    </Setting>
+    <Setting Name="error_writer_class_image" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while applying the class image setting</Value>
+    </Setting>
+    <Setting Name="error_writer_chatbox_pos" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while applying the chatbox position setting</Value>
+    </Setting>
+    <Setting Name="error_writer_xhair" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while applying the crosshair settings</Value>
+    </Setting>
+    <Setting Name="error_writer_colors" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while applying the custom color settings</Value>
+    </Setting>
+    <Setting Name="error_writer_damage_pos" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while applying the damage position setting</Value>
+    </Setting>
+    <Setting Name="error_app_save" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while saving rayshud settings</Value>
+    </Setting>
+    <Setting Name="error_app_load" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while loading rayshud settings</Value>
+    </Setting>
+    <Setting Name="error_app_install" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while installing rayshud</Value>
+    </Setting>
+    <Setting Name="error_app_uninstall" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while uninstalling rayshud</Value>
+    </Setting>
+    <Setting Name="error_app_reset" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while resetting rayshud settings</Value>
+    </Setting>
+    <Setting Name="error_app_version" Type="System.String" Scope="User">
+      <Value Profile="(Default)">An error occurred while checking the rayshud version number</Value>
+    </Setting>
+    <Setting Name="app_directory_base" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>
