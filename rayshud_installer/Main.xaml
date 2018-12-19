@@ -6,14 +6,11 @@
         xmlns:properties="clr-namespace:rayshud_installer.Properties"
         xmlns:local="clr-namespace:rayshud_installer"
         mc:Ignorable="d"
-        Title="rayshud Installer" Height="387.6" Width="662.4"
+        Title="rayshud Installer" Height="390" Width="662.4"
         FontFamily="Segoe UI" FontSize="10" Foreground="White" ResizeMode="NoResize">
     <Grid>
-        <Button x:Name="btn_Browse" Content="Browse" HorizontalAlignment="Left" Margin="12,10,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="Btn_Browse_Click" />
-        <Button x:Name="btn_Open" Content="Open" HorizontalAlignment="Left" Margin="93,10,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="Btn_Open_Click" />
-        <Button x:Name="btn_SteamGroup" Content="Steam Group" HorizontalAlignment="Left" Margin="173,10,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="Btn_SteamGroup_Click" />
-        <Button x:Name="btn_SourceCode" Content="Source Code" HorizontalAlignment="Left" Margin="253,10,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="Btn_SourceCode_Click" />
-        <Button x:Name="btn_ReportIssue" Content="Report Issue" HorizontalAlignment="Left" Margin="333,10,0,0" VerticalAlignment="Top" Width="75" Height="26" Click="Btn_ReportIssue_Click" />
+        <Label Name="lbl_Status" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="36" Style="{StaticResource Cerbetica}" FontSize="15" Content="rayshud" Foreground="White" RenderTransformOrigin="4.761,9.296" />
+        <Label Name="lbl_News" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Height="34" Foreground="White" Style="{StaticResource Cerbetica}" FontSize="15" Content="..." />
         <GroupBox Header="Options" HorizontalAlignment="Left" Height="161" Margin="10,41,0,0" VerticalAlignment="Top" Width="200">
             <Grid>
                 <CheckBox x:Name="chk_ClassicHUD" Content="Classic Main Menu Style" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" />
@@ -55,6 +52,7 @@
                     <ComboBoxItem Content="Wings" HorizontalAlignment="Left" Width="118.4" />
                     <ComboBoxItem Content="WingsPlus" HorizontalAlignment="Left" Width="118.4" />
                     <ComboBoxItem Content="WingsSmall" HorizontalAlignment="Left" Width="118.4" />
+                    <ComboBoxItem Content="WingsSmallDot" HorizontalAlignment="Left" Width="118.4" />
                     <ComboBoxItem Content="xHairCircle" HorizontalAlignment="Left" Width="118.4" />
                     <ComboBoxItem Content="KonrWings" HorizontalAlignment="Left" Width="118.4" />
                 </ComboBox>
@@ -62,7 +60,7 @@
                 <Button x:Name="btn_XHairPulse" HorizontalAlignment="Left" Margin="90,79,0,0" VerticalAlignment="Top"  Width="90" Height="18" Click="ColorPicker_Click" />
                 <CheckBox x:Name="chk_XHairEnable" Content="Toggle Crosshair" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" Foreground="White" />
                 <CheckBox x:Name="chk_XHairOutline" Content="Toggle Outline" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="-0.061,1.395" />
-                <CheckBox x:Name="chk_XHairPulse" Content="Toggle Pulse" HorizontalAlignment="Left" Margin="105,121,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="-0.061,1.395" />
+                <CheckBox x:Name="chk_XHairPulse" Content="Toggle Pulse" HorizontalAlignment="Left" Margin="100,121,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="-0.061,1.395" />
                 <Label Content="Crosshair Style:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Foreground="White" Width="75" Grid.ColumnSpan="2" />
                 <Label Content="Crosshair Size:" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" Foreground="White" Width="75" Grid.ColumnSpan="2" />
                 <Label Content="Base Color:" HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Foreground="White" Width="75" Grid.ColumnSpan="2" />
@@ -111,14 +109,14 @@
                 <RadioButton x:Name="chk_ChatBottom" Content="Bottom" HorizontalAlignment="Left" Margin="50,0,0,0" VerticalAlignment="Top" Foreground="White" GroupName="ChatBox" />
             </Grid>
         </GroupBox>
-        <Button x:Name="btn_Install" Content="Install" HorizontalAlignment="Left" Margin="10,314,0,0" VerticalAlignment="Top" Width="75" Height="27" Click="Btn_Install_Click" />
-        <Button x:Name="btn_Uninstall" Content="Uninstall" HorizontalAlignment="Left" Margin="93,314,0,0" VerticalAlignment="Top" Width="75" Height="27" Click="Btn_Uninstall_Click" />
-        <Button x:Name="btn_Save" Content="Save Changes" HorizontalAlignment="Left" Margin="174,314,0,0" VerticalAlignment="Top" Width="75" Height="27" Click="Btn_Save_Click" />
-        <Button x:Name="btn_Start" Content="Start TF2" HorizontalAlignment="Left" Margin="254,314,0,0" VerticalAlignment="Top" Width="75" Height="27" RenderTransformOrigin="-1.046,0.341" Click="Btn_Start_Click" />
-        <Button x:Name="btn_Reset" Content="Reset Settings" HorizontalAlignment="Left" Margin="333,314,0,0" VerticalAlignment="Top" Width="75" Height="27" RenderTransformOrigin="-1.046,0.341" Click="Btn_Reset_Click" />
-        <Label Name="lbl_Status" HorizontalAlignment="Left" Margin="413,310,0,0" VerticalAlignment="Top" Height="34" Foreground="White" FontSize="15" FontWeight="Bold" Content="Status" />
-        <Label Name="lbl_Directory" HorizontalAlignment="Left" Margin="413,5,0,0" VerticalAlignment="Top" Height="36" FontSize="15" FontWeight="Bold" Content="rayshud" Foreground="White" RenderTransformOrigin="4.761,9.296" />
-        <ProgressBar Name="ProgressBar" HorizontalAlignment="Left" Height="16" Margin="513,287,0,0" VerticalAlignment="Top" Width="125" Minimum="0" Maximum="100" Visibility="Hidden"/>
+        <Button x:Name="btn_Install" Content="Install" HorizontalAlignment="Left" Margin="10,314,0,0" VerticalAlignment="Top" Width="75" Height="34" Click="Btn_Install_Click" Style="{StaticResource Cerbetica}" FontSize="15" FontWeight="Bold" />
+        <Button x:Name="btn_Uninstall" Content="Uninstall" HorizontalAlignment="Left" Margin="90,314,0,0" VerticalAlignment="Top" Width="75" Height="34" Click="Btn_Uninstall_Click" Style="{StaticResource Cerbetica}" FontSize="15" FontWeight="Bold" />
+        <Button x:Name="btn_Save" Content="Apply Changes" HorizontalAlignment="Left" Margin="170,314,0,0" VerticalAlignment="Top" Width="115" Height="34" Click="Btn_Save_Click" Style="{StaticResource Cerbetica}" FontSize="15" FontWeight="Bold" />
+        <Button x:Name="btn_Reset" Content="Reset to Default" HorizontalAlignment="Left" Margin="290,314,0,0" VerticalAlignment="Top" Width="115" Height="34" Click="Btn_Reset_Click" Style="{StaticResource Cerbetica}" FontSize="15"  FontWeight="Bold" />
+        <Button x:Name="btn_Start" Content="Start Team Fortress 2" HorizontalAlignment="Left" Margin="513,287,0,0" VerticalAlignment="Top" Width="125" Height="17" Click="Btn_Start_Click" Style="{StaticResource Cerbetica}" />
+        <Button x:Name="btn_SteamGroup" Content="rayshud Steam Group" HorizontalAlignment="Left" Margin="513,309,0,0" VerticalAlignment="Top" Width="125" Height="17" Click="Btn_SteamGroup_Click" Style="{StaticResource Cerbetica}" />
+        <Button x:Name="btn_ReportIssue" Content="Report an Issue" HorizontalAlignment="Left" Margin="513,331,0,0" VerticalAlignment="Top" Width="125" Height="17" Click="Btn_ReportIssue_Click" Style="{StaticResource Cerbetica}" />
+        <Image Source="Resources/raysfox.png" Width="65" Margin="423,314,168,-0.2" />
     </Grid>
     <Window.Background>
         <ImageBrush ImageSource="Resources/background.png"/>

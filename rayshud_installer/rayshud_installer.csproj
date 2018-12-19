@@ -104,6 +104,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="packages.config" />
@@ -119,10 +120,17 @@
     <Resource Include="Resources\background.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Cerbetica.ttf" />
     <None Include="Resources\KnucklesCrosses.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="rayshud.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\raysfox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\raysfire.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

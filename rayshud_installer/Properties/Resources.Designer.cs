@@ -71,11 +71,41 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Cerbetica {
+            get {
+                object obj = ResourceManager.GetObject("Cerbetica", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap crosshairs {
             get {
                 object obj = ResourceManager.GetObject("crosshairs", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap raysfire {
+            get {
+                object obj = ResourceManager.GetObject("raysfire", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap raysfox {
+            get {
+                object obj = ResourceManager.GetObject("raysfox", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

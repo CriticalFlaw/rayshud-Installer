@@ -4,5 +4,8 @@
              xmlns:local="clr-namespace:rayshud_installer"
              StartupUri="Main.xaml">
     <Application.Resources>
+        <Style x:Key="Cerbetica">
+            <Setter Property="TextElement.FontFamily" Value="/Resources/#Cerbetica"/>
+        </Style>
     </Application.Resources>
 </Application>
