@@ -170,21 +170,21 @@ namespace rayshud_installer
                 var animationsDir = directory + animations;
                 var lines = File.ReadAllLines(animationsDir);
                 var disguiseImageIndex = 91;
-                lines[(disguiseImageIndex + 0) - 1] = $"\t//{lines[(disguiseImageIndex + 0) - 1].Trim()}";
-                lines[(disguiseImageIndex + 1) - 1] = $"\t//{lines[(disguiseImageIndex + 1) - 1].Trim()}";
-                lines[(disguiseImageIndex + 2) - 1] = $"\t//{lines[(disguiseImageIndex + 2) - 1].Trim()}";
-                lines[(disguiseImageIndex + 7) - 1] = $"\t//{lines[(disguiseImageIndex + 7) - 1].Trim()}";
-                lines[(disguiseImageIndex + 8) - 1] = $"\t//{lines[(disguiseImageIndex + 8) - 1].Trim()}";
-                lines[(disguiseImageIndex + 9) - 1] = $"\t//{lines[(disguiseImageIndex + 9) - 1].Trim()}";
+                lines[disguiseImageIndex + 0] = $"\t{lines[disguiseImageIndex + 0].Replace("//", string.Empty).Trim()}";
+                lines[disguiseImageIndex + 1] = $"\t{lines[disguiseImageIndex + 1].Replace("//", string.Empty).Trim()}";
+                lines[disguiseImageIndex + 2] = $"\t{lines[disguiseImageIndex + 2].Replace("//", string.Empty).Trim()}";
+                lines[disguiseImageIndex + 7] = $"\t{lines[disguiseImageIndex + 7].Replace("//", string.Empty).Trim()}";
+                lines[disguiseImageIndex + 8] = $"\t{lines[disguiseImageIndex + 8].Replace("//", string.Empty).Trim()}";
+                lines[disguiseImageIndex + 9] = $"\t{lines[disguiseImageIndex + 9].Replace("//", string.Empty).Trim()}";
 
-                if (settings.v_DisguiseImage)
+                if (!settings.v_DisguiseImage)
                 {
-                    lines[(disguiseImageIndex + 0) - 1] = $"\t{lines[(disguiseImageIndex + 0) - 1].Replace("//", string.Empty).Trim()}";
-                    lines[(disguiseImageIndex + 1) - 1] = $"\t{lines[(disguiseImageIndex + 1) - 1].Replace("//", string.Empty).Trim()}";
-                    lines[(disguiseImageIndex + 2) - 1] = $"\t{lines[(disguiseImageIndex + 2) - 1].Replace("//", string.Empty).Trim()}";
-                    lines[(disguiseImageIndex + 7) - 1] = $"\t{lines[(disguiseImageIndex + 7) - 1].Replace("//", string.Empty).Trim()}";
-                    lines[(disguiseImageIndex + 8) - 1] = $"\t{lines[(disguiseImageIndex + 8) - 1].Replace("//", string.Empty).Trim()}";
-                    lines[(disguiseImageIndex + 9) - 1] = $"\t{lines[(disguiseImageIndex + 9) - 1].Replace("//", string.Empty).Trim()}";
+                    lines[disguiseImageIndex + 0] = $"\t//{lines[disguiseImageIndex + 0].Trim()}";
+                    lines[disguiseImageIndex + 1] = $"\t//{lines[disguiseImageIndex + 1].Trim()}";
+                    lines[disguiseImageIndex + 2] = $"\t//{lines[disguiseImageIndex + 2].Trim()}";
+                    lines[disguiseImageIndex + 7] = $"\t//{lines[disguiseImageIndex + 7].Trim()}";
+                    lines[disguiseImageIndex + 8] = $"\t//{lines[disguiseImageIndex + 8].Trim()}";
+                    lines[disguiseImageIndex + 9] = $"\t//{lines[disguiseImageIndex + 9].Trim()}";
                 }
                 File.WriteAllLines(animationsDir, lines);
             }
@@ -201,22 +201,25 @@ namespace rayshud_installer
                 var animationsDir = directory + animations;
                 var lines = File.ReadAllLines(animationsDir);
                 var uberAnimationIndex = 107;
-                lines[(uberAnimationIndex + 0) - 1] = $"\t//{lines[(uberAnimationIndex + 0) - 1].Trim()}";
-                lines[(uberAnimationIndex + 1) - 1] = $"\t//{lines[(uberAnimationIndex + 1) - 1].Trim()}";
-                lines[(uberAnimationIndex + 2) - 1] = $"\t//{lines[(uberAnimationIndex + 2) - 1].Trim()}";
+                lines[uberAnimationIndex + 0] = $"\t{lines[uberAnimationIndex + 0].Replace("//", string.Empty).Trim()}";
+                lines[uberAnimationIndex + 1] = $"\t{lines[uberAnimationIndex + 1].Replace("//", string.Empty).Trim()}";
+                lines[uberAnimationIndex + 2] = $"\t{lines[uberAnimationIndex + 2].Replace("//", string.Empty).Trim()}";
 
                 switch (settings.v_UberAnimation)
                 {
                     default:
-                        lines[(uberAnimationIndex + 0) - 1] = $"\t{lines[(uberAnimationIndex + 0) - 1].Replace("//", string.Empty).Trim()}";
+                        lines[uberAnimationIndex + 1] = $"\t//{lines[uberAnimationIndex + 1].Trim()}";
+                        lines[uberAnimationIndex + 2] = $"\t//{lines[uberAnimationIndex + 2].Trim()}";
                         break;
 
                     case 2:
-                        lines[(uberAnimationIndex + 1) - 1] = $"\t{lines[(uberAnimationIndex + 1) - 1].Replace("//", string.Empty).Trim()}";
+                        lines[uberAnimationIndex + 0] = $"\t//{lines[uberAnimationIndex + 0].Trim()}";
+                        lines[uberAnimationIndex + 2] = $"\t//{lines[uberAnimationIndex + 2].Trim()}";
                         break;
 
                     case 3:
-                        lines[(uberAnimationIndex + 2) - 1] = $"\t{lines[(uberAnimationIndex + 2) - 1].Replace("//", string.Empty).Trim()}";
+                        lines[uberAnimationIndex + 0] = $"\t//{lines[uberAnimationIndex + 0].Trim()}";
+                        lines[uberAnimationIndex + 1] = $"\t//{lines[uberAnimationIndex + 1].Trim()}";
                         break;
                 }
                 File.WriteAllLines(animationsDir, lines);
@@ -234,20 +237,21 @@ namespace rayshud_installer
                 var animationsDir = directory + animations;
                 var lines = File.ReadAllLines(animationsDir);
                 var crosshairPulseIndex = 80;
-                lines[(crosshairPulseIndex + 0) - 1] = $"//{lines[(crosshairPulseIndex + 0) - 1]}";
-                lines[(crosshairPulseIndex + 1) - 1] = $"//{lines[(crosshairPulseIndex + 1) - 1]}";
-                lines[(crosshairPulseIndex + 2) - 1] = $"//{lines[(crosshairPulseIndex + 2) - 1]}";
-                lines[(crosshairPulseIndex + 3) - 1] = $"//{lines[(crosshairPulseIndex + 3) - 1]}";
-                lines[(crosshairPulseIndex + 4) - 1] = $"//{lines[(crosshairPulseIndex + 4) - 1]}";
-                lines[(crosshairPulseIndex + 5) - 1] = $"//{lines[(crosshairPulseIndex + 5) - 1]}";
-                if (settings.v_XHairPulse)
+                lines[crosshairPulseIndex + 0] = lines[crosshairPulseIndex + 0].Replace("//", string.Empty);
+                lines[crosshairPulseIndex + 1] = lines[crosshairPulseIndex + 1].Replace("//", string.Empty);
+                lines[crosshairPulseIndex + 2] = lines[crosshairPulseIndex + 2].Replace("//", string.Empty);
+                lines[crosshairPulseIndex + 3] = lines[crosshairPulseIndex + 3].Replace("//", string.Empty);
+                lines[crosshairPulseIndex + 4] = lines[crosshairPulseIndex + 4].Replace("//", string.Empty);
+                lines[crosshairPulseIndex + 5] = lines[crosshairPulseIndex + 5].Replace("//", string.Empty);
+
+                if (!settings.v_XHairPulse)
                 {
-                    lines[(crosshairPulseIndex + 0) - 1] = lines[(crosshairPulseIndex + 0) - 1].Replace("//", string.Empty);
-                    lines[(crosshairPulseIndex + 1) - 1] = lines[(crosshairPulseIndex + 1) - 1].Replace("//", string.Empty);
-                    lines[(crosshairPulseIndex + 2) - 1] = lines[(crosshairPulseIndex + 2) - 1].Replace("//", string.Empty);
-                    lines[(crosshairPulseIndex + 3) - 1] = lines[(crosshairPulseIndex + 3) - 1].Replace("//", string.Empty);
-                    lines[(crosshairPulseIndex + 4) - 1] = lines[(crosshairPulseIndex + 4) - 1].Replace("//", string.Empty);
-                    lines[(crosshairPulseIndex + 5) - 1] = lines[(crosshairPulseIndex + 5) - 1].Replace("//", string.Empty);
+                    lines[crosshairPulseIndex + 0] = $"\t//{lines[crosshairPulseIndex + 0]}";
+                    lines[crosshairPulseIndex + 1] = $"\t//{lines[crosshairPulseIndex + 1]}";
+                    lines[crosshairPulseIndex + 2] = $"\t//{lines[crosshairPulseIndex + 2]}";
+                    lines[crosshairPulseIndex + 3] = $"\t//{lines[crosshairPulseIndex + 3]}";
+                    lines[crosshairPulseIndex + 4] = $"\t//{lines[crosshairPulseIndex + 4]}";
+                    lines[crosshairPulseIndex + 5] = $"\t//{lines[crosshairPulseIndex + 5]}";
                 }
                 File.WriteAllLines(animationsDir, lines);
             }
@@ -263,18 +267,18 @@ namespace rayshud_installer
             {
                 var mainmenu = directory + "\\resource\\ui\\mainmenuoverride.res";
                 var lines = File.ReadAllLines(mainmenu);
-                var index = 248;
+                var index = 247;
                 if (settings.v_ClassicHUD)
-                    index = 241;
+                    index = 240;
                 if (settings.v_ClassImage)
                 {
-                    lines[(index + 0) - 1] = "\t\t\"xpos\"\t\t\"c-250\"";
-                    lines[(index + 1) - 1] = "\t\t\"ypos\"\t\t\"-80\"";
+                    lines[index + 0] = "\t\t\"xpos\"\t\t\"c-250\"";
+                    lines[index + 1] = "\t\t\"ypos\"\t\t\"-80\"";
                 }
                 else
                 {
-                    lines[(index + 0) - 1] = "\t\t\"xpos\"\t\t\"9999\"";
-                    lines[(index + 1) - 1] = "\t\t\"ypos\"\t\t\"9999\"";
+                    lines[index + 0] = "\t\t\"xpos\"\t\t\"9999\"";
+                    lines[index + 1] = "\t\t\"ypos\"\t\t\"9999\"";
                 }
                 File.WriteAllLines(mainmenu, lines);
             }
@@ -293,7 +297,7 @@ namespace rayshud_installer
                 var value = 30;
                 if (settings.v_ChatBottom)
                     value = 360;
-                lines[10 - 1] = $"\t\t\"ypos\"\t\t\t\t\"{value}\"";
+                lines[9] = $"\t\t\"ypos\"\t\t\t\t\"{value}\"";
                 File.WriteAllLines(chatDir, lines);
             }
             catch (Exception ex)
@@ -465,22 +469,23 @@ namespace rayshud_installer
         {
             try
             {
+                // TODO: Reposition the color values in rayshud to be closer together
                 var colorScheme = directory + "\\resource\\scheme\\clientscheme_colors.res";
                 var lines = File.ReadAllLines(colorScheme);
-                lines[7 - 1] = $"\t\t\"Ammo In Clip\"\t\t\t\t\t\"{settings.v_AmmoClip}\"";
-                lines[8 - 1] = $"\t\t\"Ammo In Reserve\"\t\t\t\t\"{settings.v_AmmoReserve}\"";
-                lines[9 - 1] = $"\t\t\"Ammo In Clip Low\"\t\t\t\t\"{settings.v_AmmoClipLow}\"";
-                lines[10 - 1] = $"\t\t\"Ammo In Reserve Low\"\t\t\t\"{settings.v_AmmoReserveLow}\"";
-                lines[23 - 1] = $"\t\t\"Health Normal\"\t\t\t\t\t\"{settings.v_HealthNormal}\"";
-                lines[24 - 1] = $"\t\t\"Health Buff\"\t\t\t\t\t\"{settings.v_HealthBuff}\"";
-                lines[25 - 1] = $"\t\t\"Health Hurt\"\t\t\t\t\t\"{settings.v_HealthLow}\"";
-                lines[32 - 1] = $"\t\t\"Uber Bar Color\"\t\t\t\t\"{settings.v_UberBarColor}\"";
-                lines[35 - 1] = $"\t\t\"Solid Color Uber\"\t\t\t\t\"{settings.v_UberFullColor}\"";
-                lines[37 - 1] = $"\t\t\"Flashing Uber Color1\"\t\t\t\"{settings.v_UberFlash1}\"";
-                lines[38 - 1] = $"\t\t\"Flashing Uber Color2\"\t\t\t\"{settings.v_UberFlash2}\"";
-                lines[41 - 1] = $"\t\t\"Heal Numbers\"\t\t\t\t\t\"{settings.v_HealingDone}\"";
-                lines[45 - 1] = $"\t\t\"Crosshair\"\t\t\t\t\t\t\"{settings.v_XHairBaseColor}\"";
-                lines[46 - 1] = $"\t\t\"CrosshairDamage\"\t\t\t\t\"{settings.v_XHairPulseColor}\"";
+                lines[7 - 1] = $"\t\t\"Ammo In Clip\"\t\t\t\t\t\"{RGBConverter(settings.v_AmmoClip)}\"";
+                lines[8 - 1] = $"\t\t\"Ammo In Reserve\"\t\t\t\t\"{RGBConverter(settings.v_AmmoReserve)}\"";
+                lines[9 - 1] = $"\t\t\"Ammo In Clip Low\"\t\t\t\t\"{RGBConverter(settings.v_AmmoClipLow)}\"";
+                lines[10 - 1] = $"\t\t\"Ammo In Reserve Low\"\t\t\t\"{RGBConverter(settings.v_AmmoReserveLow)}\"";
+                lines[23 - 1] = $"\t\t\"Health Normal\"\t\t\t\t\t\"{RGBConverter(settings.v_HealthNormal)}\"";
+                lines[24 - 1] = $"\t\t\"Health Buff\"\t\t\t\t\t\"{RGBConverter(settings.v_HealthBuff)}\"";
+                lines[25 - 1] = $"\t\t\"Health Hurt\"\t\t\t\t\t\"{RGBConverter(settings.v_HealthLow)}\"";
+                lines[32 - 1] = $"\t\t\"Uber Bar Color\"\t\t\t\t\"{RGBConverter(settings.v_UberBarColor)}\"";
+                lines[35 - 1] = $"\t\t\"Solid Color Uber\"\t\t\t\t\"{RGBConverter(settings.v_UberFullColor)}\"";
+                lines[37 - 1] = $"\t\t\"Flashing Uber Color1\"\t\t\t\"{RGBConverter(settings.v_UberFlash1)}\"";
+                lines[38 - 1] = $"\t\t\"Flashing Uber Color2\"\t\t\t\"{RGBConverter(settings.v_UberFlash2)}\"";
+                lines[41 - 1] = $"\t\t\"Heal Numbers\"\t\t\t\t\t\"{RGBConverter(settings.v_HealingDone)}\"";
+                lines[45 - 1] = $"\t\t\"Crosshair\"\t\t\t\t\t\t\"{RGBConverter(settings.v_XHairBaseColor)}\"";
+                lines[46 - 1] = $"\t\t\"CrosshairDamage\"\t\t\t\t\"{RGBConverter(settings.v_XHairPulseColor)}\"";
                 File.WriteAllLines(colorScheme, lines);
             }
             catch (Exception ex)
@@ -498,13 +503,19 @@ namespace rayshud_installer
                 var value = 188;
                 if (settings.v_DamagePos)
                     value = 108;
-                lines[22 - 1] = $"\t\t\"xpos\"\t\t\t\"c-{value}\"";
+                lines[21] = $"\t\t\"xpos\"\t\t\t\"c-{value}\"";
                 File.WriteAllLines(damageDir, lines);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"{settings.error_writer_damage_pos}\n{ex.Message}", "Error: Damage Position", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private static string RGBConverter(string hex)
+        {
+            var color = System.Drawing.ColorTranslator.FromHtml(hex);
+            return $"{color.R} {color.G} {color.B} {color.A}";
         }
     }
 }

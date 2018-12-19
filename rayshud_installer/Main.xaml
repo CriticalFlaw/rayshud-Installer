@@ -60,9 +60,9 @@
                 </ComboBox>
                 <Button x:Name="btn_XHairColor" HorizontalAlignment="Left" Margin="90,56,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
                 <Button x:Name="btn_XHairPulse" HorizontalAlignment="Left" Margin="90,79,0,0" VerticalAlignment="Top"  Width="90" Height="18" Click="ColorPicker_Click" />
-                <CheckBox x:Name="chk_XHairEnable" Content="Toggle Crosshair" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Foreground="White" />
-                <CheckBox x:Name="chk_XHairOutline" Content="Toggle Outline" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="-0.061,1.395" />
-                <CheckBox x:Name="chk_XHairPulse" Content="Toggle Pulse" HorizontalAlignment="Left" Margin="100,120,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.537,2.833" />
+                <CheckBox x:Name="chk_XHairEnable" Content="Toggle Crosshair" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" Foreground="White" />
+                <CheckBox x:Name="chk_XHairOutline" Content="Toggle Outline" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="-0.061,1.395" />
+                <CheckBox x:Name="chk_XHairPulse" Content="Toggle Pulse" HorizontalAlignment="Left" Margin="105,121,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="-0.061,1.395" />
                 <Label Content="Crosshair Style:" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Foreground="White" Width="75" Grid.ColumnSpan="2" />
                 <Label Content="Crosshair Size:" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" Foreground="White" Width="75" Grid.ColumnSpan="2" />
                 <Label Content="Base Color:" HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Foreground="White" Width="75" Grid.ColumnSpan="2" />
@@ -116,8 +116,9 @@
         <Button x:Name="btn_Save" Content="Save Changes" HorizontalAlignment="Left" Margin="174,314,0,0" VerticalAlignment="Top" Width="75" Height="27" Click="Btn_Save_Click" />
         <Button x:Name="btn_Start" Content="Start TF2" HorizontalAlignment="Left" Margin="254,314,0,0" VerticalAlignment="Top" Width="75" Height="27" RenderTransformOrigin="-1.046,0.341" Click="Btn_Start_Click" />
         <Button x:Name="btn_Reset" Content="Reset Settings" HorizontalAlignment="Left" Margin="333,314,0,0" VerticalAlignment="Top" Width="75" Height="27" RenderTransformOrigin="-1.046,0.341" Click="Btn_Reset_Click" />
-        <Label Name="lbl_Status" HorizontalAlignment="Left" Margin="413,314,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontSize="15" FontWeight="Bold" />
-        <Label Name="lbl_Directory" HorizontalAlignment="Left" Margin="413,9,0,0" VerticalAlignment="Top" Height="27" Foreground="White" FontSize="15" FontWeight="Bold" RenderTransformOrigin="4.761,9.296" />
+        <Label Name="lbl_Status" HorizontalAlignment="Left" Margin="413,310,0,0" VerticalAlignment="Top" Height="34" Foreground="White" FontSize="15" FontWeight="Bold" Content="Status" />
+        <Label Name="lbl_Directory" HorizontalAlignment="Left" Margin="413,5,0,0" VerticalAlignment="Top" Height="36" FontSize="15" FontWeight="Bold" Content="rayshud" Foreground="White" RenderTransformOrigin="4.761,9.296" />
+        <ProgressBar Name="ProgressBar" HorizontalAlignment="Left" Height="16" Margin="513,287,0,0" VerticalAlignment="Top" Width="125" Minimum="0" Maximum="100" Visibility="Hidden"/>
     </Grid>
     <Window.Background>
         <ImageBrush ImageSource="Resources/background.png"/>
