@@ -5,9 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using System.Security.Permissions;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -81,7 +79,7 @@ namespace rayshud_installer
                 btn_Save.IsEnabled = true;
                 btn_Uninstall.IsEnabled = true;
                 settings.app_directory = $"{settings.app_directory_base}\\rayshud";
-                lbl_Status.Content = "rayshud is installed and up-to-date";
+                lbl_Status.Content = "rayshud is installed...";
                 btn_Install.Content = "Refresh";
                 CheckHUDVersion();
             }
@@ -399,6 +397,7 @@ namespace rayshud_installer
             if (ColorPickerWindow.ShowDialog(out var color) != true) return;
             ((System.Windows.Controls.Button)sender).Background = (Brush)bc.ConvertFrom(HexConverter(color));
         }
-        #endregion
+
+        #endregion CLICK EVENTS
     }
 }

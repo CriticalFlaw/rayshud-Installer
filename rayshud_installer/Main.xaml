@@ -119,6 +119,6 @@
         <Image Source="Resources/raysfox.png" Width="65" Margin="423,314,168,-0.2" />
     </Grid>
     <Window.Background>
-        <ImageBrush ImageSource="Resources/background.png"/>
+        <ImageBrush ImageSource="Resources/background.png" />
     </Window.Background>
 </Window>
