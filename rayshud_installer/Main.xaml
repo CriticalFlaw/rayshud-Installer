@@ -40,15 +40,12 @@
             <Grid>
                 <ComboBox x:Name="cb_XHairStyle" HorizontalAlignment="Left" Margin="90,9,0,0" VerticalAlignment="Top" Width="90">
                     <ComboBoxItem Content="BasicCross" HorizontalAlignment="Left" Width="118.4" IsSelected="True" />
-                    <ComboBoxItem Content="BasicCrossLarge" HorizontalAlignment="Left" Width="118.4" />
-                    <ComboBoxItem Content="BasicCrossSmall" HorizontalAlignment="Left" Width="118.4" />
                     <ComboBoxItem Content="BasicDot" HorizontalAlignment="Left" Width="118.4" />
                     <ComboBoxItem Content="CircleDot" HorizontalAlignment="Left" Width="118.4" />
                     <ComboBoxItem Content="OpenCross" HorizontalAlignment="Left" Width="118.4" />
                     <ComboBoxItem Content="OpenCrossDot" HorizontalAlignment="Left" Width="118.4" />
                     <ComboBoxItem Content="ScatterSpread" HorizontalAlignment="Left" Width="118.4" />
                     <ComboBoxItem Content="ThinCircle" HorizontalAlignment="Left" Width="118.4" />
-                    <ComboBoxItem Content="ThinCross" HorizontalAlignment="Left" Width="118.4" />
                     <ComboBoxItem Content="Wings" HorizontalAlignment="Left" Width="118.4" />
                     <ComboBoxItem Content="WingsPlus" HorizontalAlignment="Left" Width="118.4" />
                     <ComboBoxItem Content="WingsSmall" HorizontalAlignment="Left" Width="118.4" />
@@ -70,10 +67,11 @@
         </GroupBox>
         <GroupBox Header="Health" HorizontalAlignment="Left" Height="102" Margin="10,207,0,0" VerticalAlignment="Top" Width="281">
             <Grid>
-                <ListBox Name="lb_HealthStyle" HorizontalAlignment="Left" Height="66" Margin="10,10,0,0" VerticalAlignment="Top" Width="65">
+                <ListBox Name="lb_HealthStyle" HorizontalAlignment="Left" Height="66" Margin="10,10,0,0" VerticalAlignment="Top" Width="65" FontSize="8">
                     <ListBoxItem Content="Default" IsSelected="True" />
                     <ListBoxItem Content="Team Bar" />
                     <ListBoxItem Content="Cross" />
+                    <ListBoxItem Content="Broesel" />
                 </ListBox>
                 <Button x:Name="btn_HealthNormal" HorizontalAlignment="Left" Margin="80,19,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />
                 <Button x:Name="btn_HealingDone" HorizontalAlignment="Left" Margin="175,19,0,0" VerticalAlignment="Top" Width="90" Height="18" Click="ColorPicker_Click" />

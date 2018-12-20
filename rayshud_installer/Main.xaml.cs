@@ -172,7 +172,7 @@ namespace rayshud_installer
                 settings.v_AmmoClipLow = btn_AmmoClipLow.Background.ToString();
                 settings.v_AmmoReserveLow = btn_AmmoReserveLow.Background.ToString();
                 settings.v_TeamCenter = chk_TeamCenter.IsChecked ?? false;
-                settings.v_TeamCenter = chk_ChatBottom.IsChecked ?? false;
+                settings.v_ChatBottom = chk_ChatBottom.IsChecked ?? false;
                 settings.app_hud_mod_date = DateTime.Now;
                 settings.Save();
             }
@@ -232,7 +232,7 @@ namespace rayshud_installer
                 btn_AmmoClipLow.Background = (Brush)bc.ConvertFrom(settings.v_AmmoClipLow);
                 btn_AmmoReserveLow.Background = (Brush)bc.ConvertFrom(settings.v_AmmoReserveLow);
                 chk_TeamCenter.IsChecked = settings.v_TeamCenter;
-                chk_ChatBottom.IsChecked = settings.v_TeamCenter;
+                chk_ChatBottom.IsChecked = settings.v_ChatBottom;
             }
             catch (Exception ex)
             {
@@ -327,7 +327,7 @@ namespace rayshud_installer
                 }
                 else
                     Directory.Move($"{settings.app_directory_base}\\rayshud-master", $"{settings.app_directory}\\rayshud");
-                lbl_News.Content = "Install Successful!";
+                lbl_News.Content = $"Install Successful! {DateTime.Now}";
                 if (!settings.app_directory.Contains("rayshud"))
                     settings.app_directory += "\\rayshud";
                 settings.Save();
@@ -350,7 +350,7 @@ namespace rayshud_installer
                 {
                     Directory.Delete(settings.app_directory, true);
                     settings.app_directory = settings.app_directory.Replace("rayshud", null);
-                    lbl_News.Content = "Uninstall Successful!";
+                    lbl_News.Content = $"Uninstall Successful! {DateTime.Now}";
                     settings.Save();
                 }
                 SetHUDDirectory();
@@ -365,13 +365,13 @@ namespace rayshud_installer
         {
             SaveHUDSettings();
             ApplyHUDSettings();
-            lbl_News.Content = "Settings Saved!";
+            lbl_News.Content = $"Settings Saved! {DateTime.Now}";
         }
 
         private void Btn_Reset_Click(object sender, RoutedEventArgs e)
         {
             ResetHUDSettings();
-            lbl_News.Content = "Settings Reset!";
+            lbl_News.Content = $"Settings Reset! {DateTime.Now}";
         }
 
         private void Btn_Start_Click(object sender, RoutedEventArgs e)
