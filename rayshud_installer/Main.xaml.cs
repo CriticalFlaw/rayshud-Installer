@@ -307,8 +307,12 @@ namespace rayshud_installer
             var app = System.Windows.Forms.Application.StartupPath;
             if (File.Exists($"{app}\\rayshud.zip"))
                 File.Delete($"{app}\\rayshud.zip");
-            if (Directory.Exists($"{settings.app_directory}\\rayshud-master"))
-                Directory.Delete($"{settings.app_directory}\\rayshud-master", true);
+            if (Directory.Exists($"{settings.app_directory_base}\\rayshud-master"))
+            {
+                if (File.Exists($"{settings.app_directory}\\rayshud-backup.zip"))
+                    File.Delete($"{settings.app_directory}\\rayshud-backup.zip");
+                ZipFile.CreateFromDirectory($"{settings.app_directory_base}\\rayshud-master", $"{settings.app_directory_base}\\rayshud-backup.zip");
+            }
         }
 
         #region CLICK EVENTS
