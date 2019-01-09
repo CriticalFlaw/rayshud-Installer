@@ -105,9 +105,9 @@ namespace rayshud_installer
                 }
                 settings.Save();
             }
-            catch (Exception ex)
+            catch
             {
-                System.Windows.Forms.MessageBox.Show($"{settings.error_app_version}\n{ex.Message}", "Error: Version Check", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Do nothing...
             }
         }
 
@@ -307,8 +307,14 @@ namespace rayshud_installer
             var app = System.Windows.Forms.Application.StartupPath;
             if (File.Exists($"{app}\\rayshud.zip"))
                 File.Delete($"{app}\\rayshud.zip");
-            if (Directory.Exists($"{settings.app_directory}\\rayshud-master"))
-                Directory.Delete($"{settings.app_directory}\\rayshud-master", true);
+            if (Directory.Exists($"{settings.app_directory_base}\\rayshud-master"))
+            {
+                if (File.Exists($"{settings.app_directory}\\rayshud-backup.zip"))
+                    File.Delete($"{settings.app_directory}\\rayshud-backup.zip");
+                ZipFile.CreateFromDirectory($"{settings.app_directory_base}\\rayshud-master", $"{settings.app_directory_base}\\rayshud-backup.zip");
+                Directory.Delete($"{settings.app_directory_base}\\rayshud-master", true);
+                System.Windows.Forms.MessageBox.Show("An existing rayshud-master folder has been found. To avoid conflicts, a backup of the file has been created (tf/custom/rayshud-backup.zip)", "Backup Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         #region CLICK EVENTS
@@ -317,6 +323,9 @@ namespace rayshud_installer
         {
             try
             {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 var client = new WebClient();
                 client.DownloadFile("https://github.com/raysfire/rayshud/archive/master.zip", "rayshud.zip");
                 ZipFile.ExtractToDirectory($"{System.Windows.Forms.Application.StartupPath}\\rayshud.zip", settings.app_directory_base);
@@ -335,6 +344,7 @@ namespace rayshud_installer
                 SaveHUDSettings();
                 ApplyHUDSettings();
                 UpdateGUIButtons();
+                System.Windows.Forms.MessageBox.Show("rayshud has been successfully installed", "Install Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -354,6 +364,7 @@ namespace rayshud_installer
                     settings.Save();
                 }
                 SetHUDDirectory();
+                System.Windows.Forms.MessageBox.Show("rayshud has been successfully uninstalled", "Uninstall Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
