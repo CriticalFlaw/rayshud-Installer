@@ -5,6 +5,8 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Reflection;
+using System.Resources;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
@@ -14,7 +16,8 @@ namespace rayshud_installer
     public partial class Main : Window
     {
         private Properties.Settings settings = new Properties.Settings();
-        private BrushConverter bc = new BrushConverter();
+        private ResourceManager resources = new ResourceManager("strings", Assembly.GetExecutingAssembly());
+        private string app = System.Windows.Forms.Application.StartupPath;
 
         public Main()
         {
@@ -25,65 +28,80 @@ namespace rayshud_installer
         }
 
         /// <summary>
-        /// Set the tf/custom HUD directory if it's not already set
+        /// Set the tf/custom directory if not already set
         /// </summary>
         private void SetHUDDirectory()
         {
-            if (string.IsNullOrWhiteSpace(settings.app_directory_base) || !settings.app_directory_base.Contains("tf\\custom"))
+            if (string.IsNullOrWhiteSpace(settings.app_hud_directory))
             {
                 foreach (var drive in DriveInfo.GetDrives())
                 {
-                    if (Directory.Exists($"{drive.Name}\\Program Files\\{settings.app_directory_steam}"))
+                    if (Directory.Exists(drive.Name + settings.app_tf_directory_32))
                     {
-                        settings.app_directory_base = $"{drive.Name}\\Program Files\\{settings.app_directory_steam}";
+                        settings.app_hud_directory = drive.Name + settings.app_tf_directory_32;
                         break;
                     }
-                    else if (Directory.Exists($"{drive.Name}\\Program Files (x86)\\{settings.app_directory_steam}"))
+                    else if (Directory.Exists(drive.Name + settings.app_tf_directory_64))
                     {
-                        settings.app_directory_base = $"{drive.Name}\\Program Files (x86)\\{settings.app_directory_steam}";
+                        settings.app_hud_directory = drive.Name + settings.app_tf_directory_64;
                         break;
                     }
                 }
-                if (string.IsNullOrWhiteSpace(settings.app_directory_base))
+                if (string.IsNullOrWhiteSpace(settings.app_hud_directory))
                     DisplayFolderBrowser();
-
-                if (string.IsNullOrWhiteSpace(settings.app_directory_base))
+                if (string.IsNullOrWhiteSpace(settings.app_hud_directory))
                 {
-                    System.Windows.Forms.MessageBox.Show("The tf/custom directory needs to be set in order to use the installer", "Directory Not Set", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    System.Windows.Forms.Application.Exit();
+                    System.Windows.Forms.MessageBox.Show(resources.GetString("error_app_directory"), "Directory Not Set", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    System.Windows.Application.Current.Shutdown();
                 }
                 settings.Save();
             }
             UpdateGUIButtons();
         }
 
+        /// <summary>
+        /// Update the installer controls like labels and buttons
+        /// </summary>
         private void UpdateGUIButtons()
         {
             btn_Start.IsEnabled = false;
-            btn_Save.IsEnabled = false;
             btn_Install.IsEnabled = false;
+            btn_Save.IsEnabled = false;
             btn_Uninstall.IsEnabled = false;
             lbl_Status.Content = "Directory is not set...";
 
-            if (Directory.Exists(settings.app_directory_base))
+            if (Directory.Exists(settings.app_hud_directory) && settings.app_hud_directory.Contains("tf\\custom"))
             {
                 btn_Start.IsEnabled = true;
                 btn_Install.IsEnabled = true;
-                settings.app_directory = settings.app_directory_base;
-                lbl_Status.Content = "rayshud is not installed...";
-                btn_Install.Content = "Install";
-            }
 
-            if (Directory.Exists($"{settings.app_directory_base}\\rayshud"))
-            {
-                btn_Save.IsEnabled = true;
-                btn_Uninstall.IsEnabled = true;
-                settings.app_directory = $"{settings.app_directory_base}\\rayshud";
-                lbl_Status.Content = "rayshud is installed...";
-                btn_Install.Content = "Refresh";
-                CheckHUDVersion();
+                if (CheckHUDInstall())
+                {
+                    CheckHUDVersion();
+                    btn_Install.Content = "Refresh";
+                    btn_Save.IsEnabled = true;
+                    btn_Uninstall.IsEnabled = true;
+                    lbl_Status.Content = "rayshud is installed...";
+                }
+                else
+                {
+                    btn_Install.Content = "Install";
+                    btn_Save.IsEnabled = false;
+                    btn_Uninstall.IsEnabled = false;
+                    lbl_Status.Content = "rayshud is not installed...";
+                }
+                settings.Save();
             }
-            settings.Save();
+        }
+
+        /// <summary>
+        /// Check if rayshud is installed
+        /// </summary>
+        public bool CheckHUDInstall()
+        {
+            if (Directory.Exists(settings.app_hud_directory + "\\rayshud"))
+                return true;
+            return false;
         }
 
         /// <summary>
@@ -93,11 +111,11 @@ namespace rayshud_installer
         {
             try
             {
-                if (!settings.app_directory.Contains("tf\\custom\\rayshud")) return;
+                if (!CheckHUDInstall()) return;
                 var client = new WebClient();
                 var readme_text = client.DownloadString(settings.app_hud_readme).Split('\n');
                 settings.app_hud_version_current = readme_text[readme_text.Length - 2];
-                settings.app_hud_version_local = File.ReadLines($"{settings.app_directory}\\README.md").Last().Trim();
+                settings.app_hud_version_local = File.ReadLines(settings.app_hud_directory + "\\rayshud\\README.md").Last().Trim();
                 if (settings.app_hud_version_local != settings.app_hud_version_current)
                 {
                     btn_Install.Content = "Update";
@@ -127,7 +145,7 @@ namespace rayshud_installer
             writer.crosshairPulse();
             writer.classImage();
             writer.chatboxPos();
-            writer.crosshair(int.Parse(cb_XHairSize.SelectedItem.ToString()));
+            writer.crosshair(cb_XHairSize.SelectedItem.ToString());
             writer.colors();
             writer.damagePos();
         }
@@ -139,46 +157,46 @@ namespace rayshud_installer
         {
             try
             {
-                settings.v_ClassicHUD = chk_ClassicHUD.IsChecked ?? false;
-                settings.v_Scoreboard = chk_Scoreboard.IsChecked ?? false;
-                settings.v_DisguiseImage = chk_DisguiseImage.IsChecked ?? false;
-                settings.v_DefaultBG = chk_DefaultBG.IsChecked ?? false;
-                settings.v_ClassImage = chk_ClassImage.IsChecked ?? false;
-                settings.v_DamagePos = chk_DamagePos.IsChecked ?? false;
+                settings.hud_menu_classic = chk_ClassicHUD.IsChecked ?? false;
+                settings.hud_scoreboard_minimal = chk_Scoreboard.IsChecked ?? false;
+                settings.hud_disguise_image = chk_DisguiseImage.IsChecked ?? false;
+                settings.hud_default_backgrounds = chk_DefaultBG.IsChecked ?? false;
+                settings.hud_menu_class_image = chk_ClassImage.IsChecked ?? false;
+                settings.hud_damage_above = chk_DamagePos.IsChecked ?? false;
                 if (chk_UberFlash.IsChecked == true)
-                    settings.v_UberAnimation = 0;
+                    settings.hud_uber_animation = 0;
                 else if (chk_UberSolid.IsChecked == true)
-                    settings.v_UberAnimation = 1;
+                    settings.hud_uber_animation = 1;
                 else
-                    settings.v_UberAnimation = 2;
-                settings.v_UberBarColor = btn_UberBarColor.Background.ToString();
-                settings.v_UberFullColor = btn_UberFullColor.Background.ToString();
-                settings.v_UberFlash1 = btn_UberFlash1.Background.ToString();
-                settings.v_UberFlash2 = btn_UberFlash2.Background.ToString();
-                settings.v_XHairStyle = cb_XHairStyle.SelectedIndex;
-                settings.v_XHairSize = cb_XHairSize.SelectedIndex;
-                settings.v_XHairBaseColor = btn_XHairColor.Background.ToString();
-                settings.v_XHairPulseColor = btn_XHairPulse.Background.ToString();
-                settings.v_XHairEnable = chk_XHairEnable.IsChecked ?? false;
-                settings.v_XHairOutline = chk_XHairOutline.IsChecked ?? false;
-                settings.v_XHairPulse = chk_XHairPulse.IsChecked ?? false;
-                settings.v_HealthStyle = lb_HealthStyle.SelectedIndex;
-                settings.v_HealthNormal = btn_HealthNormal.Background.ToString();
-                settings.v_HealingDone = btn_HealingDone.Background.ToString();
-                settings.v_HealthBuff = btn_HealthBuff.Background.ToString();
-                settings.v_HealthLow = btn_HealthLow.Background.ToString();
-                settings.v_AmmoClip = btn_AmmoClip.Background.ToString();
-                settings.v_AmmoReserve = btn_AmmoReserve.Background.ToString();
-                settings.v_AmmoClipLow = btn_AmmoClipLow.Background.ToString();
-                settings.v_AmmoReserveLow = btn_AmmoReserveLow.Background.ToString();
-                settings.v_TeamCenter = chk_TeamCenter.IsChecked ?? false;
-                settings.v_ChatBottom = chk_ChatBottom.IsChecked ?? false;
+                    settings.hud_uber_animation = 2;
+                settings.hud_uber_color_bar = btn_UberBarColor.Background.ToString();
+                settings.hud_uber_color_full = btn_UberFullColor.Background.ToString();
+                settings.hud_uber_color_flash1 = btn_UberFlash1.Background.ToString();
+                settings.hud_uber_color_flash2 = btn_UberFlash2.Background.ToString();
+                settings.hud_xhair_style = cb_XHairStyle.SelectedIndex;
+                settings.hud_xhair_size = cb_XHairSize.SelectedIndex;
+                settings.hud_xhair_color_base = btn_XHairColor.Background.ToString();
+                settings.hud_xhair_color_pulse = btn_XHairPulse.Background.ToString();
+                settings.hud_xhair_enable = chk_XHairEnable.IsChecked ?? false;
+                settings.hud_xhair_outline = chk_XHairOutline.IsChecked ?? false;
+                settings.hud_xhair_pulse = chk_XHairPulse.IsChecked ?? false;
+                settings.hud_health_style = lb_HealthStyle.SelectedIndex;
+                settings.hud_health_normal = btn_HealthNormal.Background.ToString();
+                settings.hud_healing_done = btn_HealingDone.Background.ToString();
+                settings.hud_health_buff = btn_HealthBuff.Background.ToString();
+                settings.hud_health_low = btn_HealthLow.Background.ToString();
+                settings.hud_ammo_clip = btn_AmmoClip.Background.ToString();
+                settings.hud_ammo_reserve = btn_AmmoReserve.Background.ToString();
+                settings.hud_ammo_clip_low = btn_AmmoClipLow.Background.ToString();
+                settings.hud_ammo_reserve_low = btn_AmmoReserveLow.Background.ToString();
+                settings.hud_team_class_center = chk_TeamCenter.IsChecked ?? false;
+                settings.hud_chat_bottom = chk_ChatBottom.IsChecked ?? false;
                 settings.app_hud_mod_date = DateTime.Now;
                 settings.Save();
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"{settings.error_app_save}\n{ex.Message}", "Error: Saving Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.MessageBox.Show(resources.GetString("error_app_save") + "\n" + ex.Message, "Error: Saving Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -189,14 +207,19 @@ namespace rayshud_installer
         {
             try
             {
-                chk_ClassicHUD.IsChecked = settings.v_ClassicHUD;
-                chk_Scoreboard.IsChecked = settings.v_Scoreboard;
-                chk_DisguiseImage.IsChecked = settings.v_DisguiseImage;
-                chk_DefaultBG.IsChecked = settings.v_DefaultBG;
-                chk_ClassImage.IsChecked = settings.v_ClassImage;
-                chk_DamagePos.IsChecked = settings.v_DamagePos;
-                switch (settings.v_UberAnimation)
+                var bc = new BrushConverter();
+                chk_ClassicHUD.IsChecked = settings.hud_menu_classic;
+                chk_Scoreboard.IsChecked = settings.hud_scoreboard_minimal;
+                chk_DisguiseImage.IsChecked = settings.hud_disguise_image;
+                chk_DefaultBG.IsChecked = settings.hud_default_backgrounds;
+                chk_ClassImage.IsChecked = settings.hud_menu_class_image;
+                chk_DamagePos.IsChecked = settings.hud_damage_above;
+                switch (settings.hud_uber_animation)
                 {
+                    default:
+                        chk_UberSolid.IsChecked = true;
+                        break;
+
                     case 1:
                         chk_UberFlash.IsChecked = true;
                         break;
@@ -204,39 +227,35 @@ namespace rayshud_installer
                     case 2:
                         chk_UberRainbow.IsChecked = true;
                         break;
-
-                    default:
-                        chk_UberSolid.IsChecked = true;
-                        break;
                 }
-                btn_UberBarColor.Background = (Brush)bc.ConvertFrom(settings.v_UberBarColor);
-                btn_UberFullColor.Background = (Brush)bc.ConvertFrom(settings.v_UberFullColor);
-                btn_UberFlash1.Background = (Brush)bc.ConvertFrom(settings.v_UberFlash1);
-                btn_UberFlash2.Background = (Brush)bc.ConvertFrom(settings.v_UberFlash2);
-                cb_XHairStyle.SelectedIndex = settings.v_XHairStyle;
+                btn_UberBarColor.Background = (Brush)bc.ConvertFrom(settings.hud_uber_color_bar);
+                btn_UberFullColor.Background = (Brush)bc.ConvertFrom(settings.hud_uber_color_full);
+                btn_UberFlash1.Background = (Brush)bc.ConvertFrom(settings.hud_uber_color_flash1);
+                btn_UberFlash2.Background = (Brush)bc.ConvertFrom(settings.hud_uber_color_flash2);
+                cb_XHairStyle.SelectedIndex = settings.hud_xhair_style;
                 for (var i = 8; i <= 40; i += 2)
                     cb_XHairSize.Items.Add(i);
-                cb_XHairSize.SelectedIndex = settings.v_XHairSize;
-                btn_XHairColor.Background = (Brush)bc.ConvertFrom(settings.v_XHairBaseColor);
-                btn_XHairPulse.Background = (Brush)bc.ConvertFrom(settings.v_XHairPulseColor);
-                chk_XHairEnable.IsChecked = settings.v_XHairEnable;
-                chk_XHairOutline.IsChecked = settings.v_XHairOutline;
-                chk_XHairPulse.IsChecked = settings.v_XHairPulse;
-                lb_HealthStyle.SelectedIndex = settings.v_HealthStyle;
-                btn_HealthNormal.Background = (Brush)bc.ConvertFrom(settings.v_HealthNormal);
-                btn_HealingDone.Background = (Brush)bc.ConvertFrom(settings.v_HealingDone);
-                btn_HealthBuff.Background = (Brush)bc.ConvertFrom(settings.v_HealthBuff);
-                btn_HealthLow.Background = (Brush)bc.ConvertFrom(settings.v_HealthLow);
-                btn_AmmoClip.Background = (Brush)bc.ConvertFrom(settings.v_AmmoClip);
-                btn_AmmoReserve.Background = (Brush)bc.ConvertFrom(settings.v_AmmoReserve);
-                btn_AmmoClipLow.Background = (Brush)bc.ConvertFrom(settings.v_AmmoClipLow);
-                btn_AmmoReserveLow.Background = (Brush)bc.ConvertFrom(settings.v_AmmoReserveLow);
-                chk_TeamCenter.IsChecked = settings.v_TeamCenter;
-                chk_ChatBottom.IsChecked = settings.v_ChatBottom;
+                cb_XHairSize.SelectedIndex = settings.hud_xhair_size;
+                btn_XHairColor.Background = (Brush)bc.ConvertFrom(settings.hud_xhair_color_base);
+                btn_XHairPulse.Background = (Brush)bc.ConvertFrom(settings.hud_xhair_color_pulse);
+                chk_XHairEnable.IsChecked = settings.hud_xhair_enable;
+                chk_XHairOutline.IsChecked = settings.hud_xhair_outline;
+                chk_XHairPulse.IsChecked = settings.hud_xhair_pulse;
+                lb_HealthStyle.SelectedIndex = settings.hud_health_style;
+                btn_HealthNormal.Background = (Brush)bc.ConvertFrom(settings.hud_health_normal);
+                btn_HealingDone.Background = (Brush)bc.ConvertFrom(settings.hud_healing_done);
+                btn_HealthBuff.Background = (Brush)bc.ConvertFrom(settings.hud_health_buff);
+                btn_HealthLow.Background = (Brush)bc.ConvertFrom(settings.hud_health_low);
+                btn_AmmoClip.Background = (Brush)bc.ConvertFrom(settings.hud_ammo_clip);
+                btn_AmmoReserve.Background = (Brush)bc.ConvertFrom(settings.hud_ammo_reserve);
+                btn_AmmoClipLow.Background = (Brush)bc.ConvertFrom(settings.hud_ammo_clip_low);
+                btn_AmmoReserveLow.Background = (Brush)bc.ConvertFrom(settings.hud_ammo_reserve_low);
+                chk_TeamCenter.IsChecked = settings.hud_team_class_center;
+                chk_ChatBottom.IsChecked = settings.hud_chat_bottom;
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"{settings.error_app_load}\n{ex.Message}", "Error: Loading Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.MessageBox.Show(resources.GetString("error_app_load") + "\n" + ex.Message, "Error: Loading Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -247,6 +266,7 @@ namespace rayshud_installer
         {
             try
             {
+                var bc = new BrushConverter();
                 chk_ClassicHUD.IsChecked = false;
                 chk_Scoreboard.IsChecked = false;
                 chk_DisguiseImage.IsChecked = false;
@@ -279,7 +299,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"{settings.error_app_reset}\n{ex.Message}", "Error: Resetting Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.MessageBox.Show(resources.GetString("error_app_reset") + "\n" + ex.Message, "Error: Resetting Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -289,36 +309,48 @@ namespace rayshud_installer
         private void DisplayFolderBrowser()
         {
             var DirectoryBrowser = new FolderBrowserDialog { Description = $"Please select your tf\\custom folder. If the correct directory is not provided, the options to install and modify rayshud will not be available.", ShowNewFolderButton = true };
-            if (DirectoryBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                if (DirectoryBrowser.SelectedPath.Contains("tf\\custom"))
-                    settings.app_directory_base = DirectoryBrowser.SelectedPath;
+            while (!DirectoryBrowser.SelectedPath.Contains("tf\\custom"))
+            {
+                if (DirectoryBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    if (DirectoryBrowser.SelectedPath.Contains("tf\\custom"))
+                        settings.app_hud_directory = DirectoryBrowser.SelectedPath;
+                }
+                else
+                    break;
+            }
         }
 
         /// <summary>
-        /// Convert RGB color values to HEX
+        /// Convert color RGB values to HEX
         /// </summary>
         private static string HexConverter(Color c)
         {
             return "#" + c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
         }
 
+        /// <summary>
+        /// Cleans up the tf/custom and installer directories
+        /// </summary>
         private void CleanUpDirectory()
         {
-            var app = System.Windows.Forms.Application.StartupPath;
             if (File.Exists($"{app}\\rayshud.zip"))
                 File.Delete($"{app}\\rayshud.zip");
-            if (Directory.Exists($"{settings.app_directory_base}\\rayshud-master"))
+            if (Directory.Exists(settings.app_hud_directory + "\\rayshud-master"))
             {
-                if (File.Exists($"{settings.app_directory}\\rayshud-backup.zip"))
-                    File.Delete($"{settings.app_directory}\\rayshud-backup.zip");
-                ZipFile.CreateFromDirectory($"{settings.app_directory_base}\\rayshud-master", $"{settings.app_directory_base}\\rayshud-backup.zip");
-                Directory.Delete($"{settings.app_directory_base}\\rayshud-master", true);
-                System.Windows.Forms.MessageBox.Show("An existing rayshud-master folder has been found. To avoid conflicts, a backup of the file has been created (tf/custom/rayshud-backup.zip)", "Backup Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (File.Exists(settings.app_hud_directory + "\\rayshud-backup.zip"))
+                    File.Delete(settings.app_hud_directory + "\\rayshud-backup.zip");
+                ZipFile.CreateFromDirectory(settings.app_hud_directory + "\\rayshud-master", settings.app_hud_directory + "\\rayshud-backup.zip");
+                Directory.Delete(settings.app_hud_directory + "\\rayshud-master", true);
+                System.Windows.Forms.MessageBox.Show("An existing rayshud-master folder has been found. To avoid conflicts, a backup of the file has been created in tf/custom/rayshud-backup.zip", "Backup Created", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         #region CLICK EVENTS
 
+        /// <summary>
+        /// Installs rayshud to the user's tf/custom folder
+        /// </summary>
         private void Btn_Install_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -327,18 +359,12 @@ namespace rayshud_installer
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 var client = new WebClient();
-                client.DownloadFile("https://github.com/raysfire/rayshud/archive/master.zip", "rayshud.zip");
-                ZipFile.ExtractToDirectory($"{System.Windows.Forms.Application.StartupPath}\\rayshud.zip", settings.app_directory_base);
+                client.DownloadFile(settings.app_hud_download, "rayshud.zip");
+                ZipFile.ExtractToDirectory(app + "\\rayshud.zip", settings.app_hud_directory);
                 if (btn_Install.Content.ToString() != "Install")
-                {
-                    Directory.Delete(settings.app_directory, true);
-                    Directory.Move($"{settings.app_directory_base}\\rayshud-master", settings.app_directory);
-                }
-                else
-                    Directory.Move($"{settings.app_directory_base}\\rayshud-master", $"{settings.app_directory}\\rayshud");
+                    Directory.Delete(settings.app_hud_directory + "\\rayshud", true);
+                Directory.Move(settings.app_hud_directory + "\\rayshud-master", settings.app_hud_directory + "\\rayshud");
                 lbl_News.Content = $"Install Successful! {DateTime.Now}";
-                if (!settings.app_directory.Contains("rayshud"))
-                    settings.app_directory += "\\rayshud";
                 settings.Save();
                 CleanUpDirectory();
                 SaveHUDSettings();
@@ -348,18 +374,20 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"{settings.error_app_install}\n{ex.Message}", "Error: Installing rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.MessageBox.Show(resources.GetString("error_app_install") + "\n" + ex.Message, "Error: Installing rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        /// <summary>
+        /// Removes rayshud from the user's tf/custom folder
+        /// </summary>
         private void Btn_Uninstall_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (Directory.Exists(settings.app_directory) && settings.app_directory.Contains("rayshud"))
+                if (CheckHUDInstall())
                 {
-                    Directory.Delete(settings.app_directory, true);
-                    settings.app_directory = settings.app_directory.Replace("rayshud", null);
+                    Directory.Delete(settings.app_hud_directory + "\\rayshud", true);
                     lbl_News.Content = $"Uninstall Successful! {DateTime.Now}";
                     settings.Save();
                 }
@@ -368,10 +396,13 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"{settings.error_app_uninstall}\n{ex.Message}", "Error: Uninstalling rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.MessageBox.Show(resources.GetString("error_app_uninstall") + "\n" + ex.Message, "Error: Uninstalling rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        /// <summary>
+        /// Calls to save and apply the rayshud settings
+        /// </summary>
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
         {
             SaveHUDSettings();
@@ -379,33 +410,46 @@ namespace rayshud_installer
             lbl_News.Content = $"Settings Saved! {DateTime.Now}";
         }
 
+        /// <summary>
+        /// Calls to reset the rayshud settings to default
+        /// </summary>
         private void Btn_Reset_Click(object sender, RoutedEventArgs e)
         {
             ResetHUDSettings();
             lbl_News.Content = $"Settings Reset! {DateTime.Now}";
         }
 
+        /// <summary>
+        /// Starts Team Fortress 2 through Steam
+        /// </summary>
         private void Btn_Start_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("steam://rungameid/440");
         }
 
+        /// <summary>
+        /// Opens the rayshud Steam Group in a web browser
+        /// </summary>
         private void Btn_SteamGroup_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("https://steamcommunity.com/groups/rayshud");
         }
 
+        /// <summary>
+        /// Opens the GitHub issue tracker in a web browser
+        /// </summary>
         private void Btn_ReportIssue_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("https://github.com/CriticalFlaw/rayshud-Installer/issues");
         }
 
         /// <summary>
-        /// Display the color picker dialog, asking the user to pick the color for a given control
+        /// Displays the color picker, then assign the selected color to the setting
         /// </summary>
         private void ColorPicker_Click(object sender, RoutedEventArgs e)
         {
-            if (ColorPickerWindow.ShowDialog(out var color) != true) return;
+            var bc = new BrushConverter();
+            if (ColorPickerWindow.ShowDialog(out var color, ColorPickerWPF.Code.ColorPickerDialogOptions.SimpleView) != true) return;
             ((System.Windows.Controls.Button)sender).Background = (Brush)bc.ConvertFrom(HexConverter(color));
         }
 

@@ -26,372 +26,348 @@ namespace rayshud_installer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool v_ClassicHUD {
+        public bool hud_menu_classic {
             get {
-                return ((bool)(this["v_ClassicHUD"]));
+                return ((bool)(this["hud_menu_classic"]));
             }
             set {
-                this["v_ClassicHUD"] = value;
+                this["hud_menu_classic"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool v_Scoreboard {
+        public bool hud_scoreboard_minimal {
             get {
-                return ((bool)(this["v_Scoreboard"]));
+                return ((bool)(this["hud_scoreboard_minimal"]));
             }
             set {
-                this["v_Scoreboard"] = value;
+                this["hud_scoreboard_minimal"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool v_DisguiseImage {
+        public bool hud_disguise_image {
             get {
-                return ((bool)(this["v_DisguiseImage"]));
+                return ((bool)(this["hud_disguise_image"]));
             }
             set {
-                this["v_DisguiseImage"] = value;
+                this["hud_disguise_image"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool v_DefaultBG {
+        public bool hud_default_backgrounds {
             get {
-                return ((bool)(this["v_DefaultBG"]));
+                return ((bool)(this["hud_default_backgrounds"]));
             }
             set {
-                this["v_DefaultBG"] = value;
+                this["hud_default_backgrounds"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool v_ClassImage {
+        public bool hud_menu_class_image {
             get {
-                return ((bool)(this["v_ClassImage"]));
+                return ((bool)(this["hud_menu_class_image"]));
             }
             set {
-                this["v_ClassImage"] = value;
+                this["hud_menu_class_image"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool v_DamagePos {
+        public bool hud_damage_above {
             get {
-                return ((bool)(this["v_DamagePos"]));
+                return ((bool)(this["hud_damage_above"]));
             }
             set {
-                this["v_DamagePos"] = value;
+                this["hud_damage_above"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int v_UberAnimation {
+        public int hud_uber_animation {
             get {
-                return ((int)(this["v_UberAnimation"]));
+                return ((int)(this["hud_uber_animation"]));
             }
             set {
-                this["v_UberAnimation"] = value;
+                this["hud_uber_animation"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#EBE2CA")]
-        public string v_UberBarColor {
+        public string hud_uber_color_bar {
             get {
-                return ((string)(this["v_UberBarColor"]));
+                return ((string)(this["hud_uber_color_bar"]));
             }
             set {
-                this["v_UberBarColor"] = value;
+                this["hud_uber_color_bar"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#FF3219")]
-        public string v_UberFullColor {
+        public string hud_uber_color_full {
             get {
-                return ((string)(this["v_UberFullColor"]));
+                return ((string)(this["hud_uber_color_full"]));
             }
             set {
-                this["v_UberFullColor"] = value;
+                this["hud_uber_color_full"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#FFA500")]
-        public string v_UberFlash1 {
+        public string hud_uber_color_flash1 {
             get {
-                return ((string)(this["v_UberFlash1"]));
+                return ((string)(this["hud_uber_color_flash1"]));
             }
             set {
-                this["v_UberFlash1"] = value;
+                this["hud_uber_color_flash1"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#FF4500")]
-        public string v_UberFlash2 {
+        public string hud_uber_color_flash2 {
             get {
-                return ((string)(this["v_UberFlash2"]));
+                return ((string)(this["hud_uber_color_flash2"]));
             }
             set {
-                this["v_UberFlash2"] = value;
+                this["hud_uber_color_flash2"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int v_XHairStyle {
+        public int hud_xhair_style {
             get {
-                return ((int)(this["v_XHairStyle"]));
+                return ((int)(this["hud_xhair_style"]));
             }
             set {
-                this["v_XHairStyle"] = value;
+                this["hud_xhair_style"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#F2F2F2")]
-        public string v_XHairBaseColor {
+        public string hud_xhair_color_base {
             get {
-                return ((string)(this["v_XHairBaseColor"]));
+                return ((string)(this["hud_xhair_color_base"]));
             }
             set {
-                this["v_XHairBaseColor"] = value;
+                this["hud_xhair_color_base"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#FF0000")]
-        public string v_XHairPulseColor {
+        public string hud_xhair_color_pulse {
             get {
-                return ((string)(this["v_XHairPulseColor"]));
+                return ((string)(this["hud_xhair_color_pulse"]));
             }
             set {
-                this["v_XHairPulseColor"] = value;
+                this["hud_xhair_color_pulse"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool v_XHairEnable {
+        public bool hud_xhair_enable {
             get {
-                return ((bool)(this["v_XHairEnable"]));
+                return ((bool)(this["hud_xhair_enable"]));
             }
             set {
-                this["v_XHairEnable"] = value;
+                this["hud_xhair_enable"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool v_XHairOutline {
+        public bool hud_xhair_outline {
             get {
-                return ((bool)(this["v_XHairOutline"]));
+                return ((bool)(this["hud_xhair_outline"]));
             }
             set {
-                this["v_XHairOutline"] = value;
+                this["hud_xhair_outline"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool v_XHairPulse {
+        public bool hud_xhair_pulse {
             get {
-                return ((bool)(this["v_XHairPulse"]));
+                return ((bool)(this["hud_xhair_pulse"]));
             }
             set {
-                this["v_XHairPulse"] = value;
+                this["hud_xhair_pulse"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int v_HealthStyle {
+        public int hud_health_style {
             get {
-                return ((int)(this["v_HealthStyle"]));
+                return ((int)(this["hud_health_style"]));
             }
             set {
-                this["v_HealthStyle"] = value;
+                this["hud_health_style"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#EBE2CA")]
-        public string v_HealthNormal {
+        public string hud_health_normal {
             get {
-                return ((string)(this["v_HealthNormal"]));
+                return ((string)(this["hud_health_normal"]));
             }
             set {
-                this["v_HealthNormal"] = value;
+                this["hud_health_normal"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#30FF30")]
-        public string v_HealingDone {
+        public string hud_healing_done {
             get {
-                return ((string)(this["v_HealingDone"]));
+                return ((string)(this["hud_healing_done"]));
             }
             set {
-                this["v_HealingDone"] = value;
+                this["hud_healing_done"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#30FF30")]
-        public string v_HealthBuff {
+        public string hud_health_buff {
             get {
-                return ((string)(this["v_HealthBuff"]));
+                return ((string)(this["hud_health_buff"]));
             }
             set {
-                this["v_HealthBuff"] = value;
+                this["hud_health_buff"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#FF9900")]
-        public string v_HealthLow {
+        public string hud_health_low {
             get {
-                return ((string)(this["v_HealthLow"]));
+                return ((string)(this["hud_health_low"]));
             }
             set {
-                this["v_HealthLow"] = value;
+                this["hud_health_low"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#30FF30")]
-        public string v_AmmoClip {
+        public string hud_ammo_clip {
             get {
-                return ((string)(this["v_AmmoClip"]));
+                return ((string)(this["hud_ammo_clip"]));
             }
             set {
-                this["v_AmmoClip"] = value;
+                this["hud_ammo_clip"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#48FFFF")]
-        public string v_AmmoClipLow {
+        public string hud_ammo_clip_low {
             get {
-                return ((string)(this["v_AmmoClipLow"]));
+                return ((string)(this["hud_ammo_clip_low"]));
             }
             set {
-                this["v_AmmoClipLow"] = value;
+                this["hud_ammo_clip_low"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#FF2A82")]
-        public string v_AmmoReserve {
+        public string hud_ammo_reserve {
             get {
-                return ((string)(this["v_AmmoReserve"]));
+                return ((string)(this["hud_ammo_reserve"]));
             }
             set {
-                this["v_AmmoReserve"] = value;
+                this["hud_ammo_reserve"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#FF801C")]
-        public string v_AmmoReserveLow {
+        public string hud_ammo_reserve_low {
             get {
-                return ((string)(this["v_AmmoReserveLow"]));
+                return ((string)(this["hud_ammo_reserve_low"]));
             }
             set {
-                this["v_AmmoReserveLow"] = value;
+                this["hud_ammo_reserve_low"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool v_TeamCenter {
+        public bool hud_team_class_center {
             get {
-                return ((bool)(this["v_TeamCenter"]));
+                return ((bool)(this["hud_team_class_center"]));
             }
             set {
-                this["v_TeamCenter"] = value;
+                this["hud_team_class_center"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool v_ChatBottom {
+        public bool hud_chat_bottom {
             get {
-                return ((bool)(this["v_ChatBottom"]));
+                return ((bool)(this["hud_chat_bottom"]));
             }
             set {
-                this["v_ChatBottom"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string app_directory {
-            get {
-                return ((string)(this["app_directory"]));
-            }
-            set {
-                this["app_directory"] = value;
+                this["hud_chat_bottom"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int v_XHairSize {
+        public int hud_xhair_size {
             get {
-                return ((int)(this["v_XHairSize"]));
+                return ((int)(this["hud_xhair_size"]));
             }
             set {
-                this["v_XHairSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom")]
-        public string app_directory_steam {
-            get {
-                return ((string)(this["app_directory_steam"]));
-            }
-            set {
-                this["app_directory_steam"] = value;
+                this["hud_xhair_size"] = value;
             }
         }
         
@@ -444,241 +420,49 @@ namespace rayshud_installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while applying the main menu style setting")]
-        public string error_writer_main_menu {
-            get {
-                return ((string)(this["error_writer_main_menu"]));
-            }
-            set {
-                this["error_writer_main_menu"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while applying the scoreboard style setting")]
-        public string error_writer_scoreboard {
-            get {
-                return ((string)(this["error_writer_scoreboard"]));
-            }
-            set {
-                this["error_writer_scoreboard"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while applying the default background setting")]
-        public string error_writer_backgrounds {
-            get {
-                return ((string)(this["error_writer_backgrounds"]));
-            }
-            set {
-                this["error_writer_backgrounds"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while applying the team select style setting")]
-        public string error_writer_team_select {
-            get {
-                return ((string)(this["error_writer_team_select"]));
-            }
-            set {
-                this["error_writer_team_select"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while applying the health style setting")]
-        public string error_writer_health_style {
-            get {
-                return ((string)(this["error_writer_health_style"]));
-            }
-            set {
-                this["error_writer_health_style"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while applying the disguise image setting")]
-        public string error_writer_disguise_image {
-            get {
-                return ((string)(this["error_writer_disguise_image"]));
-            }
-            set {
-                this["error_writer_disguise_image"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while applying the uber animation setting")]
-        public string error_writer_uber_animation {
-            get {
-                return ((string)(this["error_writer_uber_animation"]));
-            }
-            set {
-                this["error_writer_uber_animation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while applying the crosshair pulse setting")]
-        public string error_writer_xhair_pulse {
-            get {
-                return ((string)(this["error_writer_xhair_pulse"]));
-            }
-            set {
-                this["error_writer_xhair_pulse"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while applying the class image setting")]
-        public string error_writer_class_image {
-            get {
-                return ((string)(this["error_writer_class_image"]));
-            }
-            set {
-                this["error_writer_class_image"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while applying the chatbox position setting")]
-        public string error_writer_chatbox_pos {
-            get {
-                return ((string)(this["error_writer_chatbox_pos"]));
-            }
-            set {
-                this["error_writer_chatbox_pos"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while applying the crosshair settings")]
-        public string error_writer_xhair {
-            get {
-                return ((string)(this["error_writer_xhair"]));
-            }
-            set {
-                this["error_writer_xhair"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while applying the custom color settings")]
-        public string error_writer_colors {
-            get {
-                return ((string)(this["error_writer_colors"]));
-            }
-            set {
-                this["error_writer_colors"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while applying the damage position setting")]
-        public string error_writer_damage_pos {
-            get {
-                return ((string)(this["error_writer_damage_pos"]));
-            }
-            set {
-                this["error_writer_damage_pos"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while saving rayshud settings")]
-        public string error_app_save {
-            get {
-                return ((string)(this["error_app_save"]));
-            }
-            set {
-                this["error_app_save"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while loading rayshud settings")]
-        public string error_app_load {
-            get {
-                return ((string)(this["error_app_load"]));
-            }
-            set {
-                this["error_app_load"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while installing rayshud")]
-        public string error_app_install {
-            get {
-                return ((string)(this["error_app_install"]));
-            }
-            set {
-                this["error_app_install"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while uninstalling rayshud")]
-        public string error_app_uninstall {
-            get {
-                return ((string)(this["error_app_uninstall"]));
-            }
-            set {
-                this["error_app_uninstall"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while resetting rayshud settings")]
-        public string error_app_reset {
-            get {
-                return ((string)(this["error_app_reset"]));
-            }
-            set {
-                this["error_app_reset"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("An error occurred while checking the rayshud version number")]
-        public string error_app_version {
-            get {
-                return ((string)(this["error_app_version"]));
-            }
-            set {
-                this["error_app_version"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string app_directory_base {
+        public string app_hud_directory {
             get {
-                return ((string)(this["app_directory_base"]));
+                return ((string)(this["app_hud_directory"]));
             }
             set {
-                this["app_directory_base"] = value;
+                this["app_hud_directory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/raysfire/rayshud/archive/master.zip")]
+        public string app_hud_download {
+            get {
+                return ((string)(this["app_hud_download"]));
+            }
+            set {
+                this["app_hud_download"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\Program Files\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom")]
+        public string app_tf_directory_64 {
+            get {
+                return ((string)(this["app_tf_directory_64"]));
+            }
+            set {
+                this["app_tf_directory_64"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\Program Files (x86)\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom")]
+        public string app_tf_directory_32 {
+            get {
+                return ((string)(this["app_tf_directory_32"]));
+            }
+            set {
+                this["app_tf_directory_32"] = value;
             }
         }
     }

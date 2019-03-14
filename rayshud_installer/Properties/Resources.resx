@@ -121,16 +121,109 @@
   <data name="background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Cerbetica" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cerbetica.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="crosshairs" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\KnucklesCrosses.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="raysfire" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\raysfire.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="raysfox" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\raysfox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dir_animations" xml:space="preserve">
+    <value>\scripts\hudanimations_custom.txt</value>
+  </data>
+  <data name="dir_backgrounds" xml:space="preserve">
+    <value>\scripts\chapterbackgrounds</value>
+  </data>
+  <data name="dir_class_custom" xml:space="preserve">
+    <value>\customizations\Team Menu\ClassSelection</value>
+  </data>
+  <data name="dir_colors" xml:space="preserve">
+    <value>\resource\scheme\clientscheme_colors.res</value>
+  </data>
+  <data name="dir_console" xml:space="preserve">
+    <value>\materials\console</value>
+  </data>
+  <data name="dir_health_custom" xml:space="preserve">
+    <value>\customizations\Player Health\HudPlayerHealth</value>
+  </data>
+  <data name="dir_layout" xml:space="preserve">
+    <value>\scripts\hudlayout.res</value>
+  </data>
+  <data name="dir_menu_classic" xml:space="preserve">
+    <value>\customizations\Main Menu\Classic</value>
+  </data>
+  <data name="dir_menu_modern" xml:space="preserve">
+    <value>\customizations\Main Menu\Modern</value>
+  </data>
+  <data name="dir_resource_ui" xml:space="preserve">
+    <value>\resource\ui</value>
+  </data>
+  <data name="dir_scoreboard_custom" xml:space="preserve">
+    <value>\customizations\Scoreboard\scoreboard</value>
+  </data>
+  <data name="dir_team_custom" xml:space="preserve">
+    <value>\customizations\Team Menu\TeamMenu</value>
+  </data>
+  <data name="error_app_install" xml:space="preserve">
+    <value>An error occurred while installing rayshud</value>
+  </data>
+  <data name="error_app_load" xml:space="preserve">
+    <value>An error occurred while loading rayshud settings</value>
+  </data>
+  <data name="error_app_reset" xml:space="preserve">
+    <value>An error occurred while resetting rayshud settings</value>
+  </data>
+  <data name="error_app_save" xml:space="preserve">
+    <value>An error occurred while saving rayshud settings</value>
+  </data>
+  <data name="error_app_uninstall" xml:space="preserve">
+    <value>An error occurred while uninstalling rayshud</value>
+  </data>
+  <data name="error_app_version" xml:space="preserve">
+    <value>An error occurred while checking the rayshud version number</value>
+  </data>
+  <data name="error_writer_backgrounds" xml:space="preserve">
+    <value>An error occurred while applying the default background setting</value>
+  </data>
+  <data name="error_writer_chatbox_pos" xml:space="preserve">
+    <value>An error occurred while applying the chatbox position setting</value>
+  </data>
+  <data name="error_writer_class_image" xml:space="preserve">
+    <value>An error occurred while applying the class image setting</value>
+  </data>
+  <data name="error_writer_colors" xml:space="preserve">
+    <value>An error occurred while applying the custom color settings</value>
+  </data>
+  <data name="error_writer_damage_pos" xml:space="preserve">
+    <value>An error occurred while applying the damage position setting</value>
+  </data>
+  <data name="error_writer_disguise_image" xml:space="preserve">
+    <value>An error occurred while applying the disguise image setting</value>
+  </data>
+  <data name="error_writer_health_style" xml:space="preserve">
+    <value>An error occurred while applying the health style setting</value>
+  </data>
+  <data name="error_writer_main_menu" xml:space="preserve">
+    <value>An error occurred while applying the main menu style setting</value>
+  </data>
+  <data name="error_writer_scoreboard" xml:space="preserve">
+    <value>An error occurred while applying the scoreboard style setting</value>
+  </data>
+  <data name="error_writer_team_select" xml:space="preserve">
+    <value>An error occurred while applying the team select style setting</value>
+  </data>
+  <data name="error_writer_uber_animation" xml:space="preserve">
+    <value>An error occurred while applying the uber animation setting</value>
+  </data>
+  <data name="error_writer_xhair" xml:space="preserve">
+    <value>An error occurred while applying the crosshair settings</value>
+  </data>
+  <data name="error_writer_xhair_pulse" xml:space="preserve">
+    <value>An error occurred while applying the crosshair pulse setting</value>
+  </data>
+  <data name="error_app_directory" xml:space="preserve">
+    <value>The tf/custom directory needs to be set in order to use the installer</value>
+  </data>
+  <data name="Cerbetica" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\cerbetica.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

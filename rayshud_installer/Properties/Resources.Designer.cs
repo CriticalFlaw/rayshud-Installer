@@ -81,12 +81,290 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to \scripts\hudanimations_custom.txt.
         /// </summary>
-        internal static System.Drawing.Bitmap crosshairs {
+        internal static string dir_animations {
             get {
-                object obj = ResourceManager.GetObject("crosshairs", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("dir_animations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \scripts\chapterbackgrounds.
+        /// </summary>
+        internal static string dir_backgrounds {
+            get {
+                return ResourceManager.GetString("dir_backgrounds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \customizations\Team Menu\ClassSelection.
+        /// </summary>
+        internal static string dir_class_custom {
+            get {
+                return ResourceManager.GetString("dir_class_custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \resource\scheme\clientscheme_colors.res.
+        /// </summary>
+        internal static string dir_colors {
+            get {
+                return ResourceManager.GetString("dir_colors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \materials\console.
+        /// </summary>
+        internal static string dir_console {
+            get {
+                return ResourceManager.GetString("dir_console", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \customizations\Player Health\HudPlayerHealth.
+        /// </summary>
+        internal static string dir_health_custom {
+            get {
+                return ResourceManager.GetString("dir_health_custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \scripts\hudlayout.res.
+        /// </summary>
+        internal static string dir_layout {
+            get {
+                return ResourceManager.GetString("dir_layout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \customizations\Main Menu\Classic.
+        /// </summary>
+        internal static string dir_menu_classic {
+            get {
+                return ResourceManager.GetString("dir_menu_classic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \customizations\Main Menu\Modern.
+        /// </summary>
+        internal static string dir_menu_modern {
+            get {
+                return ResourceManager.GetString("dir_menu_modern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \resource\ui.
+        /// </summary>
+        internal static string dir_resource_ui {
+            get {
+                return ResourceManager.GetString("dir_resource_ui", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \customizations\Scoreboard\scoreboard.
+        /// </summary>
+        internal static string dir_scoreboard_custom {
+            get {
+                return ResourceManager.GetString("dir_scoreboard_custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \customizations\Team Menu\TeamMenu.
+        /// </summary>
+        internal static string dir_team_custom {
+            get {
+                return ResourceManager.GetString("dir_team_custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The tf/custom directory needs to be set in order to use the installer.
+        /// </summary>
+        internal static string error_app_directory {
+            get {
+                return ResourceManager.GetString("error_app_directory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while installing rayshud.
+        /// </summary>
+        internal static string error_app_install {
+            get {
+                return ResourceManager.GetString("error_app_install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while loading rayshud settings.
+        /// </summary>
+        internal static string error_app_load {
+            get {
+                return ResourceManager.GetString("error_app_load", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while resetting rayshud settings.
+        /// </summary>
+        internal static string error_app_reset {
+            get {
+                return ResourceManager.GetString("error_app_reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while saving rayshud settings.
+        /// </summary>
+        internal static string error_app_save {
+            get {
+                return ResourceManager.GetString("error_app_save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while uninstalling rayshud.
+        /// </summary>
+        internal static string error_app_uninstall {
+            get {
+                return ResourceManager.GetString("error_app_uninstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while checking the rayshud version number.
+        /// </summary>
+        internal static string error_app_version {
+            get {
+                return ResourceManager.GetString("error_app_version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the default background setting.
+        /// </summary>
+        internal static string error_writer_backgrounds {
+            get {
+                return ResourceManager.GetString("error_writer_backgrounds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the chatbox position setting.
+        /// </summary>
+        internal static string error_writer_chatbox_pos {
+            get {
+                return ResourceManager.GetString("error_writer_chatbox_pos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the class image setting.
+        /// </summary>
+        internal static string error_writer_class_image {
+            get {
+                return ResourceManager.GetString("error_writer_class_image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the custom color settings.
+        /// </summary>
+        internal static string error_writer_colors {
+            get {
+                return ResourceManager.GetString("error_writer_colors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the damage position setting.
+        /// </summary>
+        internal static string error_writer_damage_pos {
+            get {
+                return ResourceManager.GetString("error_writer_damage_pos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the disguise image setting.
+        /// </summary>
+        internal static string error_writer_disguise_image {
+            get {
+                return ResourceManager.GetString("error_writer_disguise_image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the health style setting.
+        /// </summary>
+        internal static string error_writer_health_style {
+            get {
+                return ResourceManager.GetString("error_writer_health_style", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the main menu style setting.
+        /// </summary>
+        internal static string error_writer_main_menu {
+            get {
+                return ResourceManager.GetString("error_writer_main_menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the scoreboard style setting.
+        /// </summary>
+        internal static string error_writer_scoreboard {
+            get {
+                return ResourceManager.GetString("error_writer_scoreboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the team select style setting.
+        /// </summary>
+        internal static string error_writer_team_select {
+            get {
+                return ResourceManager.GetString("error_writer_team_select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the uber animation setting.
+        /// </summary>
+        internal static string error_writer_uber_animation {
+            get {
+                return ResourceManager.GetString("error_writer_uber_animation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the crosshair settings.
+        /// </summary>
+        internal static string error_writer_xhair {
+            get {
+                return ResourceManager.GetString("error_writer_xhair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the crosshair pulse setting.
+        /// </summary>
+        internal static string error_writer_xhair_pulse {
+            get {
+                return ResourceManager.GetString("error_writer_xhair_pulse", resourceCulture);
             }
         }
         
