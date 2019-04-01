@@ -67,16 +67,25 @@ namespace rayshud_installer
             {
                 var dir_console = rayshud + Properties.Resources.dir_console;
                 var dir_backgrounds = rayshud + Properties.Resources.dir_backgrounds;
+                var dir_console_temp = rayshud + Properties.Resources.dir_temp + "\\console";
+                var dir_backgrounds_temp = rayshud + Properties.Resources.dir_temp + "\\chapterbackgrounds.txt";
 
-                if (Directory.Exists(dir_console + "_off"))
-                    Directory.Move(dir_console + "_off", dir_console);
-                if (File.Exists(dir_backgrounds + "_off.txt"))
-                    File.Move(dir_backgrounds + "_off.txt", dir_backgrounds.Replace("_off", string.Empty));
+                if (!Directory.Exists(rayshud + Properties.Resources.dir_temp))
+                    Directory.CreateDirectory(rayshud + Properties.Resources.dir_temp);
 
                 if (settings.hud_default_backgrounds)
                 {
-                    Directory.Move(dir_console, dir_console + "_off");
-                    File.Move(dir_backgrounds + ".txt", dir_backgrounds + "_off.txt");
+                    if (Directory.Exists(dir_console))
+                        Directory.Move(dir_console, dir_console_temp);
+                    if (File.Exists(dir_backgrounds))
+                        File.Move(dir_backgrounds, dir_backgrounds_temp);
+                }
+                else
+                {
+                    if (Directory.Exists(dir_console_temp))
+                        Directory.Move(dir_console_temp, dir_console);
+                    if (File.Exists(dir_backgrounds_temp))
+                        File.Move(dir_backgrounds_temp, dir_backgrounds);
                 }
             }
             catch (Exception ex)
@@ -241,7 +250,7 @@ namespace rayshud_installer
             {
                 var dir_menu = rayshud + Properties.Resources.dir_resource_ui + "\\mainmenuoverride.res";
                 var lines = File.ReadAllLines(dir_menu);
-                var index = settings.hud_menu_classic ? 239 : 970;
+                var index = settings.hud_menu_classic ? 933 : 970;
                 lines[index] = "\t\t\"xpos\"\t\t\t\"9999\"";
                 lines[index + 1] = "\t\t\"ypos\"\t\t\t\"9999\"";
 
@@ -390,6 +399,8 @@ namespace rayshud_installer
             File.Copy($"{source}\\resource\\gamemenu.res", rayshud + "\\resource\\gamemenu.res", true);
             if (!defaultBG)
             {
+                if (!Directory.Exists(rayshud + Properties.Resources.dir_console))
+                    Directory.CreateDirectory(rayshud + Properties.Resources.dir_temp);
                 File.Copy($"{source}\\materials\\console\\background_upward.vtf", rayshud + Properties.Resources.dir_console + "\\background_upward.vtf", true);
                 File.Copy($"{source}\\materials\\console\\background_upward_widescreen.vtf", rayshud + Properties.Resources.dir_console + "\\background_upward_widescreen.vtf", true);
             }
@@ -408,73 +419,73 @@ namespace rayshud_installer
                     case 0: // BasicCross
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-102\"";
                         lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-99\"";
-                        lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"2\"";
+                        lines[crosshairIndex + 5] = "\t\t\"labelText\"\t\t\"2\"";
                         break;
 
                     case 1: // BasicDot
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-103\"";
                         lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-100\"";
-                        lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"3\"";
+                        lines[crosshairIndex + 5] = "\t\t\"labelText\"\t\t\"3\"";
                         break;
 
                     case 2: // CircleDot
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-100\"";
                         lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-96\"";
-                        lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"8\"";
+                        lines[crosshairIndex + 5] = "\t\t\"labelText\"\t\t\"8\"";
                         break;
 
                     case 3: // OpenCross
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-85\"";
                         lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-100\"";
-                        lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"i\"";
+                        lines[crosshairIndex + 5] = "\t\t\"labelText\"\t\t\"i\"";
                         break;
 
                     case 4: // OpenCrossDot
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-85\"";
                         lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-100\"";
-                        lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"h\"";
+                        lines[crosshairIndex + 5] = "\t\t\"labelText\"\t\t\"h\"";
                         break;
 
                     case 5: // ScatterSpread
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-99\"";
                         lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-99\"";
-                        lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"0\"";
+                        lines[crosshairIndex + 5] = "\t\t\"labelText\"\t\t\"0\"";
                         break;
 
                     case 6: // ThinCircle
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-100\"";
                         lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-96\"";
-                        lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"9\"";
+                        lines[crosshairIndex + 5] = "\t\t\"labelText\"\t\t\"9\"";
                         break;
 
                     case 7: // Wings
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-100\"";
                         lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-97\"";
-                        lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"d\"";
+                        lines[crosshairIndex + 5] = "\t\t\"labelText\"\t\t\"d\"";
                         break;
 
                     case 8: // WingsPlus
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-100\"";
                         lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-97\"";
-                        lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"c\"";
+                        lines[crosshairIndex + 5] = "\t\t\"labelText\"\t\t\"c\"";
                         break;
 
                     case 9: // WingsSmall
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-100\"";
                         lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-97\"";
-                        lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"g\"";
+                        lines[crosshairIndex + 5] = "\t\t\"labelText\"\t\t\"g\"";
                         break;
 
                     case 10: // WingsSmallDot
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-100\"";
                         lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-97\"";
-                        lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"f\"";
+                        lines[crosshairIndex + 5] = "\t\t\"labelText\"\t\t\"f\"";
                         break;
 
                     case 11: // xHairCircle
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-100\"";
                         lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-102\"";
-                        lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"0\"";
+                        lines[crosshairIndex + 5] = "\t\t\"labelText\"\t\t\"0\"";
                         break;
                 }
                 File.WriteAllLines(dir_layout, lines);

@@ -133,9 +133,9 @@ namespace rayshud_installer
         private void ApplyHUDSettings()
         {
             var writer = new HUDFileWriter();
+            writer.defaultBackgrounds();
             writer.mainMenuStyle();
             writer.scoreboardStyle();
-            writer.defaultBackgrounds();
             writer.teamSelect();
             writer.healthStyle();
             writer.disguiseImage();
