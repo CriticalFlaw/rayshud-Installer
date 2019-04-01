@@ -36,7 +36,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.error_writer_main_menu + "\n" + ex.Message, "Error: Main Menu Style", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.error_writer_main_menu + ". " + ex.Message, "Error: Main Menu Style", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -54,7 +54,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.error_writer_scoreboard + "\n" + ex.Message, "Error: Scoreboard Style", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.error_writer_scoreboard + ". " + ex.Message, "Error: Scoreboard Style", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -68,21 +68,20 @@ namespace rayshud_installer
                 var dir_console = rayshud + Properties.Resources.dir_console;
                 var dir_backgrounds = rayshud + Properties.Resources.dir_backgrounds;
 
-                if (Directory.Exists(dir_console + "_off") && File.Exists(dir_backgrounds + "_off.txt"))
-                {
+                if (Directory.Exists(dir_console + "_off"))
                     Directory.Move(dir_console + "_off", dir_console);
-                    File.Move(dir_backgrounds + "_off.txt", dir_backgrounds);
-                }
+                if (File.Exists(dir_backgrounds + "_off.txt"))
+                    File.Move(dir_backgrounds + "_off.txt", dir_backgrounds.Replace("_off", string.Empty));
 
                 if (settings.hud_default_backgrounds)
                 {
                     Directory.Move(dir_console, dir_console + "_off");
-                    File.Move(dir_backgrounds, dir_backgrounds + "_off.txt");
+                    File.Move(dir_backgrounds + ".txt", dir_backgrounds + "_off.txt");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.error_writer_backgrounds + "\n" + ex.Message, "Error: Main Menu Backgrounds", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.error_writer_backgrounds + ". " + ex.Message, "Error: Main Menu Backgrounds", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -111,7 +110,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.error_writer_team_select + "\n" + ex.Message, "Error: Team Select Position", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.error_writer_team_select + ". " + ex.Message, "Error: Team Select Position", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -145,7 +144,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.error_writer_health_style + "\n" + ex.Message, "Error: Health Style", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.error_writer_health_style + ". " + ex.Message, "Error: Health Style", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -177,7 +176,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.error_writer_disguise_image + "\n" + ex.Message, "Error: Disguise Image", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.error_writer_disguise_image + ". " + ex.Message, "Error: Disguise Image", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -198,25 +197,12 @@ namespace rayshud_installer
                 lines[uberchargeIndex + 1] = "//" + lines[uberchargeIndex + 1];
                 lines[uberchargeIndex + 2] = "//" + lines[uberchargeIndex + 2];
 
-                switch (settings.hud_uber_animation)
-                {
-                    default:
-                        lines[uberchargeIndex] = lines[uberchargeIndex].Replace("//", string.Empty);
-                        break;
-
-                    case 2:
-                        lines[uberchargeIndex + 1] = lines[uberchargeIndex + 1].Replace("//", string.Empty);
-                        break;
-
-                    case 3:
-                        lines[uberchargeIndex + 2] = lines[uberchargeIndex + 2].Replace("//", string.Empty);
-                        break;
-                }
+                lines[uberchargeIndex + settings.hud_uber_animation] = lines[uberchargeIndex + settings.hud_uber_animation].Replace("//", string.Empty);
                 File.WriteAllLines(dir_animations, lines);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.error_writer_uber_animation + "\n" + ex.Message, "Error: Uber Animation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.error_writer_uber_animation + ". " + ex.Message, "Error: Uber Animation", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -242,7 +228,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.error_writer_xhair_pulse + "\n" + ex.Message, "Error: Crosshair Pulse", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.error_writer_xhair_pulse + ". " + ex.Message, "Error: Crosshair Pulse", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -261,14 +247,14 @@ namespace rayshud_installer
 
                 if (settings.hud_menu_class_image)
                 {
-                    lines[index] = "\t\t\"xpos\"\t\t\"c-250\"";
-                    lines[index + 1] = "\t\t\"ypos\"\t\t\"-80\"";
+                    lines[index] = "\t\t\"xpos\"\t\t\t\"c-250\"";
+                    lines[index + 1] = "\t\t\"ypos\"\t\t\t\"-80\"";
                 }
                 File.WriteAllLines(dir_menu, lines);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.error_writer_class_image + "\n" + ex.Message, "Error: Class Image", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.error_writer_class_image + ". " + ex.Message, "Error: Class Image", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -287,7 +273,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.error_writer_chatbox_pos + "\n" + ex.Message, "Error: Chatbox Position", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.error_writer_chatbox_pos + ". " + ex.Message, "Error: Chatbox Position", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -313,7 +299,7 @@ namespace rayshud_installer
                 {
                     if (settings.hud_xhair_style <= 10) // RaysCrosshair
                     {
-                        var index = 13;
+                        var index = 12;
                         lines[index] = "\t\t\"visible\"\t\t\"1\"";
                         lines[index + 1] = "\t\t\"enabled\"\t\t\"1\"";
                         lines[index + 7] = settings.hud_xhair_outline ? $"\t\t\"font\"\t\t\t\"Crosshairs{size}Outline\"" : $"\t\t\"font\"\t\t\t\"Crosshairs{size}\"";
@@ -327,7 +313,7 @@ namespace rayshud_installer
                     }
                     else    // KnuckleCrosses
                     {
-                        var index = 49;
+                        var index = 50;
                         lines[index] = "\t\t\"visible\"\t\t\"1\"";
                         lines[index + 1] = "\t\t\"enabled\"\t\t\"1\"";
                         lines[index + 7] = settings.hud_xhair_outline ? $"\t\t\"font\"\t\t\t\"KnucklesCrosses{size}Outline\"" : $"\t\t\"font\"\t\t\t\"KnucklesCrosses{size}\"";
@@ -338,7 +324,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.error_writer_xhair + "\n" + ex.Message, "Error: Setting Crosshair", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.error_writer_xhair + ". " + ex.Message, "Error: Setting Crosshair", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -372,7 +358,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.error_writer_colors + "\n" + ex.Message, "Error: Setting Colors", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.error_writer_colors + ". " + ex.Message, "Error: Setting Colors", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -391,7 +377,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.error_writer_damage_pos + "\n" + ex.Message, "Error: Damage Position", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.error_writer_damage_pos + ". " + ex.Message, "Error: Damage Position", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -495,7 +481,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.error_writer_xhair + "\n" + ex.Message, "Error: Setting Crosshair", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.error_writer_xhair + ". " + ex.Message, "Error: Setting Crosshair", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
