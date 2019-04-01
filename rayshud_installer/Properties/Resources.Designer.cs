@@ -90,7 +90,7 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \scripts\chapterbackgrounds.
+        ///   Looks up a localized string similar to \scripts\chapterbackgrounds.txt.
         /// </summary>
         internal static string dir_backgrounds {
             get {
@@ -185,6 +185,15 @@ namespace rayshud_installer.Properties {
         internal static string dir_team_custom {
             get {
                 return ResourceManager.GetString("dir_team_custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \customizations\temp.
+        /// </summary>
+        internal static string dir_temp {
+            get {
+                return ResourceManager.GetString("dir_temp", resourceCulture);
             }
         }
         

@@ -72,10 +72,10 @@
       <Value Profile="(Default)">#30FF30</Value>
     </Setting>
     <Setting Name="hud_ammo_clip_low" Type="System.String" Scope="User">
-      <Value Profile="(Default)">#48FFFF</Value>
+      <Value Profile="(Default)">#FF2A82</Value>
     </Setting>
     <Setting Name="hud_ammo_reserve" Type="System.String" Scope="User">
-      <Value Profile="(Default)">#FF2A82</Value>
+      <Value Profile="(Default)">#48FFFF</Value>
     </Setting>
     <Setting Name="hud_ammo_reserve_low" Type="System.String" Scope="User">
       <Value Profile="(Default)">#FF801C</Value>

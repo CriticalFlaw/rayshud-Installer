@@ -301,7 +301,7 @@ namespace rayshud_installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#48FFFF")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF2A82")]
         public string hud_ammo_clip_low {
             get {
                 return ((string)(this["hud_ammo_clip_low"]));
@@ -313,7 +313,7 @@ namespace rayshud_installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FF2A82")]
+        [global::System.Configuration.DefaultSettingValueAttribute("#48FFFF")]
         public string hud_ammo_reserve {
             get {
                 return ((string)(this["hud_ammo_reserve"]));

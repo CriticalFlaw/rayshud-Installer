@@ -5,8 +5,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using System.Reflection;
-using System.Resources;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
@@ -16,7 +14,6 @@ namespace rayshud_installer
     public partial class Main : Window
     {
         private Properties.Settings settings = new Properties.Settings();
-        private ResourceManager resources = new ResourceManager("strings", Assembly.GetExecutingAssembly());
         private string app = System.Windows.Forms.Application.StartupPath;
 
         public Main()
@@ -51,7 +48,7 @@ namespace rayshud_installer
                     DisplayFolderBrowser();
                 if (string.IsNullOrWhiteSpace(settings.app_hud_directory))
                 {
-                    System.Windows.Forms.MessageBox.Show(resources.GetString("error_app_directory"), "Directory Not Set", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_directory, "Directory Not Set", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     System.Windows.Application.Current.Shutdown();
                 }
                 settings.Save();
@@ -90,6 +87,7 @@ namespace rayshud_installer
                     btn_Uninstall.IsEnabled = false;
                     lbl_Status.Content = "rayshud is not installed...";
                 }
+                //lbl_Status.Content = settings.app_hud_directory;
                 settings.Save();
             }
         }
@@ -135,9 +133,9 @@ namespace rayshud_installer
         private void ApplyHUDSettings()
         {
             var writer = new HUDFileWriter();
+            writer.defaultBackgrounds();
             writer.mainMenuStyle();
             writer.scoreboardStyle();
-            writer.defaultBackgrounds();
             writer.teamSelect();
             writer.healthStyle();
             writer.disguiseImage();
@@ -196,7 +194,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(resources.GetString("error_app_save") + "\n" + ex.Message, "Error: Saving Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_save + "\n" + ex.Message, "Error: Saving Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -255,7 +253,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(resources.GetString("error_app_load") + "\n" + ex.Message, "Error: Loading Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_load + "\n" + ex.Message, "Error: Loading Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -299,7 +297,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(resources.GetString("error_app_reset") + "\n" + ex.Message, "Error: Resetting Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_reset + "\n" + ex.Message, "Error: Resetting Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -308,13 +306,16 @@ namespace rayshud_installer
         /// </summary>
         private void DisplayFolderBrowser()
         {
-            var DirectoryBrowser = new FolderBrowserDialog { Description = $"Please select your tf\\custom folder. If the correct directory is not provided, the options to install and modify rayshud will not be available.", ShowNewFolderButton = true };
-            while (!DirectoryBrowser.SelectedPath.Contains("tf\\custom"))
+            var directoryBrowser = new FolderBrowserDialog { Description = $"Please select your tf\\custom folder. If the correct directory is not provided, the options to install and modify rayshud will not be available.", ShowNewFolderButton = true };
+            while (!directoryBrowser.SelectedPath.Contains("tf\\custom"))
             {
-                if (DirectoryBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (directoryBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    if (DirectoryBrowser.SelectedPath.Contains("tf\\custom"))
-                        settings.app_hud_directory = DirectoryBrowser.SelectedPath;
+                    if (directoryBrowser.SelectedPath.Contains("tf\\custom"))
+                    {
+                        settings.app_hud_directory = directoryBrowser.SelectedPath;
+                        lbl_Status.Content = settings.app_hud_directory;
+                    }
                 }
                 else
                     break;
@@ -374,7 +375,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(resources.GetString("error_app_install") + "\n" + ex.Message, "Error: Installing rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_install, "Error: Installing rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -396,7 +397,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(resources.GetString("error_app_uninstall") + "\n" + ex.Message, "Error: Uninstalling rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_uninstall + "\n" + ex.Message, "Error: Uninstalling rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -425,6 +426,14 @@ namespace rayshud_installer
         private void Btn_Start_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("steam://rungameid/440");
+        }
+
+        /// <summary>
+        /// Opens the directory browser to allow the user to change the tf/custom directory
+        /// </summary>
+        private void Btn_ChangeDirectory_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayFolderBrowser();
         }
 
         /// <summary>
