@@ -87,7 +87,7 @@ namespace rayshud_installer
                     btn_Uninstall.IsEnabled = false;
                     lbl_Status.Content = "rayshud is not installed...";
                 }
-                lbl_Status.Content = settings.app_hud_directory;
+                //lbl_Status.Content = settings.app_hud_directory;
                 settings.Save();
             }
         }

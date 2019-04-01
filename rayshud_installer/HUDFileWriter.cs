@@ -160,19 +160,20 @@ namespace rayshud_installer
                 var lines = File.ReadAllLines(dir_animations);
                 var disguiseIndexStart = 150;
                 var disguiseIndexEnd = 156;
-                lines[disguiseIndexStart] = "//" + lines[disguiseIndexStart];
-                lines[disguiseIndexStart++] = "//" + lines[disguiseIndexStart++];
-                lines[disguiseIndexEnd] = "//" + lines[disguiseIndexEnd];
-                lines[disguiseIndexEnd++] = "//" + lines[disguiseIndexEnd++];
-
-                if (settings.hud_disguise_image)
-                {
-                    lines[disguiseIndexStart] = lines[disguiseIndexStart].Replace("//", string.Empty);
-                    lines[disguiseIndexStart++] = lines[disguiseIndexStart++].Replace("//", string.Empty);
-                    lines[disguiseIndexEnd] = lines[disguiseIndexEnd].Replace("//", string.Empty);
-                    lines[disguiseIndexEnd++] = lines[disguiseIndexEnd++].Replace("//", string.Empty);
-                }
+                lines[disguiseIndexStart] = lines[disguiseIndexStart].Replace("//", string.Empty);
+                lines[disguiseIndexStart + 1] = lines[disguiseIndexStart + 1].Replace("//", string.Empty);
+                lines[disguiseIndexEnd] = lines[disguiseIndexEnd].Replace("//", string.Empty);
+                lines[disguiseIndexEnd + 1] = lines[disguiseIndexEnd + 1].Replace("//", string.Empty);
                 File.WriteAllLines(dir_animations, lines);
+
+                if (!settings.hud_disguise_image)
+                {
+                    lines[disguiseIndexStart] = "//" + lines[disguiseIndexStart];
+                    lines[disguiseIndexStart + 1] = "//" + lines[disguiseIndexStart + 1];
+                    lines[disguiseIndexEnd] = "//" + lines[disguiseIndexEnd];
+                    lines[disguiseIndexEnd + 1] = "//" + lines[disguiseIndexEnd + 1];
+                    File.WriteAllLines(dir_animations, lines);
+                }
             }
             catch (Exception ex)
             {
@@ -190,8 +191,11 @@ namespace rayshud_installer
                 var dir_animations = rayshud + Properties.Resources.dir_animations;
                 var lines = File.ReadAllLines(dir_animations);
                 var uberchargeIndex = 72;
+                lines[uberchargeIndex] = lines[uberchargeIndex].Replace("//", string.Empty);
+                lines[uberchargeIndex + 1] = lines[uberchargeIndex + 1].Replace("//", string.Empty);
+                lines[uberchargeIndex + 2] = lines[uberchargeIndex + 2].Replace("//", string.Empty);
                 lines[uberchargeIndex] = "//" + lines[uberchargeIndex];
-                lines[uberchargeIndex++] = "//" + lines[uberchargeIndex++];
+                lines[uberchargeIndex + 1] = "//" + lines[uberchargeIndex + 1];
                 lines[uberchargeIndex + 2] = "//" + lines[uberchargeIndex + 2];
 
                 switch (settings.hud_uber_animation)
@@ -201,7 +205,7 @@ namespace rayshud_installer
                         break;
 
                     case 2:
-                        lines[uberchargeIndex++] = lines[uberchargeIndex++].Replace("//", string.Empty);
+                        lines[uberchargeIndex + 1] = lines[uberchargeIndex + 1].Replace("//", string.Empty);
                         break;
 
                     case 3:
@@ -226,13 +230,13 @@ namespace rayshud_installer
                 var dir_animations = rayshud + Properties.Resources.dir_animations;
                 var lines = File.ReadAllLines(dir_animations);
                 var crosshairIndex = 133;
-                lines[crosshairIndex] = "//" + lines[crosshairIndex];
-                lines[crosshairIndex++] = "//" + lines[crosshairIndex++];
+                lines[crosshairIndex] = lines[crosshairIndex].Replace("//", string.Empty);
+                lines[crosshairIndex + 1] = lines[crosshairIndex + 1].Replace("//", string.Empty);
 
-                if (settings.hud_xhair_pulse)
+                if (!settings.hud_xhair_pulse)
                 {
-                    lines[crosshairIndex] = lines[crosshairIndex].Replace("//", string.Empty);
-                    lines[crosshairIndex++] = lines[crosshairIndex++].Replace("//", string.Empty);
+                    lines[crosshairIndex] = "//" + lines[crosshairIndex];
+                    lines[crosshairIndex + 1] = "//" + lines[crosshairIndex + 1];
                 }
                 File.WriteAllLines(dir_animations, lines);
             }
@@ -253,12 +257,12 @@ namespace rayshud_installer
                 var lines = File.ReadAllLines(dir_menu);
                 var index = settings.hud_menu_classic ? 239 : 970;
                 lines[index] = "\t\t\"xpos\"\t\t\t\"9999\"";
-                lines[index++] = "\t\t\"ypos\"\t\t\t\"9999\"";
+                lines[index + 1] = "\t\t\"ypos\"\t\t\t\"9999\"";
 
                 if (settings.hud_menu_class_image)
                 {
                     lines[index] = "\t\t\"xpos\"\t\t\"c-250\"";
-                    lines[index++] = "\t\t\"ypos\"\t\t\"-80\"";
+                    lines[index + 1] = "\t\t\"ypos\"\t\t\"-80\"";
                 }
                 File.WriteAllLines(dir_menu, lines);
             }
@@ -278,7 +282,7 @@ namespace rayshud_installer
                 var dir_chat = rayshud + Properties.Resources.dir_resource_ui + "\\basechat.res";
                 var lines = File.ReadAllLines(dir_chat);
                 var value = settings.hud_chat_bottom ? 360 : 30;
-                lines[9] = $"\t\t\"ypos\"\t\t\t\t\"{value}\"";
+                lines[9] = $"\t\t\"ypos\"\t\t\t\t\t\"{value}\"";
                 File.WriteAllLines(dir_chat, lines);
             }
             catch (Exception ex)
@@ -300,7 +304,7 @@ namespace rayshud_installer
                 for (int x = 12; x <= 50; x += 19)
                 {
                     lines[x] = "\t\t\"visible\"\t\t\"0\"";
-                    lines[x++] = "\t\t\"enabled\"\t\t\"0\"";
+                    lines[x + 1] = "\t\t\"enabled\"\t\t\"0\"";
                     lines[x + 7] = lines[x + 7].Replace("Outline", null);
                     File.WriteAllLines(dir_layout, lines);
                 }
@@ -309,23 +313,23 @@ namespace rayshud_installer
                 {
                     if (settings.hud_xhair_style <= 10) // RaysCrosshair
                     {
-                        var index = 12;
+                        var index = 13;
                         lines[index] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[index++] = "\t\t\"enabled\"\t\t\"1\"";
+                        lines[index + 1] = "\t\t\"enabled\"\t\t\"1\"";
                         lines[index + 7] = settings.hud_xhair_outline ? $"\t\t\"font\"\t\t\t\"Crosshairs{size}Outline\"" : $"\t\t\"font\"\t\t\t\"Crosshairs{size}\"";
                     }
                     else if (settings.hud_xhair_style == 11) // KonrWings
                     {
                         var index = 31;
                         lines[index] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[index++] = "\t\t\"enabled\"\t\t\"1\"";
+                        lines[index + 1] = "\t\t\"enabled\"\t\t\"1\"";
                         lines[index + 7] = settings.hud_xhair_outline ? $"\t\t\"font\"\t\t\t\"KonrWings{size}Outline\"" : $"\t\t\"font\"\t\t\t\"KonrWings{size}\"";
                     }
                     else    // KnuckleCrosses
                     {
-                        var index = 50;
+                        var index = 49;
                         lines[index] = "\t\t\"visible\"\t\t\"1\"";
-                        lines[index++] = "\t\t\"enabled\"\t\t\"1\"";
+                        lines[index + 1] = "\t\t\"enabled\"\t\t\"1\"";
                         lines[index + 7] = settings.hud_xhair_outline ? $"\t\t\"font\"\t\t\t\"KnucklesCrosses{size}Outline\"" : $"\t\t\"font\"\t\t\t\"KnucklesCrosses{size}\"";
                     }
                     SetCrosshairStyle(dir_layout, lines);
@@ -348,22 +352,22 @@ namespace rayshud_installer
                 var dir_colors = rayshud + Properties.Resources.dir_colors;
                 var lines = File.ReadAllLines(dir_colors);
                 // Health and Ammo
-                lines[31] = $"\t\t\"Ammo In Clip\"\t\t\t\t\t\"{RGBConverter(settings.hud_ammo_clip)}\"";
-                lines[32] = $"\t\t\"Ammo In Reserve\"\t\t\t\t\"{RGBConverter(settings.hud_ammo_reserve)}\"";
-                lines[33] = $"\t\t\"Ammo In Clip Low\"\t\t\t\t\"{RGBConverter(settings.hud_ammo_clip_low)}\"";
-                lines[34] = $"\t\t\"Ammo In Reserve Low\"\t\t\t\"{RGBConverter(settings.hud_ammo_reserve_low)}\"";
-                lines[35] = $"\t\t\"Health Normal\"\t\t\t\t\t\"{RGBConverter(settings.hud_health_normal)}\"";
-                lines[36] = $"\t\t\"Health Buff\"\t\t\t\t\t\"{RGBConverter(settings.hud_health_buff)}\"";
-                lines[37] = $"\t\t\"Health Hurt\"\t\t\t\t\t\"{RGBConverter(settings.hud_health_low)}\"";
-                lines[38] = $"\t\t\"Heal Numbers\"\t\t\t\t\t\"{RGBConverter(settings.hud_healing_done)}\"";
+                lines[31] = $"\t\t\"Ammo In Clip\"\t\t\t\t\"{RGBConverter(settings.hud_ammo_clip)}\"";
+                lines[32] = $"\t\t\"Ammo In Reserve\"\t\t\t\"{RGBConverter(settings.hud_ammo_reserve)}\"";
+                lines[33] = $"\t\t\"Ammo In Clip Low\"\t\t\t\"{RGBConverter(settings.hud_ammo_clip_low)}\"";
+                lines[34] = $"\t\t\"Ammo In Reserve Low\"\t\t\"{RGBConverter(settings.hud_ammo_reserve_low)}\"";
+                lines[35] = $"\t\t\"Health Normal\"\t\t\t\t\"{RGBConverter(settings.hud_health_normal)}\"";
+                lines[36] = $"\t\t\"Health Buff\"\t\t\t\t\"{RGBConverter(settings.hud_health_buff)}\"";
+                lines[37] = $"\t\t\"Health Hurt\"\t\t\t\t\"{RGBConverter(settings.hud_health_low)}\"";
+                lines[38] = $"\t\t\"Heal Numbers\"\t\t\t\t\"{RGBConverter(settings.hud_healing_done)}\"";
                 // Crosshair
-                lines[45] = $"\t\t\"Crosshair\"\t\t\t\t\t\t\"{RGBConverter(settings.hud_xhair_color_base)}\"";
-                lines[46] = $"\t\t\"CrosshairDamage\"\t\t\t\t\"{RGBConverter(settings.hud_xhair_color_pulse)}\"";
+                lines[45] = $"\t\t\"Crosshair\"\t\t\t\t\t\"{RGBConverter(settings.hud_xhair_color_base)}\"";
+                lines[46] = $"\t\t\"CrosshairDamage\"\t\t\t\"{RGBConverter(settings.hud_xhair_color_pulse)}\"";
                 // Ubercharge
-                lines[49] = $"\t\t\"Uber Bar Color\"\t\t\t\t\"{RGBConverter(settings.hud_uber_color_bar)}\"";
-                lines[50] = $"\t\t\"Solid Color Uber\"\t\t\t\t\"{RGBConverter(settings.hud_uber_color_full)}\"";
-                lines[51] = $"\t\t\"Flashing Uber Color1\"\t\t\t\"{RGBConverter(settings.hud_uber_color_flash1)}\"";
-                lines[52] = $"\t\t\"Flashing Uber Color2\"\t\t\t\"{RGBConverter(settings.hud_uber_color_flash2)}\"";
+                lines[49] = $"\t\t\"Uber Bar Color\"\t\t\t\"{RGBConverter(settings.hud_uber_color_bar)}\"";
+                lines[50] = $"\t\t\"Solid Color Uber\"\t\t\t\"{RGBConverter(settings.hud_uber_color_full)}\"";
+                lines[51] = $"\t\t\"Flashing Uber Color1\"\t\t\"{RGBConverter(settings.hud_uber_color_flash1)}\"";
+                lines[52] = $"\t\t\"Flashing Uber Color2\"\t\t\"{RGBConverter(settings.hud_uber_color_flash2)}\"";
                 File.WriteAllLines(dir_colors, lines);
             }
             catch (Exception ex)
@@ -382,7 +386,7 @@ namespace rayshud_installer
                 var dir_damage = rayshud + Properties.Resources.dir_resource_ui + "\\huddamageaccount.res";
                 var lines = File.ReadAllLines(dir_damage);
                 var value = settings.hud_damage_above ? 108 : 188;
-                lines[20] = $"\t\t\"xpos\"\t\t\t\"c-{value}\"";
+                lines[20] = $"\t\t\"xpos\"\t\t\t\t\"c-{value}\"";
                 File.WriteAllLines(dir_damage, lines);
             }
             catch (Exception ex)
@@ -417,73 +421,73 @@ namespace rayshud_installer
                 {
                     case 0: // BasicCross
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-102\"";
-                        lines[crosshairIndex++] = "\t\t\"ypos\"\t\t\t\"c-99\"";
+                        lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-99\"";
                         lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"2\"";
                         break;
 
                     case 1: // BasicDot
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-103\"";
-                        lines[crosshairIndex++] = "\t\t\"ypos\"\t\t\t\"c-100\"";
+                        lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-100\"";
                         lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"3\"";
                         break;
 
                     case 2: // CircleDot
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-100\"";
-                        lines[crosshairIndex++] = "\t\t\"ypos\"\t\t\t\"c-96\"";
+                        lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-96\"";
                         lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"8\"";
                         break;
 
                     case 3: // OpenCross
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-85\"";
-                        lines[crosshairIndex++] = "\t\t\"ypos\"\t\t\t\"c-100\"";
+                        lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-100\"";
                         lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"i\"";
                         break;
 
                     case 4: // OpenCrossDot
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-85\"";
-                        lines[crosshairIndex++] = "\t\t\"ypos\"\t\t\t\"c-100\"";
+                        lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-100\"";
                         lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"h\"";
                         break;
 
                     case 5: // ScatterSpread
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-99\"";
-                        lines[crosshairIndex++] = "\t\t\"ypos\"\t\t\t\"c-99\"";
+                        lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-99\"";
                         lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"0\"";
                         break;
 
                     case 6: // ThinCircle
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-100\"";
-                        lines[crosshairIndex++] = "\t\t\"ypos\"\t\t\t\"c-96\"";
+                        lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-96\"";
                         lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"9\"";
                         break;
 
                     case 7: // Wings
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-100\"";
-                        lines[crosshairIndex++] = "\t\t\"ypos\"\t\t\t\"c-97\"";
+                        lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-97\"";
                         lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"d\"";
                         break;
 
                     case 8: // WingsPlus
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-100\"";
-                        lines[crosshairIndex++] = "\t\t\"ypos\"\t\t\t\"c-97\"";
+                        lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-97\"";
                         lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"c\"";
                         break;
 
                     case 9: // WingsSmall
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-100\"";
-                        lines[crosshairIndex++] = "\t\t\"ypos\"\t\t\t\"c-97\"";
+                        lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-97\"";
                         lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"g\"";
                         break;
 
                     case 10: // WingsSmallDot
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-100\"";
-                        lines[crosshairIndex++] = "\t\t\"ypos\"\t\t\t\"c-97\"";
+                        lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-97\"";
                         lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"f\"";
                         break;
 
                     case 11: // xHairCircle
                         lines[crosshairIndex] = "\t\t\"xpos\"\t\t\t\"c-100\"";
-                        lines[crosshairIndex++] = "\t\t\"ypos\"\t\t\t\"c-102\"";
+                        lines[crosshairIndex + 1] = "\t\t\"ypos\"\t\t\t\"c-102\"";
                         lines[crosshairIndex + 2] = "\t\t\"labelText\"\t\t\"0\"";
                         break;
                 }
