@@ -101,6 +101,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.manifest" />
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -127,6 +130,9 @@
   <ItemGroup>
     <PackageReference Include="ColorPickerWPF">
       <Version>1.0.9</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
     </PackageReference>
     <PackageReference Include="WriteableBitmapEx">
       <Version>1.5.1</Version>

@@ -1,4 +1,5 @@
 ﻿using ColorPickerWPF;
+using log4net;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -15,9 +16,12 @@ namespace rayshud_installer
     {
         private Properties.Settings settings = new Properties.Settings();
         private string app = System.Windows.Forms.Application.StartupPath;
+        public static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public Main()
         {
+            log4net.Config.XmlConfigurator.Configure();
+            log.Info("Initializing");
             InitializeComponent();
             SetHUDDirectory();
             CleanUpDirectory();
@@ -31,23 +35,28 @@ namespace rayshud_installer
         {
             if (string.IsNullOrWhiteSpace(settings.app_hud_directory))
             {
+                log.Info("Attempting to set the tf/custom directory...");
                 foreach (var drive in DriveInfo.GetDrives())
                 {
                     if (Directory.Exists(drive.Name + settings.app_tf_directory_32))
                     {
                         settings.app_hud_directory = drive.Name + settings.app_tf_directory_32;
+                        log.Info("Setting tf/custom directory to " + settings.app_hud_directory);
                         break;
                     }
                     else if (Directory.Exists(drive.Name + settings.app_tf_directory_64))
                     {
                         settings.app_hud_directory = drive.Name + settings.app_tf_directory_64;
+                        log.Info("Setting tf/custom directory to " + settings.app_hud_directory);
                         break;
                     }
                 }
+                log.Info("Unable to find the tf/custom directory. Asking user...");
                 if (string.IsNullOrWhiteSpace(settings.app_hud_directory))
                     DisplayFolderBrowser();
                 if (string.IsNullOrWhiteSpace(settings.app_hud_directory))
                 {
+                    log.Info("Unable to find the tf/custom directory. Exiting...");
                     System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_directory, "Directory Not Set", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     System.Windows.Application.Current.Shutdown();
                 }
@@ -61,6 +70,7 @@ namespace rayshud_installer
         /// </summary>
         private void UpdateGUIButtons()
         {
+            log.Info("Updating User Interface...");
             btn_Start.IsEnabled = false;
             btn_Install.IsEnabled = false;
             btn_Save.IsEnabled = false;
@@ -109,11 +119,14 @@ namespace rayshud_installer
         {
             try
             {
+                log.Info("Checking rayshud versions...");
                 if (!CheckHUDInstall()) return;
                 var client = new WebClient();
                 var readme_text = client.DownloadString(settings.app_hud_readme).Split('\n');
                 settings.app_hud_version_current = readme_text[readme_text.Length - 2];
                 settings.app_hud_version_local = File.ReadLines(settings.app_hud_directory + "\\rayshud\\README.md").Last().Trim();
+                log.Info("Local rayshud version: " + settings.app_hud_version_local);
+                log.Info("Live rayshud version: " + settings.app_hud_version_current);
                 if (settings.app_hud_version_local != settings.app_hud_version_current)
                 {
                     btn_Install.Content = "Update";
@@ -121,9 +134,9 @@ namespace rayshud_installer
                 }
                 settings.Save();
             }
-            catch
+            catch (Exception ex)
             {
-                // Do nothing...
+                log.Error(ex.Message);
             }
         }
 
@@ -132,6 +145,7 @@ namespace rayshud_installer
         /// </summary>
         private void ApplyHUDSettings()
         {
+            log.Info("        ======  Start Applying User Settings  ========");
             var writer = new HUDFileWriter();
             writer.defaultBackgrounds();
             writer.mainMenuStyle();
@@ -146,6 +160,7 @@ namespace rayshud_installer
             writer.crosshair(cb_XHairSize.SelectedItem.ToString());
             writer.colors();
             writer.damagePos();
+            log.Info("        ======  Done Applying User Settings  ========");
         }
 
         /// <summary>
@@ -155,6 +170,7 @@ namespace rayshud_installer
         {
             try
             {
+                log.Info("        ======  Start Saving User Settings  =========");
                 settings.hud_menu_classic = chk_ClassicHUD.IsChecked ?? false;
                 settings.hud_scoreboard_minimal = chk_Scoreboard.IsChecked ?? false;
                 settings.hud_disguise_image = chk_DisguiseImage.IsChecked ?? false;
@@ -191,10 +207,12 @@ namespace rayshud_installer
                 settings.hud_chat_bottom = chk_ChatBottom.IsChecked ?? false;
                 settings.app_hud_mod_date = DateTime.Now;
                 settings.Save();
+                log.Info("        ======  Done Saving User Settings  =========");
             }
             catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_save + "\n" + ex.Message, "Error: Saving Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                log.Error(ex.Message);
             }
         }
 
@@ -205,6 +223,7 @@ namespace rayshud_installer
         {
             try
             {
+                log.Info("        ======  Start Loading User Settings  ========");
                 var bc = new BrushConverter();
                 chk_ClassicHUD.IsChecked = settings.hud_menu_classic;
                 chk_Scoreboard.IsChecked = settings.hud_scoreboard_minimal;
@@ -250,10 +269,12 @@ namespace rayshud_installer
                 btn_AmmoReserveLow.Background = (Brush)bc.ConvertFrom(settings.hud_ammo_reserve_low);
                 chk_TeamCenter.IsChecked = settings.hud_team_class_center;
                 chk_ChatBottom.IsChecked = settings.hud_chat_bottom;
+                log.Info("        ======  Done Loading User Settings  ========");
             }
             catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_load + "\n" + ex.Message, "Error: Loading Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                log.Error(ex.Message);
             }
         }
 
@@ -264,6 +285,7 @@ namespace rayshud_installer
         {
             try
             {
+                log.Info("        ======  Start Resetting User Settings  =======");
                 var bc = new BrushConverter();
                 chk_ClassicHUD.IsChecked = false;
                 chk_Scoreboard.IsChecked = false;
@@ -294,10 +316,12 @@ namespace rayshud_installer
                 btn_AmmoReserveLow.Background = (Brush)bc.ConvertFrom("#FF801C");
                 chk_TeamLeft.IsChecked = true;
                 chk_ChatTop.IsChecked = true;
+                log.Info("        ======  Done Resetting User Settings  =======");
             }
             catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_reset + "\n" + ex.Message, "Error: Resetting Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                log.Error(ex.Message);
             }
         }
 
@@ -306,6 +330,7 @@ namespace rayshud_installer
         /// </summary>
         private void DisplayFolderBrowser()
         {
+            log.Info("Opening Folder Browser");
             var directoryBrowser = new FolderBrowserDialog { Description = $"Please select your tf\\custom folder. If the correct directory is not provided, the options to install and modify rayshud will not be available.", ShowNewFolderButton = true };
             while (!directoryBrowser.SelectedPath.Contains("tf\\custom"))
             {
@@ -335,8 +360,9 @@ namespace rayshud_installer
         /// </summary>
         private void CleanUpDirectory()
         {
-            if (File.Exists($"{app}\\rayshud.zip"))
-                File.Delete($"{app}\\rayshud.zip");
+            log.Info("Cleaning up rayshud directories....");
+            if (File.Exists(app + "\\rayshud.zip"))
+                File.Delete(app + "\\rayshud.zip");
             if (Directory.Exists(settings.app_hud_directory + "\\rayshud-master"))
             {
                 if (File.Exists(settings.app_hud_directory + "\\rayshud-backup.zip"))
@@ -356,14 +382,18 @@ namespace rayshud_installer
         {
             try
             {
+                log.Info("        ======  Start Installing rayshud  ===========");
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 var client = new WebClient();
+                log.Info("Downloading latest rayshud...");
                 client.DownloadFile(settings.app_hud_download, "rayshud.zip");
+                log.Info("Extracting downloaded rayshud to " + settings.app_hud_directory);
                 ZipFile.ExtractToDirectory(app + "\\rayshud.zip", settings.app_hud_directory);
                 if (btn_Install.Content.ToString() != "Install")
                     Directory.Delete(settings.app_hud_directory + "\\rayshud", true);
+                log.Info("Normalizing the installed rayshud folder name");
                 Directory.Move(settings.app_hud_directory + "\\rayshud-master", settings.app_hud_directory + "\\rayshud");
                 lbl_News.Content = $"Install Successful! {DateTime.Now}";
                 settings.Save();
@@ -371,11 +401,13 @@ namespace rayshud_installer
                 SaveHUDSettings();
                 ApplyHUDSettings();
                 UpdateGUIButtons();
+                log.Info("        ======  Done Installing rayshud  ==========");
                 System.Windows.Forms.MessageBox.Show("rayshud has been successfully installed", "Install Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_install, "Error: Installing rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                log.Error(ex.Message);
             }
         }
 
@@ -386,6 +418,7 @@ namespace rayshud_installer
         {
             try
             {
+                log.Info("        ======  Start Uninstalling rayshud  ========");
                 if (CheckHUDInstall())
                 {
                     Directory.Delete(settings.app_hud_directory + "\\rayshud", true);
@@ -393,11 +426,13 @@ namespace rayshud_installer
                     settings.Save();
                 }
                 SetHUDDirectory();
+                log.Info("        ======  Done Uninstalling rayshud  ========");
                 System.Windows.Forms.MessageBox.Show("rayshud has been successfully uninstalled", "Uninstall Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_uninstall + "\n" + ex.Message, "Error: Uninstalling rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                log.Error(ex.Message);
             }
         }
 
@@ -425,6 +460,7 @@ namespace rayshud_installer
         /// </summary>
         private void Btn_Start_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("Starting Team Fortress 2...");
             Process.Start("steam://rungameid/440");
         }
 
@@ -433,6 +469,7 @@ namespace rayshud_installer
         /// </summary>
         private void Btn_ChangeDirectory_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("Opening tf/custom directory...");
             DisplayFolderBrowser();
         }
 
@@ -441,6 +478,7 @@ namespace rayshud_installer
         /// </summary>
         private void Btn_SteamGroup_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("Opening rayshud Steam Group...");
             Process.Start("https://steamcommunity.com/groups/rayshud");
         }
 
@@ -449,6 +487,7 @@ namespace rayshud_installer
         /// </summary>
         private void Btn_ReportIssue_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("Opening GitHub issue tracker...");
             Process.Start("https://github.com/CriticalFlaw/rayshud-Installer/issues");
         }
 

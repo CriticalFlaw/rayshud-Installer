@@ -16,6 +16,7 @@ namespace rayshud_installer
         {
             try
             {
+                Main.log.Info("Setting Main Menu Style...");
                 var dir_menu_classic = rayshud + Properties.Resources.dir_menu_classic;
                 var dir_menu_modern = rayshud + Properties.Resources.dir_menu_modern;
 
@@ -37,6 +38,7 @@ namespace rayshud_installer
             catch (Exception ex)
             {
                 MessageBox.Show(Properties.Resources.error_writer_main_menu + ". " + ex.Message, "Error: Main Menu Style", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Main.log.Error(ex.Message);
             }
         }
 
@@ -47,6 +49,7 @@ namespace rayshud_installer
         {
             try
             {
+                Main.log.Info("Setting Scoreboard Style...");
                 var dir_scoreboard = rayshud + Properties.Resources.dir_resource_ui + "\\scoreboard.res";
                 var dir_scoreboard_custom = rayshud + Properties.Resources.dir_scoreboard_custom;
                 var style = settings.hud_scoreboard_minimal ? "-minimal.res" : "-default.res";
@@ -55,6 +58,7 @@ namespace rayshud_installer
             catch (Exception ex)
             {
                 MessageBox.Show(Properties.Resources.error_writer_scoreboard + ". " + ex.Message, "Error: Scoreboard Style", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Main.log.Error(ex.Message);
             }
         }
 
@@ -65,6 +69,7 @@ namespace rayshud_installer
         {
             try
             {
+                Main.log.Info("Setting Custom Backgrounds...");
                 var dir_console = rayshud + Properties.Resources.dir_console;
                 var dir_backgrounds = rayshud + Properties.Resources.dir_backgrounds;
                 var dir_console_temp = rayshud + Properties.Resources.dir_temp + "\\console";
@@ -91,6 +96,7 @@ namespace rayshud_installer
             catch (Exception ex)
             {
                 MessageBox.Show(Properties.Resources.error_writer_backgrounds + ". " + ex.Message, "Error: Main Menu Backgrounds", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Main.log.Error(ex.Message);
             }
         }
 
@@ -101,6 +107,7 @@ namespace rayshud_installer
         {
             try
             {
+                Main.log.Info("Setting Team Selection...");
                 var dir_team = rayshud + Properties.Resources.dir_resource_ui + "\\teammenu.res";
                 var dir_class = rayshud + Properties.Resources.dir_resource_ui + "\\classselection.res";
                 var dir_team_custom = rayshud + Properties.Resources.dir_team_custom;
@@ -108,18 +115,19 @@ namespace rayshud_installer
 
                 if (settings.hud_team_class_center)
                 {
-                    File.Copy($"{dir_team_custom}-center.res", dir_team, true);
-                    File.Copy($"{dir_class_custom}-center.res", dir_class, true);
+                    File.Copy(dir_team_custom + "-center.res", dir_team, true);
+                    File.Copy(dir_class_custom + "-center.res", dir_class, true);
                 }
                 else
                 {
-                    File.Copy($"{dir_team_custom}-left.res", dir_team, true);
-                    File.Copy($"{dir_class_custom}-left.res", dir_class, true);
+                    File.Copy(dir_team_custom + "-left.res", dir_team, true);
+                    File.Copy(dir_class_custom + "-left.res", dir_class, true);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(Properties.Resources.error_writer_team_select + ". " + ex.Message, "Error: Team Select Position", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Main.log.Error(ex.Message);
             }
         }
 
@@ -130,30 +138,32 @@ namespace rayshud_installer
         {
             try
             {
+                Main.log.Info("Setting Player Health Style...");
                 var dir_health = rayshud + Properties.Resources.dir_resource_ui + "\\hudplayerhealth.res";
                 var dir_health_custom = rayshud + Properties.Resources.dir_health_custom;
                 switch (settings.hud_health_style)
                 {
                     case 0:
-                        File.Copy($"{dir_health_custom}-default.res", dir_health, true);
+                        File.Copy(dir_health_custom + "-default.res", dir_health, true);
                         break;
 
                     case 1:
-                        File.Copy($"{dir_health_custom}-teambar.res", dir_health, true);
+                        File.Copy(dir_health_custom + "-teambar.res", dir_health, true);
                         break;
 
                     case 2:
-                        File.Copy($"{dir_health_custom}-cross.res", dir_health, true);
+                        File.Copy(dir_health_custom + "-cross.res", dir_health, true);
                         break;
 
                     case 3:
-                        File.Copy($"{dir_health_custom}-broesel.res", dir_health, true);
+                        File.Copy(dir_health_custom + "-broesel.res", dir_health, true);
                         break;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(Properties.Resources.error_writer_health_style + ". " + ex.Message, "Error: Health Style", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Main.log.Error(ex.Message);
             }
         }
 
@@ -164,6 +174,7 @@ namespace rayshud_installer
         {
             try
             {
+                Main.log.Info("Setting Disguise Image...");
                 var dir_animations = rayshud + Properties.Resources.dir_animations;
                 var lines = File.ReadAllLines(dir_animations);
                 var disguiseIndexStart = 150;
@@ -186,6 +197,7 @@ namespace rayshud_installer
             catch (Exception ex)
             {
                 MessageBox.Show(Properties.Resources.error_writer_disguise_image + ". " + ex.Message, "Error: Disguise Image", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Main.log.Error(ex.Message);
             }
         }
 
@@ -196,6 +208,7 @@ namespace rayshud_installer
         {
             try
             {
+                Main.log.Info("Setting Ubercharge Animation...");
                 var dir_animations = rayshud + Properties.Resources.dir_animations;
                 var lines = File.ReadAllLines(dir_animations);
                 var uberchargeIndex = 72;
@@ -212,6 +225,7 @@ namespace rayshud_installer
             catch (Exception ex)
             {
                 MessageBox.Show(Properties.Resources.error_writer_uber_animation + ". " + ex.Message, "Error: Uber Animation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Main.log.Error(ex.Message);
             }
         }
 
@@ -222,6 +236,7 @@ namespace rayshud_installer
         {
             try
             {
+                Main.log.Info("Setting Crosshair Pulse...");
                 var dir_animations = rayshud + Properties.Resources.dir_animations;
                 var lines = File.ReadAllLines(dir_animations);
                 var crosshairIndex = 133;
@@ -238,6 +253,7 @@ namespace rayshud_installer
             catch (Exception ex)
             {
                 MessageBox.Show(Properties.Resources.error_writer_xhair_pulse + ". " + ex.Message, "Error: Crosshair Pulse", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Main.log.Error(ex.Message);
             }
         }
 
@@ -248,6 +264,7 @@ namespace rayshud_installer
         {
             try
             {
+                Main.log.Info("Setting Main Menu Class Image...");
                 var dir_menu = rayshud + Properties.Resources.dir_resource_ui + "\\mainmenuoverride.res";
                 var lines = File.ReadAllLines(dir_menu);
                 var index = settings.hud_menu_classic ? 933 : 970;
@@ -264,6 +281,7 @@ namespace rayshud_installer
             catch (Exception ex)
             {
                 MessageBox.Show(Properties.Resources.error_writer_class_image + ". " + ex.Message, "Error: Class Image", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Main.log.Error(ex.Message);
             }
         }
 
@@ -274,6 +292,7 @@ namespace rayshud_installer
         {
             try
             {
+                Main.log.Info("Setting Chatbox Position...");
                 var dir_chat = rayshud + Properties.Resources.dir_resource_ui + "\\basechat.res";
                 var lines = File.ReadAllLines(dir_chat);
                 var value = settings.hud_chat_bottom ? 360 : 30;
@@ -283,6 +302,7 @@ namespace rayshud_installer
             catch (Exception ex)
             {
                 MessageBox.Show(Properties.Resources.error_writer_chatbox_pos + ". " + ex.Message, "Error: Chatbox Position", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Main.log.Error(ex.Message);
             }
         }
 
@@ -293,6 +313,7 @@ namespace rayshud_installer
         {
             try
             {
+                Main.log.Info("Setting Crosshair...");
                 var size = int.Parse(xhairSize);
                 var dir_layout = rayshud + Properties.Resources.dir_layout;
                 var lines = File.ReadAllLines(dir_layout);
@@ -334,6 +355,7 @@ namespace rayshud_installer
             catch (Exception ex)
             {
                 MessageBox.Show(Properties.Resources.error_writer_xhair + ". " + ex.Message, "Error: Setting Crosshair", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Main.log.Error(ex.Message);
             }
         }
 
@@ -344,6 +366,7 @@ namespace rayshud_installer
         {
             try
             {
+                Main.log.Info("Setting Colors...");
                 var dir_colors = rayshud + Properties.Resources.dir_colors;
                 var lines = File.ReadAllLines(dir_colors);
                 // Health and Ammo
@@ -368,6 +391,7 @@ namespace rayshud_installer
             catch (Exception ex)
             {
                 MessageBox.Show(Properties.Resources.error_writer_colors + ". " + ex.Message, "Error: Setting Colors", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Main.log.Error(ex.Message);
             }
         }
 
@@ -378,6 +402,7 @@ namespace rayshud_installer
         {
             try
             {
+                Main.log.Info("Setting Damage Value Position...");
                 var dir_damage = rayshud + Properties.Resources.dir_resource_ui + "\\huddamageaccount.res";
                 var lines = File.ReadAllLines(dir_damage);
                 var value = settings.hud_damage_above ? 108 : 188;
@@ -387,22 +412,7 @@ namespace rayshud_installer
             catch (Exception ex)
             {
                 MessageBox.Show(Properties.Resources.error_writer_damage_pos + ". " + ex.Message, "Error: Damage Position", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Copies the the selected main menu style into rayshud
-        /// </summary>
-        public void CopyMenuFiles(string source, bool defaultBG)
-        {
-            File.Copy($"{source}\\resource\\ui\\mainmenuoverride.res", rayshud + Properties.Resources.dir_resource_ui + "\\mainmenuoverride.res", true);
-            File.Copy($"{source}\\resource\\gamemenu.res", rayshud + "\\resource\\gamemenu.res", true);
-            if (!defaultBG)
-            {
-                if (!Directory.Exists(rayshud + Properties.Resources.dir_console))
-                    Directory.CreateDirectory(rayshud + Properties.Resources.dir_temp);
-                File.Copy($"{source}\\materials\\console\\background_upward.vtf", rayshud + Properties.Resources.dir_console + "\\background_upward.vtf", true);
-                File.Copy($"{source}\\materials\\console\\background_upward_widescreen.vtf", rayshud + Properties.Resources.dir_console + "\\background_upward_widescreen.vtf", true);
+                Main.log.Error(ex.Message);
             }
         }
 
@@ -413,6 +423,7 @@ namespace rayshud_installer
         {
             try
             {
+                Main.log.Info("Setting Crosshair Style...");
                 var crosshairIndex = 15;
                 switch (settings.hud_xhair_style)
                 {
@@ -493,6 +504,23 @@ namespace rayshud_installer
             catch (Exception ex)
             {
                 MessageBox.Show(Properties.Resources.error_writer_xhair + ". " + ex.Message, "Error: Setting Crosshair", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Main.log.Error(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Copies the the selected main menu style into rayshud
+        /// </summary>
+        public void CopyMenuFiles(string source, bool defaultBG)
+        {
+            File.Copy(source + "\\resource\\ui\\mainmenuoverride.res", rayshud + Properties.Resources.dir_resource_ui + "\\mainmenuoverride.res", true);
+            File.Copy(source + "\\resource\\gamemenu.res", rayshud + "\\resource\\gamemenu.res", true);
+            if (!defaultBG)
+            {
+                if (!Directory.Exists(rayshud + Properties.Resources.dir_console))
+                    Directory.CreateDirectory(rayshud + Properties.Resources.dir_temp);
+                File.Copy(source + "\\materials\\console\\background_upward.vtf", rayshud + Properties.Resources.dir_console + "\\background_upward.vtf", true);
+                File.Copy(source + "\\materials\\console\\background_upward_widescreen.vtf", rayshud + Properties.Resources.dir_console + "\\background_upward_widescreen.vtf", true);
             }
         }
 
