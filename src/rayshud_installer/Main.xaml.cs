@@ -1,5 +1,4 @@
-﻿using ColorPickerWPF;
-using log4net;
+﻿using log4net;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -183,26 +182,26 @@ namespace rayshud_installer
                     settings.hud_uber_animation = 1;
                 else
                     settings.hud_uber_animation = 2;
-                settings.hud_uber_color_bar = btn_UberBarColor.Background.ToString();
-                settings.hud_uber_color_full = btn_UberFullColor.Background.ToString();
-                settings.hud_uber_color_flash1 = btn_UberFlash1.Background.ToString();
-                settings.hud_uber_color_flash2 = btn_UberFlash2.Background.ToString();
+                settings.hud_uber_color_bar = btn_UberBarColor.SelectedColor.Value.ToString();
+                settings.hud_uber_color_full = btn_UberFullColor.SelectedColor.Value.ToString();
+                settings.hud_uber_color_flash1 = btn_UberFlash1.SelectedColor.Value.ToString();
+                settings.hud_uber_color_flash2 = btn_UberFlash2.SelectedColor.Value.ToString();
                 settings.hud_xhair_style = cb_XHairStyle.SelectedIndex;
                 settings.hud_xhair_size = cb_XHairSize.SelectedIndex;
-                settings.hud_xhair_color_base = btn_XHairColor.Background.ToString();
-                settings.hud_xhair_color_pulse = btn_XHairPulse.Background.ToString();
+                settings.hud_xhair_color_base = btn_XHairColor.SelectedColor.Value.ToString();
+                settings.hud_xhair_color_pulse = btn_XHairPulse.SelectedColor.Value.ToString();
                 settings.hud_xhair_enable = chk_XHairEnable.IsChecked ?? false;
                 settings.hud_xhair_outline = chk_XHairOutline.IsChecked ?? false;
                 settings.hud_xhair_pulse = chk_XHairPulse.IsChecked ?? false;
                 settings.hud_health_style = lb_HealthStyle.SelectedIndex;
-                settings.hud_health_normal = btn_HealthNormal.Background.ToString();
-                settings.hud_healing_done = btn_HealingDone.Background.ToString();
-                settings.hud_health_buff = btn_HealthBuff.Background.ToString();
-                settings.hud_health_low = btn_HealthLow.Background.ToString();
-                settings.hud_ammo_clip = btn_AmmoClip.Background.ToString();
-                settings.hud_ammo_reserve = btn_AmmoReserve.Background.ToString();
-                settings.hud_ammo_clip_low = btn_AmmoClipLow.Background.ToString();
-                settings.hud_ammo_reserve_low = btn_AmmoReserveLow.Background.ToString();
+                settings.hud_health_normal = btn_HealthNormal.SelectedColor.Value.ToString();
+                settings.hud_healing_done = btn_HealingDone.SelectedColor.Value.ToString();
+                settings.hud_health_buff = btn_HealthBuff.SelectedColor.Value.ToString();
+                settings.hud_health_low = btn_HealthLow.SelectedColor.Value.ToString();
+                settings.hud_ammo_clip = btn_AmmoClip.SelectedColor.Value.ToString();
+                settings.hud_ammo_reserve = btn_AmmoReserve.SelectedColor.Value.ToString();
+                settings.hud_ammo_clip_low = btn_AmmoClipLow.SelectedColor.Value.ToString();
+                settings.hud_ammo_reserve_low = btn_AmmoReserveLow.SelectedColor.Value.ToString();
                 settings.hud_team_class_center = chk_TeamCenter.IsChecked ?? false;
                 settings.hud_chat_bottom = chk_ChatBottom.IsChecked ?? false;
                 settings.app_hud_mod_date = DateTime.Now;
@@ -224,7 +223,7 @@ namespace rayshud_installer
             try
             {
                 log.Info("        ======  Start Loading User Settings  ========");
-                var bc = new BrushConverter();
+                var cc = new ColorConverter();
                 chk_ClassicHUD.IsChecked = settings.hud_menu_classic;
                 chk_Scoreboard.IsChecked = settings.hud_scoreboard_minimal;
                 chk_DisguiseImage.IsChecked = settings.hud_disguise_image;
@@ -245,28 +244,28 @@ namespace rayshud_installer
                         chk_UberRainbow.IsChecked = true;
                         break;
                 }
-                btn_UberBarColor.Background = (Brush)bc.ConvertFrom(settings.hud_uber_color_bar);
-                btn_UberFullColor.Background = (Brush)bc.ConvertFrom(settings.hud_uber_color_full);
-                btn_UberFlash1.Background = (Brush)bc.ConvertFrom(settings.hud_uber_color_flash1);
-                btn_UberFlash2.Background = (Brush)bc.ConvertFrom(settings.hud_uber_color_flash2);
+                btn_UberBarColor.SelectedColor = (Color)cc.ConvertFrom(settings.hud_uber_color_bar);
+                btn_UberFullColor.SelectedColor = (Color)cc.ConvertFrom(settings.hud_uber_color_full);
+                btn_UberFlash1.SelectedColor = (Color)cc.ConvertFrom(settings.hud_uber_color_flash1);
+                btn_UberFlash2.SelectedColor = (Color)cc.ConvertFrom(settings.hud_uber_color_flash2);
                 cb_XHairStyle.SelectedIndex = settings.hud_xhair_style;
                 for (var i = 8; i <= 40; i += 2)
                     cb_XHairSize.Items.Add(i);
                 cb_XHairSize.SelectedIndex = settings.hud_xhair_size;
-                btn_XHairColor.Background = (Brush)bc.ConvertFrom(settings.hud_xhair_color_base);
-                btn_XHairPulse.Background = (Brush)bc.ConvertFrom(settings.hud_xhair_color_pulse);
+                btn_XHairColor.SelectedColor = (Color)cc.ConvertFrom(settings.hud_xhair_color_base);
+                btn_XHairPulse.SelectedColor = (Color)cc.ConvertFrom(settings.hud_xhair_color_pulse);
                 chk_XHairEnable.IsChecked = settings.hud_xhair_enable;
                 chk_XHairOutline.IsChecked = settings.hud_xhair_outline;
                 chk_XHairPulse.IsChecked = settings.hud_xhair_pulse;
                 lb_HealthStyle.SelectedIndex = settings.hud_health_style;
-                btn_HealthNormal.Background = (Brush)bc.ConvertFrom(settings.hud_health_normal);
-                btn_HealingDone.Background = (Brush)bc.ConvertFrom(settings.hud_healing_done);
-                btn_HealthBuff.Background = (Brush)bc.ConvertFrom(settings.hud_health_buff);
-                btn_HealthLow.Background = (Brush)bc.ConvertFrom(settings.hud_health_low);
-                btn_AmmoClip.Background = (Brush)bc.ConvertFrom(settings.hud_ammo_clip);
-                btn_AmmoReserve.Background = (Brush)bc.ConvertFrom(settings.hud_ammo_reserve);
-                btn_AmmoClipLow.Background = (Brush)bc.ConvertFrom(settings.hud_ammo_clip_low);
-                btn_AmmoReserveLow.Background = (Brush)bc.ConvertFrom(settings.hud_ammo_reserve_low);
+                btn_HealthNormal.SelectedColor = (Color)cc.ConvertFrom(settings.hud_health_normal);
+                btn_HealingDone.SelectedColor = (Color)cc.ConvertFrom(settings.hud_healing_done);
+                btn_HealthBuff.SelectedColor = (Color)cc.ConvertFrom(settings.hud_health_buff);
+                btn_HealthLow.SelectedColor = (Color)cc.ConvertFrom(settings.hud_health_low);
+                btn_AmmoClip.SelectedColor = (Color)cc.ConvertFrom(settings.hud_ammo_clip);
+                btn_AmmoReserve.SelectedColor = (Color)cc.ConvertFrom(settings.hud_ammo_reserve);
+                btn_AmmoClipLow.SelectedColor = (Color)cc.ConvertFrom(settings.hud_ammo_clip_low);
+                btn_AmmoReserveLow.SelectedColor = (Color)cc.ConvertFrom(settings.hud_ammo_reserve_low);
                 chk_TeamCenter.IsChecked = settings.hud_team_class_center;
                 chk_ChatBottom.IsChecked = settings.hud_chat_bottom;
                 log.Info("        ======  Done Loading User Settings  ========");
@@ -286,7 +285,7 @@ namespace rayshud_installer
             try
             {
                 log.Info("        ======  Start Resetting User Settings  =======");
-                var bc = new BrushConverter();
+                var cc = new ColorConverter();
                 chk_ClassicHUD.IsChecked = false;
                 chk_Scoreboard.IsChecked = false;
                 chk_DisguiseImage.IsChecked = false;
@@ -294,26 +293,27 @@ namespace rayshud_installer
                 chk_ClassImage.IsChecked = false;
                 chk_DamagePos.IsChecked = false;
                 chk_UberFlash.IsChecked = true;
-                btn_UberBarColor.Background = (Brush)bc.ConvertFrom("#EBE2CA");
-                btn_UberFullColor.Background = (Brush)bc.ConvertFrom("#FF3219");
-                btn_UberFlash1.Background = (Brush)bc.ConvertFrom("#FFA500");
-                btn_UberFlash2.Background = (Brush)bc.ConvertFrom("#FF4500");
+                btn_UberBarColor.SelectedColor = (Color)cc.ConvertFrom("#EBE2CA");
+                btn_UberBarColor.SelectedColor = (Color)cc.ConvertFrom("#EBE2CA");
+                btn_UberFullColor.SelectedColor = (Color)cc.ConvertFrom("#FF3219");
+                btn_UberFlash1.SelectedColor = (Color)cc.ConvertFrom("#FFA500");
+                btn_UberFlash2.SelectedColor = (Color)cc.ConvertFrom("#FF4500");
                 cb_XHairStyle.SelectedIndex = 0;
                 cb_XHairSize.SelectedIndex = 0;
-                btn_XHairColor.Background = (Brush)bc.ConvertFrom("#F2F2F2");
-                btn_XHairPulse.Background = (Brush)bc.ConvertFrom("#FF0000");
+                btn_XHairColor.SelectedColor = (Color)cc.ConvertFrom("#F2F2F2");
+                btn_XHairPulse.SelectedColor = (Color)cc.ConvertFrom("#FF0000");
                 chk_XHairEnable.IsChecked = false;
                 chk_XHairOutline.IsChecked = false;
                 chk_XHairPulse.IsChecked = false;
                 lb_HealthStyle.SelectedIndex = 0;
-                btn_HealthNormal.Background = (Brush)bc.ConvertFrom("#EBE2CA");
-                btn_HealingDone.Background = (Brush)bc.ConvertFrom("#30FF30");
-                btn_HealthBuff.Background = (Brush)bc.ConvertFrom("#30FF30");
-                btn_HealthLow.Background = (Brush)bc.ConvertFrom("#FF9900");
-                btn_AmmoClip.Background = (Brush)bc.ConvertFrom("#30FF30");
-                btn_AmmoReserve.Background = (Brush)bc.ConvertFrom("#48FFFF");
-                btn_AmmoClipLow.Background = (Brush)bc.ConvertFrom("#FF2A82");
-                btn_AmmoReserveLow.Background = (Brush)bc.ConvertFrom("#FF801C");
+                btn_HealthNormal.SelectedColor = (Color)cc.ConvertFrom("#EBE2CA");
+                btn_HealingDone.SelectedColor = (Color)cc.ConvertFrom("#30FF30");
+                btn_HealthBuff.SelectedColor = (Color)cc.ConvertFrom("#30FF30");
+                btn_HealthLow.SelectedColor = (Color)cc.ConvertFrom("#FF9900");
+                btn_AmmoClip.SelectedColor = (Color)cc.ConvertFrom("#30FF30");
+                btn_AmmoReserve.SelectedColor = (Color)cc.ConvertFrom("#48FFFF");
+                btn_AmmoClipLow.SelectedColor = (Color)cc.ConvertFrom("#FF2A82");
+                btn_AmmoReserveLow.SelectedColor = (Color)cc.ConvertFrom("#FF801C");
                 chk_TeamLeft.IsChecked = true;
                 chk_ChatTop.IsChecked = true;
                 log.Info("        ======  Done Resetting User Settings  =======");
@@ -489,16 +489,6 @@ namespace rayshud_installer
         {
             log.Info("Opening GitHub issue tracker...");
             Process.Start("https://github.com/CriticalFlaw/rayshud-Installer/issues");
-        }
-
-        /// <summary>
-        /// Displays the color picker, then assign the selected color to the setting
-        /// </summary>
-        private void ColorPicker_Click(object sender, RoutedEventArgs e)
-        {
-            var bc = new BrushConverter();
-            if (ColorPickerWindow.ShowDialog(out var color, ColorPickerWPF.Code.ColorPickerDialogOptions.SimpleView) != true) return;
-            ((System.Windows.Controls.Button)sender).Background = (Brush)bc.ConvertFrom(HexConverter(color));
         }
 
         #endregion CLICK EVENTS
