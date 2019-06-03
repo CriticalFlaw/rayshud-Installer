@@ -145,6 +145,7 @@ namespace rayshud_installer
         private void ApplyHUDSettings()
         {
             log.Info("        ======  Start Applying User Settings  ========");
+            ShowBusyIndicator(true);
             var writer = new HUDFileWriter();
             writer.defaultBackgrounds();
             writer.mainMenuStyle();
@@ -159,6 +160,7 @@ namespace rayshud_installer
             writer.crosshair(cb_XHairSize.SelectedItem.ToString());
             writer.colors();
             writer.damagePos();
+            ShowBusyIndicator(false);
             log.Info("        ======  Done Applying User Settings  ========");
         }
 
@@ -170,6 +172,7 @@ namespace rayshud_installer
             try
             {
                 log.Info("        ======  Start Saving User Settings  =========");
+                ShowBusyIndicator();
                 settings.hud_menu_classic = chk_ClassicHUD.IsChecked ?? false;
                 settings.hud_scoreboard_minimal = chk_Scoreboard.IsChecked ?? false;
                 settings.hud_disguise_image = chk_DisguiseImage.IsChecked ?? false;
@@ -213,6 +216,10 @@ namespace rayshud_installer
                 System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_save + "\n" + ex.Message, "Error: Saving Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 log.Error(ex.Message);
             }
+            finally
+            {
+                ShowBusyIndicator(false);
+            }
         }
 
         /// <summary>
@@ -223,6 +230,7 @@ namespace rayshud_installer
             try
             {
                 log.Info("        ======  Start Loading User Settings  ========");
+                ShowBusyIndicator();
                 var cc = new ColorConverter();
                 chk_ClassicHUD.IsChecked = settings.hud_menu_classic;
                 chk_Scoreboard.IsChecked = settings.hud_scoreboard_minimal;
@@ -275,6 +283,10 @@ namespace rayshud_installer
                 System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_load + "\n" + ex.Message, "Error: Loading Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 log.Error(ex.Message);
             }
+            finally
+            {
+                ShowBusyIndicator(false);
+            }
         }
 
         /// <summary>
@@ -285,6 +297,7 @@ namespace rayshud_installer
             try
             {
                 log.Info("        ======  Start Resetting User Settings  =======");
+                ShowBusyIndicator();
                 var cc = new ColorConverter();
                 chk_ClassicHUD.IsChecked = false;
                 chk_Scoreboard.IsChecked = false;
@@ -322,6 +335,10 @@ namespace rayshud_installer
             {
                 System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_reset + "\n" + ex.Message, "Error: Resetting Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 log.Error(ex.Message);
+            }
+            finally
+            {
+                ShowBusyIndicator(false);
             }
         }
 
@@ -373,6 +390,14 @@ namespace rayshud_installer
             }
         }
 
+        /// <summary>
+        /// Displays or hides the busy indicator given the parameter
+        /// </summary>
+        private void ShowBusyIndicator(bool display = true)
+        {
+            busyIndicator.IsBusy = display;
+        }
+
         #region CLICK EVENTS
 
         /// <summary>
@@ -383,6 +408,7 @@ namespace rayshud_installer
             try
             {
                 log.Info("        ======  Start Installing rayshud  ===========");
+                ShowBusyIndicator();
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
@@ -409,6 +435,10 @@ namespace rayshud_installer
                 System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_install, "Error: Installing rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 log.Error(ex.Message);
             }
+            finally
+            {
+                ShowBusyIndicator(false);
+            }
         }
 
         /// <summary>
@@ -419,6 +449,7 @@ namespace rayshud_installer
             try
             {
                 log.Info("        ======  Start Uninstalling rayshud  ========");
+                ShowBusyIndicator();
                 if (CheckHUDInstall())
                 {
                     Directory.Delete(settings.app_hud_directory + "\\rayshud", true);
@@ -433,6 +464,10 @@ namespace rayshud_installer
             {
                 System.Windows.Forms.MessageBox.Show(Properties.Resources.error_app_uninstall + "\n" + ex.Message, "Error: Uninstalling rayshud", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 log.Error(ex.Message);
+            }
+            finally
+            {
+                ShowBusyIndicator(false);
             }
         }
 
