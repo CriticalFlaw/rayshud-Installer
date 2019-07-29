@@ -19,7 +19,7 @@ namespace rayshud_installer.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,63 +61,25 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to https://github.com/raysfire/rayshud/archive/master.zip.
         /// </summary>
-        internal static System.Drawing.Bitmap background {
+        internal static string app_download {
             get {
-                object obj = ResourceManager.GetObject("background", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("app_download", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to https://raw.githubusercontent.com/raysfire/rayshud/master/README.md.
         /// </summary>
-        internal static byte[] Cerbetica {
+        internal static string app_readme {
             get {
-                object obj = ResourceManager.GetObject("Cerbetica", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("app_readme", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \scripts\hudanimations_custom.txt.
-        /// </summary>
-        internal static string dir_animations {
-            get {
-                return ResourceManager.GetString("dir_animations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \scripts\chapterbackgrounds.txt.
-        /// </summary>
-        internal static string dir_backgrounds {
-            get {
-                return ResourceManager.GetString("dir_backgrounds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \customizations\Team Menu\ClassSelection.
-        /// </summary>
-        internal static string dir_class_custom {
-            get {
-                return ResourceManager.GetString("dir_class_custom", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \resource\scheme\clientscheme_colors.res.
-        /// </summary>
-        internal static string dir_colors {
-            get {
-                return ResourceManager.GetString("dir_colors", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \materials\console.
+        ///   Looks up a localized string similar to \rayshud\materials\console.
         /// </summary>
         internal static string dir_console {
             get {
@@ -126,25 +88,7 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \customizations\Player Health\HudPlayerHealth.
-        /// </summary>
-        internal static string dir_health_custom {
-            get {
-                return ResourceManager.GetString("dir_health_custom", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \scripts\hudlayout.res.
-        /// </summary>
-        internal static string dir_layout {
-            get {
-                return ResourceManager.GetString("dir_layout", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \customizations\Main Menu\Classic.
+        ///   Looks up a localized string similar to \rayshud\customizations\Main Menu\Classic.
         /// </summary>
         internal static string dir_menu_classic {
             get {
@@ -153,7 +97,7 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \customizations\Main Menu\Modern.
+        ///   Looks up a localized string similar to \rayshud\customizations\Main Menu\Modern.
         /// </summary>
         internal static string dir_menu_modern {
             get {
@@ -162,7 +106,7 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \resource\ui.
+        ///   Looks up a localized string similar to \rayshud\resource\ui.
         /// </summary>
         internal static string dir_resource_ui {
             get {
@@ -171,25 +115,7 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \customizations\Scoreboard\scoreboard.
-        /// </summary>
-        internal static string dir_scoreboard_custom {
-            get {
-                return ResourceManager.GetString("dir_scoreboard_custom", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \customizations\Team Menu\TeamMenu.
-        /// </summary>
-        internal static string dir_team_custom {
-            get {
-                return ResourceManager.GetString("dir_team_custom", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \customizations\temp.
+        ///   Looks up a localized string similar to \rayshud\temp.
         /// </summary>
         internal static string dir_temp {
             get {
@@ -378,22 +304,146 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to \rayshud\resource\ui\basechat.res.
         /// </summary>
-        internal static System.Drawing.Bitmap raysfire {
+        internal static string file_basechat {
             get {
-                object obj = ResourceManager.GetObject("raysfire", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("file_basechat", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to \rayshud\scripts\chapterbackgrounds.txt.
         /// </summary>
-        internal static System.Drawing.Bitmap raysfox {
+        internal static string file_chapterbackgrounds {
             get {
-                object obj = ResourceManager.GetObject("raysfox", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("file_chapterbackgrounds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\resource\ui\classselection.res.
+        /// </summary>
+        internal static string file_classselection {
+            get {
+                return ResourceManager.GetString("file_classselection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\resource\scheme\clientscheme_colors.res.
+        /// </summary>
+        internal static string file_clientscheme_colors {
+            get {
+                return ResourceManager.GetString("file_clientscheme_colors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\customizations\Team Menu\ClassSelection.
+        /// </summary>
+        internal static string file_custom_classselection {
+            get {
+                return ResourceManager.GetString("file_custom_classselection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\customizations\Player Health\HudPlayerHealth.
+        /// </summary>
+        internal static string file_custom_hudplayerhealth {
+            get {
+                return ResourceManager.GetString("file_custom_hudplayerhealth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\customizations\Scoreboard\scoreboard.
+        /// </summary>
+        internal static string file_custom_scoreboard {
+            get {
+                return ResourceManager.GetString("file_custom_scoreboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\customizations\Team Menu\TeamMenu.
+        /// </summary>
+        internal static string file_custom_teammenu {
+            get {
+                return ResourceManager.GetString("file_custom_teammenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\resource\gamemenu.res.
+        /// </summary>
+        internal static string file_gamemenu {
+            get {
+                return ResourceManager.GetString("file_gamemenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\scripts\hudanimations_custom.txt.
+        /// </summary>
+        internal static string file_hudanimations {
+            get {
+                return ResourceManager.GetString("file_hudanimations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\resource\ui\huddamageaccount.res.
+        /// </summary>
+        internal static string file_huddamageaccount {
+            get {
+                return ResourceManager.GetString("file_huddamageaccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\scripts\hudlayout.res.
+        /// </summary>
+        internal static string file_hudlayout {
+            get {
+                return ResourceManager.GetString("file_hudlayout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\resource\ui\hudplayerhealth.res.
+        /// </summary>
+        internal static string file_hudplayerhealth {
+            get {
+                return ResourceManager.GetString("file_hudplayerhealth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\resource\ui\mainmenuoverride.res.
+        /// </summary>
+        internal static string file_mainmenuoverride {
+            get {
+                return ResourceManager.GetString("file_mainmenuoverride", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\resource\ui\scoreboard.res.
+        /// </summary>
+        internal static string file_scoreboard {
+            get {
+                return ResourceManager.GetString("file_scoreboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\resource\ui\teammenu.res.
+        /// </summary>
+        internal static string file_teammenu {
+            get {
+                return ResourceManager.GetString("file_teammenu", resourceCulture);
             }
         }
     }
