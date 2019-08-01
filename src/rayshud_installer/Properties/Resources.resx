@@ -124,19 +124,16 @@
     <value>https://raw.githubusercontent.com/raysfire/rayshud/master/README.md</value>
   </data>
   <data name="dir_console" xml:space="preserve">
-    <value>\rayshud\materials\console</value>
+    <value>\rayshud\materials\console\</value>
   </data>
-  <data name="dir_menu_classic" xml:space="preserve">
-    <value>\rayshud\customizations\Main Menu\Classic</value>
-  </data>
-  <data name="dir_menu_modern" xml:space="preserve">
-    <value>\rayshud\customizations\Main Menu\Modern</value>
+  <data name="dir_custom_menu" xml:space="preserve">
+    <value>\rayshud\customizations\Main Menu\</value>
   </data>
   <data name="dir_resource_ui" xml:space="preserve">
     <value>\rayshud\resource\ui</value>
   </data>
-  <data name="dir_temp" xml:space="preserve">
-    <value>\rayshud\temp</value>
+  <data name="dir_scripts" xml:space="preserve">
+    <value>\rayshud\scripts</value>
   </data>
   <data name="error_app_directory" xml:space="preserve">
     <value>The tf/custom directory needs to be set in order to use the installer</value>
@@ -210,17 +207,11 @@
   <data name="file_clientscheme_colors" xml:space="preserve">
     <value>\rayshud\resource\scheme\clientscheme_colors.res</value>
   </data>
-  <data name="file_custom_classselection" xml:space="preserve">
-    <value>\rayshud\customizations\Team Menu\ClassSelection</value>
+  <data name="file_custom_background" xml:space="preserve">
+    <value>\rayshud\customizations\Backgrounds\background_</value>
   </data>
-  <data name="file_custom_hudplayerhealth" xml:space="preserve">
-    <value>\rayshud\customizations\Player Health\HudPlayerHealth</value>
-  </data>
-  <data name="file_custom_scoreboard" xml:space="preserve">
-    <value>\rayshud\customizations\Scoreboard\scoreboard</value>
-  </data>
-  <data name="file_custom_teammenu" xml:space="preserve">
-    <value>\rayshud\customizations\Team Menu\TeamMenu</value>
+  <data name="file_custom_mainmenuoverride" xml:space="preserve">
+    <value>\rayshud\customizations\Main Menu\mainmenuoverride.res</value>
   </data>
   <data name="file_gamemenu" xml:space="preserve">
     <value>\rayshud\resource\gamemenu.res</value>

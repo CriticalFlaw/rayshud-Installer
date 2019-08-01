@@ -3,12 +3,12 @@
     public enum HealthStyles
     {
         Default,
-        Teambar,
+        Broesel,
         Cross,
-        Broesel
+        Teambar
     }
 
-    public enum UberStyles
+    public enum UberchargeStyles
     {
         Flash,
         Solid,
