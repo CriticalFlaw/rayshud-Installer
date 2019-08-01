@@ -2,12 +2,12 @@
 using Microsoft.Win32;
 using rayshud_installer.Properties;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
@@ -155,7 +155,8 @@ namespace rayshud_installer
             logger.Info("> Normalizing the installed rayshud folder name");
             if (Directory.Exists(settings.hud_directory + "\\rayshud"))
                 Directory.Delete(settings.hud_directory + "\\rayshud", true);
-            Directory.Move(settings.hud_directory + "\\rayshud-master", settings.hud_directory + "\\rayshud");
+            if (Directory.Exists(settings.hud_directory + "\\rayshud-master"))
+                Directory.Move(settings.hud_directory + "\\rayshud-master", settings.hud_directory + "\\rayshud");
             lblNews.Content = "Install finished at " + DateTime.Now;
             logger.Info("> Done downloading latest rayshud.");
         }
@@ -292,7 +293,7 @@ namespace rayshud_installer
                 writer.CrosshairPulse();
                 writer.MainMenuClassImage();
                 writer.ChatBoxPos();
-                writer.Crosshair(cbXHairSize.Text); // TODO: Allow for user to input crosshair position
+                writer.Crosshair(int.Parse(cbXHairSize.Text), tbXHairXPos.Value, tbXHairYPos.Value);
                 writer.Colors();
                 writer.DamagePos();
                 lblNews.Content = "Settings Saved at " + DateTime.Now;
@@ -323,13 +324,16 @@ namespace rayshud_installer
                 settings.toggle_stock_backgrounds = chkDefaultBG.IsChecked ?? false;
                 settings.toggle_menu_images = chkMenuImages.IsChecked ?? false;
                 settings.toggle_damage_pos = chkDamagePos.IsChecked ?? false;
+                settings.toggle_center_select = chkTeamCenter.IsChecked ?? false;
+                settings.toggle_chat_bottom = chkChatBottom.IsChecked ?? false;
+                settings.toggle_xhair_outline = chkXHairOutline.IsChecked ?? false;
 
                 if (rbUberFlash.IsChecked == true)
-                    settings.val_uber_animaton = (int)UberStyles.Flash;
+                    settings.val_uber_animaton = (int)UberchargeStyles.Flash;
                 else if (rbUberSolid.IsChecked == true)
-                    settings.val_uber_animaton = (int)UberStyles.Solid;
+                    settings.val_uber_animaton = (int)UberchargeStyles.Solid;
                 else if (rbUberRainbow.IsChecked == true)
-                    settings.val_uber_animaton = (int)UberStyles.Rainbow;
+                    settings.val_uber_animaton = (int)UberchargeStyles.Rainbow;
 
                 settings.color_uber_bar = cpUberBarColor.SelectedColor.Value.ToString();
                 settings.color_uber_full = cpUberFullColor.SelectedColor.Value.ToString();
@@ -340,11 +344,10 @@ namespace rayshud_installer
                 settings.val_xhair_size = cbXHairSize.SelectedIndex;
                 settings.color_xhair_normal = cpXHairColor.SelectedColor.Value.ToString();
                 settings.color_xhair_pulse = cpXHairPulse.SelectedColor.Value.ToString();
-                settings.toggle_xhair_enable = cbXHairEnable.IsChecked ?? false;
-                settings.toggle_xhair_outline = cbXHairOutline.IsChecked ?? false;
-                settings.toggle_xhair_pulse = cbXHairPulse.IsChecked ?? false;
+                settings.toggle_xhair_enable = chkXHairEnable.IsChecked ?? false;
+                settings.toggle_xhair_pulse = chkXHairPulse.IsChecked ?? false;
 
-                settings.val_health_style = lbHealthStyle.SelectedIndex;
+                settings.val_health_style = cbHealthStyle.SelectedIndex;
                 settings.color_health_normal = cpHealthNormal.SelectedColor.Value.ToString();
                 settings.color_health_healed = cpHealingDone.SelectedColor.Value.ToString();
                 settings.color_health_buffed = cpHealthBuff.SelectedColor.Value.ToString();
@@ -354,9 +357,6 @@ namespace rayshud_installer
                 settings.color_ammo_clip_low = cpAmmoClipLow.SelectedColor.Value.ToString();
                 settings.color_ammo_reserve = cpAmmoReserve.SelectedColor.Value.ToString();
                 settings.color_ammo_reserve_low = cpAmmoReserveLow.SelectedColor.Value.ToString();
-
-                settings.toggle_center_select = rbTeamCenter.IsChecked ?? false;
-                settings.toggle_chat_bottom = rbChatBottom.IsChecked ?? false;
 
                 settings.Save();
                 logger.Info("> Done saving user settings.");
@@ -389,18 +389,21 @@ namespace rayshud_installer
                 chkDefaultBG.IsChecked = settings.toggle_stock_backgrounds;
                 chkMenuImages.IsChecked = settings.toggle_menu_images;
                 chkDamagePos.IsChecked = settings.toggle_damage_pos;
+                chkChatBottom.IsChecked = settings.toggle_chat_bottom;
+                chkTeamCenter.IsChecked = settings.toggle_center_select;
+                chkXHairOutline.IsChecked = settings.toggle_xhair_outline;
 
                 switch (settings.val_uber_animaton)
                 {
-                    case (int)UberStyles.Flash:
+                    case (int)UberchargeStyles.Flash:
                         rbUberFlash.IsChecked = true;
                         break;
 
-                    case (int)UberStyles.Solid:
+                    case (int)UberchargeStyles.Solid:
                         rbUberSolid.IsChecked = true;
                         break;
 
-                    case (int)UberStyles.Rainbow:
+                    case (int)UberchargeStyles.Rainbow:
                         rbUberRainbow.IsChecked = true;
                         break;
                 }
@@ -413,11 +416,10 @@ namespace rayshud_installer
                 cbXHairSize.SelectedIndex = settings.val_xhair_size;
                 cpXHairColor.SelectedColor = (Color)cc.ConvertFrom(settings.color_xhair_normal);
                 cpXHairPulse.SelectedColor = (Color)cc.ConvertFrom(settings.color_xhair_pulse);
-                cbXHairEnable.IsChecked = settings.toggle_xhair_enable;
-                cbXHairOutline.IsChecked = settings.toggle_xhair_outline;
-                cbXHairPulse.IsChecked = settings.toggle_xhair_pulse;
+                chkXHairEnable.IsChecked = settings.toggle_xhair_enable;
+                chkXHairPulse.IsChecked = settings.toggle_xhair_pulse;
 
-                lbHealthStyle.SelectedIndex = settings.val_health_style;
+                cbHealthStyle.SelectedIndex = settings.val_health_style;
                 cpHealthNormal.SelectedColor = (Color)cc.ConvertFrom(settings.color_health_normal);
                 cpHealingDone.SelectedColor = (Color)cc.ConvertFrom(settings.color_health_healed);
                 cpHealthBuff.SelectedColor = (Color)cc.ConvertFrom(settings.color_health_buffed);
@@ -427,15 +429,6 @@ namespace rayshud_installer
                 cpAmmoClipLow.SelectedColor = (Color)cc.ConvertFrom(settings.color_ammo_clip_low);
                 cpAmmoReserve.SelectedColor = (Color)cc.ConvertFrom(settings.color_ammo_reserve);
                 cpAmmoReserveLow.SelectedColor = (Color)cc.ConvertFrom(settings.color_ammo_reserve_low);
-
-                rbTeamLeft.IsChecked = true;
-                rbChatTop.IsChecked = true;
-
-                if (settings.toggle_center_select)
-                    rbTeamCenter.IsChecked = true;
-
-                if (settings.toggle_chat_bottom)
-                    rbChatBottom.IsChecked = true;
 
                 logger.Info("> Done loading user settings.");
             }
@@ -467,6 +460,9 @@ namespace rayshud_installer
                 chkMenuImages.IsChecked = false;
                 chkDamagePos.IsChecked = false;
                 rbUberFlash.IsChecked = true;
+                chkChatBottom.IsChecked = false;
+                chkTeamCenter.IsChecked = false;
+                chkXHairOutline.IsChecked = false;
 
                 cpUberBarColor.SelectedColor = (Color)cc.ConvertFrom("#EBE2CA");
                 cpUberFullColor.SelectedColor = (Color)cc.ConvertFrom("#FF3219");
@@ -477,11 +473,10 @@ namespace rayshud_installer
                 cbXHairSize.SelectedIndex = 0;
                 cpXHairColor.SelectedColor = (Color)cc.ConvertFrom("#F2F2F2");
                 cpXHairPulse.SelectedColor = (Color)cc.ConvertFrom("#FF0000");
-                cbXHairEnable.IsChecked = false;
-                cbXHairOutline.IsChecked = false;
-                cbXHairPulse.IsChecked = false;
+                chkXHairEnable.IsChecked = false;
+                chkXHairPulse.IsChecked = false;
 
-                lbHealthStyle.SelectedIndex = (int)HealthStyles.Default;
+                cbHealthStyle.SelectedIndex = (int)HealthStyles.Default;
                 cpHealthNormal.SelectedColor = (Color)cc.ConvertFrom("#EBE2CA");
                 cpHealingDone.SelectedColor = (Color)cc.ConvertFrom("#30FF30");
                 cpHealthBuff.SelectedColor = (Color)cc.ConvertFrom("#30FF30");
@@ -491,9 +486,6 @@ namespace rayshud_installer
                 cpAmmoClipLow.SelectedColor = (Color)cc.ConvertFrom("#FF2A82");
                 cpAmmoReserve.SelectedColor = (Color)cc.ConvertFrom("#48FFFF");
                 cpAmmoReserveLow.SelectedColor = (Color)cc.ConvertFrom("#FF801C");
-
-                rbTeamLeft.IsChecked = true;
-                rbChatTop.IsChecked = true;
 
                 lblNews.Content = "Settings Reset at " + DateTime.Now;
                 logger.Info("> Done resetting user settings.");
@@ -621,21 +613,39 @@ namespace rayshud_installer
             Process.Start("steam://rungameid/440");
         }
 
-        private void GroupBox_OpenLayout(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Process.Start("notepad.exe", rayshud.Default.hud_directory + Properties.Resources.file_hudlayout);
-        }
-
-        private void GroupBox_OpenColors(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Process.Start("notepad.exe", rayshud.Default.hud_directory + Properties.Resources.file_clientscheme_colors);
-        }
-
-        private void GroupBox_OpenChatBox(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Process.Start("notepad.exe", rayshud.Default.hud_directory + Properties.Resources.file_basechat);
-        }
-
         #endregion CLICK EVENTS
+
+        #region CROSSHAIRS
+
+        private static readonly Dictionary<CrosshairStyles, Tuple<int, int, string>> crosshairs = new Dictionary<CrosshairStyles, Tuple<int, int, string>>
+        {
+            { CrosshairStyles.BasicCross, new Tuple<int, int, string>(109,99,"2") },
+            { CrosshairStyles.BasicDot, new Tuple<int, int, string>(103, 100, "3") },
+            { CrosshairStyles.CircleDot, new Tuple<int, int, string>(100, 96, "8") },
+            { CrosshairStyles.OpenCross, new Tuple<int, int, string>(85, 100, "i") },
+            { CrosshairStyles.OpenCrossDot, new Tuple<int, int, string>(85, 100, "h") },
+            { CrosshairStyles.ScatterSpread, new Tuple<int, int, string>(99, 99, "0") },
+            { CrosshairStyles.ThinCircle, new Tuple<int, int, string>(100, 96, "9") },
+            { CrosshairStyles.Wings, new Tuple<int, int, string>(100, 97, "d") },
+            { CrosshairStyles.WingsPlus, new Tuple<int, int, string>(100, 97, "c") },
+            { CrosshairStyles.WingsSmall, new Tuple<int, int, string>(100, 97, "g") },
+            { CrosshairStyles.WingsSmallDot, new Tuple<int, int, string>(100, 97, "f") },
+            { CrosshairStyles.xHairCircle, new Tuple<int, int, string>(100, 102, "0") },
+            { CrosshairStyles.KonrWings, new Tuple<int, int, string>(108, 99, "i") }
+        };
+
+        private void XHairStyle_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            var values = crosshairs[(CrosshairStyles)cbXHairStyle.SelectedIndex];
+            tbXHairXPos.Text = values.Item1.ToString();
+            tbXHairYPos.Text = values.Item2.ToString();
+        }
+
+        public static string GetCrosshairStyle(CrosshairStyles index)
+        {
+            return crosshairs[index].Item3;
+        }
+
+        #endregion CROSSHAIRS
     }
 }
