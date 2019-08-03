@@ -1,7 +1,7 @@
 ﻿using rayshud_installer.Properties;
 using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace rayshud_installer
 {
@@ -67,14 +67,13 @@ namespace rayshud_installer
         /// <summary>
         /// Set the crosshair
         /// </summary>
-        public void Crosshair(string xhairSize, int xpos = 0, int ypos = 0)
+        public void Crosshair(int size, int? xpos = 0, int? ypos = 0)
         {
             try
             {
                 MainWindow.logger.Info("Setting Crosshair...");
                 var hudlayout = hudPath + Resources.file_hudlayout;
                 var lines = File.ReadAllLines(hudlayout);
-                var size = int.Parse(xhairSize);
                 for (var x = 12; x <= 50; x += 19)
                 {
                     lines[x] = "\t\t\"visible\"\t\t\"0\"";
@@ -83,27 +82,33 @@ namespace rayshud_installer
                     File.WriteAllLines(hudlayout, lines);
                 }
 
-                var index = 0;
                 if (rayshud.Default.toggle_xhair_enable)
                 {
+                    var index = 0;
+                    var style = "Crosshairs";
+                    var outline = (rayshud.Default.toggle_xhair_outline) ? "Outline" : string.Empty;
+
                     switch (rayshud.Default.val_xhair_style)
                     {
                         default:
                             index = 12;
-                            lines[index + 7] = (rayshud.Default.toggle_xhair_outline) ? $"\t\t\"font\"\t\t\t\"Crosshairs{size}Outline\"" : $"\t\t\"font\"\t\t\t\"Crosshairs{size}\"";
+                            style = "Crosshairs";
                             break;
+
                         case (int)CrosshairStyles.KonrWings:
                             index = 31;
-                            lines[index + 7] = (rayshud.Default.toggle_xhair_outline) ? $"\t\t\"font\"\t\t\t\"KonrWings{size}Outline\"" : $"\t\t\"font\"\t\t\t\"KonrWings{size}\"";
+                            style = "KonrWings";
                             break;
+
                         case (int)CrosshairStyles.KnuckleCrosses:
                             index = 50;
-                            lines[index + 7] = (rayshud.Default.toggle_xhair_outline) ? $"\t\t\"font\"\t\t\t\"KnucklesCrosses{size}Outline\"" : $"\t\t\"font\"\t\t\t\"KnucklesCrosses{size}\"";
+                            style = "KnucklesCrosses";
                             break;
                     }
                     lines[index] = "\t\t\"visible\"\t\t\"1\"";
                     lines[index + 1] = "\t\t\"enabled\"\t\t\"1\"";
-                    CrosshairStyle(hudlayout, lines, xpos, ypos);
+                    lines[index + 7] = $"\t\t\"font\"\t\t\t\"{style}{size}{outline}\"";
+                    CrosshairStyle(lines, xpos, ypos);
                     File.WriteAllLines(hudlayout, lines);
                 }
             }
@@ -122,14 +127,12 @@ namespace rayshud_installer
             {
                 MainWindow.logger.Info("Setting Crosshair Pulse...");
                 var lines = File.ReadAllLines(hudAnimations);
-                var index1 = 133;
-                var index2 = 134;
-                lines[index1] = lines[index1].Replace("//", string.Empty);
-                lines[index2] = lines[index2].Replace("//", string.Empty);
-                if (!rayshud.Default.toggle_xhair_pulse)
+                lines[133] = CommentOutTextLine(lines[133]);
+                lines[134] = CommentOutTextLine(lines[134]);
+                if (rayshud.Default.toggle_xhair_pulse)
                 {
-                    lines[index1] = string.Concat("//", lines[index1]);
-                    lines[index2] = string.Concat("//", lines[index2]);
+                    lines[133] = lines[133].Replace("//", string.Empty);
+                    lines[134] = lines[134].Replace("//", string.Empty);
                 }
                 File.WriteAllLines(hudAnimations, lines);
             }
@@ -142,34 +145,16 @@ namespace rayshud_installer
         /// <summary>
         /// Set the rayshud crosshair position and style
         /// </summary>
-        public void CrosshairStyle(string hudlayout, string[] lines, int x, int y)
+        public void CrosshairStyle(string[] lines, int? xpos, int? ypos)
         {
             try
             {
                 MainWindow.logger.Info("Setting Crosshair Style...");
-                var xhairs = new Dictionary<CrosshairStyles, Tuple<int, int, string>>
-                {
-                    { CrosshairStyles.BasicCross, new Tuple<int, int, string>(109,99,"2") },
-                    { CrosshairStyles.BasicDot, new Tuple<int, int, string>(103, 100, "3") },
-                    { CrosshairStyles.CircleDot, new Tuple<int, int, string>(100, 96, "8") },
-                    { CrosshairStyles.OpenCross, new Tuple<int, int, string>(85, 100, "i") },
-                    { CrosshairStyles.OpenCrossDot, new Tuple<int, int, string>(85, 100, "h") },
-                    { CrosshairStyles.ScatterSpread, new Tuple<int, int, string>(99, 99, "0") },
-                    { CrosshairStyles.ThinCircle, new Tuple<int, int, string>(100, 96, "9") },
-                    { CrosshairStyles.Wings, new Tuple<int, int, string>(100, 97, "d") },
-                    { CrosshairStyles.WingsPlus, new Tuple<int, int, string>(100, 97, "c") },
-                    { CrosshairStyles.WingsSmall, new Tuple<int, int, string>(100, 97, "g") },
-                    { CrosshairStyles.WingsSmallDot, new Tuple<int, int, string>(100, 97, "f") },
-                    { CrosshairStyles.xHairCircle, new Tuple<int, int, string>(100, 102, "0") }
-                };
-                var values = xhairs[(CrosshairStyles)rayshud.Default.val_xhair_style];
-                var xpos = (x > 0) ? x : values.Item1;
-                var ypos = (y > 0) ? y : values.Item2;
-
+                var style = MainWindow.GetCrosshairStyle((CrosshairStyles)rayshud.Default.val_xhair_style);
                 lines[15] = $"\t\t\"xpos\"\t\t\t\"c-{xpos}\"";
                 lines[16] = $"\t\t\"ypos\"\t\t\t\"c-{ypos}\"";
-                lines[20] = $"\t\t\"labelText\"\t\t\"{values.Item3}\"";
-                File.WriteAllLines(hudlayout, lines);
+                lines[20] = $"\t\t\"labelText\"\t\t\"{style}\"";
+                File.WriteAllLines(hudPath + Resources.file_hudlayout, lines);
             }
             catch (Exception ex)
             {
@@ -205,22 +190,17 @@ namespace rayshud_installer
             {
                 MainWindow.logger.Info("Setting Disguise Image...");
                 var lines = File.ReadAllLines(hudAnimations);
-                var index1 = 150;
-                var index2 = 151;
-                var index3 = 156;
-                var index4 = 157;
+                lines[150] = CommentOutTextLine(lines[150]);
+                lines[151] = CommentOutTextLine(lines[151]);
+                lines[156] = CommentOutTextLine(lines[156]);
+                lines[157] = CommentOutTextLine(lines[157]);
 
-                lines[index1] = lines[index1].Replace("//", string.Empty);
-                lines[index2] = lines[index2].Replace("//", string.Empty);
-                lines[index3] = lines[index3].Replace("//", string.Empty);
-                lines[index4] = lines[index4].Replace("//", string.Empty);
-
-                if (!rayshud.Default.toggle_disguise_image)
+                if (rayshud.Default.toggle_disguise_image)
                 {
-                    lines[index1] = string.Concat("//", lines[index1]);
-                    lines[index2] = string.Concat("//", lines[index2]);
-                    lines[index3] = string.Concat("//", lines[index3]);
-                    lines[index4] = string.Concat("//", lines[index4]);
+                    lines[150] = lines[150].Replace("//", string.Empty);
+                    lines[151] = lines[151].Replace("//", string.Empty);
+                    lines[156] = lines[156].Replace("//", string.Empty);
+                    lines[157] = lines[157].Replace("//", string.Empty);
                 }
                 File.WriteAllLines(hudAnimations, lines);
             }
@@ -239,25 +219,14 @@ namespace rayshud_installer
             {
                 MainWindow.logger.Info("Setting Player Health Style...");
                 var hudplayerhealth = hudPath + Resources.file_hudplayerhealth;
-                var hudplayerhealth_custom = hudPath + Resources.file_custom_hudplayerhealth;
-                switch (rayshud.Default.val_health_style)
-                {
-                    case (int)HealthStyles.Default:
-                        File.Copy(hudplayerhealth_custom + "-default.res", hudplayerhealth, true);
-                        break;
-
-                    case (int)HealthStyles.Teambar:
-                        File.Copy(hudplayerhealth_custom + "-teambar.res", hudplayerhealth, true);
-                        break;
-
-                    case (int)HealthStyles.Cross:
-                        File.Copy(hudplayerhealth_custom + "-cross.res", hudplayerhealth, true);
-                        break;
-
-                    case (int)HealthStyles.Broesel:
-                        File.Copy(hudplayerhealth_custom + "-broesel.res", hudplayerhealth, true);
-                        break;
-                }
+                var index = rayshud.Default.val_health_style - 1;
+                var lines = File.ReadAllLines(hudplayerhealth);
+                lines[0] = CommentOutTextLine(lines[0]);
+                lines[1] = CommentOutTextLine(lines[1]);
+                lines[2] = CommentOutTextLine(lines[2]);
+                if (rayshud.Default.val_health_style > 0)
+                    lines[index] = lines[index].Replace("//", string.Empty);
+                File.WriteAllLines(hudplayerhealth, lines);
             }
             catch (Exception ex)
             {
@@ -273,25 +242,23 @@ namespace rayshud_installer
             try
             {
                 MainWindow.logger.Info("Setting Custom Backgrounds...");
-                var console = hudPath + Resources.dir_console;
-                var console_temp = hudPath + Resources.dir_temp + "\\console";
+                var directory = new DirectoryInfo(hudPath + Resources.dir_console);
+                var background_base = hudPath + Resources.file_custom_background + "upward.vtf";
+                var background_wide = hudPath + Resources.file_custom_background + "upward_widescreen.vtf";
                 var chapterbackgrounds = hudPath + Resources.file_chapterbackgrounds;
-                var chapterbackgrounds_temp = hudPath + Resources.dir_temp + "\\chapterbackgrounds.txt";
-
-                if (!Directory.Exists(hudPath + Resources.dir_temp))
-                    Directory.CreateDirectory(hudPath + Resources.dir_temp);
+                var chapterbackgrounds_temp = hudPath + (Resources.file_chapterbackgrounds.Replace(".txt", ".file"));
 
                 if (rayshud.Default.toggle_stock_backgrounds)
                 {
-                    if (Directory.Exists(console))
-                        Directory.Move(console, console_temp);
+                    foreach (FileInfo file in directory.GetFiles())
+                        file.Delete();
                     if (File.Exists(chapterbackgrounds))
                         File.Move(chapterbackgrounds, chapterbackgrounds_temp);
                 }
                 else
                 {
-                    if (Directory.Exists(console_temp))
-                        Directory.Move(console_temp, console);
+                    if (Directory.GetFiles(directory.ToString()).Count() == 0)
+                        CopyBackgroundFiles();
                     if (File.Exists(chapterbackgrounds_temp))
                         File.Move(chapterbackgrounds_temp, chapterbackgrounds);
                 }
@@ -310,11 +277,10 @@ namespace rayshud_installer
             try
             {
                 MainWindow.logger.Info("Setting Main Menu Class Image...");
-                var mainmenuoverride = hudPath + Resources.file_mainmenuoverride;
+                var mainmenuoverride = hudPath + Resources.file_custom_mainmenuoverride;
                 var lines = File.ReadAllLines(mainmenuoverride);
-                var index = (rayshud.Default.toggle_classic_menu) ? 933 : 971;
                 var value = (rayshud.Default.toggle_menu_images) ? "-80" : "9999";
-                lines[index] = $"\t\t\"ypos\"\t\t\t\"{value}\"";
+                lines[971] = $"\t\t\"ypos\"\t\t\t\"{value}\"";
                 File.WriteAllLines(mainmenuoverride, lines);
             }
             catch (Exception ex)
@@ -331,9 +297,23 @@ namespace rayshud_installer
             try
             {
                 MainWindow.logger.Info("Setting Main Menu Style...");
-                var menu_stock = hudPath + Resources.dir_menu_modern;
-                var menu_classic = hudPath + Resources.dir_menu_classic;
-                CopyMenuFiles((rayshud.Default.toggle_classic_menu) ? menu_classic : menu_stock, (rayshud.Default.toggle_stock_backgrounds) ? true : false);
+                var mainmenuoverride = hudPath + Resources.file_mainmenuoverride;
+                var index = (rayshud.Default.toggle_classic_menu) ? 0 : 1;
+                var lines = File.ReadAllLines(mainmenuoverride);
+                lines[0] = CommentOutTextLine(lines[0]);
+                lines[1] = CommentOutTextLine(lines[1]);
+                lines[index] = lines[index].Replace("//", string.Empty);
+                File.WriteAllLines(mainmenuoverride, lines);
+
+                // SET THE CLASSIC BACKGROUND
+                if (!rayshud.Default.toggle_stock_backgrounds)
+                    CopyBackgroundFiles(rayshud.Default.toggle_classic_menu);
+                else
+                {
+                    var directory = new DirectoryInfo(hudPath + Resources.dir_console);
+                    foreach (FileInfo file in directory.GetFiles())
+                        file.Delete();
+                }
             }
             catch (Exception ex)
             {
@@ -349,9 +329,12 @@ namespace rayshud_installer
             try
             {
                 MainWindow.logger.Info("Setting Scoreboard Style...");
-                var scoreboard_stock = hudPath + Resources.file_scoreboard;
-                var scoreboard_custom = hudPath + Resources.file_custom_scoreboard + ((rayshud.Default.toggle_min_scoreboard) ? "-minimal.res" : "-default.res");
-                File.Copy(scoreboard_custom, scoreboard_stock, true);
+                var scoreboard = hudPath + Resources.file_scoreboard;
+                var lines = File.ReadAllLines(scoreboard);
+                lines[0] = CommentOutTextLine(lines[0]);
+                if (rayshud.Default.toggle_min_scoreboard)
+                    lines[0] = lines[0].Replace("//", string.Empty);
+                File.WriteAllLines(scoreboard, lines);
             }
             catch (Exception ex)
             {
@@ -367,13 +350,22 @@ namespace rayshud_installer
             try
             {
                 MainWindow.logger.Info("Setting Team Selection...");
-                var teammenu = hudPath + Resources.file_teammenu;
-                var teammenu_custom = hudPath + Resources.file_custom_teammenu;
-                var classselection = hudPath + Resources.file_classselection;
-                var classselection_custom = hudPath + Resources.file_custom_classselection;
 
-                File.Copy(teammenu_custom + ((rayshud.Default.toggle_center_select) ? "-center.res" : "-left.res"), teammenu, true);
-                File.Copy(classselection_custom + ((rayshud.Default.toggle_center_select) ? "-center.res" : "-left.res"), classselection, true);
+                // CLASS SELECT
+                var classselection = hudPath + Resources.file_classselection;
+                var lines = File.ReadAllLines(classselection);
+                lines[0] = CommentOutTextLine(lines[0]);
+                if (rayshud.Default.toggle_center_select)
+                    lines[0] = lines[0].Replace("//", string.Empty);
+                File.WriteAllLines(classselection, lines);
+
+                // TEAM MENU
+                var teammenu = hudPath + Resources.file_teammenu;
+                lines = File.ReadAllLines(teammenu);
+                lines[0] = CommentOutTextLine(lines[0]);
+                if (rayshud.Default.toggle_center_select)
+                    lines[0] = lines[0].Replace("//", string.Empty);
+                File.WriteAllLines(teammenu, lines);
             }
             catch (Exception ex)
             {
@@ -390,19 +382,11 @@ namespace rayshud_installer
             {
                 MainWindow.logger.Info("Setting Ubercharge Animation...");
                 var lines = File.ReadAllLines(hudAnimations);
-                var index1 = 72;
-                var index2 = 73;
-                var index3 = 74;
-
-                lines[index1] = lines[index1].Replace("//", string.Empty);
-                lines[index2] = lines[index2].Replace("//", string.Empty);
-                lines[index3] = lines[index3].Replace("//", string.Empty);
-
-                lines[index1] = string.Concat("//", lines[index1]);
-                lines[index2] = string.Concat("//", lines[index2]);
-                lines[index3] = string.Concat("//", lines[index3]);
-
-                lines[index1 + rayshud.Default.val_uber_animaton] = lines[index1 + rayshud.Default.val_uber_animaton].Replace("//", string.Empty);
+                var index = 72 + rayshud.Default.val_uber_animaton;
+                lines[72] = CommentOutTextLine(lines[72]);
+                lines[73] = CommentOutTextLine(lines[73]);
+                lines[74] = CommentOutTextLine(lines[74]);
+                lines[index] = lines[index].Replace("//", string.Empty);
                 File.WriteAllLines(hudAnimations, lines);
             }
             catch (Exception ex)
@@ -412,17 +396,27 @@ namespace rayshud_installer
         }
 
         /// <summary>
-        /// Copies the the selected main menu style into rayshud
+        /// Copy the background images to the materials/console folder.
         /// </summary>
-        public void CopyMenuFiles(string source, bool defaultBG)
+        public void CopyBackgroundFiles(bool classic = false)
         {
-            File.Copy(source + Resources.file_mainmenuoverride.Replace("\\rayshud", null), hudPath + Resources.file_mainmenuoverride, true);
-            File.Copy(source + Resources.file_gamemenu.Replace("\\rayshud", null), hudPath + Resources.file_gamemenu, true);
-            if (!defaultBG)
-            {
-                File.Copy(source + Resources.dir_console.Replace("\\rayshud", null) + "\\background_upward.vtf", hudPath + Resources.dir_console + "\\background_upward.vtf", true);
-                File.Copy(source + Resources.dir_console.Replace("\\rayshud", null) + "\\background_upward_widescreen.vtf", hudPath + Resources.dir_console + "\\background_upward_widescreen.vtf", true);
-            }
+            var directory = new DirectoryInfo(hudPath + Resources.dir_console);
+            var background_base = hudPath + Resources.file_custom_background + ((classic) ? "classic.vtf" : "upward.vtf");
+            var background_wide = hudPath + Resources.file_custom_background + ((classic) ? "classic_widescreen.vtf" : "upward_widescreen.vtf");
+
+            foreach (FileInfo file in directory.GetFiles())
+                file.Delete();
+            File.Copy(background_base, directory + "background_upward.vtf");
+            File.Copy(background_wide, directory + "background_upward_widescreen.vtf");
+        }
+
+        /// <summary>
+        /// Clear all existing comment identifiers, then apply a fresh one.
+        /// </summary>
+        public string CommentOutTextLine(string value)
+        {
+            value = value.Replace("//", string.Empty);
+            return string.Concat("//", value);
         }
 
         /// <summary>
