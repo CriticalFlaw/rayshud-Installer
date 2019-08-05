@@ -12,7 +12,7 @@ namespace rayshud_installer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.2.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.1.0.0")]
     internal sealed partial class rayshud : global::System.Configuration.ApplicationSettingsBase {
         
         private static rayshud defaultInstance = ((rayshud)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new rayshud())));
@@ -25,25 +25,85 @@ namespace rayshud_installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#30FF30")]
-        public string color_ammo_clip {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool hud_updated {
             get {
-                return ((string)(this["color_ammo_clip"]));
+                return ((bool)(this["hud_updated"]));
             }
             set {
-                this["color_ammo_clip"] = value;
+                this["hud_updated"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FF2A82")]
-        public string color_ammo_clip_low {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool toggle_xhair_pulse {
             get {
-                return ((string)(this["color_ammo_clip_low"]));
+                return ((bool)(this["toggle_xhair_pulse"]));
             }
             set {
-                this["color_ammo_clip_low"] = value;
+                this["toggle_xhair_pulse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool toggle_xhair_outline {
+            get {
+                return ((bool)(this["toggle_xhair_outline"]));
+            }
+            set {
+                this["toggle_xhair_outline"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool toggle_xhair_enable {
+            get {
+                return ((bool)(this["toggle_xhair_enable"]));
+            }
+            set {
+                this["toggle_xhair_enable"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool toggle_stock_backgrounds {
+            get {
+                return ((bool)(this["toggle_stock_backgrounds"]));
+            }
+            set {
+                this["toggle_stock_backgrounds"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool toggle_min_scoreboard {
+            get {
+                return ((bool)(this["toggle_min_scoreboard"]));
+            }
+            set {
+                this["toggle_min_scoreboard"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int val_xhair_size {
+            get {
+                return ((int)(this["val_xhair_size"]));
+            }
+            set {
+                this["val_xhair_size"] = value;
             }
         }
         
@@ -56,102 +116,6 @@ namespace rayshud_installer.Properties {
             }
             set {
                 this["color_ammo_reserve"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FF801C")]
-        public string color_ammo_reserve_low {
-            get {
-                return ((string)(this["color_ammo_reserve_low"]));
-            }
-            set {
-                this["color_ammo_reserve_low"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#30FF30")]
-        public string color_health_buffed {
-            get {
-                return ((string)(this["color_health_buffed"]));
-            }
-            set {
-                this["color_health_buffed"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#30FF30")]
-        public string color_health_healed {
-            get {
-                return ((string)(this["color_health_healed"]));
-            }
-            set {
-                this["color_health_healed"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FF9900")]
-        public string color_health_low {
-            get {
-                return ((string)(this["color_health_low"]));
-            }
-            set {
-                this["color_health_low"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#EBE2CA")]
-        public string color_health_normal {
-            get {
-                return ((string)(this["color_health_normal"]));
-            }
-            set {
-                this["color_health_normal"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#EBE2CA")]
-        public string color_uber_bar {
-            get {
-                return ((string)(this["color_uber_bar"]));
-            }
-            set {
-                this["color_uber_bar"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FFA500")]
-        public string color_uber_flash1 {
-            get {
-                return ((string)(this["color_uber_flash1"]));
-            }
-            set {
-                this["color_uber_flash1"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FF4500")]
-        public string color_uber_flash2 {
-            get {
-                return ((string)(this["color_uber_flash2"]));
-            }
-            set {
-                this["color_uber_flash2"] = value;
             }
         }
         
@@ -181,73 +145,49 @@ namespace rayshud_installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FF0000")]
-        public string color_xhair_pulse {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int val_xhair_style {
             get {
-                return ((string)(this["color_xhair_pulse"]));
+                return ((int)(this["val_xhair_style"]));
             }
             set {
-                this["color_xhair_pulse"] = value;
+                this["val_xhair_style"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\Program Files\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom")]
-        public string hud_directory {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int val_health_style {
             get {
-                return ((string)(this["hud_directory"]));
+                return ((int)(this["val_health_style"]));
             }
             set {
-                this["hud_directory"] = value;
+                this["val_health_style"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("08/01/2019 09:37:00")]
-        public global::System.DateTime hud_mod_date {
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFA500")]
+        public string color_uber_flash1 {
             get {
-                return ((global::System.DateTime)(this["hud_mod_date"]));
+                return ((string)(this["color_uber_flash1"]));
             }
             set {
-                this["hud_mod_date"] = value;
+                this["color_uber_flash1"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool hud_updated {
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF2A82")]
+        public string color_ammo_clip_low {
             get {
-                return ((bool)(this["hud_updated"]));
+                return ((string)(this["color_ammo_clip_low"]));
             }
             set {
-                this["hud_updated"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool toggle_center_select {
-            get {
-                return ((bool)(this["toggle_center_select"]));
-            }
-            set {
-                this["toggle_center_select"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool toggle_chat_bottom {
-            get {
-                return ((bool)(this["toggle_chat_bottom"]));
-            }
-            set {
-                this["toggle_chat_bottom"] = value;
+                this["color_ammo_clip_low"] = value;
             }
         }
         
@@ -266,12 +206,12 @@ namespace rayshud_installer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool toggle_damage_pos {
+        public bool toggle_chat_bottom {
             get {
-                return ((bool)(this["toggle_damage_pos"]));
+                return ((bool)(this["toggle_chat_bottom"]));
             }
             set {
-                this["toggle_damage_pos"] = value;
+                this["toggle_chat_bottom"] = value;
             }
         }
         
@@ -290,84 +230,132 @@ namespace rayshud_installer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool toggle_center_select {
+            get {
+                return ((bool)(this["toggle_center_select"]));
+            }
+            set {
+                this["toggle_center_select"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#EBE2CA")]
+        public string color_health_normal {
+            get {
+                return ((string)(this["color_health_normal"]));
+            }
+            set {
+                this["color_health_normal"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF4500")]
+        public string color_uber_flash2 {
+            get {
+                return ((string)(this["color_uber_flash2"]));
+            }
+            set {
+                this["color_uber_flash2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF0000")]
+        public string color_xhair_pulse {
+            get {
+                return ((string)(this["color_xhair_pulse"]));
+            }
+            set {
+                this["color_xhair_pulse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#EBE2CA")]
+        public string color_uber_bar {
+            get {
+                return ((string)(this["color_uber_bar"]));
+            }
+            set {
+                this["color_uber_bar"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF9900")]
+        public string color_health_low {
+            get {
+                return ((string)(this["color_health_low"]));
+            }
+            set {
+                this["color_health_low"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#30FF30")]
+        public string color_health_healed {
+            get {
+                return ((string)(this["color_health_healed"]));
+            }
+            set {
+                this["color_health_healed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#30FF30")]
+        public string color_health_buffed {
+            get {
+                return ((string)(this["color_health_buffed"]));
+            }
+            set {
+                this["color_health_buffed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FF801C")]
+        public string color_ammo_reserve_low {
+            get {
+                return ((string)(this["color_ammo_reserve_low"]));
+            }
+            set {
+                this["color_ammo_reserve_low"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool toggle_damage_pos {
+            get {
+                return ((bool)(this["toggle_damage_pos"]));
+            }
+            set {
+                this["toggle_damage_pos"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool toggle_menu_images {
             get {
                 return ((bool)(this["toggle_menu_images"]));
             }
             set {
                 this["toggle_menu_images"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool toggle_min_scoreboard {
-            get {
-                return ((bool)(this["toggle_min_scoreboard"]));
-            }
-            set {
-                this["toggle_min_scoreboard"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool toggle_stock_backgrounds {
-            get {
-                return ((bool)(this["toggle_stock_backgrounds"]));
-            }
-            set {
-                this["toggle_stock_backgrounds"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool toggle_xhair_enable {
-            get {
-                return ((bool)(this["toggle_xhair_enable"]));
-            }
-            set {
-                this["toggle_xhair_enable"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool toggle_xhair_outline {
-            get {
-                return ((bool)(this["toggle_xhair_outline"]));
-            }
-            set {
-                this["toggle_xhair_outline"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool toggle_xhair_pulse {
-            get {
-                return ((bool)(this["toggle_xhair_pulse"]));
-            }
-            set {
-                this["toggle_xhair_pulse"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int val_health_style {
-            get {
-                return ((int)(this["val_health_style"]));
-            }
-            set {
-                this["val_health_style"] = value;
             }
         }
         
@@ -385,25 +373,37 @@ namespace rayshud_installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int val_xhair_size {
+        [global::System.Configuration.DefaultSettingValueAttribute("#30FF30")]
+        public string color_ammo_clip {
             get {
-                return ((int)(this["val_xhair_size"]));
+                return ((string)(this["color_ammo_clip"]));
             }
             set {
-                this["val_xhair_size"] = value;
+                this["color_ammo_clip"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int val_xhair_style {
+        [global::System.Configuration.DefaultSettingValueAttribute("07/28/2019 15:30:00")]
+        public global::System.DateTime hud_mod_date {
             get {
-                return ((int)(this["val_xhair_style"]));
+                return ((global::System.DateTime)(this["hud_mod_date"]));
             }
             set {
-                this["val_xhair_style"] = value;
+                this["hud_mod_date"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\Program Files\\Steam\\steamapps\\common\\Team Fortress 2\\tf\\custom")]
+        public string hud_directory {
+            get {
+                return ((string)(this["hud_directory"]));
+            }
+            set {
+                this["hud_directory"] = value;
             }
         }
     }

@@ -1,5 +1,4 @@
 ﻿using log4net;
-using log4net.Config;
 using Microsoft.Win32;
 using rayshud_installer.Properties;
 using System;
@@ -9,7 +8,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
@@ -19,12 +17,11 @@ namespace rayshud_installer
     public partial class MainWindow : Window
     {
         private readonly string appPath = System.Windows.Forms.Application.StartupPath;
-        public static readonly ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        public static readonly ILog logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public MainWindow()
         {
-            var repository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
+            log4net.Config.XmlConfigurator.Configure();
             logger.Info("Initializing");
             InitializeComponent();
             SetupDirectory();

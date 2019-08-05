@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29123.88
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rayshud_installer", "rayshud_installer\rayshud_installer.csproj", "{D0620A84-8E58-406A-8615-D0B4B92E210A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rayshud_installer", "rayshud_installer\rayshud_installer.csproj", "{B35A3F3E-63B2-4149-B3F9-56BD78CAA0AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D0620A84-8E58-406A-8615-D0B4B92E210A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0620A84-8E58-406A-8615-D0B4B92E210A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0620A84-8E58-406A-8615-D0B4B92E210A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0620A84-8E58-406A-8615-D0B4B92E210A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B35A3F3E-63B2-4149-B3F9-56BD78CAA0AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B35A3F3E-63B2-4149-B3F9-56BD78CAA0AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B35A3F3E-63B2-4149-B3F9-56BD78CAA0AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B35A3F3E-63B2-4149-B3F9-56BD78CAA0AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {522651BC-A7E7-41A5-938C-751F2891B2C2}
+		SolutionGuid = {A845F28D-3530-429F-95D2-1235B7EA6C6B}
 	EndGlobalSection
 EndGlobal
