@@ -126,9 +126,6 @@
   <data name="dir_console" xml:space="preserve">
     <value>\rayshud\materials\console\</value>
   </data>
-  <data name="dir_custom_menu" xml:space="preserve">
-    <value>\rayshud\customizations\Main Menu\</value>
-  </data>
   <data name="dir_resource_ui" xml:space="preserve">
     <value>\rayshud\resource\ui</value>
   </data>
@@ -208,10 +205,10 @@
     <value>\rayshud\resource\scheme\clientscheme_colors.res</value>
   </data>
   <data name="file_custom_background" xml:space="preserve">
-    <value>\rayshud\customizations\Backgrounds\background_</value>
+    <value>\rayshud\customizations\backgrounds\background_</value>
   </data>
-  <data name="file_custom_mainmenuoverride" xml:space="preserve">
-    <value>\rayshud\customizations\Main Menu\mainmenuoverride.res</value>
+  <data name="file_custom_mainmenu" xml:space="preserve">
+    <value>\rayshud\customizations\main_menu\mainmenuoverride.res</value>
   </data>
   <data name="file_gamemenu" xml:space="preserve">
     <value>\rayshud\resource\gamemenu.res</value>

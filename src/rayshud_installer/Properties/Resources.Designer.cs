@@ -88,15 +88,6 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \rayshud\customizations\Main Menu\.
-        /// </summary>
-        internal static string dir_custom_menu {
-            get {
-                return ResourceManager.GetString("dir_custom_menu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to \rayshud\resource\ui.
         /// </summary>
         internal static string dir_resource_ui {
@@ -331,7 +322,7 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \rayshud\customizations\Backgrounds\background_.
+        ///   Looks up a localized string similar to \rayshud\customizations\backgrounds\background_.
         /// </summary>
         internal static string file_custom_background {
             get {
@@ -340,11 +331,11 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \rayshud\customizations\Main Menu\mainmenuoverride.res.
+        ///   Looks up a localized string similar to \rayshud\customizations\main_menu\mainmenuoverride.res.
         /// </summary>
-        internal static string file_custom_mainmenuoverride {
+        internal static string file_custom_mainmenu {
             get {
-                return ResourceManager.GetString("file_custom_mainmenuoverride", resourceCulture);
+                return ResourceManager.GetString("file_custom_mainmenu", resourceCulture);
             }
         }
         

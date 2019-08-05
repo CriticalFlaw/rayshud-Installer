@@ -277,7 +277,7 @@ namespace rayshud_installer
             try
             {
                 MainWindow.logger.Info("Setting Main Menu Class Image...");
-                var mainmenuoverride = hudPath + Resources.file_custom_mainmenuoverride;
+                var mainmenuoverride = hudPath + Resources.file_custom_mainmenu;
                 var lines = File.ReadAllLines(mainmenuoverride);
                 var value = (rayshud.Default.toggle_menu_images) ? "-80" : "9999";
                 lines[971] = $"\t\t\"ypos\"\t\t\t\"{value}\"";
