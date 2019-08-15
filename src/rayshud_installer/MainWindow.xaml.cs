@@ -31,9 +31,9 @@ namespace rayshud_installer
         /// <summary>
         /// Set the tf/custom directory if not already set
         /// </summary>
-        private void SetupDirectory()
+        private void SetupDirectory(bool userOverride = false)
         {
-            if (!SearchRegistry() && !CheckUserPath())
+            if (userOverride || (!SearchRegistry() && !CheckUserPath()))
             {
                 logger.Info("> Asking user to provide the tf/custom directory.");
                 ShowFolderBrowser();
@@ -592,7 +592,7 @@ namespace rayshud_installer
         private void ChangeDirectory_Click(object sender, RoutedEventArgs e)
         {
             logger.Info("User clicked to open the directory browser.");
-            ShowFolderBrowser();
+            SetupDirectory(true);
         }
 
         /// <summary>
