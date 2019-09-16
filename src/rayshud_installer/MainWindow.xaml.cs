@@ -27,6 +27,7 @@ namespace rayshud_installer
             InitializeComponent();
             SetupDirectory();
             LoadHUDSettings();
+            AutoUpdater.OpenDownloadPage = true;
             AutoUpdater.Start("https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/Update.xml");
         }
 
