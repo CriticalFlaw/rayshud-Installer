@@ -12,7 +12,7 @@ namespace rayshud_installer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.2.0.0")]
     internal sealed partial class rayshud : global::System.Configuration.ApplicationSettingsBase {
         
         private static rayshud defaultInstance = ((rayshud)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new rayshud())));
@@ -404,6 +404,30 @@ namespace rayshud_installer.Properties {
             }
             set {
                 this["hud_directory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool toggle_transparent_viewmodels {
+            get {
+                return ((bool)(this["toggle_transparent_viewmodels"]));
+            }
+            set {
+                this["toggle_transparent_viewmodels"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool toggle_alt_player_model {
+            get {
+                return ((bool)(this["toggle_alt_player_model"]));
+            }
+            set {
+                this["toggle_alt_player_model"] = value;
             }
         }
     }

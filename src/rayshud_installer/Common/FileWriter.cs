@@ -396,6 +396,53 @@ namespace rayshud_installer
         }
 
         /// <summary>
+        /// Set the weapon viewmodel transparency
+        /// </summary>
+        /// <remarks>TODO: Add the transparent viewmodels configuration file.</remarks>
+        public void TransparentViewmodels()
+        {
+            try
+            {
+                MainWindow.logger.Info("Setting Transparent Viewmodels...");
+                var hudlayout = hudPath + Resources.file_hudlayout;
+                var lines = File.ReadAllLines(hudlayout);
+                lines[699] = "\t\t\"visible\"\t\t\t\"0\"";
+                lines[700] = "\t\t\"enabled\"\t\t\t\"0\"";
+                if (rayshud.Default.toggle_transparent_viewmodels)
+                {
+                    lines[699] = "\t\t\"visible\"\t\t\t\"1\"";
+                    lines[700] = "\t\t\"enabled\"\t\t\t\"1\"";
+                }
+                File.WriteAllLines(hudlayout, lines);
+            }
+            catch (Exception ex)
+            {
+                MainWindow.ShowErrorMessage("Transparent Viewmodels", Resources.error_writer_transparent_viewmodel, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Set the player model position and orientation
+        /// </summary>
+        public void PlayerModelPos()
+        {
+            try
+            {
+                MainWindow.logger.Info("Setting Player Model Position...");
+                var hudplayerclass = hudPath + Resources.file_hudplayerclass;
+                var lines = File.ReadAllLines(hudplayerclass);
+                lines[0] = CommentOutTextLine(lines[0]);
+                if (rayshud.Default.toggle_alt_player_model)
+                    lines[0] = lines[0].Replace("//", string.Empty);
+                File.WriteAllLines(hudplayerclass, lines);
+            }
+            catch (Exception ex)
+            {
+                MainWindow.ShowErrorMessage("Player Model Position", Resources.error_writer_player_model_pos, ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Copy the background images to the materials/console folder.
         /// </summary>
         public void CopyBackgroundFiles(bool classic = false)

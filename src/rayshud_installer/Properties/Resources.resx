@@ -177,11 +177,17 @@
   <data name="error_writer_main_menu" xml:space="preserve">
     <value>An error occurred while applying the main menu style setting</value>
   </data>
+  <data name="error_writer_player_model_pos" xml:space="preserve">
+    <value>An error occurred while applying the player model position setting</value>
+  </data>
   <data name="error_writer_scoreboard" xml:space="preserve">
     <value>An error occurred while applying the scoreboard style setting</value>
   </data>
   <data name="error_writer_team_select" xml:space="preserve">
     <value>An error occurred while applying the team select style setting</value>
+  </data>
+  <data name="error_writer_transparent_viewmodel" xml:space="preserve">
+    <value>An error occurred while applying the viewmodel transparency setting</value>
   </data>
   <data name="error_writer_uber_animation" xml:space="preserve">
     <value>An error occurred while applying the uber animation setting</value>
@@ -221,6 +227,9 @@
   </data>
   <data name="file_hudlayout" xml:space="preserve">
     <value>\rayshud\scripts\hudlayout.res</value>
+  </data>
+  <data name="file_hudplayerclass" xml:space="preserve">
+    <value>\rayshud\resource\ui\hudplayerclass.res</value>
   </data>
   <data name="file_hudplayerhealth" xml:space="preserve">
     <value>\rayshud\resource\ui\hudplayerhealth.res</value>

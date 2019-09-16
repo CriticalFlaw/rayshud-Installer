@@ -299,6 +299,8 @@ namespace rayshud_installer
                 writer.Crosshair(int.Parse(cbXHairSize.Text), tbXHairXPos.Value, tbXHairYPos.Value);
                 writer.Colors();
                 writer.DamagePos();
+                writer.TransparentViewmodels();
+                writer.PlayerModelPos();
                 lblNews.Content = "Settings Saved at " + DateTime.Now;
                 logger.Info("> Done applying user settings to rayshud");
             }
@@ -330,6 +332,8 @@ namespace rayshud_installer
                 settings.toggle_center_select = chkTeamCenter.IsChecked ?? false;
                 settings.toggle_chat_bottom = chkChatBottom.IsChecked ?? false;
                 settings.toggle_xhair_outline = chkXHairOutline.IsChecked ?? false;
+                settings.toggle_transparent_viewmodels = chkTransparentVM.IsChecked ?? false;
+                settings.toggle_alt_player_model = chkPlayerModel.IsChecked ?? false;
 
                 if (rbUberFlash.IsChecked == true)
                     settings.val_uber_animaton = (int)UberchargeStyles.Flash;
@@ -395,6 +399,8 @@ namespace rayshud_installer
                 chkChatBottom.IsChecked = settings.toggle_chat_bottom;
                 chkTeamCenter.IsChecked = settings.toggle_center_select;
                 chkXHairOutline.IsChecked = settings.toggle_xhair_outline;
+                chkTransparentVM.IsChecked = settings.toggle_transparent_viewmodels;
+                chkPlayerModel.IsChecked = settings.toggle_alt_player_model;
 
                 switch (settings.val_uber_animaton)
                 {
@@ -466,6 +472,8 @@ namespace rayshud_installer
                 chkChatBottom.IsChecked = false;
                 chkTeamCenter.IsChecked = false;
                 chkXHairOutline.IsChecked = false;
+                chkTransparentVM.IsChecked = false;
+                chkPlayerModel.IsChecked = false;
 
                 cpUberBarColor.SelectedColor = (Color)cc.ConvertFrom("#EBE2CA");
                 cpUberFullColor.SelectedColor = (Color)cc.ConvertFrom("#FF3219");

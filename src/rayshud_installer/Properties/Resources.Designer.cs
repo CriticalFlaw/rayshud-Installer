@@ -241,6 +241,15 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the player model position setting.
+        /// </summary>
+        internal static string error_writer_player_model_pos {
+            get {
+                return ResourceManager.GetString("error_writer_player_model_pos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while applying the scoreboard style setting.
         /// </summary>
         internal static string error_writer_scoreboard {
@@ -255,6 +264,15 @@ namespace rayshud_installer.Properties {
         internal static string error_writer_team_select {
             get {
                 return ResourceManager.GetString("error_writer_team_select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the viewmodel transparency setting.
+        /// </summary>
+        internal static string error_writer_transparent_viewmodel {
+            get {
+                return ResourceManager.GetString("error_writer_transparent_viewmodel", resourceCulture);
             }
         }
         
@@ -372,6 +390,15 @@ namespace rayshud_installer.Properties {
         internal static string file_hudlayout {
             get {
                 return ResourceManager.GetString("file_hudlayout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \rayshud\resource\ui\hudplayerclass.res.
+        /// </summary>
+        internal static string file_hudplayerclass {
+            get {
+                return ResourceManager.GetString("file_hudplayerclass", resourceCulture);
             }
         }
         

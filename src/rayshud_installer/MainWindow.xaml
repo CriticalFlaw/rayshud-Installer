@@ -91,7 +91,7 @@
 
                     <CheckBox
                         x:Name="chkMenuImages"
-                        Margin="160,10,0,0"
+                        Margin="148,10,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Main Menu Class Images"
@@ -100,7 +100,7 @@
 
                     <CheckBox
                         x:Name="chkDamagePos"
-                        Margin="160,30,0,0"
+                        Margin="148,30,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Damage Above Health"
@@ -109,7 +109,7 @@
 
                     <CheckBox
                         x:Name="chkChatBottom"
-                        Margin="160,50,0,0"
+                        Margin="148,50,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Chatbox On The Bottom"
@@ -118,7 +118,7 @@
 
                     <CheckBox
                         x:Name="chkTeamCenter"
-                        Margin="160,70,0,0"
+                        Margin="148,70,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Centered Team/Class Select"
@@ -127,11 +127,29 @@
 
                     <CheckBox
                         x:Name="chkXHairOutline"
-                        Margin="350,10,0,0"
+                        Margin="328,10,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Crosshair Outline"
                         ToolTip="Toggle the outline around the crosshair"
+                        Foreground="White" Grid.Column="1" />
+                    
+                    <CheckBox
+                        x:Name="chkTransparentVM"
+                        Margin="328,30,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Content="Transparent Viewmodels"
+                        ToolTip="Toggle the transparency on the weapon viewmodels"
+                        Foreground="White" Grid.Column="1" />
+                    
+                    <CheckBox
+                        x:Name="chkPlayerModel"
+                        Margin="328,50,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Content="Alternate Player Model"
+                        ToolTip="Toggle to an alternate player model position"
                         Foreground="White" Grid.Column="1" />
                 </Grid>
             </GroupBox>
