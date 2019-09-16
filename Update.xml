@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <item>
     <version>3.2.0.0</version>
-    <url>https://github.com/CriticalFlaw/rayshud-Installer/releases/download/3.2</url>
+    <url>https://github.com/CriticalFlaw/rayshud-Installer/releases/3.2</url>
     <changelog>https://github.com/CriticalFlaw/rayshud-Installer/releases/tag/3.2</changelog>
     <mandatory>true</mandatory>
 </item>
