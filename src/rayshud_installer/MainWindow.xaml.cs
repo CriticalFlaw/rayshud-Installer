@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using AutoUpdaterDotNET;
+using log4net;
 using Microsoft.Win32;
 using rayshud_installer.Properties;
 using System;
@@ -26,6 +27,7 @@ namespace rayshud_installer
             InitializeComponent();
             SetupDirectory();
             LoadHUDSettings();
+            AutoUpdater.Start("https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/Update.xml");
         }
 
         /// <summary>
