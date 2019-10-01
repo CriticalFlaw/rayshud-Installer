@@ -10,6 +10,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -628,7 +629,7 @@ namespace rayshud_installer
 
         #region CROSSHAIRS
 
-        private static readonly Dictionary<CrosshairStyles, Tuple<int, int, string>> crosshairs = new Dictionary<CrosshairStyles, Tuple<int, int, string>>
+        public static readonly Dictionary<CrosshairStyles, Tuple<int, int, string>> crosshairs = new Dictionary<CrosshairStyles, Tuple<int, int, string>>
         {
             { CrosshairStyles.BasicCross, new Tuple<int, int, string>(109,99,"2") },
             { CrosshairStyles.BasicDot, new Tuple<int, int, string>(103, 100, "3") },
@@ -647,14 +648,100 @@ namespace rayshud_installer
 
         private void XHairStyle_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            var values = crosshairs[(CrosshairStyles)cbXHairStyle.SelectedIndex];
-            tbXHairXPos.Text = values.Item1.ToString();
-            tbXHairYPos.Text = values.Item2.ToString();
+            var style = (CrosshairStyles)cbXHairStyle.SelectedIndex;
+            tbXHairXPos.Text = crosshairs[style].Item1.ToString();
+            tbXHairYPos.Text = crosshairs[style].Item2.ToString();
+            SetCrosshairStyle(style);
         }
 
-        public static string GetCrosshairStyle(CrosshairStyles index)
+        private void cbXHairSize_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            return crosshairs[index].Item3;
+            if (XHairPreview == null) return;
+            var selectedItem = (ComboBoxItem)cbXHairSize.SelectedValue;
+            int.TryParse((string)selectedItem.Content, out var size);
+            XHairPreview.FontSize = (size > 0) ? size * 3 : 72;
+        }
+
+        private void cpXHairColor_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (XHairPreview == null) return;
+            XHairPreview_Color.Color = (Color)cpXHairColor.SelectedColor;
+        }
+
+        public void SetCrosshairStyle(CrosshairStyles index)
+        {
+            if (XHairPreview == null) return;
+            switch (index)
+            {
+                case CrosshairStyles.BasicCross:
+                    XHairPreview.Text = @"2";
+                    //XHairPreview.Location = new Point(97, 33);
+                    break;
+
+                case CrosshairStyles.BasicDot:
+                    XHairPreview.Text = @"3";
+                    //XHairPreview.Location = new Point(103, 31);
+                    break;
+
+                case CrosshairStyles.CircleDot:
+                    XHairPreview.Text = @"8";
+                    //XHairPreview.Location = new Point(103, 31);
+                    break;
+
+                case CrosshairStyles.KonrWings:
+                    XHairPreview.Text = @"i";
+                    //XHairPreview.Location = new Point(97, 32);
+                    break;
+
+                case CrosshairStyles.OpenCross:
+                    XHairPreview.Text = @"i";
+                    //XHairPreview.Location = new Point(95, 28);
+                    break;
+
+                case CrosshairStyles.OpenCrossDot:
+                    XHairPreview.Text = @"h";
+                    //XHairPreview.Location = new Point(95, 28);
+                    break;
+
+                case CrosshairStyles.ScatterSpread:
+                    XHairPreview.Text = @"0";
+                    //XHairPreview.Location = new Point(104, 30);
+                    break;
+
+                case CrosshairStyles.ThinCircle:
+                    XHairPreview.Text = @"9";
+                    //XHairPreview.Location = new Point(105, 32);
+                    break;
+
+                case CrosshairStyles.Wings:
+                    XHairPreview.Text = @"d";
+                    //XHairPreview.Location = new Point(95, 32);
+                    break;
+
+                case CrosshairStyles.WingsPlus:
+                    XHairPreview.Text = @"c";
+                    //XHairPreview.Location = new Point(95, 32);
+                    break;
+
+                case CrosshairStyles.WingsSmall:
+                    XHairPreview.Text = @"g";
+                    //CrosshairFont.Location = new Point(95, 32);
+                    break;
+
+                case CrosshairStyles.WingsSmallDot:
+                    XHairPreview.Text = @"f";
+                    //XHairPreview.Location = new Point(95, 32);
+                    break;
+
+                case CrosshairStyles.xHairCircle:
+                    XHairPreview.Text = @"o";
+                    //XHairPreview.Location = new Point(97, 32);
+                    break;
+
+                default:
+                    XHairPreview.Text = string.Empty;
+                    break;
+            }
         }
 
         #endregion CROSSHAIRS

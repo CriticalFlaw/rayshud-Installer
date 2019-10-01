@@ -40,6 +40,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,6 +50,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\rayshud.ico</ApplicationIcon>
@@ -112,6 +114,8 @@
       <DependentUpon>rayshud.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\crosshairs\crosshairs.ttf" />
+    <Resource Include="Resources\crosshairs\background.png" />
     <None Include="app.config" />
     <None Include="app.manifest" />
     <Content Include="log4net.config">
@@ -136,7 +140,7 @@
       <Version>1.5.7</Version>
     </PackageReference>
     <PackageReference Include="Extended.Wpf.Toolkit">
-      <Version>3.5.0</Version>
+      <Version>3.6.0</Version>
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
@@ -160,5 +164,30 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>RD /S /Q "$(TargetDir)ar"
+RD /S /Q "$(TargetDir)da"
+RD /S /Q "$(TargetDir)de"
+RD /S /Q "$(TargetDir)es"
+RD /S /Q "$(TargetDir)fr"
+RD /S /Q "$(TargetDir)hu"
+RD /S /Q "$(TargetDir)it"
+RD /S /Q "$(TargetDir)ja-JP"
+RD /S /Q "$(TargetDir)ko"
+RD /S /Q "$(TargetDir)nl"
+RD /S /Q "$(TargetDir)pl"
+RD /S /Q "$(TargetDir)pt"
+RD /S /Q "$(TargetDir)pt-BR"
+RD /S /Q "$(TargetDir)ro"
+RD /S /Q "$(TargetDir)ru"
+RD /S /Q "$(TargetDir)sk"
+RD /S /Q "$(TargetDir)th"
+RD /S /Q "$(TargetDir)tr"
+RD /S /Q "$(TargetDir)sv"
+RD /S /Q "$(TargetDir)zh"
+RD /S /Q "$(TargetDir)zh-Hans"
+RD /S /Q "$(TargetDir)zh-tw"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
