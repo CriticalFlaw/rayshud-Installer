@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:x2="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="rayshud Installer" Height="420" Width="800"
+        Title="rayshud Installer" Height="484" Width="800"
         Foreground="White"
         ResizeMode="NoResize">
 
@@ -40,9 +40,9 @@
 
             <GroupBox
                 x:Name="gbOptions"
-                Width="520"
+                Width="655"
                 Height="116"
-                Margin="10,205,0,0"
+                Margin="10,326,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Foreground="White"
@@ -267,7 +267,7 @@
 
             <GroupBox
                 x:Name="gbCrosshair"
-                Width="250"
+                Width="500"
                 Height="160"
                 Margin="280,40,0,0"
                 HorizontalAlignment="Left"
@@ -285,7 +285,7 @@
                         Maximum="9999"
                         HorizontalAlignment="Left"
                         Height="23"
-                        Margin="127,20,0,0"
+                        Margin="133,20,0,0"
                         VerticalAlignment="Top"
                         Width="50" />
 
@@ -298,13 +298,13 @@
                         Maximum="9999"
                         HorizontalAlignment="Left"
                         Height="23"
-                        Margin="177,20,0,0"
+                        Margin="193,20,0,0"
                         VerticalAlignment="Top"
                         Width="50" />
 
                     <ComboBox
                         x:Name="cbXHairStyle"
-                        Width="100"
+                        Width="110"
                         Margin="10,63,0,0"
                         HorizontalAlignment="Left"
                         SelectionChanged="XHairStyle_SelectionChanged"
@@ -367,10 +367,11 @@
 
                     <ComboBox
                         Name="cbXHairSize"
-                        Width="100"
-                        Margin="127,62,0,0"
+                        Width="110"
+                        Margin="133,62,0,0"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Top">
+                        VerticalAlignment="Top"
+                        SelectionChanged="cbXHairSize_SelectionChanged">
                         <ComboBoxItem
                             Width="118.4"
                             HorizontalAlignment="Left"
@@ -440,18 +441,19 @@
 
                     <x2:ColorPicker
                         x:Name="cpXHairColor"
-                        Width="100"
+                        Width="110"
                         Margin="10,107,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
                         ShowRecentColors="True"
-                        ShowDropDownButton="False" />
+                        ShowDropDownButton="False"
+                        SelectedColorChanged="cpXHairColor_SelectedColorChanged" />
 
                     <x2:ColorPicker
                         x:Name="cpXHairPulse"
-                        Width="100"
-                        Margin="127,107,0,0"
+                        Width="110"
+                        Margin="133,107,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -476,7 +478,7 @@
                         RenderTransformOrigin="-0.061,1.395" />
 
                     <Label
-                        Margin="127,0,0,0"
+                        Margin="133,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="X:"
@@ -484,7 +486,7 @@
                         Foreground="White" />
 
                     <Label
-                        Margin="177,0,0,0"
+                        Margin="193,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Y:"
@@ -500,7 +502,7 @@
                         Foreground="White" />
 
                     <Label
-                        Margin="127,40,0,0"
+                        Margin="133,40,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Crosshair Size:"
@@ -516,37 +518,55 @@
                         Foreground="White" RenderTransformOrigin="0.467,0.804" />
 
                     <Label
-                        Margin="127,86,0,0"
+                        Margin="133,86,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Pulse Color:"
                         ToolTip="Color of the crosshair when hitting another player"
                         Foreground="White" />
+
+                    <Image
+                        Margin="258,8,0,0"
+                        Source="Resources/crosshairs/background.png"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Height="120" Width="220">
+                    </Image>
+
+                    <TextBlock
+                        x:Name="XHairPreview"
+                        Text="2"
+                        FontWeight="Bold"
+                        Margin="258,10,18,9.6"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        FontSize="72"
+                        Style="{DynamicResource Crosshairs}">
+
+                        <TextBlock.Foreground>
+                            <SolidColorBrush x:Name="XHairPreview_Color" Color="Maroon" />
+                        </TextBlock.Foreground>
+                    </TextBlock>
                 </Grid>
             </GroupBox>
 
             <GroupBox
                 x:Name="gbHealth"
-                Width="245"
-                Height="160"
-                Margin="535,40,0,0"
+                Width="385"
+                Height="117"
+                Margin="280,204,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Foreground="White"
                 Header="Health">
 
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="26*" />
-                        <ColumnDefinition Width="13*" />
-                        <ColumnDefinition Width="193*" />
-                    </Grid.ColumnDefinitions>
                     <ComboBox
                         x:Name="cbHealthStyle"
-                        Width="130"
-                        Margin="50.8,11,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top" Height="22" Grid.Column="2">
+                        Width="115"
+                        Margin="0,22,9.8,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top" Height="22">
                         <ComboBoxItem
                             Width="118.4"
                             HorizontalAlignment="Left"
@@ -568,8 +588,8 @@
 
                     <x2:ColorPicker
                         x:Name="cpHealthNormal"
-                        Width="100"
-                        Margin="10,62,0,0"
+                        Width="110"
+                        Margin="10,22,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -578,8 +598,8 @@
 
                     <x2:ColorPicker
                         x:Name="cpHealingDone"
-                        Width="100"
-                        Margin="80.8,62,0,0"
+                        Width="110"
+                        Margin="133,67,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -588,8 +608,8 @@
 
                     <x2:ColorPicker
                         x:Name="cpHealthBuff"
-                        Width="100"
-                        Margin="10,107,0,0"
+                        Width="110"
+                        Margin="10,67,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -598,8 +618,8 @@
 
                     <x2:ColorPicker
                         x:Name="cpHealthLow"
-                        Width="100"
-                        Margin="80.8,107,0,0"
+                        Width="110"
+                        Margin="133,22,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -607,15 +627,15 @@
                         ShowDropDownButton="False" Grid.Column="2" />
 
                     <Label
-                        Margin="10,10,0,0"
+                        Margin="248,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Health Style:"
                         ToolTip="Style of the player health"
-                        Foreground="White" Grid.ColumnSpan="3" />
+                        Foreground="White" />
 
                     <Label
-                        Margin="10,40,0,0"
+                        Margin="10,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Health Normal:"
@@ -623,7 +643,7 @@
                         Foreground="White" Grid.ColumnSpan="3" />
 
                     <Label
-                        Margin="10,86,0,0"
+                        Margin="10,45,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Health Buffed:"
@@ -631,7 +651,7 @@
                         Foreground="White" Grid.ColumnSpan="3" />
 
                     <Label
-                        Margin="80.8,40,0,0"
+                        Margin="133,45,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Healing Done:"
@@ -639,7 +659,7 @@
                         Foreground="White" Grid.Column="2" />
 
                     <Label
-                        Margin="80.8,86,0,0"
+                        Margin="133,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Health Low:"
@@ -650,9 +670,9 @@
 
             <GroupBox
                 x:Name="gbAmmo"
-                Width="245"
+                Width="265"
                 Height="116"
-                Margin="535,205,0,0"
+                Margin="10,205,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Foreground="White"
@@ -662,7 +682,7 @@
 
                     <x2:ColorPicker
                         x:Name="cpAmmoClip"
-                        Width="100"
+                        Width="110"
                         Margin="10,22,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
@@ -672,8 +692,8 @@
 
                     <x2:ColorPicker
                         x:Name="cpAmmoReserve"
-                        Width="100"
-                        Margin="120,22,0,0"
+                        Width="110"
+                        Margin="133,23,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -682,7 +702,7 @@
 
                     <x2:ColorPicker
                         x:Name="cpAmmoClipLow"
-                        Width="100"
+                        Width="110"
                         Margin="10,67,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
@@ -692,8 +712,8 @@
 
                     <x2:ColorPicker
                         x:Name="cpAmmoReserveLow"
-                        Width="100"
-                        Margin="120,67,0,0"
+                        Width="110"
+                        Margin="133,67,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -717,7 +737,7 @@
                         Foreground="White" />
 
                     <Label
-                        Margin="120,0,0,0"
+                        Margin="133,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Ammo In Reserve:"
@@ -725,7 +745,7 @@
                         Foreground="White" />
 
                     <Label
-                        Margin="120,45,0,0"
+                        Margin="133,45,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Low Reserve:"
@@ -736,9 +756,9 @@
 
             <Button
                 x:Name="Install"
-                Width="75"
-                Height="34"
-                Margin="10,331,0,0"
+                Width="110"
+                Height="30"
+                Margin="670,212,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="Install_Click"
@@ -747,9 +767,9 @@
 
             <Button
                 x:Name="Uninstall"
-                Width="75"
-                Height="34"
-                Margin="90,331,0,0"
+                Width="110"
+                Height="30"
+                Margin="670,247,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="Uninstall_Click"
@@ -758,9 +778,9 @@
 
             <Button
                 x:Name="Save"
-                Width="115"
-                Height="34"
-                Margin="170,331,0,0"
+                Width="110"
+                Height="30"
+                Margin="670,282,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="Save_Click"
@@ -769,9 +789,9 @@
 
             <Button
                 x:Name="Reset"
-                Width="115"
-                Height="34"
-                Margin="425,331,0,0"
+                Width="110"
+                Height="30"
+                Margin="670,342,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="Reset_Click"
@@ -780,20 +800,21 @@
 
             <Button
                 x:Name="Start"
-                Width="130"
-                Height="34"
-                Margin="290,331,0,0"
+                Width="110"
+                Height="20"
+                Margin="670,317,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="Start_Click"
                 Content="Start Team Fortress 2"
+                FontSize="10"
                 Style="{StaticResource Button}" />
 
             <Button
                 x:Name="ChangeDirectory"
-                Width="115"
-                Height="34"
-                Margin="545,331,0,0"
+                Width="110"
+                Height="30"
+                Margin="670,377,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="ChangeDirectory_Click"
@@ -802,9 +823,9 @@
 
             <Button
                 x:Name="ReportIssue"
-                Width="115"
-                Height="34"
-                Margin="665,331,0,0"
+                Width="110"
+                Height="30"
+                Margin="670,412,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Click="ReportIssue_Click"

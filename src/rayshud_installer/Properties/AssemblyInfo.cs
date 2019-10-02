@@ -2,9 +2,8 @@
 using System.Runtime.InteropServices;
 using System.Windows;
 
-// General Information about an assembly is controlled through the following
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
+// General Information about an assembly is controlled through the following set of attributes.
+// Change these attribute values to modify the information associated with an assembly.
 [assembly: AssemblyTitle("rayshud_installer")]
 [assembly: AssemblyDescription("https://github.com/CriticalFlaw/rayshud-Installer")]
 [assembly: AssemblyConfiguration("")]

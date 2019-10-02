@@ -13,7 +13,7 @@ namespace rayshud_installer
         protected override void OnStartup(StartupEventArgs e)
         {
             log4net.Config.XmlConfigurator.Configure();
-            logger.Info("        ======  Started Logging  ======        ");
+            logger.Info("Started Logging");
             base.OnStartup(e);
         }
     }

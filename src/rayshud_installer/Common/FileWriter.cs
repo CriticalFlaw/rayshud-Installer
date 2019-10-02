@@ -150,7 +150,7 @@ namespace rayshud_installer
             try
             {
                 MainWindow.logger.Info("Setting Crosshair Style...");
-                var style = MainWindow.GetCrosshairStyle((CrosshairStyles)rayshud.Default.val_xhair_style);
+                var style = MainWindow.crosshairs[(CrosshairStyles)rayshud.Default.val_xhair_style].Item3;
                 lines[15] = $"\t\t\"xpos\"\t\t\t\"c-{xpos}\"";
                 lines[16] = $"\t\t\"ypos\"\t\t\t\"c-{ypos}\"";
                 lines[20] = $"\t\t\"labelText\"\t\t\"{style}\"";

@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:rayshud_installer"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Style x:Key="Crosshairs">
+            <Setter Property="TextElement.FontFamily" Value="Resources/crosshairs/#crosshairs" />
+        </Style>
         <Style x:Key="Button" TargetType="{x:Type Button}">
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Background" Value="Transparent" />
