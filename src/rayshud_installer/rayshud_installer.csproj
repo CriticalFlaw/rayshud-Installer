@@ -137,7 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autoupdater.NET.Official">
-      <Version>1.5.7</Version>
+      <Version>1.5.8</Version>
     </PackageReference>
     <PackageReference Include="Extended.Wpf.Toolkit">
       <Version>3.6.0</Version>

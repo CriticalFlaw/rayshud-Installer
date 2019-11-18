@@ -358,6 +358,15 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to \rayshud\customizations\main_menu\mainmenuoverride-classic.res.
+        /// </summary>
+        internal static string file_custom_mainmenu_classic {
+            get {
+                return ResourceManager.GetString("file_custom_mainmenu_classic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to \rayshud\resource\gamemenu.res.
         /// </summary>
         internal static string file_gamemenu {

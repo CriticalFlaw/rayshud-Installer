@@ -216,6 +216,9 @@
   <data name="file_custom_mainmenu" xml:space="preserve">
     <value>\rayshud\customizations\main_menu\mainmenuoverride.res</value>
   </data>
+  <data name="file_custom_mainmenu_classic" xml:space="preserve">
+    <value>\rayshud\customizations\main_menu\mainmenuoverride-classic.res</value>
+  </data>
   <data name="file_gamemenu" xml:space="preserve">
     <value>\rayshud\resource\gamemenu.res</value>
   </data>

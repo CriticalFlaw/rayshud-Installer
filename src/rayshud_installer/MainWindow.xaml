@@ -133,7 +133,7 @@
                         Content="Crosshair Outline"
                         ToolTip="Toggle the outline around the crosshair"
                         Foreground="White" Grid.Column="1" />
-                    
+
                     <CheckBox
                         x:Name="chkTransparentVM"
                         Margin="328,30,0,0"
@@ -142,7 +142,7 @@
                         Content="Transparent Viewmodels"
                         ToolTip="Toggle the transparency on the weapon viewmodels"
                         Foreground="White" Grid.Column="1" />
-                    
+
                     <CheckBox
                         x:Name="chkPlayerModel"
                         Margin="328,50,0,0"
