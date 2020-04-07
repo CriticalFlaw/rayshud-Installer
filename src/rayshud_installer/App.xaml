@@ -4,9 +4,40 @@
              xmlns:local="clr-namespace:rayshud_installer"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+
+        <SolidColorBrush x:Key="Quality-Normal" Color="#B2B2B2" />
+        <SolidColorBrush x:Key="Quality-Unique" Color="#FFD700" />
+        <SolidColorBrush x:Key="Quality-Vintage" Color="#476291" />
+        <SolidColorBrush x:Key="Quality-Genuine" Color="#4D7455" />
+        <SolidColorBrush x:Key="Quality-Strange" Color="#CF6A32" />
+        <SolidColorBrush x:Key="Quality-Unusual" Color="#8650AC" />
+        <SolidColorBrush x:Key="Quality-Haunted" Color="#38F3AB" />
+        <SolidColorBrush x:Key="Quality-Collectors" Color="#AA0000" />
+        <SolidColorBrush x:Key="Quality-Decorated" Color="#FAFAFA" />
+        <SolidColorBrush x:Key="Quality-Community" Color="#70B04A" />
+        <SolidColorBrush x:Key="Quality-Valve" Color="#A50F79" />
+        <SolidColorBrush x:Key="Att-Positive" Color="#99CCFF" />
+        <SolidColorBrush x:Key="Att-Negative" Color="#FF4040" />
+        <SolidColorBrush x:Key="Att-Neutral" Color="#EBE2CA" />
+        <SolidColorBrush x:Key="Background-Mid" Color="#3C352D" />
+        <SolidColorBrush x:Key="Background-Dark" Color="#2B2724" />
+        <SolidColorBrush x:Key="Background-Darkest" Color="#221E1B" />
+        <SolidColorBrush x:Key="Button-Background" Color="#776B5F" />
+        <SolidColorBrush x:Key="Button-Hover" Color="#934739" />
+        <SolidColorBrush x:Key="Item-Title" Color="#756B5E" />
+        <SolidColorBrush x:Key="Item-Hover" Color="#B19600" />
+        <SolidColorBrush x:Key="Item-Gradiant-Top" Color="#38332D" />
+        <SolidColorBrush x:Key="Item-Gradiant-Bottom" Color="#221F1A" />
+        <SolidColorBrush x:Key="Text-Highlight" Color="#C95138" />
+        <SolidColorBrush x:Key="Text-Neutral" Color="#A49E9E" />
+        <SolidColorBrush x:Key="Killfeed-Light" Color="#E0D2B5" />
+        <SolidColorBrush x:Key="TeamSpirit-Red" Color="#B8383B" />
+        <SolidColorBrush x:Key="TeamSpirit-Blu" Color="#5885A2" />
+
         <Style x:Key="Crosshairs">
             <Setter Property="TextElement.FontFamily" Value="Resources/crosshairs/#crosshairs" />
         </Style>
+
         <Style x:Key="Button" TargetType="{x:Type Button}">
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Background" Value="Transparent" />
@@ -27,6 +58,40 @@
                     <Setter Property="Background" Value="DarkCyan" />
                 </Trigger>
             </Style.Triggers>
+        </Style>
+
+        <Style x:Key="Normal" TargetType="GroupBox">
+            <Setter Property="Foreground"  Value="{StaticResource Quality-Normal}" />
+        </Style>
+        <Style x:Key="Unique" TargetType="GroupBox">
+            <Setter Property="Foreground"  Value="{StaticResource Quality-Unique}" />
+        </Style>
+        <Style x:Key="Vintage" TargetType="GroupBox">
+            <Setter Property="Foreground"  Value="{StaticResource Quality-Vintage}" />
+        </Style>
+        <Style x:Key="Genuine" TargetType="GroupBox">
+            <Setter Property="Foreground"  Value="{StaticResource Quality-Genuine}" />
+        </Style>
+        <Style x:Key="Strange" TargetType="GroupBox">
+            <Setter Property="Foreground"  Value="{StaticResource Quality-Strange}" />
+        </Style>
+        <Style x:Key="Unusual" TargetType="GroupBox">
+            <Setter Property="Foreground"  Value="{StaticResource Quality-Unusual}" />
+        </Style>
+        <Style x:Key="Haunted" TargetType="GroupBox">
+            <Setter Property="Foreground"  Value="{StaticResource Quality-Haunted}" />
+        </Style>
+        <Style x:Key="Collectors" TargetType="GroupBox">
+            <Setter Property="Foreground"  Value="{StaticResource Quality-Collectors}" />
+        </Style>
+        <Style x:Key="Decorated" TargetType="GroupBox">
+            <Setter Property="Foreground"  Value="{StaticResource Quality-Decorated}" />
+        </Style>
+        <Style x:Key="Community" TargetType="GroupBox">
+            <Setter Property="Foreground"  Value="{StaticResource Quality-Community}" />
+        </Style>
+        <Style x:Key="Valve" TargetType="GroupBox">
+            <Setter Property="Foreground"  Value="{StaticResource Quality-Valve}" />
         </Style>
     </Application.Resources>
 </Application>

@@ -123,6 +123,9 @@
   <data name="app_readme" xml:space="preserve">
     <value>https://raw.githubusercontent.com/raysfire/rayshud/master/README.md</value>
   </data>
+  <data name="app_update" xml:space="preserve">
+    <value>https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/Update.xml</value>
+  </data>
   <data name="dir_console" xml:space="preserve">
     <value>\rayshud\materials\console\</value>
   </data>
@@ -133,73 +136,76 @@
     <value>\rayshud\scripts</value>
   </data>
   <data name="error_app_directory" xml:space="preserve">
-    <value>The tf/custom directory needs to be set in order to use the installer</value>
+    <value>The tf/custom directory needs to be set in order to use the installer.</value>
   </data>
   <data name="error_app_install" xml:space="preserve">
-    <value>An error occurred while installing rayshud</value>
+    <value>An error occurred while installing rayshud.</value>
   </data>
   <data name="error_app_load" xml:space="preserve">
-    <value>An error occurred while loading rayshud settings</value>
+    <value>An error occurred while loading rayshud settings.</value>
   </data>
   <data name="error_app_reset" xml:space="preserve">
-    <value>An error occurred while resetting rayshud settings</value>
+    <value>An error occurred while resetting rayshud settings.</value>
   </data>
   <data name="error_app_save" xml:space="preserve">
-    <value>An error occurred while saving rayshud settings</value>
+    <value>An error occurred while saving rayshud settings.</value>
   </data>
   <data name="error_app_uninstall" xml:space="preserve">
-    <value>An error occurred while uninstalling rayshud</value>
+    <value>An error occurred while uninstalling rayshud.</value>
   </data>
   <data name="error_app_version" xml:space="preserve">
-    <value>An error occurred while checking the rayshud version number</value>
+    <value>An error occurred while checking the rayshud version number.</value>
   </data>
-  <data name="error_writer_backgrounds" xml:space="preserve">
-    <value>An error occurred while applying the default background setting</value>
+  <data name="error_set_chatbox_pos" xml:space="preserve">
+    <value>An error occurred while applying the chatbox position setting.</value>
   </data>
-  <data name="error_writer_chatbox_pos" xml:space="preserve">
-    <value>An error occurred while applying the chatbox position setting</value>
+  <data name="error_set_colors" xml:space="preserve">
+    <value>An error occurred while applying the custom color settings.</value>
   </data>
-  <data name="error_writer_class_image" xml:space="preserve">
-    <value>An error occurred while applying the class image setting</value>
+  <data name="error_set_damage_pos" xml:space="preserve">
+    <value>An error occurred while applying the damage position setting.</value>
   </data>
-  <data name="error_writer_colors" xml:space="preserve">
-    <value>An error occurred while applying the custom color settings</value>
+  <data name="error_set_health_style" xml:space="preserve">
+    <value>An error occurred while applying the health style setting.</value>
   </data>
-  <data name="error_writer_damage_pos" xml:space="preserve">
-    <value>An error occurred while applying the damage position setting</value>
+  <data name="error_set_main_menu" xml:space="preserve">
+    <value>An error occurred while applying the main menu style setting.</value>
   </data>
-  <data name="error_writer_disguise_image" xml:space="preserve">
-    <value>An error occurred while applying the disguise image setting</value>
+  <data name="error_set_menu_backgrounds" xml:space="preserve">
+    <value>An error occurred while applying the default background setting.</value>
   </data>
-  <data name="error_writer_health_style" xml:space="preserve">
-    <value>An error occurred while applying the health style setting</value>
+  <data name="error_set_menu_class_image" xml:space="preserve">
+    <value>An error occurred while applying the class image setting.</value>
   </data>
-  <data name="error_writer_main_menu" xml:space="preserve">
-    <value>An error occurred while applying the main menu style setting</value>
+  <data name="error_set_player_model_pos" xml:space="preserve">
+    <value>An error occurred while applying the player model position setting.</value>
   </data>
-  <data name="error_writer_player_model_pos" xml:space="preserve">
-    <value>An error occurred while applying the player model position setting</value>
+  <data name="error_set_scoreboard" xml:space="preserve">
+    <value>An error occurred while applying the scoreboard style setting.</value>
   </data>
-  <data name="error_writer_scoreboard" xml:space="preserve">
-    <value>An error occurred while applying the scoreboard style setting</value>
+  <data name="error_set_spy_disguise_image" xml:space="preserve">
+    <value>An error occurred while applying the disguise image setting.</value>
   </data>
-  <data name="error_writer_team_select" xml:space="preserve">
-    <value>An error occurred while applying the team select style setting</value>
+  <data name="error_set_team_select" xml:space="preserve">
+    <value>An error occurred while applying the team select style setting.</value>
   </data>
-  <data name="error_writer_transparent_viewmodel" xml:space="preserve">
-    <value>An error occurred while applying the viewmodel transparency setting</value>
+  <data name="error_set_transparent_viewmodels" xml:space="preserve">
+    <value>An error occurred while applying the viewmodel transparency setting.</value>
   </data>
-  <data name="error_writer_uber_animation" xml:space="preserve">
-    <value>An error occurred while applying the uber animation setting</value>
+  <data name="error_set_uber_animation" xml:space="preserve">
+    <value>An error occurred while applying the uber animation setting.</value>
   </data>
-  <data name="error_writer_xhair" xml:space="preserve">
-    <value>An error occurred while applying the crosshair settings</value>
+  <data name="error_set_xhair" xml:space="preserve">
+    <value>An error occurred while applying the crosshair settings.</value>
   </data>
-  <data name="error_writer_xhair_pulse" xml:space="preserve">
-    <value>An error occurred while applying the crosshair pulse setting</value>
+  <data name="error_set_xhair_pulse" xml:space="preserve">
+    <value>An error occurred while applying the crosshair pulse setting.</value>
   </data>
   <data name="file_basechat" xml:space="preserve">
     <value>\rayshud\resource\ui\basechat.res</value>
+  </data>
+  <data name="file_cfg" xml:space="preserve">
+    <value>\flawhud\cfg\hud.cfg</value>
   </data>
   <data name="file_chapterbackgrounds" xml:space="preserve">
     <value>\rayshud\scripts\chapterbackgrounds.txt</value>
@@ -245,5 +251,11 @@
   </data>
   <data name="file_teammenu" xml:space="preserve">
     <value>\rayshud\resource\ui\teammenu.res</value>
+  </data>
+  <data name="info_create_backup" xml:space="preserve">
+    <value>An existing rayshud folder has been found. To avoid conflicts, a backup has been created.</value>
+  </data>
+  <data name="info_folder_browser" xml:space="preserve">
+    <value>Select your tf/custom folder. If a valid directory is not provided, the options to install and modify rayshud will not be available.</value>
   </data>
 </root>

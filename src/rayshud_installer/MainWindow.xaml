@@ -15,7 +15,7 @@
 
         <Grid>
             <Grid.Background>
-                <ImageBrush ImageSource="Resources/background.png" />
+                <ImageBrush ImageSource="Resources/style/background.png" />
             </Grid.Background>
 
             <Label

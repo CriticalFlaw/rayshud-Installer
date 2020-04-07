@@ -12,12 +12,12 @@ namespace rayshud_installer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.2.0.0")]
-    internal sealed partial class rayshud : global::System.Configuration.ApplicationSettingsBase {
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.5.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
-        private static rayshud defaultInstance = ((rayshud)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new rayshud())));
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
-        public static rayshud Default {
+        public static Settings Default {
             get {
                 return defaultInstance;
             }
@@ -385,7 +385,7 @@ namespace rayshud_installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("07/28/2019 15:30:00")]
+        [global::System.Configuration.DefaultSettingValueAttribute("04/07/2020 17:28:00")]
         public global::System.DateTime hud_mod_date {
             get {
                 return ((global::System.DateTime)(this["hud_mod_date"]));

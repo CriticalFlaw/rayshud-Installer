@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="rayshud_installer.Properties" GeneratedClassName="rayshud">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="rayshud_installer.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="hud_updated" Type="System.Boolean" Scope="User">
@@ -93,7 +93,7 @@
       <Value Profile="(Default)">#30FF30</Value>
     </Setting>
     <Setting Name="hud_mod_date" Type="System.DateTime" Scope="User">
-      <Value Profile="(Default)">07/28/2019 15:30:00</Value>
+      <Value Profile="(Default)">04/07/2020 17:28:00</Value>
     </Setting>
     <Setting Name="hud_directory" Type="System.String" Scope="User">
       <Value Profile="(Default)">\Program Files\Steam\steamapps\common\Team Fortress 2\tf\custom</Value>
