@@ -231,7 +231,7 @@ namespace rayshud_installer
                 Install.Content = isInstalled ? "Refresh" : "Install";
                 Save.IsEnabled = isInstalled ? true : false;
                 Uninstall.IsEnabled = isInstalled ? true : false;
-                lblStatus.Content = $"FlawHUD is {(!isInstalled ? "not " : "")}installed...";
+                lblStatus.Content = $"rayshud is {(!isInstalled ? "not " : "")}installed...";
                 Properties.Settings.Default.Save();
             }
             else
@@ -285,7 +285,7 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                ShowErrorMessage("Uninstalling FlawHUD.", Properties.Resources.error_app_uninstall, ex.Message);
+                ShowErrorMessage("Uninstalling rayshud.", Properties.Resources.error_app_uninstall, ex.Message);
             }
         }
 
@@ -379,7 +379,6 @@ namespace rayshud_installer
 
                 settings.val_health_style = cbHealthStyle.SelectedIndex;
                 settings.color_health_normal = cpHealthNormal.SelectedColor.Value.ToString();
-                settings.color_health_healed = cpHealingDone.SelectedColor.Value.ToString();
                 settings.color_health_buffed = cpHealthBuff.SelectedColor.Value.ToString();
                 settings.color_health_low = cpHealthLow.SelectedColor.Value.ToString();
 
@@ -448,7 +447,6 @@ namespace rayshud_installer
 
                 cbHealthStyle.SelectedIndex = settings.val_health_style;
                 cpHealthNormal.SelectedColor = (Color)cc.ConvertFrom(settings.color_health_normal);
-                cpHealingDone.SelectedColor = (Color)cc.ConvertFrom(settings.color_health_healed);
                 cpHealthBuff.SelectedColor = (Color)cc.ConvertFrom(settings.color_health_buffed);
                 cpHealthLow.SelectedColor = (Color)cc.ConvertFrom(settings.color_health_low);
 
@@ -502,7 +500,6 @@ namespace rayshud_installer
 
                 cbHealthStyle.SelectedIndex = (int)HealthStyles.Default;
                 cpHealthNormal.SelectedColor = (Color)cc.ConvertFrom("#EBE2CA");
-                cpHealingDone.SelectedColor = (Color)cc.ConvertFrom("#30FF30");
                 cpHealthBuff.SelectedColor = (Color)cc.ConvertFrom("#30FF30");
                 cpHealthLow.SelectedColor = (Color)cc.ConvertFrom("#FF9900");
 

@@ -205,7 +205,7 @@
     <value>\rayshud\resource\ui\basechat.res</value>
   </data>
   <data name="file_cfg" xml:space="preserve">
-    <value>\flawhud\cfg\hud.cfg</value>
+    <value>\rayshud\cfg\hud.cfg</value>
   </data>
   <data name="file_chapterbackgrounds" xml:space="preserve">
     <value>\rayshud\scripts\chapterbackgrounds.txt</value>

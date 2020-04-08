@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:rayshud_installer"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Setter x:Key="Cerbetica" Property="TextElement.FontFamily" Value="../Resources/style/Cerbetica_edited.ttf #Cerbetica_edited" />
+        <Setter x:Key="CerbeticaBold" Property="TextElement.FontFamily" Value="../Resources/style/Cerbetica_bold.ttf #Cerbetica" />
 
         <SolidColorBrush x:Key="Quality-Normal" Color="#B2B2B2" />
         <SolidColorBrush x:Key="Quality-Unique" Color="#FFD700" />
@@ -35,19 +37,19 @@
         <SolidColorBrush x:Key="TeamSpirit-Blu" Color="#5885A2" />
 
         <Style x:Key="Crosshairs">
-            <Setter Property="TextElement.FontFamily" Value="Resources/crosshairs/#crosshairs" />
+            <Setter Property="TextElement.FontFamily" Value="Resources/crosshairs/crosshairs.ttf #Crosshairs" />
         </Style>
 
-        <Style x:Key="Button" TargetType="{x:Type Button}">
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="Background" Value="Transparent" />
+        <Style x:Key="Button" TargetType="Button">
+            <Setter Property="FontFamily" Value="../Resources/style/Cerbetica_bold.ttf #Cerbetica" />
+            <Setter Property="FontSize" Value="15px" />
+            <Setter Property="Foreground" Value="#EBE2CA" />
+            <Setter Property="Background" Value="#776B5F" />
+
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="White"
-                            BorderThickness="1">
+                        <Border Background="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
@@ -58,6 +60,18 @@
                     <Setter Property="Background" Value="DarkCyan" />
                 </Trigger>
             </Style.Triggers>
+        </Style>
+
+        <Style x:Key="Text" TargetType="Label">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontFamily" Value="../Resources/style/Cerbetica_edited.ttf #Cerbetica_edited" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
+        <Style x:Key="Header" TargetType="Label">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontFamily" Value="../Resources/style/Cerbetica_bold.ttf #Cerbetica" />
+            <Setter Property="Foreground" Value="White" />
         </Style>
 
         <Style x:Key="Normal" TargetType="GroupBox">

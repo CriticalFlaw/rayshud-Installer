@@ -58,9 +58,7 @@
   <PropertyGroup>
     <StartupObject>rayshud_installer.App</StartupObject>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -114,6 +112,8 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Resource Include="Resources\style\alert.png" />
+    <Resource Include="Resources\style\alert2.png" />
     <None Include="hud.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -121,10 +121,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\style\Cerbetica_bold.ttf" />
+    <Resource Include="Resources\style\Cerbetica_edited.ttf" />
     <Resource Include="Resources\crosshairs\crosshairs.ttf" />
     <Resource Include="Resources\crosshairs\background.png" />
     <None Include="app.config" />
-    <None Include="app.manifest" />
     <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

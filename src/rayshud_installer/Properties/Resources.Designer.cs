@@ -322,7 +322,7 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \flawhud\cfg\hud.cfg.
+        ///   Looks up a localized string similar to \rayshud\cfg\hud.cfg.
         /// </summary>
         internal static string file_cfg {
             get {
