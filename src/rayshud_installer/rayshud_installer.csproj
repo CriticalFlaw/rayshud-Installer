@@ -59,6 +59,9 @@
     <StartupObject>rayshud_installer.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -114,6 +117,7 @@
     </Compile>
     <Resource Include="Resources\style\alert.png" />
     <Resource Include="Resources\style\alert2.png" />
+    <None Include="app.manifest" />
     <None Include="hud.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -172,6 +176,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>RD /S /Q "$(TargetDir)ar"
+RD /S /Q "$(TargetDir)cs-CZ"
 RD /S /Q "$(TargetDir)da"
 RD /S /Q "$(TargetDir)de"
 RD /S /Q "$(TargetDir)es"

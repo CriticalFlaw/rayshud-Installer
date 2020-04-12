@@ -4,8 +4,7 @@
     {
         Default,
         Broesel,
-        Cross,
-        Teambar
+        Cross
     }
 
     public enum UberchargeStyles
@@ -28,8 +27,8 @@
         WingsPlus,
         WingsSmall,
         WingsSmallDot,
-        xHairCircle,
         KonrWings,
-        KnuckleCrosses
+        KnucklesCrosses,
+        RaysCrosshair
     }
 }

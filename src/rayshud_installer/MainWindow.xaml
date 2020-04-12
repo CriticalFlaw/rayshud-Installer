@@ -332,7 +332,7 @@
                     Margin="120,40,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    SelectionChanged="XHairStyle_SelectionChanged" >
+                    SelectionChanged="XHairStyle_SelectionChanged">
                     <ComboBoxItem
                         Content="BasicCross"
                         IsSelected="True" />
@@ -357,8 +357,6 @@
                     <ComboBoxItem
                         Content="WingsSmallDot" />
                     <ComboBoxItem
-                        Content="xHairCircle" />
-                    <ComboBoxItem
                         Content="KonrWings" />
                 </ComboBox>
 
@@ -367,8 +365,7 @@
                     Width="166"
                     Margin="120,70,0,0"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    SelectionChanged="cbXHairSize_SelectionChanged">
+                    VerticalAlignment="Top">
                     <ComboBoxItem
                         Content="10"
                         IsSelected="True" />
@@ -494,7 +491,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Source="Resources/crosshairs/background.png"
-                    Height="55" Width="80" >
+                    Height="55" Width="80">
                 </Image>
 
                 <TextBlock
@@ -506,7 +503,7 @@
                     Text="2"
                     FontWeight="Bold"
                     FontSize="72"
-                    Style="{DynamicResource Crosshairs}" >
+                    Style="{DynamicResource Crosshairs}">
 
                     <TextBlock.Foreground>
                         <SolidColorBrush x:Name="XHairPreview_Color" Color="Maroon" />
@@ -570,8 +567,6 @@
                         Content="Broesel" />
                     <ComboBoxItem
                         Content="Cross" />
-                    <ComboBoxItem
-                        Content="Team Bar" />
                 </ComboBox>
 
                 <Label

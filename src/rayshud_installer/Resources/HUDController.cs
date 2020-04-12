@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace rayshud_installer
 {
@@ -21,7 +22,7 @@ namespace rayshud_installer
                 var file = hudPath + Resources.file_basechat;
                 var lines = File.ReadAllLines(file);
                 var start = FindIndex(lines, "HudChat");
-                lines[FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\t\t\"{((Settings.Default.toggle_chat_bottom) ? 360 : 30)}\"";
+                lines[FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\t\t\"{((Settings.Default.toggle_chat_bottom) ? 360 : 25)}\"";
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
@@ -69,32 +70,58 @@ namespace rayshud_installer
         /// <summary>
         /// Set the crosshair
         /// </summary>
-        public void Crosshair()
+        public void Crosshair(int? xpos, int? ypos, ComboBoxItem sizeSelection)
         {
             try
             {
                 MainWindow.logger.Info("Updating Crosshair.");
                 var file = hudPath + Resources.file_hudlayout;
                 var lines = File.ReadAllLines(file);
-                var start = FindIndex(lines, "KnucklesCrosses");
-                lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\"0\"";
-                lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\"0\"";
-                lines[FindIndex(lines, "visible", start)] = lines[FindIndex(lines, "visible", start)].Replace("Outline", null);
+                var start = FindIndex(lines, "\"RaysCrosshair\"");
+                var xHairList = Enum.GetValues(typeof(CrosshairStyles));
+                foreach (var xHair in xHairList)
+                {
+                    start = FindIndex(lines, $"\"{xHair}\"");
+                    lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\"0\"";
+                    lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\"0\"";
+                    lines[FindIndex(lines, "visible", start)] = lines[FindIndex(lines, "visible", start)].Replace("Outline", null);
+                }
                 File.WriteAllLines(file, lines);
 
                 if (Settings.Default.toggle_xhair_enable)
                 {
-                    var outline = (Settings.Default.toggle_xhair_outline) ? "Outline" : string.Empty;
+                    var index = Settings.Default.val_xhair_style switch
+                    {
+                        (int)CrosshairStyles.BasicCross => "BasicCross",
+                        (int)CrosshairStyles.BasicDot => "BasicDot",
+                        (int)CrosshairStyles.CircleDot => "CircleDot",
+                        (int)CrosshairStyles.OpenCross => "OpenCross",
+                        (int)CrosshairStyles.OpenCrossDot => "OpenCrossDot",
+                        (int)CrosshairStyles.ScatterSpread => "ScatterSpread",
+                        (int)CrosshairStyles.ThinCircle => "ThinCircle",
+                        (int)CrosshairStyles.Wings => "Wings",
+                        (int)CrosshairStyles.WingsPlus => "WingsPlus",
+                        (int)CrosshairStyles.WingsSmall => "WingsSmall",
+                        (int)CrosshairStyles.WingsSmallDot => "WingsSmallDot",
+                        (int)CrosshairStyles.KonrWings => "KonrWings",
+                        (int)CrosshairStyles.KnucklesCrosses => "KnucklesCrosses",
+                        _ => "RaysCrosshair",
+                    };
                     var style = Settings.Default.val_xhair_style switch
                     {
                         (int)CrosshairStyles.KonrWings => "KonrWings",
-                        (int)CrosshairStyles.KnuckleCrosses => "KnucklesCrosses",
+                        (int)CrosshairStyles.KnucklesCrosses => "KnucklesCrosses",
                         _ => "Crosshairs",
                     };
+                    var size = (string)sizeSelection.Content;
+                    var outline = (Settings.Default.toggle_xhair_outline) ? "Outline" : string.Empty;
 
+                    start = FindIndex(lines, $"\"{index}\"");
                     lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\"1\"";
                     lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\"1\"";
-                    lines[FindIndex(lines, "font", start)] = $"\t\t\"font\"\t\t\t\t\"{style}{Settings.Default.val_xhair_size}{outline}\"";
+                    lines[FindIndex(lines, "xpos", start)] = $"\t\t\"xpos\"\t\t\t\"c-{xpos}\"";
+                    lines[FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\"c-{ypos}\"";
+                    lines[FindIndex(lines, "font", start)] = $"\t\t\"font\"\t\t\t\"{style}{size}{outline}\"";
                     File.WriteAllLines(file, lines);
                 }
             }
@@ -134,44 +161,23 @@ namespace rayshud_installer
         }
 
         /// <summary>
-        /// Set the rayshud crosshair position and style
-        /// </summary>
-        public void CrosshairStyle(int? xpos, int? ypos)
-        {
-            try
-            {
-                MainWindow.logger.Info("Updating Crosshair Style.");
-                var file = hudPath + Resources.file_hudanimations;
-                var lines = File.ReadAllLines(file);
-                var start = FindIndex(lines, "RaysCrosshair");
-                var style = MainWindow.crosshairs[(CrosshairStyles)Settings.Default.val_xhair_style].Item3;
-                lines[FindIndex(lines, "xpos", start)] = $"\t\t\"xpos\"\t\t\t\"c-{xpos}\"";
-                lines[FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\"c-{ypos}\"";
-                lines[FindIndex(lines, "labelText", start)] = $"\t\t\"labelText\"\t\t\"{style}\"";
-                File.WriteAllLines(file, lines);
-            }
-            catch (Exception ex)
-            {
-                MainWindow.ShowErrorMessage("Updating Crosshair Style.", Resources.error_set_xhair, ex.Message);
-            }
-        }
-
-        /// <summary>
         /// Set the position of the damage value
         /// </summary>
         public void DamagePos()
         {
             try
             {
-                MainWindow.logger.Info("Setting Damage Value Position...");
+                MainWindow.logger.Info("Updating Damage Value Position.");
                 var huddamageaccount = hudPath + Resources.file_huddamageaccount;
                 var lines = File.ReadAllLines(huddamageaccount);
-                lines[20] = $"\t\t\"xpos\"\t\t\t\t\"c-{((Settings.Default.toggle_damage_pos) ? 108 : 188)}\"";
+                var start = FindIndex(lines, "DamageAccountValue");
+                var value = (Settings.Default.toggle_damage_pos) ? "c108" : "c-188";
+                lines[FindIndex(lines, "xpos", start)] = $"\t\t\"xpos\"\t\t\t\t\"{value}\"";
                 File.WriteAllLines(huddamageaccount, lines);
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Damage Position", Resources.error_set_damage_pos, ex.Message);
+                MainWindow.ShowErrorMessage("Updating Damage Value Position.", Resources.error_set_damage_pos, ex.Message);
             }
         }
 
@@ -224,7 +230,6 @@ namespace rayshud_installer
                 var index = Settings.Default.val_health_style - 1;
                 lines[0] = CommentOutTextLine(lines[0]);
                 lines[1] = CommentOutTextLine(lines[1]);
-                lines[2] = CommentOutTextLine(lines[2]);
                 if (Settings.Default.val_health_style > 0)
                     lines[index] = lines[index].Replace("//", string.Empty);
                 File.WriteAllLines(file, lines);
@@ -329,18 +334,18 @@ namespace rayshud_installer
         {
             try
             {
-                MainWindow.logger.Info("Setting Main Menu Style...");
+                MainWindow.logger.Info("Updating Main Menu Style.");
                 var file = hudPath + Resources.file_mainmenuoverride;
                 var lines = File.ReadAllLines(file);
-                var index = (Settings.Default.toggle_classic_menu) ? 0 : 1;
-                lines[0] = CommentOutTextLine(lines[0]);
+                var index = (Settings.Default.toggle_classic_menu) ? 1 : 2;
                 lines[1] = CommentOutTextLine(lines[1]);
+                lines[2] = CommentOutTextLine(lines[2]);
                 lines[index] = lines[index].Replace("//", string.Empty);
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Main Menu Style", Resources.error_set_main_menu, ex.Message);
+                MainWindow.ShowErrorMessage("Updating Main Menu Style.", Resources.error_set_main_menu, ex.Message);
             }
         }
 
@@ -406,7 +411,7 @@ namespace rayshud_installer
                 MainWindow.logger.Info("Updating ÜberCharge Animation.");
                 var file = hudPath + Resources.file_hudanimations;
                 var lines = File.ReadAllLines(file);
-                var start = FindIndex(lines, "\"HudMedicCharged\"");
+                var start = FindIndex(lines, "HudMedicCharged");
                 var index1 = FindIndex(lines, "HudMedicOrangePulseCharge", start);
                 var index2 = FindIndex(lines, "HudMedicSolidColorCharge", start);
                 var index3 = FindIndex(lines, "HudMedicRainbowCharged", start);
@@ -442,6 +447,12 @@ namespace rayshud_installer
                 lines[0] = CommentOutTextLine(lines[0]);
                 if (Settings.Default.toggle_alt_player_model)
                     lines[0] = lines[0].Replace("//", string.Empty);
+                File.WriteAllLines(file, lines);
+                file = hudPath + Resources.file_hudlayout;
+                lines = File.ReadAllLines(file);
+                var start = FindIndex(lines, "DisguiseStatus");
+                var value = (Settings.Default.toggle_alt_player_model) ? "100" : "20";
+                lines[FindIndex(lines, "xpos", start)] = $"\t\t\"xpos\"\t\t\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
