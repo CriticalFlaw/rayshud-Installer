@@ -171,8 +171,10 @@ namespace rayshud_installer
                 var huddamageaccount = hudPath + Resources.file_huddamageaccount;
                 var lines = File.ReadAllLines(huddamageaccount);
                 var start = FindIndex(lines, "DamageAccountValue");
-                var value = (Settings.Default.toggle_damage_pos) ? "c108" : "c-188";
-                lines[FindIndex(lines, "xpos", start)] = $"\t\t\"xpos\"\t\t\t\t\"{value}\"";
+                var value = (Settings.Default.toggle_damage_pos) ? "c-188" : "c108";
+                lines[FindIndex(lines, "\"xpos\"", start)] = $"\t\t\"xpos\"\t\t\t\t\"{value}\"";
+                value = (Settings.Default.toggle_damage_pos) ? "c-138" : "c58";
+                lines[FindIndex(lines, "\"xpos_minmode\"", start)] = $"\t\t\"xpos_minmode\"\t\t\"{value}\"";
                 File.WriteAllLines(huddamageaccount, lines);
             }
             catch (Exception ex)
