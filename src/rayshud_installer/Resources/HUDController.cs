@@ -22,7 +22,7 @@ namespace rayshud_installer
                 var file = hudPath + Resources.file_basechat;
                 var lines = File.ReadAllLines(file);
                 var start = FindIndex(lines, "HudChat");
-                lines[FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\t\t\"{((Settings.Default.toggle_chat_bottom) ? 360 : 25)}\"";
+                lines[FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\t\t\"{((Settings.Default.toggle_chat_bottom) ? 315 : 25)}\"";
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
