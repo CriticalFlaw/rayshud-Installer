@@ -1,15 +1,15 @@
-﻿using log4net;
-using log4net.Config;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using System.Windows;
+using log4net;
+using log4net.Config;
 
 namespace rayshud_installer
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    ///     Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
         protected override void OnStartup(StartupEventArgs e)
         {

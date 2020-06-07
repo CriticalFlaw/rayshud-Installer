@@ -1,28 +1,30 @@
-﻿using rayshud_installer.Properties;
-using System;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Windows.Controls;
+using System.Windows.Forms;
+using rayshud_installer.Properties;
 
 namespace rayshud_installer
 {
     public class HUDController
     {
-        private readonly string hudPath = Settings.Default.hud_directory;
-        private readonly string appPath = System.Windows.Forms.Application.StartupPath;
+        private readonly string _appPath = Application.StartupPath;
+        private readonly string _hudPath = Settings.Default.hud_directory;
 
         /// <summary>
-        /// Set the position of the chatbox
+        ///     Set the position of the chatbox
         /// </summary>
         public void ChatBoxPos()
         {
             try
             {
-                MainWindow.logger.Info("Updating Chatbox Position.");
-                var file = hudPath + Resources.file_basechat;
+                MainWindow.Logger.Info("Updating Chatbox Position.");
+                var file = _hudPath + Resources.file_basechat;
                 var lines = File.ReadAllLines(file);
                 var start = FindIndex(lines, "HudChat");
-                lines[FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\t\t\"{((Settings.Default.toggle_chat_bottom) ? 315 : 25)}\"";
+                lines[FindIndex(lines, "ypos", start)] =
+                    $"\t\t\"ypos\"\t\t\t\t\t\"{(Settings.Default.toggle_chat_bottom ? 315 : 25)}\"";
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
@@ -32,33 +34,47 @@ namespace rayshud_installer
         }
 
         /// <summary>
-        /// Set the client scheme colors
+        ///     Set the client scheme colors
         /// </summary>
         public void Colors()
         {
             try
             {
-                MainWindow.logger.Info("Updating Colors.");
-                var file = hudPath + Resources.file_clientscheme_colors;
+                MainWindow.Logger.Info("Updating Colors.");
+                var file = _hudPath + Resources.file_clientscheme_colors;
                 var lines = File.ReadAllLines(file);
                 // Health
-                lines[FindIndex(lines, "\"Health Normal\"")] = $"\t\t\"Health Normal\"\t\t\t\t\"{RGBConverter(Settings.Default.color_health_normal)}\"";
-                lines[FindIndex(lines, "\"Health Buff\"")] = $"\t\t\"Health Buff\"\t\t\t\t\"{RGBConverter(Settings.Default.color_health_buffed)}\"";
-                lines[FindIndex(lines, "\"Health Hurt\"")] = $"\t\t\"Health Hurt\"\t\t\t\t\"{RGBConverter(Settings.Default.color_health_low)}\"";
-                lines[FindIndex(lines, "\"Heal Numbers\"")] = $"\t\t\"Heal Numbers\"\t\t\t\t\"{RGBConverter(Settings.Default.color_health_healed)}\"";
+                lines[FindIndex(lines, "\"Health Normal\"")] =
+                    $"\t\t\"Health Normal\"\t\t\t\t\"{RgbConverter(Settings.Default.color_health_normal)}\"";
+                lines[FindIndex(lines, "\"Health Buff\"")] =
+                    $"\t\t\"Health Buff\"\t\t\t\t\"{RgbConverter(Settings.Default.color_health_buffed)}\"";
+                lines[FindIndex(lines, "\"Health Hurt\"")] =
+                    $"\t\t\"Health Hurt\"\t\t\t\t\"{RgbConverter(Settings.Default.color_health_low)}\"";
+                lines[FindIndex(lines, "\"Heal Numbers\"")] =
+                    $"\t\t\"Heal Numbers\"\t\t\t\t\"{RgbConverter(Settings.Default.color_health_healed)}\"";
                 // Ammo
-                lines[FindIndex(lines, "\"Ammo In Clip\"")] = $"\t\t\"Ammo In Clip\"\t\t\t\t\"{RGBConverter(Settings.Default.color_ammo_clip)}\"";
-                lines[FindIndex(lines, "\"Ammo In Reserve\"")] = $"\t\t\"Ammo In Reserve\"\t\t\t\"{RGBConverter(Settings.Default.color_ammo_reserve)}\"";
-                lines[FindIndex(lines, "\"Ammo In Clip Low\"")] = $"\t\t\"Ammo In Clip Low\"\t\t\t\"{RGBConverter(Settings.Default.color_ammo_clip_low)}\"";
-                lines[FindIndex(lines, "\"Ammo In Reserve Low\"")] = $"\t\t\"Ammo In Reserve Low\"\t\t\"{RGBConverter(Settings.Default.color_ammo_reserve_low)}\"";
+                lines[FindIndex(lines, "\"Ammo In Clip\"")] =
+                    $"\t\t\"Ammo In Clip\"\t\t\t\t\"{RgbConverter(Settings.Default.color_ammo_clip)}\"";
+                lines[FindIndex(lines, "\"Ammo In Reserve\"")] =
+                    $"\t\t\"Ammo In Reserve\"\t\t\t\"{RgbConverter(Settings.Default.color_ammo_reserve)}\"";
+                lines[FindIndex(lines, "\"Ammo In Clip Low\"")] =
+                    $"\t\t\"Ammo In Clip Low\"\t\t\t\"{RgbConverter(Settings.Default.color_ammo_clip_low)}\"";
+                lines[FindIndex(lines, "\"Ammo In Reserve Low\"")] =
+                    $"\t\t\"Ammo In Reserve Low\"\t\t\"{RgbConverter(Settings.Default.color_ammo_reserve_low)}\"";
                 // Crosshair
-                lines[FindIndex(lines, "\"Crosshair\"")] = $"\t\t\"Crosshair\"\t\t\t\t\t\"{RGBConverter(Settings.Default.color_xhair_normal)}\"";
-                lines[FindIndex(lines, "\"CrosshairDamage\"")] = $"\t\t\"CrosshairDamage\"\t\t\t\"{RGBConverter(Settings.Default.color_xhair_pulse)}\"";
+                lines[FindIndex(lines, "\"Crosshair\"")] =
+                    $"\t\t\"Crosshair\"\t\t\t\t\t\"{RgbConverter(Settings.Default.color_xhair_normal)}\"";
+                lines[FindIndex(lines, "\"CrosshairDamage\"")] =
+                    $"\t\t\"CrosshairDamage\"\t\t\t\"{RgbConverter(Settings.Default.color_xhair_pulse)}\"";
                 // ÜberCharge
-                lines[FindIndex(lines, "\"Uber Bar Color\"")] = $"\t\t\"Uber Bar Color\"\t\t\t\"{RGBConverter(Settings.Default.color_uber_bar)}\"";
-                lines[FindIndex(lines, "\"Solid Color Uber\"")] = $"\t\t\"Solid Color Uber\"\t\t\t\"{RGBConverter(Settings.Default.color_uber_full)}\"";
-                lines[FindIndex(lines, "\"Flashing Uber Color1\"")] = $"\t\t\"Flashing Uber Color1\"\t\t\"{RGBConverter(Settings.Default.color_uber_flash1)}\"";
-                lines[FindIndex(lines, "\"Flashing Uber Color2\"")] = $"\t\t\"Flashing Uber Color2\"\t\t\"{RGBConverter(Settings.Default.color_uber_flash2)}\"";
+                lines[FindIndex(lines, "\"Uber Bar Color\"")] =
+                    $"\t\t\"Uber Bar Color\"\t\t\t\"{RgbConverter(Settings.Default.color_uber_bar)}\"";
+                lines[FindIndex(lines, "\"Solid Color Uber\"")] =
+                    $"\t\t\"Solid Color Uber\"\t\t\t\"{RgbConverter(Settings.Default.color_uber_full)}\"";
+                lines[FindIndex(lines, "\"Flashing Uber Color1\"")] =
+                    $"\t\t\"Flashing Uber Color1\"\t\t\"{RgbConverter(Settings.Default.color_uber_flash1)}\"";
+                lines[FindIndex(lines, "\"Flashing Uber Color2\"")] =
+                    $"\t\t\"Flashing Uber Color2\"\t\t\"{RgbConverter(Settings.Default.color_uber_flash2)}\"";
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
@@ -68,62 +84,28 @@ namespace rayshud_installer
         }
 
         /// <summary>
-        /// Set the crosshair
+        ///     Set the crosshair
         /// </summary>
-        public void Crosshair(int? xpos, int? ypos, ComboBoxItem sizeSelection)
+        public void Crosshair(string style, int? size)
         {
             try
             {
-                MainWindow.logger.Info("Updating Crosshair.");
-                var file = hudPath + Resources.file_hudlayout;
+                MainWindow.Logger.Info("Updating Crosshair.");
+                var file = _hudPath + Resources.file_hudlayout;
                 var lines = File.ReadAllLines(file);
                 var start = FindIndex(lines, "\"RaysCrosshair\"");
-                var xHairList = Enum.GetValues(typeof(CrosshairStyles));
-                foreach (var xHair in xHairList)
-                {
-                    start = FindIndex(lines, $"\"{xHair}\"");
-                    lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\"0\"";
-                    lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\"0\"";
-                    lines[FindIndex(lines, "visible", start)] = lines[FindIndex(lines, "visible", start)].Replace("Outline", null);
-                }
+                var outline = Settings.Default.toggle_xhair_outline ? "Outline" : string.Empty;
+                lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\"0\"";
+                lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\"0\"";
                 File.WriteAllLines(file, lines);
 
-                if (Settings.Default.toggle_xhair_enable)
-                {
-                    var index = Settings.Default.val_xhair_style switch
-                    {
-                        (int)CrosshairStyles.BasicCross => "BasicCross",
-                        (int)CrosshairStyles.BasicDot => "BasicDot",
-                        (int)CrosshairStyles.CircleDot => "CircleDot",
-                        (int)CrosshairStyles.OpenCross => "OpenCross",
-                        (int)CrosshairStyles.OpenCrossDot => "OpenCrossDot",
-                        (int)CrosshairStyles.ScatterSpread => "ScatterSpread",
-                        (int)CrosshairStyles.ThinCircle => "ThinCircle",
-                        (int)CrosshairStyles.Wings => "Wings",
-                        (int)CrosshairStyles.WingsPlus => "WingsPlus",
-                        (int)CrosshairStyles.WingsSmall => "WingsSmall",
-                        (int)CrosshairStyles.WingsSmallDot => "WingsSmallDot",
-                        (int)CrosshairStyles.KonrWings => "KonrWings",
-                        (int)CrosshairStyles.KnucklesCrosses => "KnucklesCrosses",
-                        _ => "RaysCrosshair",
-                    };
-                    var style = Settings.Default.val_xhair_style switch
-                    {
-                        (int)CrosshairStyles.KonrWings => "KonrWings",
-                        (int)CrosshairStyles.KnucklesCrosses => "KnucklesCrosses",
-                        _ => "Crosshairs",
-                    };
-                    var size = (string)sizeSelection.Content;
-                    var outline = (Settings.Default.toggle_xhair_outline) ? "Outline" : string.Empty;
-
-                    start = FindIndex(lines, $"\"{index}\"");
-                    lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\"1\"";
-                    lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\"1\"";
-                    lines[FindIndex(lines, "xpos", start)] = $"\t\t\"xpos\"\t\t\t\"c-{xpos}\"";
-                    lines[FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\"c-{ypos}\"";
-                    lines[FindIndex(lines, "font", start)] = $"\t\t\"font\"\t\t\t\"{style}{size}{outline}\"";
-                    File.WriteAllLines(file, lines);
-                }
+                if (!Settings.Default.toggle_xhair_enable) return;
+                lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\"1\"";
+                lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\"1\"";
+                lines[FindIndex(lines, "xpos", start)] = $"\t\t\"xpos\"\t\t\t\"c-{Settings.Default.val_xhair_x}\"";
+                lines[FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\"c-{Settings.Default.val_xhair_y}\"";
+                lines[FindIndex(lines, "font", start)] = $"\t\t\"font\"\t\t\t\"{style}{size}{outline}\"";
+                File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
             {
@@ -132,26 +114,25 @@ namespace rayshud_installer
         }
 
         /// <summary>
-        /// Set the crosshair hitmarker
+        ///     Set the crosshair hitmarker
         /// </summary>
         public void CrosshairPulse()
         {
             try
             {
-                MainWindow.logger.Info("Updating Crosshair Pulse.");
-                var file = hudPath + Resources.file_hudanimations;
+                MainWindow.Logger.Info("Updating Crosshair Pulse.");
+                var file = _hudPath + Resources.file_hudanimations;
                 var lines = File.ReadAllLines(file);
                 var start = FindIndex(lines, "DamagedPlayer");
                 var index1 = FindIndex(lines, "StopEvent", start);
                 var index2 = FindIndex(lines, "RunEvent", start);
                 lines[index1] = CommentOutTextLine(lines[index1]);
                 lines[index2] = CommentOutTextLine(lines[index2]);
+                File.WriteAllLines(file, lines);
 
-                if (Settings.Default.toggle_xhair_pulse)
-                {
-                    lines[index1] = lines[index1].Replace("//", string.Empty);
-                    lines[index2] = lines[index2].Replace("//", string.Empty);
-                }
+                if (!Settings.Default.toggle_xhair_pulse) return;
+                lines[index1] = lines[index1].Replace("//", string.Empty);
+                lines[index2] = lines[index2].Replace("//", string.Empty);
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
@@ -161,37 +142,38 @@ namespace rayshud_installer
         }
 
         /// <summary>
-        /// Set the position of the damage value
+        ///     Set the position of the damage value
         /// </summary>
         public void DamagePos()
         {
             try
             {
-                MainWindow.logger.Info("Updating Damage Value Position.");
-                var huddamageaccount = hudPath + Resources.file_huddamageaccount;
-                var lines = File.ReadAllLines(huddamageaccount);
+                MainWindow.Logger.Info("Updating Damage Value Position.");
+                var file = _hudPath + Resources.file_huddamageaccount;
+                var lines = File.ReadAllLines(file);
                 var start = FindIndex(lines, "DamageAccountValue");
-                var value = (Settings.Default.toggle_damage_pos) ? "c-188" : "c108";
+                var value = Settings.Default.toggle_damage_pos ? "c-188" : "c108";
                 lines[FindIndex(lines, "\"xpos\"", start)] = $"\t\t\"xpos\"\t\t\t\t\"{value}\"";
-                value = (Settings.Default.toggle_damage_pos) ? "c-138" : "c58";
+                value = Settings.Default.toggle_damage_pos ? "c-138" : "c58";
                 lines[FindIndex(lines, "\"xpos_minmode\"", start)] = $"\t\t\"xpos_minmode\"\t\t\"{value}\"";
-                File.WriteAllLines(huddamageaccount, lines);
+                File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating Damage Value Position.", Resources.error_set_damage_pos, ex.Message);
+                MainWindow.ShowErrorMessage("Updating Damage Value Position.", Resources.error_set_damage_pos,
+                    ex.Message);
             }
         }
 
         /// <summary>
-        /// Set the visibility of the Spy's disguise image
+        ///     Set the visibility of the Spy's disguise image
         /// </summary>
         public void DisguiseImage()
         {
             try
             {
-                MainWindow.logger.Info("Updating Spy Disguise Image.");
-                var file = hudPath + Resources.file_hudanimations;
+                MainWindow.Logger.Info("Updating Spy Disguise Image.");
+                var file = _hudPath + Resources.file_hudanimations;
                 var lines = File.ReadAllLines(file);
                 var start = FindIndex(lines, "HudSpyDisguiseFadeIn");
                 var index1 = FindIndex(lines, "RunEvent", start);
@@ -203,31 +185,31 @@ namespace rayshud_installer
                 lines[index2] = CommentOutTextLine(lines[index2]);
                 lines[index3] = CommentOutTextLine(lines[index3]);
                 lines[index4] = CommentOutTextLine(lines[index4]);
+                File.WriteAllLines(file, lines);
 
-                if (Settings.Default.toggle_disguise_image)
-                {
-                    lines[index1] = lines[index1].Replace("//", string.Empty);
-                    lines[index2] = lines[index2].Replace("//", string.Empty);
-                    lines[index3] = lines[index3].Replace("//", string.Empty);
-                    lines[index4] = lines[index4].Replace("//", string.Empty);
-                }
+                if (!Settings.Default.toggle_disguise_image) return;
+                lines[index1] = lines[index1].Replace("//", string.Empty);
+                lines[index2] = lines[index2].Replace("//", string.Empty);
+                lines[index3] = lines[index3].Replace("//", string.Empty);
+                lines[index4] = lines[index4].Replace("//", string.Empty);
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating Spy Disguise Image.", Resources.error_set_spy_disguise_image, ex.Message);
+                MainWindow.ShowErrorMessage("Updating Spy Disguise Image.", Resources.error_set_spy_disguise_image,
+                    ex.Message);
             }
         }
 
         /// <summary>
-        /// Set the player health style
+        ///     Set the player health style
         /// </summary>
         public void HealthStyle()
         {
             try
             {
-                MainWindow.logger.Info("Updating Player Health Style.");
-                var file = hudPath + Resources.file_hudplayerhealth;
+                MainWindow.Logger.Info("Updating Player Health Style.");
+                var file = _hudPath + Resources.file_hudplayerhealth;
                 var lines = File.ReadAllLines(file);
                 var index = Settings.Default.val_health_style - 1;
                 lines[0] = CommentOutTextLine(lines[0]);
@@ -238,108 +220,113 @@ namespace rayshud_installer
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating Player Health Style.", Resources.error_set_health_style, ex.Message);
+                MainWindow.ShowErrorMessage("Updating Player Health Style.", Resources.error_set_health_style,
+                    ex.Message);
             }
         }
 
         /// <summary>
-        /// Set the main menu backgrounds
+        ///     Set the main menu backgrounds
         /// </summary>
         public void MainMenuBackground()
         {
             try
             {
-                MainWindow.logger.Info("Updating Main Menu Backgrounds.");
-                var directory = new DirectoryInfo(hudPath + Resources.dir_console);
-                var chapterbackgrounds = hudPath + Resources.file_chapterbackgrounds;
-                var chapterbackgrounds_temp = chapterbackgrounds.Replace(".txt", ".file");
+                MainWindow.Logger.Info("Updating Main Menu Backgrounds.");
+                var directory = new DirectoryInfo(_hudPath + Resources.dir_console);
+                var chapterbackgrounds = _hudPath + Resources.file_chapterbackgrounds;
+                var chapterbackgroundsTemp = chapterbackgrounds.Replace(".txt", ".file");
 
                 if (Settings.Default.toggle_stock_backgrounds)
                 {
                     foreach (var file in directory.GetFiles())
                         File.Move(file.FullName, file.FullName.Replace("upward", "off"));
                     if (File.Exists(chapterbackgrounds))
-                        File.Move(chapterbackgrounds, chapterbackgrounds_temp);
+                        File.Move(chapterbackgrounds, chapterbackgroundsTemp);
                 }
                 else
                 {
                     foreach (var file in directory.GetFiles())
                         File.Move(file.FullName, file.FullName.Replace("off", "upward"));
-                    if (File.Exists(chapterbackgrounds_temp))
-                        File.Move(chapterbackgrounds_temp, chapterbackgrounds);
+                    if (File.Exists(chapterbackgroundsTemp))
+                        File.Move(chapterbackgroundsTemp, chapterbackgrounds);
                 }
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating Main Menu Backgrounds.", Resources.error_set_menu_backgrounds, ex.Message);
+                MainWindow.ShowErrorMessage("Updating Main Menu Backgrounds.", Resources.error_set_menu_backgrounds,
+                    ex.Message);
             }
         }
 
         /// <summary>
-        /// Set the visibility of the main menu class image
+        ///     Set the visibility of the main menu class image
         /// </summary>
         public void MainMenuClassImage()
         {
             try
             {
-                MainWindow.logger.Info("Updating Main Menu Class Image.");
-                var file = hudPath + ((Settings.Default.toggle_classic_menu) ? Resources.file_custom_mainmenu_classic : Resources.file_custom_mainmenu);
+                MainWindow.Logger.Info("Updating Main Menu Class Image.");
+                var file = _hudPath + (Settings.Default.toggle_classic_menu
+                    ? Resources.file_custom_mainmenu_classic
+                    : Resources.file_custom_mainmenu);
                 var lines = File.ReadAllLines(file);
                 var start = FindIndex(lines, "TFCharacterImage");
-                var value = (Settings.Default.toggle_menu_images) ? "-80" : "9999";
+                var value = Settings.Default.toggle_menu_images ? "-80" : "9999";
                 lines[FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating Main Menu Class Image.", Resources.error_set_menu_class_image, ex.Message);
+                MainWindow.ShowErrorMessage("Updating Main Menu Class Image.", Resources.error_set_menu_class_image,
+                    ex.Message);
             }
         }
 
         /// <summary>
-        /// Set the weapon viewmodel transparency
+        ///     Set the weapon viewmodel transparency
         /// </summary>
         public void TransparentViewmodels()
         {
             try
             {
-                MainWindow.logger.Info("Updating Transparent Viewmodels.");
-                var file = hudPath + Resources.file_hudlayout;
+                MainWindow.Logger.Info("Updating Transparent Viewmodels.");
+                var file = _hudPath + Resources.file_hudlayout;
                 var lines = File.ReadAllLines(file);
                 var start = FindIndex(lines, "\"TransparentViewmodel\"");
                 var index1 = FindIndex(lines, "visible", start);
                 var index2 = FindIndex(lines, "enabled", start);
                 lines[index1] = "\t\t\"visible\"\t\t\t\"0\"";
                 lines[index2] = "\t\t\"enabled\"\t\t\t\"0\"";
-                if (File.Exists(hudPath + Resources.file_cfg))
-                    File.Delete(hudPath + Resources.file_cfg);
+                if (File.Exists(_hudPath + Resources.file_cfg))
+                    File.Delete(_hudPath + Resources.file_cfg);
+                File.WriteAllLines(file, lines);
 
-                if (Settings.Default.toggle_transparent_viewmodels)
-                {
-                    lines[index1] = "\t\t\"visible\"\t\t\t\"1\"";
-                    lines[index2] = "\t\t\"enabled\"\t\t\t\"1\"";
-                    File.Copy(appPath + "\\hud.cfg", hudPath + Resources.file_cfg);
-                }
+                if (!Settings.Default.toggle_transparent_viewmodels) return;
+                lines[index1] = "\t\t\"visible\"\t\t\t\"1\"";
+                lines[index2] = "\t\t\"enabled\"\t\t\t\"1\"";
+                File.Copy(_appPath + "\\hud.cfg", _hudPath + Resources.file_cfg);
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating Transparent Viewmodels.", Resources.error_set_transparent_viewmodels, ex.Message);
+                MainWindow.ShowErrorMessage("Updating Transparent Viewmodels.",
+                    Resources.error_set_transparent_viewmodels, ex.Message);
             }
         }
 
         /// <summary>
-        /// Set the main menu style
+        ///     Set the main menu style
         /// </summary>
         /// <remarks>Copy the correct background files</remarks>
         public void MainMenuStyle()
         {
             try
             {
-                MainWindow.logger.Info("Updating Main Menu Style.");
-                var file = hudPath + Resources.file_mainmenuoverride;
+                MainWindow.Logger.Info("Updating Main Menu Style.");
+                var file = _hudPath + Resources.file_mainmenuoverride;
                 var lines = File.ReadAllLines(file);
-                var index = (Settings.Default.toggle_classic_menu) ? 1 : 2;
+                var index = Settings.Default.toggle_classic_menu ? 1 : 2;
                 lines[1] = CommentOutTextLine(lines[1]);
                 lines[2] = CommentOutTextLine(lines[2]);
                 lines[index] = lines[index].Replace("//", string.Empty);
@@ -352,18 +339,18 @@ namespace rayshud_installer
         }
 
         /// <summary>
-        /// Set the scoreboard style
+        ///     Set the scoreboard style
         /// </summary>
         public void ScoreboardStyle()
         {
             try
             {
-                MainWindow.logger.Info("Updating Scoreboard Style.");
-                var file = hudPath + Resources.file_scoreboard;
+                MainWindow.Logger.Info("Updating Scoreboard Style.");
+                var file = _hudPath + Resources.file_scoreboard;
                 var lines = File.ReadAllLines(file);
-                lines[0] = CommentOutTextLine(lines[0]);
-                if (Settings.Default.toggle_min_scoreboard)
-                    lines[0] = lines[0].Replace("//", string.Empty);
+                lines[0] = Settings.Default.toggle_min_scoreboard
+                    ? lines[0].Replace("//", string.Empty)
+                    : CommentOutTextLine(lines[0]);
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
@@ -373,28 +360,28 @@ namespace rayshud_installer
         }
 
         /// <summary>
-        /// Set the team and class selection style
+        ///     Set the team and class selection style
         /// </summary>
         public void TeamSelect()
         {
             try
             {
-                MainWindow.logger.Info("Updating Team Selection.");
+                MainWindow.Logger.Info("Updating Team Selection.");
 
                 // CLASS SELECT
-                var file = hudPath + Resources.file_classselection;
+                var file = _hudPath + Resources.file_classselection;
                 var lines = File.ReadAllLines(file);
-                lines[0] = CommentOutTextLine(lines[0]);
-                if (Settings.Default.toggle_center_select)
-                    lines[0] = lines[0].Replace("//", string.Empty);
+                lines[0] = Settings.Default.toggle_center_select
+                    ? lines[0].Replace("//", string.Empty)
+                    : CommentOutTextLine(lines[0]);
                 File.WriteAllLines(file, lines);
 
                 // TEAM MENU
-                file = hudPath + Resources.file_teammenu;
+                file = _hudPath + Resources.file_teammenu;
                 lines = File.ReadAllLines(file);
-                lines[0] = CommentOutTextLine(lines[0]);
-                if (Settings.Default.toggle_center_select)
-                    lines[0] = lines[0].Replace("//", string.Empty);
+                lines[0] = Settings.Default.toggle_center_select
+                    ? lines[0].Replace("//", string.Empty)
+                    : CommentOutTextLine(lines[0]);
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
@@ -404,14 +391,14 @@ namespace rayshud_installer
         }
 
         /// <summary>
-        /// Set the ÜberCharge style
+        ///     Set the ÜberCharge style
         /// </summary>
         public void UberchargeStyle()
         {
             try
             {
-                MainWindow.logger.Info("Updating ÜberCharge Animation.");
-                var file = hudPath + Resources.file_hudanimations;
+                MainWindow.Logger.Info("Updating ÜberCharge Animation.");
+                var file = _hudPath + Resources.file_hudanimations;
                 var lines = File.ReadAllLines(file);
                 var start = FindIndex(lines, "HudMedicCharged");
                 var index1 = FindIndex(lines, "HudMedicOrangePulseCharge", start);
@@ -420,63 +407,60 @@ namespace rayshud_installer
                 lines[index1] = CommentOutTextLine(lines[index1]);
                 lines[index2] = CommentOutTextLine(lines[index2]);
                 lines[index3] = CommentOutTextLine(lines[index3]);
-                var index = 1;
-                index = Settings.Default.val_uber_animaton switch
-                {
-                    2 => index2,
-                    3 => index3,
-                    _ => index1,
-                };
+                var index = Settings.Default.val_uber_animation;
                 lines[index] = lines[index].Replace("//", string.Empty);
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating ÜberCharge Animation.", Resources.error_set_uber_animation, ex.Message);
+                MainWindow.ShowErrorMessage("Updating ÜberCharge Animation.", Resources.error_set_uber_animation,
+                    ex.Message);
             }
         }
 
         /// <summary>
-        /// Set the player model position and orientation
+        ///     Set the player model position and orientation
         /// </summary>
         public void PlayerModelPos()
         {
             try
             {
-                MainWindow.logger.Info("Updating Player Model Position.");
-                var file = hudPath + Resources.file_hudplayerclass;
+                MainWindow.Logger.Info("Updating Player Model Position.");
+                var file = _hudPath + Resources.file_hudplayerclass;
                 var lines = File.ReadAllLines(file);
-                lines[0] = CommentOutTextLine(lines[0]);
-                if (Settings.Default.toggle_alt_player_model)
-                    lines[0] = lines[0].Replace("//", string.Empty);
+                lines[0] = Settings.Default.toggle_alt_player_model
+                    ? lines[0].Replace("//", string.Empty)
+                    : CommentOutTextLine(lines[0]);
                 File.WriteAllLines(file, lines);
-                file = hudPath + Resources.file_hudlayout;
+
+                file = _hudPath + Resources.file_hudlayout;
                 lines = File.ReadAllLines(file);
                 var start = FindIndex(lines, "DisguiseStatus");
-                var value = (Settings.Default.toggle_alt_player_model) ? "100" : "20";
-                lines[FindIndex(lines, "xpos", start)] = $"\t\t\"xpos\"\t\t\t\t\t\"{value}\"";
+                lines[FindIndex(lines, "xpos", start)] =
+                    $"\t\t\"xpos\"\t\t\t\t\t\"{(Settings.Default.toggle_alt_player_model ? 100 : 20)}\"";
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating Player Model Position.", Resources.error_set_player_model_pos, ex.Message);
+                MainWindow.ShowErrorMessage("Updating Player Model Position.", Resources.error_set_player_model_pos,
+                    ex.Message);
             }
         }
 
         /// <summary>
-        /// Retrieves the index of where a given value was found in a string array.
+        ///     Retrieves the index of where a given value was found in a string array.
         /// </summary>
         public int FindIndex(string[] array, string value, int skip = 0)
         {
             var list = array.Skip(skip);
-            var index = list.Select((v, i) => new { Index = i, Value = v }) // Pair up values and indexes
+            var index = list.Select((v, i) => new {Index = i, Value = v}) // Pair up values and indexes
                 .Where(p => p.Value.Contains(value)) // Do the filtering
                 .Select(p => p.Index); // Keep the index and drop the value
             return index.First() + skip;
         }
 
         /// <summary>
-        /// Clear all existing comment identifiers, then apply a fresh one.
+        ///     Clear all existing comment identifiers, then apply a fresh one.
         /// </summary>
         public string CommentOutTextLine(string value)
         {
@@ -485,16 +469,17 @@ namespace rayshud_installer
         }
 
         /// <summary>
-        /// Convert color HEX code to RGB
+        ///     Convert color HEX code to RGB
         /// </summary>
         /// <param name="hex">The HEX code representing the color to convert to RGB</param>
+        /// <param name="alpha">Flag the code as having a lower alpha value than normal</param>
         /// <param name="pulse">Flag the color as a pulse, slightly lowering the alpha</param>
-        private static string RGBConverter(string hex, bool alpha = false, bool pulse = false)
+        private static string RgbConverter(string hex, bool alpha = false, bool pulse = false)
         {
-            var color = System.Drawing.ColorTranslator.FromHtml(hex);
-            var alpha_new = (alpha == true) ? "200" : color.A.ToString();
-            var pulse_new = (pulse == true && color.G >= 50) ? color.G - 50 : color.G;
-            return $"{color.R} {pulse_new} {color.B} {alpha_new}";
+            var color = ColorTranslator.FromHtml(hex);
+            var alphaNew = alpha ? "200" : color.A.ToString();
+            var pulseNew = pulse && color.G >= 50 ? color.G - 50 : color.G;
+            return $"{color.R} {pulseNew} {color.B} {alphaNew}";
         }
     }
 }

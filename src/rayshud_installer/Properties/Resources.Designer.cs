@@ -124,6 +124,15 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Directory Not Set.
+        /// </summary>
+        internal static string error_app_directory_title {
+            get {
+                return ResourceManager.GetString("error_app_directory_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while installing rayshud..
         /// </summary>
         internal static string error_app_install {
@@ -174,6 +183,15 @@ namespace rayshud_installer.Properties {
         internal static string error_app_version {
             get {
                 return ResourceManager.GetString("error_app_version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: {0}.
+        /// </summary>
+        internal static string error_info {
+            get {
+                return ResourceManager.GetString("error_info", resourceCulture);
             }
         }
         
@@ -475,11 +493,56 @@ namespace rayshud_installer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Backup Created.
+        /// </summary>
+        internal static string info_create_backup_title {
+            get {
+                return ResourceManager.GetString("info_create_backup_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select your tf/custom folder. If a valid directory is not provided, the options to install and modify rayshud will not be available..
         /// </summary>
         internal static string info_folder_browser {
             get {
                 return ResourceManager.GetString("info_folder_browser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install Complete.
+        /// </summary>
+        internal static string info_install_complete {
+            get {
+                return ResourceManager.GetString("info_install_complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rayshud has been successfully installed.
+        /// </summary>
+        internal static string info_install_complete_desc {
+            get {
+                return ResourceManager.GetString("info_install_complete_desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uninstall Complete.
+        /// </summary>
+        internal static string info_uninstall_complete {
+            get {
+                return ResourceManager.GetString("info_uninstall_complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rayshud has been successfully uninstalled.
+        /// </summary>
+        internal static string info_uninstall_complete_desc {
+            get {
+                return ResourceManager.GetString("info_uninstall_complete_desc", resourceCulture);
             }
         }
     }

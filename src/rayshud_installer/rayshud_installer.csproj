@@ -53,7 +53,7 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\style\rayshud.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\style\favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>rayshud_installer.App</StartupObject>
@@ -104,7 +104,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Resources\EnumTypes.cs" />
     <Compile Include="Resources\HUDController.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -115,6 +114,8 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Resource Include="Resources\style\Crosshairs.ttf" />
+    <Resource Include="Resources\style\KnucklesCrosses.ttf" />
     <Resource Include="Resources\style\alert.png" />
     <Resource Include="Resources\style\alert2.png" />
     <None Include="app.manifest" />
@@ -125,10 +126,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Resource Include="Resources\style\Cerbetica_bold.ttf" />
-    <Resource Include="Resources\style\Cerbetica_edited.ttf" />
-    <Resource Include="Resources\crosshairs\crosshairs.ttf" />
-    <Resource Include="Resources\crosshairs\background.png" />
     <None Include="app.config" />
     <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -138,7 +135,7 @@
     <Resource Include="Resources\style\background.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\style\rayshud.ico" />
+    <Resource Include="Resources\style\favicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\style\raysfox.png" />
@@ -170,6 +167,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

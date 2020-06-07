@@ -1,5 +1,7 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="rayshud_installer.Properties" GeneratedClassName="Settings">
+
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
+              GeneratedClassNamespace="rayshud_installer.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="hud_updated" Type="System.Boolean" Scope="User">
@@ -21,7 +23,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="val_xhair_size" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">26</Value>
     </Setting>
     <Setting Name="color_ammo_reserve" Type="System.String" Scope="User">
       <Value Profile="(Default)">#48FFFF</Value>
@@ -33,7 +35,7 @@
       <Value Profile="(Default)">#F2F2F2</Value>
     </Setting>
     <Setting Name="val_xhair_style" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">26</Value>
     </Setting>
     <Setting Name="val_health_style" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
@@ -86,7 +88,7 @@
     <Setting Name="toggle_menu_images" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="val_uber_animaton" Type="System.Int32" Scope="User">
+    <Setting Name="val_uber_animation" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="color_ammo_clip" Type="System.String" Scope="User">
@@ -103,6 +105,12 @@
     </Setting>
     <Setting Name="toggle_alt_player_model" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="val_xhair_x" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">25</Value>
+    </Setting>
+    <Setting Name="val_xhair_y" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">24</Value>
     </Setting>
   </Settings>
 </SettingsFile>

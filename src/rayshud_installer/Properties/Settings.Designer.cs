@@ -12,7 +12,7 @@ namespace rayshud_installer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.5.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.6.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -97,7 +97,7 @@ namespace rayshud_installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("26")]
         public int val_xhair_size {
             get {
                 return ((int)(this["val_xhair_size"]));
@@ -145,7 +145,7 @@ namespace rayshud_installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("26")]
         public int val_xhair_style {
             get {
                 return ((int)(this["val_xhair_style"]));
@@ -362,12 +362,12 @@ namespace rayshud_installer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int val_uber_animaton {
+        public int val_uber_animation {
             get {
-                return ((int)(this["val_uber_animaton"]));
+                return ((int)(this["val_uber_animation"]));
             }
             set {
-                this["val_uber_animaton"] = value;
+                this["val_uber_animation"] = value;
             }
         }
         
@@ -428,6 +428,30 @@ namespace rayshud_installer.Properties {
             }
             set {
                 this["toggle_alt_player_model"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("25")]
+        public int val_xhair_x {
+            get {
+                return ((int)(this["val_xhair_x"]));
+            }
+            set {
+                this["val_xhair_x"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("24")]
+        public int val_xhair_y {
+            get {
+                return ((int)(this["val_xhair_y"]));
+            }
+            set {
+                this["val_xhair_y"] = value;
             }
         }
     }
