@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -26,13 +26,7 @@ namespace rayshud_installer
     public partial class MainWindow
     {
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-        public static readonly Dictionary<string, Tuple<int, string>> UnitDictionary =
-            new Dictionary<string, Tuple<int, string>>
-            {
-                {"0", new Tuple<int, string>(0, ")")}
-            };
-
+        public static readonly string[] RaysCrosshairs = {"2", "3", "8", "i", "h", "0", "9", "d", "c", "g", "f"};
         private readonly string _appPath = Application.StartupPath;
 
         public MainWindow()
@@ -43,6 +37,7 @@ namespace rayshud_installer
             InitializeComponent();
             SetupDirectory();
             ReloadHUDSettings();
+            SetCrosshairControls();
             AutoUpdater.OpenDownloadPage = true;
             AutoUpdater.Start(Properties.Resources.app_update);
         }
@@ -186,7 +181,8 @@ namespace rayshud_installer
         /// </summary>
         public static void ShowErrorMessage(string title, string message, string exception)
         {
-            MessageBox.Show($@"{message}-{exception}", Properties.Resources.error_info + title, MessageBoxButtons.OK,
+            MessageBox.Show($@"{message} {exception}", string.Format(Properties.Resources.error_info, title),
+                MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
             Logger.Error(exception);
         }
@@ -264,6 +260,17 @@ namespace rayshud_installer
             }
         }
 
+        private void SetCrosshairControls()
+        {
+            CbXHairHitmarker.IsEnabled = CbXHairEnable.IsChecked ?? false;
+            IntXHairXPos.IsEnabled = CbXHairEnable.IsChecked ?? false;
+            IntXHairYPos.IsEnabled = CbXHairEnable.IsChecked ?? false;
+            CbXHairStyle.IsEnabled = CbXHairEnable.IsChecked ?? false;
+            IntXHairSize.IsEnabled = CbXHairEnable.IsChecked ?? false;
+            CpXHairColor.IsEnabled = CbXHairEnable.IsChecked ?? false;
+            CpXHairPulse.IsEnabled = CbXHairEnable.IsChecked ?? false;
+        }
+
         #region CLICK_EVENTS
 
         /// <summary>
@@ -274,14 +281,27 @@ namespace rayshud_installer
             try
             {
                 Logger.Info("Installing rayshud...");
-                DownloadHUD();
-                SaveHUDSettings();
-                ApplyHUDSettings();
-                SetFormControls();
-                LblNews.Content = "Installation finished at " + DateTime.Now;
-                Logger.Info("Installing rayshud...Done!");
-                MessageBox.Show(Properties.Resources.info_install_complete_desc,
-                    Properties.Resources.info_install_complete, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var worker = new BackgroundWorker();
+                worker.DoWork += (o, ea) =>
+                {
+                    DownloadHUD();
+                    Dispatcher.Invoke(() =>
+                    {
+                        SaveHUDSettings();
+                        ApplyHUDSettings();
+                        SetFormControls();
+                    });
+                };
+                worker.RunWorkerCompleted += (o, ea) =>
+                {
+                    BusyIndicator.IsBusy = false;
+                    LblNews.Content = "Installation finished at " + DateTime.Now;
+                    Logger.Info("Installing rayshud...Done!");
+                    MessageBox.Show(Properties.Resources.info_install_complete_desc,
+                        Properties.Resources.info_install_complete, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                };
+                BusyIndicator.IsBusy = true;
+                worker.RunWorkerAsync();
             }
             catch (Exception ex)
             {
@@ -316,8 +336,18 @@ namespace rayshud_installer
         /// </summary>
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
-            SaveHUDSettings();
-            ApplyHUDSettings();
+            var worker = new BackgroundWorker();
+            worker.DoWork += (o, ea) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    SaveHUDSettings();
+                    ApplyHUDSettings();
+                });
+            };
+            worker.RunWorkerCompleted += (o, ea) => { BusyIndicator.IsBusy = false; };
+            BusyIndicator.IsBusy = true;
+            worker.RunWorkerAsync();
         }
 
         /// <summary>
@@ -355,20 +385,27 @@ namespace rayshud_installer
             Process.Start("https://github.com/CriticalFlaw/rayshud-Installer/issues");
         }
 
+        private void CbXHairEnable_OnClick(object sender, RoutedEventArgs e)
+        {
+            SetCrosshairControls();
+        }
+
         private void CbXHairStyle_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var raysCrosshairs = new[] {"2", "3", "8", "i", "h", "0", "9", "d", "c", "g", "f"};
-            if (raysCrosshairs.Any(x => CbXHairStyle.SelectedValue.ToString().Equals(x)))
+            if (RaysCrosshairs.Any(x => CbXHairStyle.SelectedValue.ToString().Equals(x)))
             {
+                IntXHairXPos.Value = 103;
+                IntXHairYPos.Value = 100;
                 CbXHairStyle.FontFamily = new FontFamily(new Uri("pack://application:,,,/"),
                     "./Resources/style/Crosshairs.ttf #Crosshairs");
-                return;
             }
-
-            CbXHairStyle.FontFamily = CbXHairStyle.SelectedIndex == 0
-                ? new FontFamily("Century Gothic")
-                : new FontFamily(new Uri("pack://application:,,,/"),
+            else
+            {
+                IntXHairXPos.Value = 25;
+                IntXHairYPos.Value = 24;
+                CbXHairStyle.FontFamily = new FontFamily(new Uri("pack://application:,,,/"),
                     "./Resources/style/KnucklesCrosses.ttf #KnucklesCrosses");
+            }
         }
 
         #endregion CLICK_EVENTS
@@ -390,12 +427,13 @@ namespace rayshud_installer
                 settings.color_uber_flash1 = CpUberFlash1.SelectedColor?.ToString();
                 settings.color_uber_flash2 = CpUberFlash2.SelectedColor?.ToString();
 
+                settings.toggle_xhair_enable = CbXHairEnable.IsChecked ?? false;
                 settings.toggle_xhair_pulse = CbXHairHitmarker.IsChecked ?? false;
                 settings.toggle_xhair_outline = CbXHairOutline.IsChecked ?? false;
-                settings.val_xhair_x = IntXHairXPos.Value ?? 25;
-                settings.val_xhair_y = IntXHairYPos.Value ?? 24;
+                settings.val_xhair_x = IntXHairXPos.Value ?? 103;
+                settings.val_xhair_y = IntXHairYPos.Value ?? 100;
                 settings.val_xhair_style = CbXHairStyle.SelectedIndex;
-                settings.val_xhair_size = IntXHairSize.Value ?? 10;
+                settings.val_xhair_size = IntXHairSize.Value ?? 14;
                 settings.color_xhair_normal = CpXHairColor.SelectedColor?.ToString();
                 settings.color_xhair_pulse = CpXHairPulse.SelectedColor?.ToString();
 
@@ -447,6 +485,7 @@ namespace rayshud_installer
                 CpUberFlash1.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_flash1);
                 CpUberFlash2.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_flash2);
 
+                CbXHairEnable.IsChecked = settings.toggle_xhair_enable;
                 CbXHairHitmarker.IsChecked = settings.toggle_xhair_pulse;
                 CbXHairOutline.IsChecked = settings.toggle_xhair_outline;
                 IntXHairXPos.Value = settings.val_xhair_x;
@@ -505,14 +544,16 @@ namespace rayshud_installer
                 CpUberFlash1.SelectedColor = (Color) cc.ConvertFrom("#FFA500");
                 CpUberFlash2.SelectedColor = (Color) cc.ConvertFrom("#FF4500");
 
+                CbXHairEnable.IsChecked = false;
                 CbXHairHitmarker.IsChecked = false;
                 CbXHairOutline.IsChecked = false;
-                IntXHairXPos.Value = 25;
-                IntXHairYPos.Value = 24;
-                CbXHairStyle.SelectedIndex = 0;
-                IntXHairSize.Value = 10;
+                IntXHairXPos.Value = 103;
+                IntXHairYPos.Value = 100;
+                CbXHairStyle.SelectedIndex = 6;
+                IntXHairSize.Value = 14;
                 CpXHairColor.SelectedColor = (Color) cc.ConvertFrom("#F2F2F2");
                 CpXHairPulse.SelectedColor = (Color) cc.ConvertFrom("#FF0000");
+                SetCrosshairControls();
 
                 CpAmmoClip.SelectedColor = (Color) cc.ConvertFrom("#30FF30");
                 CpAmmoClipLow.SelectedColor = (Color) cc.ConvertFrom("#FF2A82");
@@ -561,7 +602,8 @@ namespace rayshud_installer
             writer.UberchargeStyle();
             writer.CrosshairPulse();
             writer.ChatBoxPos();
-            writer.Crosshair(CbXHairStyle.SelectedValue.ToString(), IntXHairSize.Value);
+            writer.Crosshair(CbXHairStyle.SelectedValue.ToString(), IntXHairSize.Value,
+                !RaysCrosshairs.Any(x => CbXHairStyle.SelectedValue.ToString().Equals(x)));
             writer.Colors();
             writer.DamagePos();
             writer.TransparentViewmodels();

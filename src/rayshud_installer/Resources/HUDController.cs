@@ -86,7 +86,7 @@ namespace rayshud_installer
         /// <summary>
         ///     Set the crosshair
         /// </summary>
-        public void Crosshair(string style, int? size)
+        public void Crosshair(string style, int? size, bool isKnuckles = false)
         {
             try
             {
@@ -94,17 +94,25 @@ namespace rayshud_installer
                 var file = _hudPath + Resources.file_hudlayout;
                 var lines = File.ReadAllLines(file);
                 var start = FindIndex(lines, "\"RaysCrosshair\"");
-                var outline = Settings.Default.toggle_xhair_outline ? "Outline" : string.Empty;
+                lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\"0\"";
+                lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\"0\"";
+                start = FindIndex(lines, "\"KnucklesCrosses\"");
                 lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\"0\"";
                 lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\"0\"";
                 File.WriteAllLines(file, lines);
 
                 if (!Settings.Default.toggle_xhair_enable) return;
+                start = FindIndex(lines, $"\"{(isKnuckles ? "KnucklesCrosses" : "RaysCrosshair")}\"");
+                var type = isKnuckles ? "KnucklesCrosses" : "Crosshairs";
+                var outline = Settings.Default.toggle_xhair_outline ? "Outline" : string.Empty;
+
                 lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\"1\"";
                 lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\"1\"";
                 lines[FindIndex(lines, "xpos", start)] = $"\t\t\"xpos\"\t\t\t\"c-{Settings.Default.val_xhair_x}\"";
                 lines[FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\"c-{Settings.Default.val_xhair_y}\"";
-                lines[FindIndex(lines, "font", start)] = $"\t\t\"font\"\t\t\t\"{style}{size}{outline}\"";
+                lines[FindIndex(lines, "font", start)] = $"\t\t\"font\"\t\t\t\"{type}{size}{outline}\"";
+                File.WriteAllLines(file, lines);
+                lines[FindIndex(lines, "labelText", start)] = $"\t\t\"labelText\"\t\t\"{style}\"";
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
@@ -407,7 +415,12 @@ namespace rayshud_installer
                 lines[index1] = CommentOutTextLine(lines[index1]);
                 lines[index2] = CommentOutTextLine(lines[index2]);
                 lines[index3] = CommentOutTextLine(lines[index3]);
-                var index = Settings.Default.val_uber_animation;
+                var index = Settings.Default.val_uber_animation switch
+                {
+                    2 => index2,
+                    3 => index3,
+                    _ => index1
+                };
                 lines[index] = lines[index].Replace("//", string.Empty);
                 File.WriteAllLines(file, lines);
             }

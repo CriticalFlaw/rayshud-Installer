@@ -23,7 +23,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="val_xhair_size" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">26</Value>
+      <Value Profile="(Default)">14</Value>
     </Setting>
     <Setting Name="color_ammo_reserve" Type="System.String" Scope="User">
       <Value Profile="(Default)">#48FFFF</Value>
@@ -35,7 +35,7 @@
       <Value Profile="(Default)">#F2F2F2</Value>
     </Setting>
     <Setting Name="val_xhair_style" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">26</Value>
+      <Value Profile="(Default)">6</Value>
     </Setting>
     <Setting Name="val_health_style" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
@@ -107,10 +107,10 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="val_xhair_x" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">25</Value>
+      <Value Profile="(Default)">103</Value>
     </Setting>
     <Setting Name="val_xhair_y" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">24</Value>
+      <Value Profile="(Default)">100</Value>
     </Setting>
   </Settings>
 </SettingsFile>

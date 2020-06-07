@@ -97,7 +97,7 @@ namespace rayshud_installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("26")]
+        [global::System.Configuration.DefaultSettingValueAttribute("14")]
         public int val_xhair_size {
             get {
                 return ((int)(this["val_xhair_size"]));
@@ -145,7 +145,7 @@ namespace rayshud_installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("26")]
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
         public int val_xhair_style {
             get {
                 return ((int)(this["val_xhair_style"]));
@@ -433,7 +433,7 @@ namespace rayshud_installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("25")]
+        [global::System.Configuration.DefaultSettingValueAttribute("103")]
         public int val_xhair_x {
             get {
                 return ((int)(this["val_xhair_x"]));
@@ -445,7 +445,7 @@ namespace rayshud_installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("24")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
         public int val_xhair_y {
             get {
                 return ((int)(this["val_xhair_y"]));
