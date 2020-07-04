@@ -138,6 +138,9 @@
   <data name="error_app_directory" xml:space="preserve">
     <value>The tf/custom directory needs to be set in order to use the installer.</value>
   </data>
+  <data name="error_app_directory_title" xml:space="preserve">
+    <value>Directory Not Set</value>
+  </data>
   <data name="error_app_install" xml:space="preserve">
     <value>An error occurred while installing rayshud.</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="error_app_version" xml:space="preserve">
     <value>An error occurred while checking the rayshud version number.</value>
+  </data>
+  <data name="error_info" xml:space="preserve">
+    <value>Error: {0}</value>
   </data>
   <data name="error_set_chatbox_pos" xml:space="preserve">
     <value>An error occurred while applying the chatbox position setting.</value>
@@ -255,14 +261,11 @@
   <data name="info_create_backup" xml:space="preserve">
     <value>An existing rayshud folder has been found. To avoid conflicts, a backup has been created.</value>
   </data>
+  <data name="info_create_backup_title" xml:space="preserve">
+    <value>Backup Created</value>
+  </data>
   <data name="info_folder_browser" xml:space="preserve">
     <value>Select your tf/custom folder. If a valid directory is not provided, the options to install and modify rayshud will not be available.</value>
-  </data>
-  <data name="info_uninstall_complete" xml:space="preserve">
-    <value>Uninstall Complete</value>
-  </data>
-  <data name="info_uninstall_complete_desc" xml:space="preserve">
-    <value>rayshud has been successfully uninstalled</value>
   </data>
   <data name="info_install_complete" xml:space="preserve">
     <value>Install Complete</value>
@@ -270,13 +273,10 @@
   <data name="info_install_complete_desc" xml:space="preserve">
     <value>rayshud has been successfully installed</value>
   </data>
-  <data name="error_info" xml:space="preserve">
-    <value>Error: {0}</value>
+  <data name="info_uninstall_complete" xml:space="preserve">
+    <value>Uninstall Complete</value>
   </data>
-  <data name="info_create_backup_title" xml:space="preserve">
-    <value>Backup Created</value>
-  </data>
-  <data name="error_app_directory_title" xml:space="preserve">
-    <value>Directory Not Set</value>
+  <data name="info_uninstall_complete_desc" xml:space="preserve">
+    <value>rayshud has been successfully uninstalled</value>
   </data>
 </root>

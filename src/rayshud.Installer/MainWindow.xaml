@@ -1,4 +1,4 @@
-﻿<Window x:Class="rayshud_installer.MainWindow"
+﻿<Window x:Class="rayshud.Installer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -128,7 +128,7 @@
                         Margin="779,51,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        Click="ReportIssue_Click"
+                        Click="BtnReportIssue_OnClick"
                         ToolTip="Report an Issue">
 
                         <Button.Template>
@@ -148,13 +148,6 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    <CheckBox
-                        x:Name="CbXHairOutline"
-                        Margin="510,70,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Content="Crosshair Outline"
-                        ToolTip="Toggle the outline around the crosshair" />
                 </Grid>
             </GroupBox>
 
@@ -295,165 +288,191 @@
                         SelectedValuePath="Content"
                         Height="25"
                         Style="{StaticResource CrosshairBox}"
-                        SelectionChanged="CbXHairStyle_OnSelectionChanged"
                         IsEnabled="False">
+
                         <ComboBoxItem Style="{StaticResource Crosshair}"
-                                      Content="2" />
+                                      Content="!" />
                         <ComboBoxItem Style="{StaticResource Crosshair}"
-                                      Content="3" />
-                        <ComboBoxItem Style="{StaticResource Crosshair}"
-                                      Content="8" />
-                        <ComboBoxItem Style="{StaticResource Crosshair}"
-                                      Content="i" />
-                        <ComboBoxItem Style="{StaticResource Crosshair}"
-                                      Content="h" />
-                        <ComboBoxItem Style="{StaticResource Crosshair}"
-                                      Content="0" />
-                        <ComboBoxItem Style="{StaticResource Crosshair}"
-                                      Content="9" />
-                        <ComboBoxItem Style="{StaticResource Crosshair}"
-                                      Content="d" />
-                        <ComboBoxItem Style="{StaticResource Crosshair}"
-                                      Content="c" />
-                        <ComboBoxItem Style="{StaticResource Crosshair}"
-                                      Content="g" />
-                        <ComboBoxItem Style="{StaticResource Crosshair}"
-                                      Content="f" />
-                        <ComboBoxItem Style="{StaticResource Crosshair}"
-                                      Content="i" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
                                       Content="#" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="$" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="%" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="'" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="(" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content=")" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="*" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="+" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="," />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="-" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="." />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="/" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="1" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="2" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="3" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="4" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="5" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="6" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="7" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="8" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="9" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content=":" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content=";" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="&lt;" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="=" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content=">" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="?" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="@" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="A" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="B" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="C" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="D" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="E" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="F" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="G" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="H" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="I" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="J" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="K" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="L" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="M" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="N" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="O" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="P" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="Q" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="R" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="S" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="T" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="U" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="V" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="W" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="X" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="Y" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="Z" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="[" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="\" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="]" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="^" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="_" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="`" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="a" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="b" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="c" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="d" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="e" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="f" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="g" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="h" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="i" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="j" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="k" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="l" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="m" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="n" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="o" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="p" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="q" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="r" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="s" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="t" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="u" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="v" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="w" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="x" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="y" />
-                        <ComboBoxItem Style="{StaticResource CrosshairCrosses}"
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="z" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="|" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="}" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="x" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
+                                      Content="y" />
+                        <ComboBoxItem Style="{StaticResource Crosshair}"
                                       Content="z" />
                     </ComboBox>
 
@@ -470,10 +489,23 @@
                         AllowTextInput="False"
                         IsEnabled="False" />
 
-                    <x2:ColorPicker
-                        x:Name="CpXHairColor"
+                    <ComboBox
+                        x:Name="CbXHairEffect"
                         Width="180"
                         Margin="210,100,0,0"
+                        SelectedValuePath="Content"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                        <ComboBoxItem>None</ComboBoxItem>
+                        <ComboBoxItem>Blur</ComboBoxItem>
+                        <ComboBoxItem>Outline</ComboBoxItem>
+                        <ComboBoxItem>Shadow</ComboBoxItem>
+                    </ComboBox>
+
+                    <x2:ColorPicker
+                        x:Name="CpXHairColor"
+                        Width="90"
+                        Margin="210,130,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -483,8 +515,8 @@
 
                     <x2:ColorPicker
                         x:Name="CpXHairPulse"
-                        Width="180"
-                        Margin="210,130,0,0"
+                        Width="90"
+                        Margin="300,130,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -540,15 +572,22 @@
                         Margin="10,100,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        Content="Normal Color:"
-                        ToolTip="Color of the crosshair" />
+                        Content="Crosshair Effect:"
+                        ToolTip="Effect applied to the crosshair (Blur, Outline or Shadow)" />
 
                     <Label
                         Margin="10,130,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        Content="Hitmarker Color:"
-                        ToolTip="Color of the crosshair when hitting another player" />
+                        Content="Crosshair Colors:"
+                        ToolTip="Color of the crosshair" />
+
+                    <Label
+                        Margin="10,150,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Content="*First color is the crosshair default and second is the hitmarker"
+                        FontSize="10px"/>
                 </Grid>
             </GroupBox>
 
@@ -572,7 +611,7 @@
                         Foreground="Black" />
 
                     <x2:ColorPicker
-                        x:Name="CpHealthBuff"
+                        x:Name="CpHealthBuffed"
                         Width="180"
                         Margin="10,90,0,0"
                         HorizontalAlignment="Left"

@@ -3,9 +3,9 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using rayshud_installer.Properties;
+using rayshud.Installer.Properties;
 
-namespace rayshud_installer
+namespace rayshud.Installer
 {
     public class HUDController
     {
@@ -47,7 +47,7 @@ namespace rayshud_installer
                 lines[FindIndex(lines, "\"Health Normal\"")] =
                     $"\t\t\"Health Normal\"\t\t\t\t\"{RgbConverter(Settings.Default.color_health_normal)}\"";
                 lines[FindIndex(lines, "\"Health Buff\"")] =
-                    $"\t\t\"Health Buff\"\t\t\t\t\"{RgbConverter(Settings.Default.color_health_buffed)}\"";
+                    $"\t\t\"Health Buff\"\t\t\t\t\"{RgbConverter(Settings.Default.color_health_buff)}\"";
                 lines[FindIndex(lines, "\"Health Hurt\"")] =
                     $"\t\t\"Health Hurt\"\t\t\t\t\"{RgbConverter(Settings.Default.color_health_low)}\"";
                 lines[FindIndex(lines, "\"Heal Numbers\"")] =
@@ -86,33 +86,30 @@ namespace rayshud_installer
         /// <summary>
         ///     Set the crosshair
         /// </summary>
-        public void Crosshair(string style, int? size, bool isKnuckles = false)
+        public void Crosshair(string style, int? size, string effect)
         {
             try
             {
                 MainWindow.Logger.Info("Updating Crosshair.");
                 var file = _hudPath + Resources.file_hudlayout;
                 var lines = File.ReadAllLines(file);
-                var start = FindIndex(lines, "\"RaysCrosshair\"");
-                lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\"0\"";
-                lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\"0\"";
-                start = FindIndex(lines, "\"KnucklesCrosses\"");
-                lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\"0\"";
-                lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\"0\"";
+                var start = FindIndex(lines, "CustomCrosshair");
+                lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\t\"0\"";
+                lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\t\"0\"";
+                lines[FindIndex(lines, "\"labelText\"", start)] = "\t\t\"labelText\"\t\t\t\"i\"";
+                lines[FindIndex(lines, "xpos", start)] = "\t\t\"xpos\"\t\t\t\t\"c-50\"";
+                lines[FindIndex(lines, "ypos", start)] = "\t\t\"ypos\"\t\t\t\t\"c-49\"";
+                lines[FindIndex(lines, "font", start)] = "\t\t\"font\"\t\t\t\t\"Size:18 | Outline:OFF\"";
                 File.WriteAllLines(file, lines);
 
                 if (!Settings.Default.toggle_xhair_enable) return;
-                start = FindIndex(lines, $"\"{(isKnuckles ? "KnucklesCrosses" : "RaysCrosshair")}\"");
-                var type = isKnuckles ? "KnucklesCrosses" : "Crosshairs";
-                var outline = Settings.Default.toggle_xhair_outline ? "Outline" : string.Empty;
-
-                lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\"1\"";
-                lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\"1\"";
-                lines[FindIndex(lines, "xpos", start)] = $"\t\t\"xpos\"\t\t\t\"c-{Settings.Default.val_xhair_x}\"";
-                lines[FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\"c-{Settings.Default.val_xhair_y}\"";
-                lines[FindIndex(lines, "font", start)] = $"\t\t\"font\"\t\t\t\"{type}{size}{outline}\"";
-                File.WriteAllLines(file, lines);
-                lines[FindIndex(lines, "labelText", start)] = $"\t\t\"labelText\"\t\t\"{style}\"";
+                var strEffect = (effect != "None") ? $"{effect}:ON" : "Outline:OFF";
+                lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\t\"1\"";
+                lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\t\"1\"";
+                lines[FindIndex(lines, "\"labelText\"", start)] = $"\t\t\"labelText\"\t\t\t\"{style}\"";
+                lines[FindIndex(lines, "xpos", start)] = $"\t\t\"xpos\"\t\t\t\t\"c-{Settings.Default.val_xhair_x}\"";
+                lines[FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\t\"c-{Settings.Default.val_xhair_y}\"";
+                lines[FindIndex(lines, "font", start)] = $"\t\t\"font\"\t\t\t\t\"Size:{size} | {strEffect}\"";
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)

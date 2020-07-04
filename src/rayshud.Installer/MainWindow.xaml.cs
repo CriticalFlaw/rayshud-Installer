@@ -14,11 +14,11 @@ using AutoUpdaterDotNET;
 using log4net;
 using log4net.Config;
 using Microsoft.Win32;
-using rayshud_installer.Properties;
+using rayshud.Installer.Properties;
 using Application = System.Windows.Forms.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 
-namespace rayshud_installer
+namespace rayshud.Installer
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
@@ -26,7 +26,6 @@ namespace rayshud_installer
     public partial class MainWindow
     {
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        public static readonly string[] RaysCrosshairs = {"2", "3", "8", "i", "h", "0", "9", "d", "c", "g", "f"};
         private readonly string _appPath = Application.StartupPath;
 
         public MainWindow()
@@ -74,7 +73,6 @@ namespace rayshud_installer
                 Directory.Delete(settings.hud_directory + "\\rayshud", true);
             if (Directory.Exists(settings.hud_directory + "\\rayshud-master"))
                 Directory.Move(settings.hud_directory + "\\rayshud-master", settings.hud_directory + "\\rayshud");
-            //lblNews.Content = "Install finished at " + DateTime.Now;
             Logger.Info("Extracting downloaded rayshud...Done!");
         }
 
@@ -260,15 +258,19 @@ namespace rayshud_installer
             }
         }
 
+        /// <summary>
+        ///     Disables certain crosshair options if rotating crosshair is enabled
+        /// </summary>
         private void SetCrosshairControls()
         {
             CbXHairHitmarker.IsEnabled = CbXHairEnable.IsChecked ?? false;
-            IntXHairXPos.IsEnabled = CbXHairEnable.IsChecked ?? false;
-            IntXHairYPos.IsEnabled = CbXHairEnable.IsChecked ?? false;
-            CbXHairStyle.IsEnabled = CbXHairEnable.IsChecked ?? false;
-            IntXHairSize.IsEnabled = CbXHairEnable.IsChecked ?? false;
             CpXHairColor.IsEnabled = CbXHairEnable.IsChecked ?? false;
             CpXHairPulse.IsEnabled = CbXHairEnable.IsChecked ?? false;
+            IntXHairSize.IsEnabled = CbXHairEnable.IsChecked ?? false;
+            CbXHairStyle.IsEnabled = CbXHairEnable.IsChecked ?? false;
+            CbXHairEffect.IsEnabled = CbXHairEnable.IsChecked ?? false;
+            IntXHairXPos.IsEnabled = CbXHairEnable.IsChecked ?? false;
+            IntXHairYPos.IsEnabled = CbXHairEnable.IsChecked ?? false;
         }
 
         #region CLICK_EVENTS
@@ -379,33 +381,18 @@ namespace rayshud_installer
         /// <summary>
         ///     Opens the GitHub issue tracker in a web browser
         /// </summary>
-        private void ReportIssue_Click(object sender, RoutedEventArgs e)
+        private void BtnReportIssue_OnClick(object sender, RoutedEventArgs e)
         {
             Logger.Info("Opening Issue Tracker...");
             Process.Start("https://github.com/CriticalFlaw/rayshud-Installer/issues");
         }
 
+        /// <summary>
+        ///     Disables certain crosshair options if rotating crosshair is enabled
+        /// </summary>
         private void CbXHairEnable_OnClick(object sender, RoutedEventArgs e)
         {
             SetCrosshairControls();
-        }
-
-        private void CbXHairStyle_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (RaysCrosshairs.Any(x => CbXHairStyle.SelectedValue.ToString().Equals(x)))
-            {
-                IntXHairXPos.Value = 103;
-                IntXHairYPos.Value = 100;
-                CbXHairStyle.FontFamily = new FontFamily(new Uri("pack://application:,,,/"),
-                    "./Resources/style/Crosshairs.ttf #Crosshairs");
-            }
-            else
-            {
-                IntXHairXPos.Value = 25;
-                IntXHairYPos.Value = 24;
-                CbXHairStyle.FontFamily = new FontFamily(new Uri("pack://application:,,,/"),
-                    "./Resources/style/KnucklesCrosses.ttf #KnucklesCrosses");
-            }
         }
 
         #endregion CLICK_EVENTS
@@ -421,43 +408,38 @@ namespace rayshud_installer
             {
                 Logger.Info("Saving HUD Settings...");
                 var settings = Settings.Default;
-                settings.val_uber_animation = CbUberStyle.SelectedIndex;
-                settings.color_uber_bar = CpUberBarColor.SelectedColor?.ToString();
-                settings.color_uber_full = CpUberFullColor.SelectedColor?.ToString();
-                settings.color_uber_flash1 = CpUberFlash1.SelectedColor?.ToString();
-                settings.color_uber_flash2 = CpUberFlash2.SelectedColor?.ToString();
-
-                settings.toggle_xhair_enable = CbXHairEnable.IsChecked ?? false;
-                settings.toggle_xhair_pulse = CbXHairHitmarker.IsChecked ?? false;
-                settings.toggle_xhair_outline = CbXHairOutline.IsChecked ?? false;
-                settings.val_xhair_x = IntXHairXPos.Value ?? 103;
-                settings.val_xhair_y = IntXHairYPos.Value ?? 100;
-                settings.val_xhair_style = CbXHairStyle.SelectedIndex;
-                settings.val_xhair_size = IntXHairSize.Value ?? 14;
-                settings.color_xhair_normal = CpXHairColor.SelectedColor?.ToString();
-                settings.color_xhair_pulse = CpXHairPulse.SelectedColor?.ToString();
-
+                settings.color_health_normal = CpHealthNormal.SelectedColor?.ToString();
+                settings.color_health_buff = CpHealthBuffed.SelectedColor?.ToString();
+                settings.color_health_low = CpHealthLow.SelectedColor?.ToString();
                 settings.color_ammo_clip = CpAmmoClip.SelectedColor?.ToString();
                 settings.color_ammo_clip_low = CpAmmoClipLow.SelectedColor?.ToString();
                 settings.color_ammo_reserve = CpAmmoReserve.SelectedColor?.ToString();
                 settings.color_ammo_reserve_low = CpAmmoReserveLow.SelectedColor?.ToString();
-
-                settings.color_health_normal = CpHealthNormal.SelectedColor?.ToString();
-                settings.color_health_buffed = CpHealthBuff.SelectedColor?.ToString();
-                settings.color_health_low = CpHealthLow.SelectedColor?.ToString();
+                settings.color_uber_bar = CpUberBarColor.SelectedColor?.ToString();
+                settings.color_uber_full = CpUberFullColor.SelectedColor?.ToString();
+                settings.color_xhair_normal = CpXHairColor.SelectedColor?.ToString();
+                settings.color_xhair_pulse = CpXHairPulse.SelectedColor?.ToString();
+                settings.color_uber_flash1 = CpUberFlash1.SelectedColor?.ToString();
+                settings.color_uber_flash2 = CpUberFlash2.SelectedColor?.ToString();
+                settings.val_uber_animation = CbUberStyle.SelectedIndex;
                 settings.val_health_style = CbHealthStyle.SelectedIndex;
-
-                settings.toggle_classic_menu = CbClassicHud.IsChecked ?? false;
-                settings.toggle_min_scoreboard = CbScoreboard.IsChecked ?? false;
+                settings.val_xhair_size = IntXHairSize.Value ?? 18;
+                settings.val_xhair_style = CbXHairStyle.SelectedIndex;
+                settings.val_xhair_effect = CbXHairEffect.SelectedIndex;
+                settings.val_xhair_x = IntXHairXPos.Value ?? 50;
+                settings.val_xhair_y = IntXHairYPos.Value ?? 49;
+                settings.toggle_xhair_enable = CbXHairEnable.IsChecked ?? false;
+                settings.toggle_xhair_pulse = CbXHairHitmarker.IsChecked ?? false;
                 settings.toggle_disguise_image = CbDisguiseImage.IsChecked ?? false;
                 settings.toggle_stock_backgrounds = CbDefaultBg.IsChecked ?? false;
                 settings.toggle_menu_images = CbMenuImages.IsChecked ?? false;
+                settings.toggle_transparent_viewmodels = CbTransparentViewmodel.IsChecked ?? false;
                 settings.toggle_damage_pos = CbDamagePos.IsChecked ?? false;
                 settings.toggle_chat_bottom = CbChatBottom.IsChecked ?? false;
                 settings.toggle_center_select = CbTeamCenter.IsChecked ?? false;
-                settings.toggle_transparent_viewmodels = CbTransparentViewmodel.IsChecked ?? false;
+                settings.toggle_classic_menu = CbClassicHud.IsChecked ?? false;
+                settings.toggle_min_scoreboard = CbScoreboard.IsChecked ?? false;
                 settings.toggle_alt_player_model = CbPlayerModel.IsChecked ?? false;
-
                 settings.Save();
                 Logger.Info("Saving HUD Settings...Done!");
             }
@@ -474,53 +456,41 @@ namespace rayshud_installer
         {
             try
             {
-                ResetHUDSettings();
                 Logger.Info("Loading HUD Settings...");
                 var settings = Settings.Default;
                 var cc = new ColorConverter();
-
-                CbUberStyle.SelectedIndex = settings.val_uber_animation;
-                CpUberBarColor.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_bar);
-                CpUberFullColor.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_full);
-                CpUberFlash1.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_flash1);
-                CpUberFlash2.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_flash2);
-
-                CbXHairEnable.IsChecked = settings.toggle_xhair_enable;
-                CbXHairHitmarker.IsChecked = settings.toggle_xhair_pulse;
-                CbXHairOutline.IsChecked = settings.toggle_xhair_outline;
-                IntXHairXPos.Value = settings.val_xhair_x;
-                IntXHairYPos.Value = settings.val_xhair_y;
-                CbXHairStyle.SelectedIndex = settings.val_xhair_style;
-                IntXHairSize.Value = settings.val_xhair_size;
-                CpXHairColor.SelectedColor = (Color) cc.ConvertFrom(settings.color_xhair_normal);
-                CpXHairPulse.SelectedColor = (Color) cc.ConvertFrom(settings.color_xhair_pulse);
-
+                CpHealthNormal.SelectedColor = (Color) cc.ConvertFrom(settings.color_health_normal);
+                CpHealthBuffed.SelectedColor = (Color) cc.ConvertFrom(settings.color_health_buff);
+                CpHealthLow.SelectedColor = (Color) cc.ConvertFrom(settings.color_health_low);
                 CpAmmoClip.SelectedColor = (Color) cc.ConvertFrom(settings.color_ammo_clip);
                 CpAmmoClipLow.SelectedColor = (Color) cc.ConvertFrom(settings.color_ammo_clip_low);
                 CpAmmoReserve.SelectedColor = (Color) cc.ConvertFrom(settings.color_ammo_reserve);
                 CpAmmoReserveLow.SelectedColor = (Color) cc.ConvertFrom(settings.color_ammo_reserve_low);
-
-                CpHealthNormal.SelectedColor = (Color) cc.ConvertFrom(settings.color_health_normal);
-                CpHealthBuff.SelectedColor = (Color) cc.ConvertFrom(settings.color_health_buffed);
-                CpHealthLow.SelectedColor = (Color) cc.ConvertFrom(settings.color_health_low);
+                CpUberBarColor.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_bar);
+                CpUberFullColor.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_full);
+                CpXHairColor.SelectedColor = (Color) cc.ConvertFrom(settings.color_xhair_normal);
+                CpXHairPulse.SelectedColor = (Color) cc.ConvertFrom(settings.color_xhair_pulse);
+                CpUberFlash1.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_flash1);
+                CpUberFlash2.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_flash2);
+                CbUberStyle.SelectedIndex = settings.val_uber_animation;
                 CbHealthStyle.SelectedIndex = settings.val_health_style;
-
-                settings.color_health_normal = CpHealthNormal.SelectedColor?.ToString();
-                settings.color_health_buffed = CpHealthBuff.SelectedColor?.ToString();
-                settings.color_health_low = CpHealthLow.SelectedColor?.ToString();
-                settings.val_health_style = CbHealthStyle.SelectedIndex;
-
-                CbClassicHud.IsChecked = settings.toggle_classic_menu;
-                CbScoreboard.IsChecked = settings.toggle_min_scoreboard;
+                IntXHairSize.Value = settings.val_xhair_size;
+                CbXHairStyle.SelectedIndex = settings.val_xhair_style;
+                CbXHairEffect.SelectedIndex = settings.val_xhair_effect;
+                IntXHairXPos.Value = settings.val_xhair_x;
+                IntXHairYPos.Value = settings.val_xhair_y;
+                CbXHairEnable.IsChecked = settings.toggle_xhair_enable;
+                CbXHairHitmarker.IsChecked = settings.toggle_xhair_pulse;
                 CbDisguiseImage.IsChecked = settings.toggle_disguise_image;
                 CbDefaultBg.IsChecked = settings.toggle_stock_backgrounds;
                 CbMenuImages.IsChecked = settings.toggle_menu_images;
+                CbTransparentViewmodel.IsChecked = settings.toggle_transparent_viewmodels;
                 CbDamagePos.IsChecked = settings.toggle_damage_pos;
                 CbChatBottom.IsChecked = settings.toggle_chat_bottom;
                 CbTeamCenter.IsChecked = settings.toggle_center_select;
-                CbTransparentViewmodel.IsChecked = settings.toggle_transparent_viewmodels;
+                CbClassicHud.IsChecked = settings.toggle_classic_menu;
+                CbScoreboard.IsChecked = settings.toggle_min_scoreboard;
                 CbPlayerModel.IsChecked = settings.toggle_alt_player_model;
-
                 Logger.Info("Loading HUD Settings...Done!");
             }
             catch (Exception ex)
@@ -530,7 +500,7 @@ namespace rayshud_installer
         }
 
         /// <summary>
-        ///     Resets user settings to rayshud defaults
+        ///     Reset user settings to their default values
         /// </summary>
         private void ResetHUDSettings()
         {
@@ -538,44 +508,39 @@ namespace rayshud_installer
             {
                 Logger.Info("Resetting HUD Settings...");
                 var cc = new ColorConverter();
-                CbUberStyle.SelectedIndex = 0;
-                CpUberBarColor.SelectedColor = (Color) cc.ConvertFrom("#EBE2CA");
-                CpUberFullColor.SelectedColor = (Color) cc.ConvertFrom("#FF3219");
-                CpUberFlash1.SelectedColor = (Color) cc.ConvertFrom("#FFA500");
-                CpUberFlash2.SelectedColor = (Color) cc.ConvertFrom("#FF4500");
-
-                CbXHairEnable.IsChecked = false;
-                CbXHairHitmarker.IsChecked = false;
-                CbXHairOutline.IsChecked = false;
-                IntXHairXPos.Value = 103;
-                IntXHairYPos.Value = 100;
-                CbXHairStyle.SelectedIndex = 6;
-                IntXHairSize.Value = 14;
-                CpXHairColor.SelectedColor = (Color) cc.ConvertFrom("#F2F2F2");
-                CpXHairPulse.SelectedColor = (Color) cc.ConvertFrom("#FF0000");
-                SetCrosshairControls();
-
+                CpHealthNormal.SelectedColor = (Color) cc.ConvertFrom("#EBE2CA");
+                CpHealthBuffed.SelectedColor = (Color) cc.ConvertFrom("#30FF30");
+                CpHealthLow.SelectedColor = (Color) cc.ConvertFrom("#FF9900");
                 CpAmmoClip.SelectedColor = (Color) cc.ConvertFrom("#30FF30");
                 CpAmmoClipLow.SelectedColor = (Color) cc.ConvertFrom("#FF2A82");
                 CpAmmoReserve.SelectedColor = (Color) cc.ConvertFrom("#48FFFF");
                 CpAmmoReserveLow.SelectedColor = (Color) cc.ConvertFrom("#FF801C");
-
-                CpHealthNormal.SelectedColor = (Color) cc.ConvertFrom("#EBE2CA");
-                CpHealthBuff.SelectedColor = (Color) cc.ConvertFrom("#30FF30");
-                CpHealthLow.SelectedColor = (Color) cc.ConvertFrom("#FF9900");
+                CpUberBarColor.SelectedColor = (Color) cc.ConvertFrom("#EBE2CA");
+                CpUberFullColor.SelectedColor = (Color) cc.ConvertFrom("#FF3219");
+                CpXHairColor.SelectedColor = (Color) cc.ConvertFrom("#F2F2F2");
+                CpXHairPulse.SelectedColor = (Color) cc.ConvertFrom("#FF0000");
+                CpUberFlash1.SelectedColor = (Color) cc.ConvertFrom("#FFA500");
+                CpUberFlash2.SelectedColor = (Color) cc.ConvertFrom("#FF4500");
+                CbUberStyle.SelectedIndex = 0;
                 CbHealthStyle.SelectedIndex = 0;
-
-                CbClassicHud.IsChecked = false;
-                CbScoreboard.IsChecked = false;
+                IntXHairSize.Value = 18;
+                CbXHairStyle.SelectedIndex = 24;
+                CbXHairEffect.SelectedIndex = 0;
+                IntXHairXPos.Value = 50;
+                IntXHairYPos.Value = 49;
+                CbXHairEnable.IsChecked = false;
+                CbXHairHitmarker.IsChecked = true;
                 CbDisguiseImage.IsChecked = false;
                 CbDefaultBg.IsChecked = false;
                 CbMenuImages.IsChecked = false;
+                CbTransparentViewmodel.IsChecked = false;
                 CbDamagePos.IsChecked = false;
                 CbChatBottom.IsChecked = false;
                 CbTeamCenter.IsChecked = false;
-                CbTransparentViewmodel.IsChecked = false;
+                CbClassicHud.IsChecked = false;
+                CbScoreboard.IsChecked = false;
                 CbPlayerModel.IsChecked = false;
-
+                SetCrosshairControls();
                 LblNews.Content = "Settings Reset at " + DateTime.Now;
                 Logger.Info("Resetting HUD Settings...Done!");
             }
@@ -602,8 +567,7 @@ namespace rayshud_installer
             writer.UberchargeStyle();
             writer.CrosshairPulse();
             writer.ChatBoxPos();
-            writer.Crosshair(CbXHairStyle.SelectedValue.ToString(), IntXHairSize.Value,
-                !RaysCrosshairs.Any(x => CbXHairStyle.SelectedValue.ToString().Equals(x)));
+            writer.Crosshair(CbXHairStyle.SelectedValue.ToString(), IntXHairSize.Value, CbXHairEffect.SelectedValue.ToString());
             writer.Colors();
             writer.DamagePos();
             writer.TransparentViewmodels();
