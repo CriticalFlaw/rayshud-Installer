@@ -96,14 +96,14 @@ namespace rayshud.Installer
                 var start = FindIndex(lines, "CustomCrosshair");
                 lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\t\"0\"";
                 lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\t\"0\"";
-                lines[FindIndex(lines, "\"labelText\"", start)] = "\t\t\"labelText\"\t\t\t\"i\"";
+                lines[FindIndex(lines, "\"labelText\"", start)] = "\t\t\"labelText\"\t\t\t\"<\"";
                 lines[FindIndex(lines, "xpos", start)] = "\t\t\"xpos\"\t\t\t\t\"c-50\"";
                 lines[FindIndex(lines, "ypos", start)] = "\t\t\"ypos\"\t\t\t\t\"c-49\"";
                 lines[FindIndex(lines, "font", start)] = "\t\t\"font\"\t\t\t\t\"Size:18 | Outline:OFF\"";
                 File.WriteAllLines(file, lines);
 
                 if (!Settings.Default.toggle_xhair_enable) return;
-                var strEffect = (effect != "None") ? $"{effect}:ON" : "Outline:OFF";
+                var strEffect = effect != "None" ? $"{effect}:ON" : "Outline:OFF";
                 lines[FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\t\"1\"";
                 lines[FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\t\"1\"";
                 lines[FindIndex(lines, "\"labelText\"", start)] = $"\t\t\"labelText\"\t\t\t\"{style}\"";
@@ -238,24 +238,38 @@ namespace rayshud.Installer
             try
             {
                 MainWindow.Logger.Info("Updating Main Menu Backgrounds.");
-                var directory = new DirectoryInfo(_hudPath + Resources.dir_console);
+                var line1 = "\t\"$baseTexture\" \"console/backgrounds/background_modern\"";
+                var line2 = "\t\"$baseTexture\" \"console/backgrounds/background_modern_widescreen\"";
                 var chapterbackgrounds = _hudPath + Resources.file_chapterbackgrounds;
                 var chapterbackgroundsTemp = chapterbackgrounds.Replace(".txt", ".file");
 
-                if (Settings.Default.toggle_stock_backgrounds)
+                // Restore the backgrounds to the default
+                if (File.Exists(chapterbackgroundsTemp))
+                    File.Move(chapterbackgroundsTemp, chapterbackgrounds);
+
+                switch (Settings.Default.val_main_menu_bg)
                 {
-                    foreach (var file in directory.GetFiles())
-                        File.Move(file.FullName, file.FullName.Replace("upward", "off"));
-                    if (File.Exists(chapterbackgrounds))
-                        File.Move(chapterbackgrounds, chapterbackgroundsTemp);
+                    case 1: // Classic
+                        line1 = "\t\"$baseTexture\" \"console/backgrounds/background_classic\"";
+                        line2 = "\t\"$baseTexture\" \"console/backgrounds/background_classic_widescreen\"";
+                        break;
+
+                    case 2: // Default
+                        if (File.Exists(chapterbackgrounds))
+                            File.Move(chapterbackgrounds, chapterbackgroundsTemp);
+                        return;
                 }
-                else
-                {
-                    foreach (var file in directory.GetFiles())
-                        File.Move(file.FullName, file.FullName.Replace("off", "upward"));
-                    if (File.Exists(chapterbackgroundsTemp))
-                        File.Move(chapterbackgroundsTemp, chapterbackgrounds);
-                }
+
+                var file = _hudPath + Resources.file_background_upward + "upward.vmt";
+                var lines = File.ReadAllLines(file);
+                var start = FindIndex(lines, "baseTexture");
+                lines[start] = line1;
+                File.WriteAllLines(file, lines);
+
+                file = _hudPath + Resources.file_background_upward + "upward_widescreen.vmt";
+                lines = File.ReadAllLines(file);
+                lines[start] = line2;
+                File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
             {
@@ -303,13 +317,16 @@ namespace rayshud.Installer
                 var index2 = FindIndex(lines, "enabled", start);
                 lines[index1] = "\t\t\"visible\"\t\t\t\"0\"";
                 lines[index2] = "\t\t\"enabled\"\t\t\t\"0\"";
-                if (File.Exists(_hudPath + Resources.file_cfg))
-                    File.Delete(_hudPath + Resources.file_cfg);
                 File.WriteAllLines(file, lines);
 
                 if (!Settings.Default.toggle_transparent_viewmodels) return;
                 lines[index1] = "\t\t\"visible\"\t\t\t\"1\"";
                 lines[index2] = "\t\t\"enabled\"\t\t\t\"1\"";
+
+                if (!Directory.Exists(_hudPath + "\\rayshud\\cfg"))
+                    Directory.CreateDirectory(_hudPath + "\\rayshud\\cfg");
+                if (File.Exists(_hudPath + Resources.file_cfg))
+                    File.Delete(_hudPath + Resources.file_cfg);
                 File.Copy(_appPath + "\\hud.cfg", _hudPath + Resources.file_cfg);
                 File.WriteAllLines(file, lines);
             }
@@ -414,8 +431,8 @@ namespace rayshud.Installer
                 lines[index3] = CommentOutTextLine(lines[index3]);
                 var index = Settings.Default.val_uber_animation switch
                 {
-                    2 => index2,
-                    3 => index3,
+                    1 => index2,
+                    2 => index3,
                     _ => index1
                 };
                 lines[index] = lines[index].Replace("//", string.Empty);
@@ -447,7 +464,7 @@ namespace rayshud.Installer
                 lines = File.ReadAllLines(file);
                 var start = FindIndex(lines, "DisguiseStatus");
                 lines[FindIndex(lines, "xpos", start)] =
-                    $"\t\t\"xpos\"\t\t\t\t\t\"{(Settings.Default.toggle_alt_player_model ? 100 : 20)}\"";
+                    $"\t\t\"xpos\"\t\t\t\t\t\"{(Settings.Default.toggle_alt_player_model ? 100 : 15)}\"";
                 File.WriteAllLines(file, lines);
             }
             catch (Exception ex)
@@ -463,7 +480,7 @@ namespace rayshud.Installer
         public int FindIndex(string[] array, string value, int skip = 0)
         {
             var list = array.Skip(skip);
-            var index = list.Select((v, i) => new {Index = i, Value = v}) // Pair up values and indexes
+            var index = list.Select((v, i) => new { Index = i, Value = v }) // Pair up values and indexes
                 .Where(p => p.Value.Contains(value)) // Do the filtering
                 .Select(p => p.Index); // Keep the index and drop the value
             return index.First() + skip;

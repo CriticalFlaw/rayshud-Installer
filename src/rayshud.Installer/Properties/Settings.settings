@@ -77,9 +77,6 @@
     <Setting Name="toggle_min_scoreboard" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="toggle_stock_backgrounds" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="toggle_transparent_viewmodels" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -109,6 +106,9 @@
     </Setting>
     <Setting Name="val_xhair_y" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">49</Value>
+    </Setting>
+    <Setting Name="val_main_menu_bg" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

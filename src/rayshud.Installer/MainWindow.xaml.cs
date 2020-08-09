@@ -3,11 +3,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using AutoUpdaterDotNET;
@@ -61,7 +59,6 @@ namespace rayshud.Installer
         /// <summary>
         ///     Calls to extract rayshud to the tf/custom directory
         /// </summary>
-        /// <remarks>TODO: Refactor the update-refresh-install process</remarks>
         private void ExtractHUD(bool update = false)
         {
             var settings = Settings.Default;
@@ -86,7 +83,7 @@ namespace rayshud.Installer
             {
                 Logger.Info("Setting the tf/custom directory. Opening folder browser, asking the user.");
                 using (var browser = new FolderBrowserDialog
-                    {Description = Properties.Resources.info_folder_browser, ShowNewFolderButton = true})
+                { Description = Properties.Resources.info_folder_browser, ShowNewFolderButton = true })
                 {
                     while (!browser.SelectedPath.Contains("tf\\custom"))
                         if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK &&
@@ -95,11 +92,11 @@ namespace rayshud.Installer
                             var settings = Settings.Default;
                             settings.hud_directory = browser.SelectedPath;
                             settings.Save();
-                            LblStatus.Content = settings.hud_directory;
-                            Logger.Info("Directory has been set to " + LblStatus.Content);
+                            Logger.Info("Directory has been set to " + TbStatus.Text);
                         }
                         else
                         {
+                            Logger.Warn("Invalid directory. Please try again and be sure to select the tf/custom folder.");
                             break;
                         }
                 }
@@ -155,7 +152,7 @@ namespace rayshud.Installer
         {
             Logger.Info("Looking for the Team Fortress 2 directory...");
             var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
-            var directory = (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam",
+            var directory = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam",
                 "InstallPath", null);
             if (!string.IsNullOrWhiteSpace(directory))
             {
@@ -186,35 +183,6 @@ namespace rayshud.Installer
         }
 
         /// <summary>
-        ///     Check the rayshud version number
-        /// </summary>
-        public void CheckHUDVersion()
-        {
-            try
-            {
-                Logger.Info("Checking rayshud version...");
-                var client = new WebClient();
-                var readmeText = client.DownloadString(Properties.Resources.app_readme).Split('\n');
-                client.Dispose();
-                var current = readmeText[readmeText.Length - 2];
-                var local = File.ReadLines(Settings.Default.hud_directory + "\\rayshud\\README.md").Last().Trim();
-                if (!string.Equals(local, current))
-                {
-                    Logger.Info("Version Mismatch. New rayshud update available!");
-                    BtnInstall.Content = "Update";
-                    LblNews.Content = "Update Available!";
-                }
-
-                Logger.Info("Local version: " + local + "\t Live version: " + current);
-                Logger.Info("Checking rayshud version...Done!");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex.Message);
-            }
-        }
-
-        /// <summary>
         ///     Check if rayshud is installed in the tf/custom directory
         /// </summary>
         public bool CheckHUDPath()
@@ -239,13 +207,15 @@ namespace rayshud.Installer
             if (Directory.Exists(Settings.Default.hud_directory) && CheckUserPath())
             {
                 var isInstalled = CheckHUDPath();
-                if (isInstalled) CheckHUDVersion();
                 BtnStart.IsEnabled = true;
                 BtnInstall.IsEnabled = true;
                 BtnInstall.Content = isInstalled ? "Refresh" : "Install";
                 BtnSave.IsEnabled = isInstalled;
                 BtnUninstall.IsEnabled = isInstalled;
-                LblStatus.Content = $"rayshud is {(!isInstalled ? "not " : "")}installed...";
+                if (!isInstalled)
+                    TbStatus.Text = "rayshud is not installed...";
+                else
+                    TbStatus.Text = "rayshud is installed at " + Settings.Default.hud_directory;
                 Settings.Default.Save();
             }
             else
@@ -254,8 +224,16 @@ namespace rayshud.Installer
                 BtnInstall.IsEnabled = false;
                 BtnSave.IsEnabled = false;
                 BtnUninstall.IsEnabled = false;
-                LblStatus.Content = "Directory is not set...";
+                TbStatus.Text = "tf/custom directory is not set. Please click the 'Change Directory' button to set it up.";
             }
+        }
+
+        /// <summary>
+        ///     Disables certain crosshair options if rotating crosshair is enabled
+        /// </summary>
+        private void CbXHairEnable_OnClick(object sender, RoutedEventArgs e)
+        {
+            SetCrosshairControls();
         }
 
         /// <summary>
@@ -271,6 +249,30 @@ namespace rayshud.Installer
             CbXHairEffect.IsEnabled = CbXHairEnable.IsChecked ?? false;
             IntXHairXPos.IsEnabled = CbXHairEnable.IsChecked ?? false;
             IntXHairYPos.IsEnabled = CbXHairEnable.IsChecked ?? false;
+        }
+
+        private void CbUberStyle_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            switch (CbUberStyle.SelectedIndex)
+            {
+                case 0:
+                    CpUberFullColor.IsEnabled = false;
+                    CpUberFlash1.IsEnabled = true;
+                    CpUberFlash2.IsEnabled = true;
+                    break;
+
+                case 1:
+                    CpUberFullColor.IsEnabled = true;
+                    CpUberFlash1.IsEnabled = false;
+                    CpUberFlash2.IsEnabled = false;
+                    break;
+
+                default:
+                    CpUberFullColor.IsEnabled = false;
+                    CpUberFlash1.IsEnabled = false;
+                    CpUberFlash2.IsEnabled = false;
+                    break;
+            }
         }
 
         #region CLICK_EVENTS
@@ -387,14 +389,6 @@ namespace rayshud.Installer
             Process.Start("https://github.com/CriticalFlaw/rayshud-Installer/issues");
         }
 
-        /// <summary>
-        ///     Disables certain crosshair options if rotating crosshair is enabled
-        /// </summary>
-        private void CbXHairEnable_OnClick(object sender, RoutedEventArgs e)
-        {
-            SetCrosshairControls();
-        }
-
         #endregion CLICK_EVENTS
 
         #region SAVE_LOAD
@@ -431,7 +425,6 @@ namespace rayshud.Installer
                 settings.toggle_xhair_enable = CbXHairEnable.IsChecked ?? false;
                 settings.toggle_xhair_pulse = CbXHairHitmarker.IsChecked ?? false;
                 settings.toggle_disguise_image = CbDisguiseImage.IsChecked ?? false;
-                settings.toggle_stock_backgrounds = CbDefaultBg.IsChecked ?? false;
                 settings.toggle_menu_images = CbMenuImages.IsChecked ?? false;
                 settings.toggle_transparent_viewmodels = CbTransparentViewmodel.IsChecked ?? false;
                 settings.toggle_damage_pos = CbDamagePos.IsChecked ?? false;
@@ -440,6 +433,7 @@ namespace rayshud.Installer
                 settings.toggle_classic_menu = CbClassicHud.IsChecked ?? false;
                 settings.toggle_min_scoreboard = CbScoreboard.IsChecked ?? false;
                 settings.toggle_alt_player_model = CbPlayerModel.IsChecked ?? false;
+                settings.val_main_menu_bg = CbMainMenuBackground.SelectedIndex;
                 settings.Save();
                 Logger.Info("Saving HUD Settings...Done!");
             }
@@ -459,19 +453,19 @@ namespace rayshud.Installer
                 Logger.Info("Loading HUD Settings...");
                 var settings = Settings.Default;
                 var cc = new ColorConverter();
-                CpHealthNormal.SelectedColor = (Color) cc.ConvertFrom(settings.color_health_normal);
-                CpHealthBuffed.SelectedColor = (Color) cc.ConvertFrom(settings.color_health_buff);
-                CpHealthLow.SelectedColor = (Color) cc.ConvertFrom(settings.color_health_low);
-                CpAmmoClip.SelectedColor = (Color) cc.ConvertFrom(settings.color_ammo_clip);
-                CpAmmoClipLow.SelectedColor = (Color) cc.ConvertFrom(settings.color_ammo_clip_low);
-                CpAmmoReserve.SelectedColor = (Color) cc.ConvertFrom(settings.color_ammo_reserve);
-                CpAmmoReserveLow.SelectedColor = (Color) cc.ConvertFrom(settings.color_ammo_reserve_low);
-                CpUberBarColor.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_bar);
-                CpUberFullColor.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_full);
-                CpXHairColor.SelectedColor = (Color) cc.ConvertFrom(settings.color_xhair_normal);
-                CpXHairPulse.SelectedColor = (Color) cc.ConvertFrom(settings.color_xhair_pulse);
-                CpUberFlash1.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_flash1);
-                CpUberFlash2.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_flash2);
+                CpHealthNormal.SelectedColor = (Color)cc.ConvertFrom(settings.color_health_normal);
+                CpHealthBuffed.SelectedColor = (Color)cc.ConvertFrom(settings.color_health_buff);
+                CpHealthLow.SelectedColor = (Color)cc.ConvertFrom(settings.color_health_low);
+                CpAmmoClip.SelectedColor = (Color)cc.ConvertFrom(settings.color_ammo_clip);
+                CpAmmoClipLow.SelectedColor = (Color)cc.ConvertFrom(settings.color_ammo_clip_low);
+                CpAmmoReserve.SelectedColor = (Color)cc.ConvertFrom(settings.color_ammo_reserve);
+                CpAmmoReserveLow.SelectedColor = (Color)cc.ConvertFrom(settings.color_ammo_reserve_low);
+                CpUberBarColor.SelectedColor = (Color)cc.ConvertFrom(settings.color_uber_bar);
+                CpUberFullColor.SelectedColor = (Color)cc.ConvertFrom(settings.color_uber_full);
+                CpXHairColor.SelectedColor = (Color)cc.ConvertFrom(settings.color_xhair_normal);
+                CpXHairPulse.SelectedColor = (Color)cc.ConvertFrom(settings.color_xhair_pulse);
+                CpUberFlash1.SelectedColor = (Color)cc.ConvertFrom(settings.color_uber_flash1);
+                CpUberFlash2.SelectedColor = (Color)cc.ConvertFrom(settings.color_uber_flash2);
                 CbUberStyle.SelectedIndex = settings.val_uber_animation;
                 CbHealthStyle.SelectedIndex = settings.val_health_style;
                 IntXHairSize.Value = settings.val_xhair_size;
@@ -482,7 +476,6 @@ namespace rayshud.Installer
                 CbXHairEnable.IsChecked = settings.toggle_xhair_enable;
                 CbXHairHitmarker.IsChecked = settings.toggle_xhair_pulse;
                 CbDisguiseImage.IsChecked = settings.toggle_disguise_image;
-                CbDefaultBg.IsChecked = settings.toggle_stock_backgrounds;
                 CbMenuImages.IsChecked = settings.toggle_menu_images;
                 CbTransparentViewmodel.IsChecked = settings.toggle_transparent_viewmodels;
                 CbDamagePos.IsChecked = settings.toggle_damage_pos;
@@ -491,6 +484,7 @@ namespace rayshud.Installer
                 CbClassicHud.IsChecked = settings.toggle_classic_menu;
                 CbScoreboard.IsChecked = settings.toggle_min_scoreboard;
                 CbPlayerModel.IsChecked = settings.toggle_alt_player_model;
+                CbMainMenuBackground.SelectedIndex = settings.val_main_menu_bg;
                 Logger.Info("Loading HUD Settings...Done!");
             }
             catch (Exception ex)
@@ -508,19 +502,19 @@ namespace rayshud.Installer
             {
                 Logger.Info("Resetting HUD Settings...");
                 var cc = new ColorConverter();
-                CpHealthNormal.SelectedColor = (Color) cc.ConvertFrom("#EBE2CA");
-                CpHealthBuffed.SelectedColor = (Color) cc.ConvertFrom("#30FF30");
-                CpHealthLow.SelectedColor = (Color) cc.ConvertFrom("#FF9900");
-                CpAmmoClip.SelectedColor = (Color) cc.ConvertFrom("#30FF30");
-                CpAmmoClipLow.SelectedColor = (Color) cc.ConvertFrom("#FF2A82");
-                CpAmmoReserve.SelectedColor = (Color) cc.ConvertFrom("#48FFFF");
-                CpAmmoReserveLow.SelectedColor = (Color) cc.ConvertFrom("#FF801C");
-                CpUberBarColor.SelectedColor = (Color) cc.ConvertFrom("#EBE2CA");
-                CpUberFullColor.SelectedColor = (Color) cc.ConvertFrom("#FF3219");
-                CpXHairColor.SelectedColor = (Color) cc.ConvertFrom("#F2F2F2");
-                CpXHairPulse.SelectedColor = (Color) cc.ConvertFrom("#FF0000");
-                CpUberFlash1.SelectedColor = (Color) cc.ConvertFrom("#FFA500");
-                CpUberFlash2.SelectedColor = (Color) cc.ConvertFrom("#FF4500");
+                CpHealthNormal.SelectedColor = (Color)cc.ConvertFrom("#EBE2CA");
+                CpHealthBuffed.SelectedColor = (Color)cc.ConvertFrom("#30FF30");
+                CpHealthLow.SelectedColor = (Color)cc.ConvertFrom("#FF9900");
+                CpAmmoClip.SelectedColor = (Color)cc.ConvertFrom("#30FF30");
+                CpAmmoClipLow.SelectedColor = (Color)cc.ConvertFrom("#FF2A82");
+                CpAmmoReserve.SelectedColor = (Color)cc.ConvertFrom("#48FFFF");
+                CpAmmoReserveLow.SelectedColor = (Color)cc.ConvertFrom("#FF801C");
+                CpUberBarColor.SelectedColor = (Color)cc.ConvertFrom("#EBE2CA");
+                CpUberFullColor.SelectedColor = (Color)cc.ConvertFrom("#FF3219");
+                CpXHairColor.SelectedColor = (Color)cc.ConvertFrom("#F2F2F2");
+                CpXHairPulse.SelectedColor = (Color)cc.ConvertFrom("#FF0000");
+                CpUberFlash1.SelectedColor = (Color)cc.ConvertFrom("#FFA500");
+                CpUberFlash2.SelectedColor = (Color)cc.ConvertFrom("#FF4500");
                 CbUberStyle.SelectedIndex = 0;
                 CbHealthStyle.SelectedIndex = 0;
                 IntXHairSize.Value = 18;
@@ -531,7 +525,6 @@ namespace rayshud.Installer
                 CbXHairEnable.IsChecked = false;
                 CbXHairHitmarker.IsChecked = true;
                 CbDisguiseImage.IsChecked = false;
-                CbDefaultBg.IsChecked = false;
                 CbMenuImages.IsChecked = false;
                 CbTransparentViewmodel.IsChecked = false;
                 CbDamagePos.IsChecked = false;
@@ -540,6 +533,7 @@ namespace rayshud.Installer
                 CbClassicHud.IsChecked = false;
                 CbScoreboard.IsChecked = false;
                 CbPlayerModel.IsChecked = false;
+                CbMainMenuBackground.SelectedIndex = 0;
                 SetCrosshairControls();
                 LblNews.Content = "Settings Reset at " + DateTime.Now;
                 Logger.Info("Resetting HUD Settings...Done!");
@@ -558,7 +552,6 @@ namespace rayshud.Installer
             Logger.Info("Applying HUD Settings...");
             var writer = new HUDController();
             writer.MainMenuStyle();
-            writer.MainMenuBackground();
             writer.MainMenuClassImage();
             writer.ScoreboardStyle();
             writer.TeamSelect();
@@ -572,6 +565,7 @@ namespace rayshud.Installer
             writer.DamagePos();
             writer.TransparentViewmodels();
             writer.PlayerModelPos();
+            writer.MainMenuBackground();
             LblNews.Content = "Settings Saved at " + DateTime.Now;
             Logger.Info("Resetting HUD Settings...Done!");
         }

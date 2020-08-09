@@ -97,6 +97,15 @@ namespace rayshud.Installer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to \rayshud\console\backgrounds\.
+        /// </summary>
+        internal static string dir_custom_background {
+            get {
+                return ResourceManager.GetString("dir_custom_background", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to \rayshud\resource\ui.
         /// </summary>
         internal static string dir_resource_ui {
@@ -331,6 +340,15 @@ namespace rayshud.Installer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to \rayshud\materials\console\background_.
+        /// </summary>
+        internal static string file_background_upward {
+            get {
+                return ResourceManager.GetString("file_background_upward", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to \rayshud\resource\ui\basechat.res.
         /// </summary>
         internal static string file_basechat {
@@ -372,15 +390,6 @@ namespace rayshud.Installer.Properties {
         internal static string file_clientscheme_colors {
             get {
                 return ResourceManager.GetString("file_clientscheme_colors", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \rayshud\customizations\backgrounds\background_.
-        /// </summary>
-        internal static string file_custom_background {
-            get {
-                return ResourceManager.GetString("file_custom_background", resourceCulture);
             }
         }
         
@@ -543,6 +552,15 @@ namespace rayshud.Installer.Properties {
         internal static string info_uninstall_complete_desc {
             get {
                 return ResourceManager.GetString("info_uninstall_complete_desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
     }

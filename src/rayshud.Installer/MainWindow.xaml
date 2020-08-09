@@ -6,7 +6,7 @@
         xmlns:x2="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="rayshud Installer"
-        Height="650" Width="900"
+        Height="722" Width="900"
         SizeToContent="Manual"
         FontFamily="Century Gothic"
         FontSize="15px"
@@ -20,23 +20,16 @@
             </Grid.Background>
 
             <Label
-                Name="LblStatus"
+                Name="LblNews"
                 Margin="10,10,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Content="rayshud Installer" />
 
-            <Label
-                Name="LblNews"
-                Margin="0,10,10,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Content="..." />
-
             <GroupBox
-                Width="865"
+                Width="870"
                 Height="150"
-                Margin="10,400,0,0"
+                Margin="10,455,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Header="Options">
@@ -51,7 +44,7 @@
 
                     <CheckBox
                         x:Name="CbScoreboard"
-                        Margin="10,40,0,0"
+                        Margin="10,100,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Minimal Scoreboard"
@@ -66,16 +59,8 @@
                         ToolTip="Toggle the Spy silhouette image seen when disguising" />
 
                     <CheckBox
-                        x:Name="CbDefaultBg"
-                        Margin="10,100,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Content="Default Backgrounds"
-                        ToolTip="Toggle the stock main menu backgrounds" />
-
-                    <CheckBox
                         x:Name="CbMenuImages"
-                        Margin="260,10,0,0"
+                        Margin="10,40,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Main Menu Class Images"
@@ -115,11 +100,28 @@
 
                     <CheckBox
                         x:Name="CbPlayerModel"
-                        Margin="510,40,0,0"
+                        Margin="260,10,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Alternate Player Model"
                         ToolTip="Toggle to an alternate player model position" />
+
+                    <Label
+                        Margin="510,34,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Content="Main Menu Background:" />
+
+                    <ComboBox
+                        x:Name="CbMainMenuBackground"
+                        Width="198"
+                        Margin="510,67,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                        <ComboBoxItem IsSelected="True">Modern</ComboBoxItem>
+                        <ComboBoxItem>Classic</ComboBoxItem>
+                        <ComboBoxItem>Default</ComboBoxItem>
+                    </ComboBox>
 
                     <Button
                         x:Name="BtnReportIssue"
@@ -153,7 +155,7 @@
 
             <GroupBox
                 Width="430"
-                Height="200"
+                Height="240"
                 Margin="10,40,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
@@ -164,7 +166,7 @@
                         Width="180"
                         Margin="210,10,0,0"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Top">
+                        VerticalAlignment="Top" SelectionChanged="CbUberStyle_SelectionChanged">
                         <ComboBoxItem>Flash</ComboBoxItem>
                         <ComboBoxItem>Solid</ComboBoxItem>
                         <ComboBoxItem>Rainbow</ComboBoxItem>
@@ -173,7 +175,7 @@
                     <x2:ColorPicker
                         x:Name="CpUberBarColor"
                         Width="180"
-                        Margin="210,40,0,0"
+                        Margin="210,50,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -183,7 +185,7 @@
                     <x2:ColorPicker
                         x:Name="CpUberFullColor"
                         Width="180"
-                        Margin="210,70,0,0"
+                        Margin="210,90,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -193,7 +195,7 @@
                     <x2:ColorPicker
                         x:Name="CpUberFlash1"
                         Width="180"
-                        Margin="210,100,0,0"
+                        Margin="210,130,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -203,7 +205,7 @@
                     <x2:ColorPicker
                         x:Name="CpUberFlash2"
                         Width="180"
-                        Margin="210,130,0,0"
+                        Margin="210,170,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -218,27 +220,27 @@
                         ToolTip="Color of the ÜberCharge when full" />
 
                     <Label
-                        Margin="10,40,0,0"
+                        Margin="10,50,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Charging Color:"
                         ToolTip="Color of the ÜberCharge when full" />
 
                     <Label
-                        Margin="10,70,0,0"
+                        Margin="10,90,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Full Charge Color:" />
 
                     <Label
-                        Margin="10,100,0,0"
+                        Margin="10,130,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Full Charge Flash 1:"
                         ToolTip="First ÜberCharge color (Rainbow style)" />
 
                     <Label
-                        Margin="10,130,0,0"
+                        Margin="10,170,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Full Charge Flash 2:"
@@ -248,8 +250,8 @@
 
             <GroupBox
                 Width="430"
-                Height="200"
-                Margin="445,40,0,0"
+                Height="240"
+                Margin="450,40,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Header="Crosshair">
@@ -282,7 +284,7 @@
                     <ComboBox
                         x:Name="CbXHairStyle"
                         Width="180"
-                        Margin="210,40,0,0"
+                        Margin="210,50,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         SelectedValuePath="Content"
@@ -478,7 +480,7 @@
 
                     <x2:IntegerUpDown
                         x:Name="IntXHairSize"
-                        Margin="210,70,0,0"
+                        Margin="210,90,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         FormatString="N0"
@@ -492,7 +494,7 @@
                     <ComboBox
                         x:Name="CbXHairEffect"
                         Width="180"
-                        Margin="210,100,0,0"
+                        Margin="210,130,0,0"
                         SelectedValuePath="Content"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top">
@@ -505,7 +507,7 @@
                     <x2:ColorPicker
                         x:Name="CpXHairColor"
                         Width="90"
-                        Margin="210,130,0,0"
+                        Margin="210,170,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -516,7 +518,7 @@
                     <x2:ColorPicker
                         x:Name="CpXHairPulse"
                         Width="90"
-                        Margin="300,130,0,0"
+                        Margin="300,170,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -555,46 +557,46 @@
                         ToolTip="Vertical position of the crosshair" />
 
                     <Label
-                        Margin="10,40,0,0"
+                        Margin="10,50,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Crosshair Style:"
                         ToolTip="Style of the crosshair" />
 
                     <Label
-                        Margin="10,70,0,0"
+                        Margin="10,90,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Crosshair Size:"
                         ToolTip="Size of the crosshair" />
 
                     <Label
-                        Margin="10,100,0,0"
+                        Margin="10,130,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Crosshair Effect:"
                         ToolTip="Effect applied to the crosshair (Blur, Outline or Shadow)" />
 
                     <Label
-                        Margin="10,130,0,0"
+                        Margin="10,170,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Crosshair Colors:"
                         ToolTip="Color of the crosshair" />
 
                     <Label
-                        Margin="10,150,0,0"
+                        Margin="10,190,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="*First color is the crosshair default and second is the hitmarker"
-                        FontSize="10px"/>
+                        FontSize="10px" />
                 </Grid>
             </GroupBox>
 
             <GroupBox
                 Width="430"
-                Height="155"
-                Margin="445,240,0,0"
+                Height="165"
+                Margin="450,285,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Header="Health">
@@ -603,7 +605,7 @@
                     <x2:ColorPicker
                         x:Name="CpHealthNormal"
                         Width="180"
-                        Margin="10,30,0,0"
+                        Margin="10,40,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -613,7 +615,7 @@
                     <x2:ColorPicker
                         x:Name="CpHealthBuffed"
                         Width="180"
-                        Margin="10,90,0,0"
+                        Margin="10,100,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -623,7 +625,7 @@
                     <x2:ColorPicker
                         x:Name="CpHealthLow"
                         Width="180"
-                        Margin="220,30,0,0"
+                        Margin="220,40,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -633,7 +635,7 @@
                     <ComboBox
                         x:Name="CbHealthStyle"
                         Width="180"
-                        Margin="220,90,0,0"
+                        Margin="220,100,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top">
                         <ComboBoxItem IsSelected="True">Default</ComboBoxItem>
@@ -642,28 +644,28 @@
                     </ComboBox>
 
                     <Label
-                        Margin="10,0,0,0"
+                        Margin="10,10,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Health Normal:"
                         ToolTip="Color of the player health" Width="180" />
 
                     <Label
-                        Margin="10,60,0,0"
+                        Margin="10,70,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Health Buffed:"
                         ToolTip="Color of the player health when buffed" Width="180" />
 
                     <Label
-                        Margin="220,60,0,0"
+                        Margin="220,70,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Health Style:"
                         ToolTip="Style of the player health" Width="180" />
 
                     <Label
-                        Margin="220,0,0,0"
+                        Margin="220,10,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Health Low:"
@@ -673,8 +675,8 @@
 
             <GroupBox
                 Width="430"
-                Height="155"
-                Margin="10,240,0,0"
+                Height="165"
+                Margin="10,285,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Header="Ammo">
@@ -683,7 +685,7 @@
                     <x2:ColorPicker
                         x:Name="CpAmmoClip"
                         Width="180"
-                        Margin="10,30,0,0"
+                        Margin="10,40,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -693,7 +695,7 @@
                     <x2:ColorPicker
                         x:Name="CpAmmoReserve"
                         Width="180"
-                        Margin="220,30,0,0"
+                        Margin="220,40,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -703,7 +705,7 @@
                     <x2:ColorPicker
                         x:Name="CpAmmoClipLow"
                         Width="180"
-                        Margin="10,90,0,0"
+                        Margin="10,100,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -713,7 +715,7 @@
                     <x2:ColorPicker
                         x:Name="CpAmmoReserveLow"
                         Width="180"
-                        Margin="220,90,0,0"
+                        Margin="220,100,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         ColorMode="ColorCanvas"
@@ -721,28 +723,28 @@
                         Foreground="Black" />
 
                     <Label
-                        Margin="10,0,0,0"
+                        Margin="10,10,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Ammo In Clip:"
                         ToolTip="Color of the ammo clip" Width="180" />
 
                     <Label
-                        Margin="10,60,0,0"
+                        Margin="10,70,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Low Clip:"
                         ToolTip="Color of the ammo clip when low" Width="180" />
 
                     <Label
-                        Margin="220,0,0,0"
+                        Margin="220,10,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Ammo In Reserve:"
                         ToolTip="Color of the ammo reserve" Width="180" />
 
                     <Label
-                        Margin="220,60,0,0"
+                        Margin="220,70,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Content="Low Reserve:"
@@ -758,7 +760,7 @@
                 VerticalAlignment="Top"
                 Click="BtnInstall_OnClick"
                 Content="Install"
-                Style="{StaticResource Button}" Margin="15,555,0,0" />
+                Style="{StaticResource Button}" Margin="10,620,0,0" />
 
             <Button
                 x:Name="BtnUninstall"
@@ -768,7 +770,7 @@
                 VerticalAlignment="Top"
                 Click="BtnUninstall_OnClick"
                 Content="Uninstall"
-                Style="{StaticResource Button}" Margin="140,555,0,0" />
+                Style="{StaticResource Button}" Margin="140,620,0,0" />
 
             <Button
                 x:Name="BtnSave"
@@ -778,7 +780,7 @@
                 VerticalAlignment="Top"
                 Click="BtnSave_OnClick"
                 Content="Apply Changes"
-                Style="{StaticResource Button}" Margin="265,555,0,0" />
+                Style="{StaticResource Button}" Margin="265,620,0,0" />
 
             <Button
                 x:Name="BtnReset"
@@ -788,7 +790,7 @@
                 VerticalAlignment="Top"
                 Click="BtnReset_OnClick"
                 Content="Reset to Default"
-                Style="{StaticResource Button}" Margin="590,555,0,0" />
+                Style="{StaticResource Button}" Margin="590,620,0,0" />
 
             <Button
                 x:Name="BtnDirectory"
@@ -798,7 +800,7 @@
                 VerticalAlignment="Top"
                 Click="BtnDirectory_OnClick"
                 Content="Change Directory"
-                Style="{StaticResource Button}" Margin="725,555,0,0" />
+                Style="{StaticResource Button}" Margin="725,620,0,0" />
 
             <Button
                 x:Name="BtnStart"
@@ -808,7 +810,14 @@
                 VerticalAlignment="Top"
                 Click="BtnStart_OnClick"
                 Content="Launch Team Fortress 2"
-                Style="{StaticResource Button}" Margin="400,555,0,0" />
+                Style="{StaticResource Button}" Margin="400,620,0,0" />
+            <DockPanel Margin="0,660,0,0">
+                <StatusBar DockPanel.Dock="Bottom">
+                    <StatusBarItem>
+                        <TextBlock Name="TbStatus" Text="..." />
+                    </StatusBarItem>
+                </StatusBar>
+            </DockPanel>
         </Grid>
     </x2:BusyIndicator>
 </Window>

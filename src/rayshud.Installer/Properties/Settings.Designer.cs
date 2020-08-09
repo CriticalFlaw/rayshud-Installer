@@ -12,7 +12,7 @@ namespace rayshud.Installer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -326,18 +326,6 @@ namespace rayshud.Installer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool toggle_stock_backgrounds {
-            get {
-                return ((bool)(this["toggle_stock_backgrounds"]));
-            }
-            set {
-                this["toggle_stock_backgrounds"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool toggle_transparent_viewmodels {
             get {
                 return ((bool)(this["toggle_transparent_viewmodels"]));
@@ -452,6 +440,18 @@ namespace rayshud.Installer.Properties {
             }
             set {
                 this["val_xhair_y"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int val_main_menu_bg {
+            get {
+                return ((int)(this["val_main_menu_bg"]));
+            }
+            set {
+                this["val_main_menu_bg"] = value;
             }
         }
     }

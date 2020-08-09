@@ -129,6 +129,9 @@
   <data name="dir_console" xml:space="preserve">
     <value>\rayshud\materials\console\</value>
   </data>
+  <data name="dir_custom_background" xml:space="preserve">
+    <value>\rayshud\console\backgrounds\</value>
+  </data>
   <data name="dir_resource_ui" xml:space="preserve">
     <value>\rayshud\resource\ui</value>
   </data>
@@ -207,6 +210,9 @@
   <data name="error_set_xhair_pulse" xml:space="preserve">
     <value>An error occurred while applying the crosshair pulse setting.</value>
   </data>
+  <data name="file_background_upward" xml:space="preserve">
+    <value>\rayshud\materials\console\background_</value>
+  </data>
   <data name="file_basechat" xml:space="preserve">
     <value>\rayshud\resource\ui\basechat.res</value>
   </data>
@@ -221,9 +227,6 @@
   </data>
   <data name="file_clientscheme_colors" xml:space="preserve">
     <value>\rayshud\resource\scheme\clientscheme_colors.res</value>
-  </data>
-  <data name="file_custom_background" xml:space="preserve">
-    <value>\rayshud\customizations\backgrounds\background_</value>
   </data>
   <data name="file_custom_mainmenu" xml:space="preserve">
     <value>\rayshud\customizations\main_menu\mainmenuoverride.res</value>
@@ -278,5 +281,8 @@
   </data>
   <data name="info_uninstall_complete_desc" xml:space="preserve">
     <value>rayshud has been successfully uninstalled</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
   </data>
 </root>
