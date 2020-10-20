@@ -5,7 +5,9 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using AutoUpdaterDotNET;
@@ -13,8 +15,8 @@ using log4net;
 using log4net.Config;
 using Microsoft.Win32;
 using rayshud.Installer.Properties;
-using Application = System.Windows.Forms.Application;
-using MessageBox = System.Windows.Forms.MessageBox;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace rayshud.Installer
 {
@@ -24,7 +26,7 @@ namespace rayshud.Installer
     public partial class MainWindow
     {
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly string _appPath = Application.StartupPath;
+        private readonly string _appPath = Directory.GetCurrentDirectory();
 
         public MainWindow()
         {
@@ -59,13 +61,11 @@ namespace rayshud.Installer
         /// <summary>
         ///     Calls to extract rayshud to the tf/custom directory
         /// </summary>
-        private void ExtractHUD(bool update = false)
+        private void ExtractHUD()
         {
             var settings = Settings.Default;
             Logger.Info("Extracting downloaded rayshud to " + settings.hud_directory);
             ZipFile.ExtractToDirectory(_appPath + "\\rayshud.zip", settings.hud_directory);
-            if (update)
-                Directory.Delete(settings.hud_directory + "\\rayshud", true);
             if (Directory.Exists(settings.hud_directory + "\\rayshud"))
                 Directory.Delete(settings.hud_directory + "\\rayshud", true);
             if (Directory.Exists(settings.hud_directory + "\\rayshud-master"))
@@ -92,11 +92,13 @@ namespace rayshud.Installer
                             var settings = Settings.Default;
                             settings.hud_directory = browser.SelectedPath;
                             settings.Save();
+                            TbStatus.Text = settings.hud_directory;
                             Logger.Info("Directory has been set to " + TbStatus.Text);
                         }
                         else
                         {
-                            Logger.Warn("Invalid directory. Please try again and be sure to select the tf/custom folder.");
+                            Logger.Warn(
+                                "Invalid directory. Please try again and be sure to select the tf/custom folder.");
                             break;
                         }
                 }
@@ -105,9 +107,9 @@ namespace rayshud.Installer
                 {
                     Logger.Error("Unable to set the tf/custom directory. Exiting.");
                     MessageBox.Show(Properties.Resources.error_app_directory,
-                        Properties.Resources.error_app_directory_title, MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                    System.Windows.Application.Current.Shutdown();
+                        Properties.Resources.error_app_directory_title, MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                    Application.Current.Shutdown();
                 }
             }
 
@@ -142,7 +144,7 @@ namespace rayshud.Installer
                 ZipFile.CreateFromDirectory(hudDirectory, settings.hud_directory + "\\rayshud-backup.zip");
                 Directory.Delete(hudDirectory, true);
                 MessageBox.Show(Properties.Resources.info_create_backup, Properties.Resources.info_create_backup_title,
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
             Logger.Info("Cleaning-up rayshud directories...Done!");
@@ -177,8 +179,7 @@ namespace rayshud.Installer
         public static void ShowErrorMessage(string title, string message, string exception)
         {
             MessageBox.Show($@"{message} {exception}", string.Format(Properties.Resources.error_info, title),
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
+                MessageBoxButton.OK, MessageBoxImage.Error);
             Logger.Error(exception);
         }
 
@@ -212,10 +213,7 @@ namespace rayshud.Installer
                 BtnInstall.Content = isInstalled ? "Refresh" : "Install";
                 BtnSave.IsEnabled = isInstalled;
                 BtnUninstall.IsEnabled = isInstalled;
-                if (!isInstalled)
-                    TbStatus.Text = "rayshud is not installed...";
-                else
-                    TbStatus.Text = "rayshud is installed at " + Settings.Default.hud_directory;
+                TbStatus.Text = $"rayshud is {(!isInstalled ? "not " : "")}installed...";
                 Settings.Default.Save();
             }
             else
@@ -224,20 +222,12 @@ namespace rayshud.Installer
                 BtnInstall.IsEnabled = false;
                 BtnSave.IsEnabled = false;
                 BtnUninstall.IsEnabled = false;
-                TbStatus.Text = "tf/custom directory is not set. Please click the 'Change Directory' button to set it up.";
+                TbStatus.Text = "tf/custom directory is not set. Please click the 'Set Directory' button to set it up.";
             }
         }
 
         /// <summary>
-        ///     Disables certain crosshair options if rotating crosshair is enabled
-        /// </summary>
-        private void CbXHairEnable_OnClick(object sender, RoutedEventArgs e)
-        {
-            SetCrosshairControls();
-        }
-
-        /// <summary>
-        ///     Disables certain crosshair options if rotating crosshair is enabled
+        ///     Disables certain crosshair options if the enable crosshair option is checked
         /// </summary>
         private void SetCrosshairControls()
         {
@@ -251,7 +241,7 @@ namespace rayshud.Installer
             IntXHairYPos.IsEnabled = CbXHairEnable.IsChecked ?? false;
         }
 
-        private void CbUberStyle_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void CbUberStyle_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             switch (CbUberStyle.SelectedIndex)
             {
@@ -299,10 +289,10 @@ namespace rayshud.Installer
                 worker.RunWorkerCompleted += (o, ea) =>
                 {
                     BusyIndicator.IsBusy = false;
-                    LblNews.Content = "Installation finished at " + DateTime.Now;
+                    TbStatus.Text = "Installation finished at " + DateTime.Now;
                     Logger.Info("Installing rayshud...Done!");
                     MessageBox.Show(Properties.Resources.info_install_complete_desc,
-                        Properties.Resources.info_install_complete, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Properties.Resources.info_install_complete, MessageBoxButton.OK, MessageBoxImage.Information);
                 };
                 BusyIndicator.IsBusy = true;
                 worker.RunWorkerAsync();
@@ -323,11 +313,11 @@ namespace rayshud.Installer
                 Logger.Info("Uninstalling rayshud...");
                 if (!CheckHUDPath()) return;
                 Directory.Delete(Settings.Default.hud_directory + "\\rayshud", true);
-                LblNews.Content = "Uninstalled rayshud at " + DateTime.Now;
+                TbStatus.Text = "Uninstalled rayshud at " + DateTime.Now;
                 SetupDirectory();
                 Logger.Info("Uninstalling rayshud...Done!");
                 MessageBox.Show(Properties.Resources.info_uninstall_complete_desc,
-                    Properties.Resources.info_uninstall_complete, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Properties.Resources.info_uninstall_complete, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -385,8 +375,40 @@ namespace rayshud.Installer
         /// </summary>
         private void BtnReportIssue_OnClick(object sender, RoutedEventArgs e)
         {
-            Logger.Info("Opening Issue Tracker...");
-            Process.Start("https://github.com/CriticalFlaw/rayshud-Installer/issues");
+            try
+            {
+                Logger.Info("Opening Issue Tracker...");
+                Process.Start(Properties.Resources.app_tracker);
+            }
+            catch
+            {
+                var url = Properties.Resources.app_tracker;
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    url = url.Replace("&", "^&");
+                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    Process.Start("xdg-open", url);
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    Process.Start("open", url);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Disables certain crosshair options if rotating crosshair is enabled
+        /// </summary>
+        private void CbXHairEnable_OnClick(object sender, RoutedEventArgs e)
+        {
+            SetCrosshairControls();
         }
 
         #endregion CLICK_EVENTS
@@ -535,7 +557,7 @@ namespace rayshud.Installer
                 CbPlayerModel.IsChecked = false;
                 CbMainMenuBackground.SelectedIndex = 0;
                 SetCrosshairControls();
-                LblNews.Content = "Settings Reset at " + DateTime.Now;
+                TbStatus.Text = "Settings Reset at " + DateTime.Now;
                 Logger.Info("Resetting HUD Settings...Done!");
             }
             catch (Exception ex)
@@ -558,15 +580,15 @@ namespace rayshud.Installer
             writer.HealthStyle();
             writer.DisguiseImage();
             writer.UberchargeStyle();
-            writer.CrosshairPulse();
             writer.ChatBoxPos();
             writer.Crosshair(CbXHairStyle.SelectedValue.ToString(), IntXHairSize.Value, CbXHairEffect.SelectedValue.ToString());
+            writer.CrosshairPulse();
             writer.Colors();
             writer.DamagePos();
             writer.TransparentViewmodels();
             writer.PlayerModelPos();
             writer.MainMenuBackground();
-            LblNews.Content = "Settings Saved at " + DateTime.Now;
+            TbStatus.Text = "Settings Saved at " + DateTime.Now;
             Logger.Info("Resetting HUD Settings...Done!");
         }
 

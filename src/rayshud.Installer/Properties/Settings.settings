@@ -48,7 +48,7 @@
       <Value Profile="(Default)">\Program Files\Steam\steamapps\common\Team Fortress 2\tf\custom</Value>
     </Setting>
     <Setting Name="hud_mod_date" Type="System.DateTime" Scope="User">
-      <Value Profile="(Default)">07/04/2020 14:13:00</Value>
+      <Value Profile="(Default)">10/20/2020 14:02:00</Value>
     </Setting>
     <Setting Name="hud_updated" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

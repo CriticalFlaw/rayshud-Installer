@@ -2,14 +2,13 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using rayshud.Installer.Properties;
 
 namespace rayshud.Installer
 {
     public class HUDController
     {
-        private readonly string _appPath = Application.StartupPath;
+        private readonly string _appPath = Directory.GetCurrentDirectory();
         private readonly string _hudPath = Settings.Default.hud_directory;
 
         /// <summary>

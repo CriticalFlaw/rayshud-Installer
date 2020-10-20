@@ -79,7 +79,16 @@ namespace rayshud.Installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/Update.xml.
+        ///   Looks up a localized string similar to https://github.com/CriticalFlaw/rayshud.Installer/issues.
+        /// </summary>
+        internal static string app_tracker {
+            get {
+                return ResourceManager.GetString("app_tracker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://raw.githubusercontent.com/CriticalFlaw/rayshud.Installer/master/Update.xml.
         /// </summary>
         internal static string app_update {
             get {
@@ -552,15 +561,6 @@ namespace rayshud.Installer.Properties {
         internal static string info_uninstall_complete_desc {
             get {
                 return ResourceManager.GetString("info_uninstall_complete_desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
     }

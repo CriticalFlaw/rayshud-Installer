@@ -205,7 +205,7 @@ namespace rayshud.Installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("07/04/2020 14:13:00")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10/20/2020 14:02:00")]
         public global::System.DateTime hud_mod_date {
             get {
                 return ((global::System.DateTime)(this["hud_mod_date"]));

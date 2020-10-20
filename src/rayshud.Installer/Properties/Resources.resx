@@ -123,8 +123,11 @@
   <data name="app_readme" xml:space="preserve">
     <value>https://raw.githubusercontent.com/raysfire/rayshud/master/README.md</value>
   </data>
+  <data name="app_tracker" xml:space="preserve">
+    <value>https://github.com/CriticalFlaw/rayshud.Installer/issues</value>
+  </data>
   <data name="app_update" xml:space="preserve">
-    <value>https://raw.githubusercontent.com/CriticalFlaw/rayshud-Installer/master/Update.xml</value>
+    <value>https://raw.githubusercontent.com/CriticalFlaw/rayshud.Installer/master/Update.xml</value>
   </data>
   <data name="dir_console" xml:space="preserve">
     <value>\rayshud\materials\console\</value>
@@ -281,8 +284,5 @@
   </data>
   <data name="info_uninstall_complete_desc" xml:space="preserve">
     <value>rayshud has been successfully uninstalled</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value />
   </data>
 </root>

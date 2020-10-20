@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30204.135
+VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rayshud.Installer", "rayshud.Installer\rayshud.Installer.csproj", "{5DC985A2-6148-4BC7-A834-7749159443DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rayshud.Installer", "rayshud.Installer\rayshud.Installer.csproj", "{B650A318-2D9D-4A3F-B850-AB76DB59794E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5DC985A2-6148-4BC7-A834-7749159443DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5DC985A2-6148-4BC7-A834-7749159443DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5DC985A2-6148-4BC7-A834-7749159443DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5DC985A2-6148-4BC7-A834-7749159443DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B650A318-2D9D-4A3F-B850-AB76DB59794E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B650A318-2D9D-4A3F-B850-AB76DB59794E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B650A318-2D9D-4A3F-B850-AB76DB59794E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B650A318-2D9D-4A3F-B850-AB76DB59794E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {476FD67A-6618-4F4A-8929-91A13ADFB2C3}
+		SolutionGuid = {9DA82973-D5A9-4F20-AB77-084A6BD0AAF1}
 	EndGlobalSection
 EndGlobal
