@@ -12,7 +12,7 @@ namespace rayshud.Installer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -421,30 +421,6 @@ namespace rayshud.Installer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("50")]
-        public int val_xhair_x {
-            get {
-                return ((int)(this["val_xhair_x"]));
-            }
-            set {
-                this["val_xhair_x"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("49")]
-        public int val_xhair_y {
-            get {
-                return ((int)(this["val_xhair_y"]));
-            }
-            set {
-                this["val_xhair_y"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int val_main_menu_bg {
             get {
@@ -452,6 +428,18 @@ namespace rayshud.Installer.Properties {
             }
             set {
                 this["val_main_menu_bg"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool toggle_metal_pos {
+            get {
+                return ((bool)(this["toggle_metal_pos"]));
+            }
+            set {
+                this["toggle_metal_pos"] = value;
             }
         }
     }

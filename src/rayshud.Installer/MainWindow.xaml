@@ -8,7 +8,7 @@
         Title="rayshud Installer"
         Height="680" Width="900"
         SizeToContent="Manual"
-        FontFamily="Century Gothic"
+        FontFamily="./Resources/style/Cerbetica.otf #Cerbetica"
         FontSize="15px"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
@@ -74,19 +74,25 @@
                         ToolTip="Enable transparency on the weapon viewmodels" />
 
                     <CheckBox
+                        x:Name="CbMetalPos"
+                        Margin="610,40,0,0"
+                        Content="Center Metal Counter"
+                        ToolTip="Move the metal number to the centre of the screen" />
+
+                    <CheckBox
                         x:Name="CbPlayerModel"
                         Margin="310,10,0,0"
                         Content="Alternate Player Model"
                         ToolTip="Use the alternate player model position" />
 
                     <Label
-                        Margin="610,34,0,0"
+                        Margin="610,63,0,0"
                         Content="Main Menu Background:" />
 
                     <ComboBox
                         x:Name="CbMainMenuBackground"
                         Width="198"
-                        Margin="610,67,0,0">
+                        Margin="610,96,0,0">
                         <ComboBoxItem IsSelected="True">Modern</ComboBoxItem>
                         <ComboBoxItem>Classic</ComboBoxItem>
                         <ComboBoxItem>Default</ComboBoxItem>
@@ -163,25 +169,6 @@
                 Header="Crosshair">
 
                 <Grid>
-                    <x2:IntegerUpDown
-                        x:Name="IntXHairXPos"
-                        Margin="260,10,0,0"
-                        FormatString="N0"
-                        Value="103"
-                        Increment="1"
-                        Minimum="-9999"
-                        Maximum="9999"
-                        IsEnabled="False" />
-
-                    <x2:IntegerUpDown
-                        x:Name="IntXHairYPos"
-                        Margin="340,10,0,0"
-                        FormatString="N0"
-                        Value="100"
-                        Increment="1"
-                        Minimum="-9999"
-                        Maximum="9999"
-                        IsEnabled="False" />
 
                     <ComboBox
                         x:Name="CbXHairStyle"
@@ -413,24 +400,14 @@
                     <CheckBox
                         x:Name="CbXHairEnable"
                         Margin="15,13,0,0"
-                        Content="Enable"
+                        Content="Toggle Crosshair"
                         Click="CbXHairEnable_OnClick" />
 
                     <CheckBox
                         x:Name="CbXHairHitmarker"
-                        Margin="115,13,0,0"
-                        Content="Hitmarker"
+                        Margin="205,13,0,0"
+                        Content="Toggle Hitmarker"
                         IsEnabled="False" />
-
-                    <Label
-                        Margin="230,7,0,0"
-                        Content="X:"
-                        ToolTip="Horizontal position of the crosshair" />
-
-                    <Label
-                        Margin="312,7,0,0"
-                        Content="Y:"
-                        ToolTip="Vertical position of the crosshair" />
 
                     <Label
                         Margin="10,50,0,0"
@@ -567,7 +544,7 @@
                 Height="30"
                 Click="BtnInstall_OnClick"
                 Content="Install"
-                Style="{StaticResource Button}" Margin="10,580,0,0" />
+                Style="{StaticResource Button}" Margin="58,580,0,0" />
 
             <Button
                 x:Name="BtnUninstall"
@@ -575,7 +552,7 @@
                 Height="30"
                 Click="BtnUninstall_OnClick"
                 Content="Uninstall"
-                Style="{StaticResource Button}" Margin="135,580,0,0" />
+                Style="{StaticResource Button}" Margin="183,580,0,0" />
 
             <Button
                 x:Name="BtnSave"
@@ -583,7 +560,7 @@
                 Height="30"
                 Click="BtnSave_OnClick"
                 Content="Apply Changes"
-                Style="{StaticResource Button}" Margin="260,580,0,0" />
+                Style="{StaticResource Button}" Margin="308,580,0,0" />
 
             <Button
                 x:Name="BtnReset"
@@ -591,7 +568,7 @@
                 Height="30"
                 Click="BtnReset_OnClick"
                 Content="Reset Changes"
-                Style="{StaticResource Button}" Margin="395,580,0,0" />
+                Style="{StaticResource Button}" Margin="443,580,0,0" />
 
             <Button
                 x:Name="BtnDirectory"
@@ -599,15 +576,7 @@
                 Height="30"
                 Click="BtnDirectory_OnClick"
                 Content="Set Directory"
-                Style="{StaticResource Button}" Margin="620,580,0,0" />
-
-            <Button
-                x:Name="BtnStart"
-                Width="85"
-                Height="30"
-                Click="BtnStart_OnClick"
-                Content="Start TF2"
-                Style="{StaticResource Button}" Margin="530,580,0,0" />
+                Style="{StaticResource Button}" Margin="578,580,0,0" />
 
             <Button
                 x:Name="BtnReportIssue"
@@ -615,7 +584,7 @@
                 Height="30"
                 Click="BtnReportIssue_OnClick"
                 Content="Report Issue"
-                Style="{StaticResource Button}" Margin="755,580,0,0" />
+                Style="{StaticResource Button}" Margin="713,580,0,0" />
 
             <DockPanel Margin="0,620,0,0">
                 <StatusBar DockPanel.Dock="Bottom">

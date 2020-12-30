@@ -101,14 +101,11 @@
     <Setting Name="val_xhair_effect" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="val_xhair_x" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">50</Value>
-    </Setting>
-    <Setting Name="val_xhair_y" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">49</Value>
-    </Setting>
     <Setting Name="val_main_menu_bg" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="toggle_metal_pos" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

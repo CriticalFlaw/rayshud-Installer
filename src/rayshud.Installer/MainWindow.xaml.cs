@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -26,7 +27,6 @@ namespace rayshud.Installer
     public partial class MainWindow
     {
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly string _appPath = Directory.GetCurrentDirectory();
 
         public MainWindow()
         {
@@ -35,7 +35,7 @@ namespace rayshud.Installer
             Logger.Info("INITIALIZING...");
             InitializeComponent();
             SetupDirectory();
-            ReloadHUDSettings();
+            ReloadHudSettings();
             SetCrosshairControls();
             AutoUpdater.OpenDownloadPage = true;
             AutoUpdater.Start(Properties.Resources.app_update);
@@ -44,7 +44,7 @@ namespace rayshud.Installer
         /// <summary>
         ///     Calls to download the latest version of rayshud
         /// </summary>
-        private void DownloadHUD()
+        private static void DownloadHud()
         {
             Logger.Info("Downloading the latest rayshud...");
             ServicePointManager.Expect100Continue = true;
@@ -54,18 +54,18 @@ namespace rayshud.Installer
             client.DownloadFile(Properties.Resources.app_download, "rayshud.zip");
             client.Dispose();
             Logger.Info("Downloading the latest rayshud...Done!");
-            ExtractHUD();
+            ExtractHud();
             CleanDirectory();
         }
 
         /// <summary>
         ///     Calls to extract rayshud to the tf/custom directory
         /// </summary>
-        private void ExtractHUD()
+        private static void ExtractHud()
         {
             var settings = Settings.Default;
             Logger.Info("Extracting downloaded rayshud to " + settings.hud_directory);
-            ZipFile.ExtractToDirectory(_appPath + "\\rayshud.zip", settings.hud_directory);
+            ZipFile.ExtractToDirectory(Directory.GetCurrentDirectory() + "\\rayshud.zip", settings.hud_directory);
             if (Directory.Exists(settings.hud_directory + "\\rayshud"))
                 Directory.Delete(settings.hud_directory + "\\rayshud", true);
             if (Directory.Exists(settings.hud_directory + "\\rayshud-master"))
@@ -76,7 +76,6 @@ namespace rayshud.Installer
         /// <summary>
         ///     Set the tf/custom directory if not already set
         /// </summary>
-        /// <remarks>TODO: Possible bug, consider refactoring</remarks>
         private void SetupDirectory(bool userSet = false)
         {
             if (!SearchRegistry() && !CheckUserPath() || userSet)
@@ -97,8 +96,6 @@ namespace rayshud.Installer
                         }
                         else
                         {
-                            Logger.Warn(
-                                "Invalid directory. Please try again and be sure to select the tf/custom folder.");
                             break;
                         }
                 }
@@ -120,13 +117,13 @@ namespace rayshud.Installer
         /// <summary>
         ///     Cleans up the tf/custom and installer directories
         /// </summary>
-        private void CleanDirectory()
+        private static void CleanDirectory()
         {
             Logger.Info("Cleaning-up rayshud directories...");
 
             // Clean the application directory
-            if (File.Exists(_appPath + "\\rayshud.zip"))
-                File.Delete(_appPath + "\\rayshud.zip");
+            if (File.Exists(Directory.GetCurrentDirectory() + "\\rayshud.zip"))
+                File.Delete(Directory.GetCurrentDirectory() + "\\rayshud.zip");
 
             // Clean the tf/custom directory
             var settings = Settings.Default;
@@ -186,7 +183,7 @@ namespace rayshud.Installer
         /// <summary>
         ///     Check if rayshud is installed in the tf/custom directory
         /// </summary>
-        public bool CheckHUDPath()
+        public static bool CheckHudPath()
         {
             return Directory.Exists(Settings.Default.hud_directory + "\\rayshud");
         }
@@ -194,10 +191,22 @@ namespace rayshud.Installer
         /// <summary>
         ///     Check if user's directory setting is valid
         /// </summary>
-        public bool CheckUserPath()
+        public static bool CheckUserPath()
         {
             return !string.IsNullOrWhiteSpace(Settings.Default.hud_directory) &&
                    Settings.Default.hud_directory.Contains("tf\\custom");
+        }
+
+        /// <summary>
+        ///     Check if Team Fortress 2 is currently running
+        /// </summary>
+        public static bool CheckGameStatus()
+        {
+            if (!CheckHudPath()) return true;
+            if (!Process.GetProcessesByName("hl2").Any()) return true;
+            MessageBox.Show(Properties.Resources.info_game_running_desc,
+                Properties.Resources.info_game_running, MessageBoxButton.OK, MessageBoxImage.Information);
+            return false;
         }
 
         /// <summary>
@@ -207,10 +216,9 @@ namespace rayshud.Installer
         {
             if (Directory.Exists(Settings.Default.hud_directory) && CheckUserPath())
             {
-                var isInstalled = CheckHUDPath();
-                BtnStart.IsEnabled = true;
+                var isInstalled = CheckHudPath();
                 BtnInstall.IsEnabled = true;
-                BtnInstall.Content = isInstalled ? "Refresh" : "Install";
+                BtnInstall.Content = isInstalled ? "Reinstall" : "Install";
                 BtnSave.IsEnabled = isInstalled;
                 BtnUninstall.IsEnabled = isInstalled;
                 TbStatus.Text = $"rayshud is {(!isInstalled ? "not " : "")}installed...";
@@ -218,7 +226,6 @@ namespace rayshud.Installer
             }
             else
             {
-                BtnStart.IsEnabled = false;
                 BtnInstall.IsEnabled = false;
                 BtnSave.IsEnabled = false;
                 BtnUninstall.IsEnabled = false;
@@ -227,7 +234,7 @@ namespace rayshud.Installer
         }
 
         /// <summary>
-        ///     Disables certain crosshair options if the enable crosshair option is checked
+        ///     Disables certain crosshair options if the crosshair is enabled
         /// </summary>
         private void SetCrosshairControls()
         {
@@ -237,8 +244,6 @@ namespace rayshud.Installer
             IntXHairSize.IsEnabled = CbXHairEnable.IsChecked ?? false;
             CbXHairStyle.IsEnabled = CbXHairEnable.IsChecked ?? false;
             CbXHairEffect.IsEnabled = CbXHairEnable.IsChecked ?? false;
-            IntXHairXPos.IsEnabled = CbXHairEnable.IsChecked ?? false;
-            IntXHairYPos.IsEnabled = CbXHairEnable.IsChecked ?? false;
         }
 
         private void CbUberStyle_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -274,15 +279,16 @@ namespace rayshud.Installer
         {
             try
             {
+                if (!CheckGameStatus()) return;
                 Logger.Info("Installing rayshud...");
                 var worker = new BackgroundWorker();
                 worker.DoWork += (o, ea) =>
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        DownloadHUD();
-                        SaveHUDSettings();
-                        ApplyHUDSettings();
+                        DownloadHud();
+                        SaveHudSettings();
+                        ApplyHudSettings();
                         SetFormControls();
                     });
                 };
@@ -310,8 +316,9 @@ namespace rayshud.Installer
         {
             try
             {
+                if (!CheckGameStatus()) return;
                 Logger.Info("Uninstalling rayshud...");
-                if (!CheckHUDPath()) return;
+                if (!CheckHudPath()) return;
                 Directory.Delete(Settings.Default.hud_directory + "\\rayshud", true);
                 TbStatus.Text = "Uninstalled rayshud at " + DateTime.Now;
                 SetupDirectory();
@@ -335,8 +342,8 @@ namespace rayshud.Installer
             {
                 Dispatcher.Invoke(() =>
                 {
-                    SaveHUDSettings();
-                    ApplyHUDSettings();
+                    SaveHudSettings();
+                    ApplyHudSettings();
                 });
             };
             worker.RunWorkerCompleted += (o, ea) => { BusyIndicator.IsBusy = false; };
@@ -349,7 +356,7 @@ namespace rayshud.Installer
         /// </summary>
         private void BtnReset_OnClick(object sender, RoutedEventArgs e)
         {
-            ResetHUDSettings();
+            ResetHudSettings();
         }
 
         /// <summary>
@@ -359,15 +366,6 @@ namespace rayshud.Installer
         {
             Logger.Info("Opening Directory Browser...");
             SetupDirectory(true);
-        }
-
-        /// <summary>
-        ///     Launches Team Fortress 2 through Steam
-        /// </summary>
-        private void BtnStart_OnClick(object sender, RoutedEventArgs e)
-        {
-            Logger.Info("Launching Team Fortress 2...");
-            Process.Start("steam://rungameid/440");
         }
 
         /// <summary>
@@ -418,7 +416,7 @@ namespace rayshud.Installer
         /// <summary>
         ///     Save user settings to the file
         /// </summary>
-        private void SaveHUDSettings()
+        private void SaveHudSettings()
         {
             try
             {
@@ -442,8 +440,6 @@ namespace rayshud.Installer
                 settings.val_xhair_size = IntXHairSize.Value ?? 18;
                 settings.val_xhair_style = CbXHairStyle.SelectedIndex;
                 settings.val_xhair_effect = CbXHairEffect.SelectedIndex;
-                settings.val_xhair_x = IntXHairXPos.Value ?? 50;
-                settings.val_xhair_y = IntXHairYPos.Value ?? 49;
                 settings.toggle_xhair_enable = CbXHairEnable.IsChecked ?? false;
                 settings.toggle_xhair_pulse = CbXHairHitmarker.IsChecked ?? false;
                 settings.toggle_disguise_image = CbDisguiseImage.IsChecked ?? false;
@@ -455,6 +451,7 @@ namespace rayshud.Installer
                 settings.toggle_classic_menu = CbClassicHud.IsChecked ?? false;
                 settings.toggle_min_scoreboard = CbScoreboard.IsChecked ?? false;
                 settings.toggle_alt_player_model = CbPlayerModel.IsChecked ?? false;
+                settings.toggle_metal_pos = CbMetalPos.IsChecked ?? false;
                 settings.val_main_menu_bg = CbMainMenuBackground.SelectedIndex;
                 settings.Save();
                 Logger.Info("Saving HUD Settings...Done!");
@@ -468,7 +465,7 @@ namespace rayshud.Installer
         /// <summary>
         ///     Load GUI with user settings from the file
         /// </summary>
-        private void ReloadHUDSettings()
+        private void ReloadHudSettings()
         {
             try
             {
@@ -493,8 +490,6 @@ namespace rayshud.Installer
                 IntXHairSize.Value = settings.val_xhair_size;
                 CbXHairStyle.SelectedIndex = settings.val_xhair_style;
                 CbXHairEffect.SelectedIndex = settings.val_xhair_effect;
-                IntXHairXPos.Value = settings.val_xhair_x;
-                IntXHairYPos.Value = settings.val_xhair_y;
                 CbXHairEnable.IsChecked = settings.toggle_xhair_enable;
                 CbXHairHitmarker.IsChecked = settings.toggle_xhair_pulse;
                 CbDisguiseImage.IsChecked = settings.toggle_disguise_image;
@@ -507,6 +502,7 @@ namespace rayshud.Installer
                 CbScoreboard.IsChecked = settings.toggle_min_scoreboard;
                 CbPlayerModel.IsChecked = settings.toggle_alt_player_model;
                 CbMainMenuBackground.SelectedIndex = settings.val_main_menu_bg;
+                CbMetalPos.IsChecked = settings.toggle_metal_pos;
                 Logger.Info("Loading HUD Settings...Done!");
             }
             catch (Exception ex)
@@ -518,7 +514,7 @@ namespace rayshud.Installer
         /// <summary>
         ///     Reset user settings to their default values
         /// </summary>
-        private void ResetHUDSettings()
+        private void ResetHudSettings()
         {
             try
             {
@@ -542,8 +538,6 @@ namespace rayshud.Installer
                 IntXHairSize.Value = 18;
                 CbXHairStyle.SelectedIndex = 24;
                 CbXHairEffect.SelectedIndex = 0;
-                IntXHairXPos.Value = 50;
-                IntXHairYPos.Value = 49;
                 CbXHairEnable.IsChecked = false;
                 CbXHairHitmarker.IsChecked = true;
                 CbDisguiseImage.IsChecked = false;
@@ -555,6 +549,7 @@ namespace rayshud.Installer
                 CbClassicHud.IsChecked = false;
                 CbScoreboard.IsChecked = false;
                 CbPlayerModel.IsChecked = false;
+                CbMetalPos.IsChecked = false;
                 CbMainMenuBackground.SelectedIndex = 0;
                 SetCrosshairControls();
                 TbStatus.Text = "Settings Reset at " + DateTime.Now;
@@ -569,25 +564,26 @@ namespace rayshud.Installer
         /// <summary>
         ///     Apply user settings to rayshud files
         /// </summary>
-        private void ApplyHUDSettings()
+        private void ApplyHudSettings()
         {
             Logger.Info("Applying HUD Settings...");
-            var writer = new HUDController();
-            writer.MainMenuStyle();
-            writer.MainMenuClassImage();
-            writer.ScoreboardStyle();
-            writer.TeamSelect();
-            writer.HealthStyle();
-            writer.DisguiseImage();
-            writer.UberchargeStyle();
-            writer.ChatBoxPos();
-            writer.Crosshair(CbXHairStyle.SelectedValue.ToString(), IntXHairSize.Value, CbXHairEffect.SelectedValue.ToString());
-            writer.CrosshairPulse();
-            writer.Colors();
-            writer.DamagePos();
-            writer.TransparentViewmodels();
-            writer.PlayerModelPos();
-            writer.MainMenuBackground();
+            var writer = new HudController();
+            if (!writer.MainMenuStyle()) return;
+            if (!writer.MainMenuClassImage()) return;
+            if (!writer.ScoreboardStyle()) return;
+            if (!writer.TeamSelect()) return;
+            if (!writer.HealthStyle()) return;
+            if (!writer.DisguiseImage()) return;
+            if (!writer.UberchargeStyle()) return;
+            if (!writer.ChatBoxPos()) return;
+            if (!writer.Crosshair(CbXHairStyle.SelectedValue.ToString(), IntXHairSize.Value, CbXHairEffect.SelectedValue.ToString())) return;
+            if (!writer.CrosshairPulse()) return;
+            if (!writer.Colors()) return;
+            if (!writer.DamagePosition()) return;
+            if (!writer.MetalPosition()) return;
+            if (!writer.TransparentViewmodels()) return;
+            if (!writer.PlayerModelPos()) return;
+            if (!writer.MainMenuBackground()) return;
             TbStatus.Text = "Settings Saved at " + DateTime.Now;
             Logger.Info("Resetting HUD Settings...Done!");
         }

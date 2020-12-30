@@ -16,6 +16,7 @@
     <None Remove="hud.cfg" />
     <None Remove="log4net.config" />
     <None Remove="Resources\style\background.png" />
+    <None Remove="Resources\style\Cerbetica.otf" />
     <None Remove="Resources\style\favicon.ico" />
     <None Remove="Resources\style\raysfox.png" />
     <None Remove="Resources\style\TF2Crosshairs.otf" />
@@ -31,13 +32,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autoupdater.NET.Official" Version="1.6.3" />
+    <PackageReference Include="Autoupdater.NET.Official" Version="1.6.4" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.1" />
-    <PackageReference Include="log4net" Version="2.0.11" />
+    <PackageReference Include="log4net" Version="2.0.12" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\style\background.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\style\Cerbetica.otf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\style\favicon.ico">

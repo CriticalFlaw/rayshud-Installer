@@ -4,6 +4,8 @@
              xmlns:x2="http://schemas.xceed.com/wpf/xaml/toolkit"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Setter x:Key="Cerbetica" Property="TextElement.FontFamily"
+                Value="./Resources/style/Cerbetica.otf #Cerbetica" />
 
         <Style TargetType="Label">
             <Setter Property="HorizontalAlignment" Value="Left" />
@@ -63,6 +65,7 @@
         <Style x:Key="Button" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="FontFamily" Value="./Resources/style/Cerbetica.otf #Cerbetica" />
             <Setter Property="Foreground" Value="#EBE2CA" />
             <Setter Property="Background" Value="#776B5F" />
 

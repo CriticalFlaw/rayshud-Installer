@@ -223,7 +223,7 @@ namespace rayshud.Installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred while applying the custom color settings..
+        ///   Looks up a localized string similar to An error occurred while applying the color settings..
         /// </summary>
         internal static string error_set_colors {
             get {
@@ -295,7 +295,7 @@ namespace rayshud.Installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred while applying the disguise image setting..
+        ///   Looks up a localized string similar to An error occurred while applying the spy disguise image setting..
         /// </summary>
         internal static string error_set_spy_disguise_image {
             get {
@@ -313,7 +313,7 @@ namespace rayshud.Installer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred while applying the viewmodel transparency setting..
+        ///   Looks up a localized string similar to An error occurred while applying the transparent viewmodels setting..
         /// </summary>
         internal static string error_set_transparent_viewmodels {
             get {
@@ -525,6 +525,24 @@ namespace rayshud.Installer.Properties {
         internal static string info_folder_browser {
             get {
                 return ResourceManager.GetString("info_folder_browser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TF2 is still running.
+        /// </summary>
+        internal static string info_game_running {
+            get {
+                return ResourceManager.GetString("info_game_running", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to initiate process because Team Fortress 2 is still running. Please close it then try again..
+        /// </summary>
+        internal static string info_game_running_desc {
+            get {
+                return ResourceManager.GetString("info_game_running_desc", resourceCulture);
             }
         }
         
