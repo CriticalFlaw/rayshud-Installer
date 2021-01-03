@@ -164,10 +164,14 @@ namespace rayshud.Installer
                 var file = _hudPath + Resources.file_hudlayout;
                 var lines = File.ReadAllLines(file);
                 var start = FindIndex(lines, "CHudAccountPanel");
-                var value = Settings.Default.toggle_damage_pos ? "c-20" : "c200";
+                var value = Settings.Default.toggle_metal_pos ? "c-20" : "c200";
                 lines[FindIndex(lines, "\"xpos\"", start)] = $"\t\t\"xpos\"\t\t\t\t\t\"{value}\"";
-                value = Settings.Default.toggle_damage_pos ? "c-30" : "c130";
+                value = Settings.Default.toggle_metal_pos ? "c-30" : "c130";
                 lines[FindIndex(lines, "\"xpos_minmode\"", start)] = $"\t\t\"xpos_minmode\"\t\t\t\"{value}\"";
+                value = Settings.Default.toggle_metal_pos ? "c110" : "c130";
+                lines[FindIndex(lines, "\"ypos\"", start)] = $"\t\t\"ypos\"\t\t\t\t\t\"{value}\"";
+                value = Settings.Default.toggle_metal_pos ? "c73" : "c83";
+                lines[FindIndex(lines, "\"ypos_minmode\"", start)] = $"\t\t\"ypos_minmode\"\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
                 return true;
             }

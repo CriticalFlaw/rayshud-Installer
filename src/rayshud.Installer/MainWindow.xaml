@@ -9,7 +9,7 @@
         Height="680" Width="900"
         SizeToContent="Manual"
         FontFamily="./Resources/style/Cerbetica.otf #Cerbetica"
-        FontSize="15px"
+        FontSize="16px"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
 
@@ -51,48 +51,48 @@
 
                     <CheckBox
                         x:Name="CbDamagePos"
-                        Margin="310,40,0,0"
+                        Margin="260,40,0,0"
                         Content="Damage Above Health"
                         ToolTip="Move the damage number to be above the health" />
 
                     <CheckBox
                         x:Name="CbChatBottom"
-                        Margin="310,70,0,0"
+                        Margin="260,70,0,0"
                         Content="Chatbox On The Bottom"
                         ToolTip="Move the chatbox to be near the bottom of the screen" />
 
                     <CheckBox
                         x:Name="CbTeamCenter"
-                        Margin="310,100,0,0"
+                        Margin="260,100,0,0"
                         Content="Centered Team/Class Select"
                         ToolTip="Use the centered style for class and team selection" />
 
                     <CheckBox
                         x:Name="CbTransparentViewmodel"
-                        Margin="610,10,0,0"
+                        Margin="510,10,0,0"
                         Content="Transparent Viewmodels"
                         ToolTip="Enable transparency on the weapon viewmodels" />
 
                     <CheckBox
                         x:Name="CbMetalPos"
-                        Margin="610,40,0,0"
+                        Margin="510,40,0,0"
                         Content="Center Metal Counter"
                         ToolTip="Move the metal number to the centre of the screen" />
 
                     <CheckBox
                         x:Name="CbPlayerModel"
-                        Margin="310,10,0,0"
+                        Margin="260,10,0,0"
                         Content="Alternate Player Model"
                         ToolTip="Use the alternate player model position" />
 
                     <Label
-                        Margin="610,63,0,0"
+                        Margin="505,63,0,0"
                         Content="Main Menu Background:" />
 
                     <ComboBox
                         x:Name="CbMainMenuBackground"
-                        Width="198"
-                        Margin="610,96,0,0">
+                        Width="155"
+                        Margin="680,65,0,0">
                         <ComboBoxItem IsSelected="True">Modern</ComboBoxItem>
                         <ComboBoxItem>Classic</ComboBoxItem>
                         <ComboBoxItem>Default</ComboBoxItem>
@@ -108,8 +108,8 @@
                 <Grid>
                     <ComboBox
                         x:Name="CbUberStyle"
-                        Width="180"
-                        Margin="210,10,0,0"
+                        Width="200"
+                        Margin="190,5,0,0"
                         SelectionChanged="CbUberStyle_SelectionChanged">
                         <ComboBoxItem>Flash</ComboBoxItem>
                         <ComboBoxItem>Solid</ComboBoxItem>
@@ -118,45 +118,45 @@
 
                     <x2:ColorPicker
                         x:Name="CpUberBarColor"
-                        Width="180"
-                        Margin="210,50,0,0" />
+                        Width="200"
+                        Margin="190,45,0,0" />
 
                     <x2:ColorPicker
                         x:Name="CpUberFullColor"
-                        Width="180"
-                        Margin="210,90,0,0" />
+                        Width="200"
+                        Margin="190,85,0,0" />
 
                     <x2:ColorPicker
                         x:Name="CpUberFlash1"
-                        Width="180"
-                        Margin="210,130,0,0" />
+                        Width="200"
+                        Margin="190,125,0,0" />
 
                     <x2:ColorPicker
                         x:Name="CpUberFlash2"
-                        Width="180"
-                        Margin="210,170,0,0" />
+                        Width="200"
+                        Margin="190,165,0,0" />
 
                     <Label
-                        Margin="10,10,0,0"
+                        Margin="10,5,0,0"
                         Content="ÜberCharge Style:"
                         ToolTip="Color of the ÜberCharge when full" />
 
                     <Label
-                        Margin="10,50,0,0"
+                        Margin="10,45,0,0"
                         Content="Charging Color:"
                         ToolTip="Color of the ÜberCharge when charging" />
 
                     <Label
-                        Margin="10,90,0,0"
+                        Margin="10,85,0,0"
                         Content="Full Charge Color:" />
 
                     <Label
-                        Margin="10,130,0,0"
+                        Margin="10,125,0,0"
                         Content="Full Charge Flash 1:"
                         ToolTip="First ÜberCharge color (Rainbow style)" />
 
                     <Label
-                        Margin="10,170,0,0"
+                        Margin="10,165,0,0"
                         Content="Full Charge Flash 2:"
                         ToolTip="Second ÜberCharge color (Rainbow style)" />
                 </Grid>
@@ -172,10 +172,10 @@
 
                     <ComboBox
                         x:Name="CbXHairStyle"
-                        Width="180"
-                        Margin="210,50,0,0"
+                        Width="200"
+                        Margin="190,45,0,0"
                         SelectedValuePath="Content"
-                        Height="23"
+                        Height="26"
                         Style="{StaticResource CrosshairBox}"
                         IsEnabled="False">
 
@@ -367,17 +367,18 @@
 
                     <x2:IntegerUpDown
                         x:Name="IntXHairSize"
-                        Margin="210,90,0,0"
+                        Margin="190,85,0,0"
                         Value="14"
-                        Increment="2"
-                        Minimum="4"
-                        Maximum="40" Height="23" Width="180"
+                        Increment="1"
+                        Minimum="10"
+                        Maximum="30" Height="26" Width="200"
+                        TextAlignment="Center"
                         IsEnabled="False" />
 
                     <ComboBox
                         x:Name="CbXHairEffect"
-                        Width="180"
-                        Margin="210,130,0,0"
+                        Width="200"
+                        Margin="190,125,0,0"
                         SelectedValuePath="Content">
                         <ComboBoxItem>None</ComboBoxItem>
                         <ComboBoxItem>Blur</ComboBoxItem>
@@ -387,45 +388,45 @@
 
                     <x2:ColorPicker
                         x:Name="CpXHairColor"
-                        Width="90"
-                        Margin="210,170,0,0"
+                        Width="100"
+                        Margin="190,165,0,0"
                         IsEnabled="False" />
 
                     <x2:ColorPicker
                         x:Name="CpXHairPulse"
-                        Width="90"
-                        Margin="300,170,0,0"
+                        Width="100"
+                        Margin="290,165,0,0"
                         IsEnabled="False" />
 
                     <CheckBox
                         x:Name="CbXHairEnable"
-                        Margin="15,13,0,0"
+                        Margin="10,10,0,0"
                         Content="Toggle Crosshair"
                         Click="CbXHairEnable_OnClick" />
 
                     <CheckBox
                         x:Name="CbXHairHitmarker"
-                        Margin="205,13,0,0"
+                        Margin="190,10,0,0"
                         Content="Toggle Hitmarker"
                         IsEnabled="False" />
 
                     <Label
-                        Margin="10,50,0,0"
+                        Margin="10,45,0,0"
                         Content="Crosshair Style:"
                         ToolTip="Style of the crosshair" />
 
                     <Label
-                        Margin="10,90,0,0"
+                        Margin="10,85,0,0"
                         Content="Crosshair Size:"
                         ToolTip="Size of the crosshair" />
 
                     <Label
-                        Margin="10,130,0,0"
+                        Margin="10,125,0,0"
                         Content="Crosshair Effect:"
                         ToolTip="Effect applied to the crosshair (Blur, Outline or Shadow)" />
 
                     <Label
-                        Margin="10,170,0,0"
+                        Margin="10,165,0,0"
                         Content="Crosshair Colors:"
                         ToolTip="Color of the crosshair" />
 
@@ -446,7 +447,7 @@
                     <x2:ColorPicker
                         x:Name="CpHealthNormal"
                         Width="180"
-                        Margin="220,40,0,0" />
+                        Margin="220,35,0,0" />
 
                     <x2:ColorPicker
                         x:Name="CpHealthBuffed"
@@ -461,14 +462,14 @@
                     <ComboBox
                         x:Name="CbHealthStyle"
                         Width="180"
-                        Margin="10,40,0,0">
+                        Margin="10,35,0,0">
                         <ComboBoxItem IsSelected="True">Default</ComboBoxItem>
                         <ComboBoxItem>Broesel</ComboBoxItem>
                         <ComboBoxItem>Cross</ComboBoxItem>
                     </ComboBox>
 
                     <Label
-                        Margin="220,10,0,0"
+                        Margin="220,5,0,0"
                         Content="Health Normal:"
                         ToolTip="Color of the player health" Width="180" />
 
@@ -478,7 +479,7 @@
                         ToolTip="Color of the player health when buffed" Width="180" />
 
                     <Label
-                        Margin="10,10,0,0"
+                        Margin="10,5,0,0"
                         Content="Health Style:"
                         ToolTip="Style of the player health" Width="180" />
 
@@ -499,12 +500,12 @@
                     <x2:ColorPicker
                         x:Name="CpAmmoClip"
                         Width="180"
-                        Margin="10,40,0,0" />
+                        Margin="10,35,0,0" />
 
                     <x2:ColorPicker
                         x:Name="CpAmmoReserve"
                         Width="180"
-                        Margin="220,40,0,0" />
+                        Margin="220,35,0,0" />
 
                     <x2:ColorPicker
                         x:Name="CpAmmoClipLow"
@@ -517,7 +518,7 @@
                         Margin="220,100,0,0" />
 
                     <Label
-                        Margin="10,10,0,0"
+                        Margin="10,5,0,0"
                         Content="Ammo Clip Normal:"
                         ToolTip="Color of the ammo clip" Width="180" />
 
@@ -527,7 +528,7 @@
                         ToolTip="Color of the ammo clip when low" Width="180" />
 
                     <Label
-                        Margin="220,10,0,0"
+                        Margin="220,5,0,0"
                         Content="Ammo Reserve Normal:"
                         ToolTip="Color of the ammo reserve" Width="180" />
 

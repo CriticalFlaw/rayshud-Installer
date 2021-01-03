@@ -7,9 +7,10 @@
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>rayshud.Installer.App</StartupObject>
     <ApplicationIcon>Resources\style\favicon.ico</ApplicationIcon>
-    <Version>4.2.0</Version>
+    <Version>4.4.0</Version>
     <Authors>Igor Nikitin</Authors>
     <PackageProjectUrl>https://github.com/CriticalFlaw/rayshud.Installer</PackageProjectUrl>
+    <AssemblyVersion>4.4.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
